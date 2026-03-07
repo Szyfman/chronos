@@ -2490,7 +2490,7 @@ clues_pt:["Foi expulso de sua própria comunidade religiosa aos 23 anos por idei
   "Argumentou que Deus e a Natureza são uma única coisa — e que milagres são apenas eventos que ainda não entendemos.",
   "Einstein o citou como inspiração religiosa, e Hegel o chamou de ponto de partida da filosofia moderna."]},
 {name:"Mansa Musa",name_pt:"Mansa Musa",year:1280,cat:"People",cat_pt:"Pessoas",era:"Medieval",
-hint:"The emperor of Mali whose 1324 pilgrimage to Mecca — with 60,000 men and 12 tonnes of gold — so flooded Mediterranean markets that it caused a decade-long economic depression",hint_pt:"O imperador do Mali cuja peregrinação a Meca em 1324 inundou os mercados mediterrâneos de ouro, causando uma depressão econômica de uma década",
+hint:"The emperor of Mali whose pilgrimage to Mecca — with 60,000 men and 12 tonnes of gold — so flooded Mediterranean markets that it caused a decade-long economic depression",hint_pt:"O imperador do Mali cuja peregrinação a Meca inundou os mercados mediterrâneos de ouro, causando uma depressão econômica de uma década",
 facts:["Mansa Musa I (c.1280–1337) was the tenth Mansa (emperor) of the Mali Empire and is often cited as the wealthiest person in history — some estimates put his inflation-adjusted fortune at $400 billion, though such figures are inherently speculative. He ruled an empire controlling roughly half of the world's gold and salt supply.",
   "His 1324 hajj (pilgrimage) to Mecca is one of history's most spectacular processions: 60,000 men, 12,000 enslaved persons, and a personal retinue carrying 80 camels loaded with 300 pounds of gold dust each. He gave away gold so liberally in Cairo and along the route that he caused severe inflation — gold prices in Egypt and the Mediterranean crashed and took over a decade to recover. He also built mosques and universities, and put Timbuktu on European maps for the first time."],
 facts_pt:["Mansa Musa I (c.1280–1337) foi o décimo Mansa (imperador) do Império do Mali e é frequentemente citado como a pessoa mais rica da história. Governou um império que controlava aproximadamente metade do fornecimento mundial de ouro e sal.",
@@ -4058,7 +4058,7 @@ function endGame(won){
   var _saveBtn=document.getElementById('go-save-btn');
   if(_saveBtn){_saveBtn.textContent=lang==='pt'?'💾 Salvar Timeline':'💾 Save Timeline';_saveBtn.disabled=false;_saveBtn.style.opacity='';}
   document.getElementById('go-again-btn').textContent=t('play_again');
-  stopMusic(true);
+  // stopMusic(true);
   document.getElementById('gameover').classList.add('show');
 }
 
