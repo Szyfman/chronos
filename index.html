@@ -737,6 +737,7 @@
 </script>
 </head>
 <body>
+<script src="state.js"></script>
 <script src="bgm.js"></script>
 <script src="cards.js"></script>
 <script src="trophies.js"></script>
@@ -1146,20 +1147,6 @@ const cFact=c=>{const pool=lang==='pt'?c.facts_pt:c.facts;return pool[Math.floor
 const cClues=c=>lang==='pt'?c.clues_pt:c.clues;
 const formatYear=y=>y<0?`${Math.abs(y)} ${lang==='pt'?'a.C.':'BCE'}`:`${y} ${lang==='pt'?'d.C.':'CE'}`;
 
-// ── STATE ─────────────────────────────────────────────────────────────────
-let lang='en',gameMode='classic',livesMode=true,eraFilter='all';
-let empiresShownTutorial=false;
-let deck=[],timeline=[],currentCard=null;
-let score=0,streak=0,lives=3,hints=3,skip=1,gameActive=false;
-let cardCluesUsed=0; // how many clues revealed for current card (0-3, capped so one card can't drain all hints)
-let isDragging=false,currentDropZone=null;
-let gameHistory=[];
-let reviewMode=false; // true when fact panel opened from a placed card
-try{gameHistory=JSON.parse(localStorage.getItem('chronos_history')||'[]');}catch(e){}
-// Discovered card names (persisted set)
-let discoveredCards=new Set();
-try{const dc=JSON.parse(localStorage.getItem('chronos_discovered')||'[]');dc.forEach(n=>discoveredCards.add(n));}catch(e){}
-function saveDiscovered(){try{localStorage.setItem('chronos_discovered',JSON.stringify([...discoveredCards]));}catch(e){}}
 // Show intro history link if there are saved games
 window.addEventListener('DOMContentLoaded',()=>{
   selectMode('classic'); // set initial era-section visibility
