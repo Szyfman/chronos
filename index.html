@@ -1461,7 +1461,7 @@ function initGame(){
     pool=allowedEras?allCards.filter(c=>allowedEras.includes(c.era)):allCards;
     if(pool.length<4) pool=[...allCards]; // fallback
   }
-  deck=shuffle([...pool]);timeline=[];score=0;streak=0;lives=3;hints=3;skip=1;cardCluesUsed=0;gameActive=true;
+  deck=shuffle([...pool]);timeline=[];score=0;streak=0;lives=3;hints=3;skip=1;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
   // Daily challenge overrides
   if(_isDailyChallenge){
     var _dcPool=[...CARDS,...INTERVALS];
@@ -1704,7 +1704,7 @@ function attemptPlacement(idx){
     document.getElementById('streak-val').textContent=streak;
     var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
     setTimeout(()=>{const cards=document.querySelectorAll('.timeline-card');if(cards[idx])cards[idx].scrollIntoView({behavior:'smooth',block:'center'});},100);
-    showFeedback(true,null);showFact(card,false);
+    _pendingDraw=true;showFeedback(true,null);showFact(card,false);
   } else {
     SFX.play('wrong');
     streak=0;document.getElementById('streak-val').textContent=streak;
@@ -1762,14 +1762,17 @@ function showFact(card,isReview){
 }
 function reviewCard(card){
   // Tap on a placed card in the timeline → show its fact in review mode
+  // If a post-placement fact panel is already open (pendingDraw), preserve that flag
   showFact(card,true);
 }
 function closeFact(){
   document.getElementById('fact-panel').classList.remove('open');
   document.getElementById('fact-panel').classList.remove('review-mode');
   const wasReview=reviewMode;
-  reviewMode=false; // always reset first
-  if(!wasReview&&gameActive)drawCard();
+  reviewMode=false;
+  // Draw next card if: (a) this was a post-placement panel (not review), OR
+  // (b) this was a review that interrupted a pending post-placement panel
+  if(gameActive&&(!wasReview||_pendingDraw)){_pendingDraw=false;drawCard();}
 }
 
 // ── GAME OVER ─────────────────────────────────────────────────────────────
@@ -1838,16 +1841,6 @@ function saveAndOpenHistory() {
   setTimeout(function(){ openHistoryFromGameover(); }, 300);
 }
 
-function saveHistory(won){
-  // Track every card seen in this game
-  timeline.forEach(c=>{const key=c.name||(c.name_en);if(key)discoveredCards.add(key);});
-  // Also track the current hand card if it was drawn
-  saveDiscovered();
-  gameHistory.unshift({date:new Date().toISOString(),mode:gameMode,livesMode,eraFilter,lang,score,placed:timeline.length,won,
-    timeline:timeline.map(c=>({name:cName(c),year:cardYear(c),span:isInterval(c)?formatYear(c.startYear)+' – '+formatYear(c.endYear):null,era:c.era,cat:isInterval(c)?cCulture(c):cCat(c)}))});
-  if(gameHistory.length>30)gameHistory=gameHistory.slice(0,30);
-  try{localStorage.setItem('chronos_history',JSON.stringify(gameHistory));}catch(e){}
-}
 function openHistory(){
   if(gameActive)return;
   _fromGameover=false;
@@ -2295,7 +2288,9 @@ function eraTagLabel(ef){
 function modeBadgeLabel(mode,lm){
   const lives=(lm===false)?(' · '+t('free_lbl')):'';
   if(mode==='empires')return t('empires_lbl')+lives;
-  if(mode==='biblical')return t('biblical_lbl')+lives;
+  if(mode==='abrahamic')return t('biblical_lbl')+lives;
+  if(mode==='roman')return t('mc_roman_title')+lives;
+  if(mode==='eastern')return t('mc_eastern_title')+lives;
   if(mode==='characters')return t('characters_lbl')+lives;
   return t('classic_lbl')+lives;
 }
