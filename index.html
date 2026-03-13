@@ -894,7 +894,7 @@
 
     <p class="section-lbl">Game Mode</p>
     <div class="mode-grid">
-      <div class="mode-card biblical-sel selected" id="mc-biblical" onclick="selectCultureMode('biblical')">
+      <div class="mode-card biblical-sel selected" id="mc-biblical" onclick="selectCultureMode('abrahamic')">
         <span class="mode-icon">✡️</span>
         <span class="mc-title" id="mc-biblical-title">Biblical</span>
         <span class="mc-desc" id="mc-biblical-desc">Prophets, kings and sacred history.</span>
@@ -1336,7 +1336,7 @@ function restartGame(){
   var _fp2=document.getElementById('fact-panel');
   if(_fp2){_fp2.classList.remove('open');_fp2.classList.remove('review-mode');}
   // If last game was a culture mode, go back to cultures hub
-  if(gameMode==='biblical'||gameMode==='roman'||gameMode==='eastern'){
+  if(gameMode==='abrahamic'||gameMode==='roman'||gameMode==='eastern'){
     selectCultureMode(gameMode);
     cultureLivesMode=livesMode;
     document.getElementById('clo-lives').classList.toggle('active', cultureLivesMode);
@@ -1438,9 +1438,9 @@ function initGame(){
     const allowedEras=ERA_FILTER_MAP[eraFilter];
     pool=allowedEras?INTERVALS.filter(c=>allowedEras.includes(c.era)):INTERVALS;
     if(pool.length<4) pool=[...INTERVALS]; // fallback if filter too narrow
-  } else if(gameMode==='biblical'){
-    const biblIntervals=INTERVALS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('biblical'));
-    pool=[...CARDS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('biblical')),...biblIntervals];
+  } else if(gameMode==='abrahamic'){
+    const biblIntervals=INTERVALS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('abrahamic'));
+    pool=[...CARDS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('abrahamic')),...biblIntervals];
   } else if(gameMode==='roman'){
     // Greco-Roman: all cards and intervals tagged 'roman'
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('roman'));
@@ -1482,12 +1482,12 @@ function initGame(){
   }
     // Hide history access during play
   document.getElementById('hist-btn').style.visibility='hidden';
-  document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):gameMode==='empires'?t('empires_lbl'):gameMode==='biblical'?t('biblical_lbl'):gameMode==='characters'?t('characters_lbl'):gameMode==='roman'?t('mc_roman_title'):gameMode==='eastern'?t('mc_eastern_title'):t('subtitle');
+  document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):gameMode==='empires'?t('empires_lbl'):gameMode==='abrahamic'?t('biblical_lbl'):gameMode==='characters'?t('characters_lbl'):gameMode==='roman'?t('mc_roman_title'):gameMode==='eastern'?t('mc_eastern_title'):t('subtitle');
   document.getElementById('streak-lbl').textContent=t('streak');
   document.getElementById('score-lbl').textContent=t('score');
   var _plbl2=document.getElementById('placed-lbl');if(_plbl2)_plbl2.textContent=t('placed_lbl');
   var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
-  document.getElementById('bottom-label').textContent=gameMode==='empires'?t('drag_label_empires'):gameMode==='biblical'?t('drag_label_biblical'):gameMode==='roman'?t('drag_label_roman'):gameMode==='eastern'?t('drag_label_eastern'):gameMode==='characters'?t('drag_label_characters'):t('drag_label');
+  document.getElementById('bottom-label').textContent=gameMode==='empires'?t('drag_label_empires'):gameMode==='abrahamic'?t('drag_label_biblical'):gameMode==='roman'?t('drag_label_roman'):gameMode==='eastern'?t('drag_label_eastern'):gameMode==='characters'?t('drag_label_characters'):t('drag_label');
   // Pills permanently hidden — no mode label in header
   document.getElementById('free-pill').style.display='none';
   document.getElementById('empires-pill').style.display='none';
@@ -1791,9 +1791,9 @@ function endGame(won){
   document.getElementById('hist-btn').style.visibility='';
   document.getElementById('go-title').textContent=won?t('go_won'):t('go_lost');
   const goSub=won
-    ?(gameMode==='empires'?t('sub_empires_won'):gameMode==='biblical'?t('sub_biblical_won'):gameMode==='characters'?t('sub_characters_won'):t('sub_won'))
+    ?(gameMode==='empires'?t('sub_empires_won'):gameMode==='abrahamic'?t('sub_biblical_won'):gameMode==='characters'?t('sub_characters_won'):t('sub_won'))
     :(_voluntaryEnd?t('sub_ended')
-      :(livesMode?(gameMode==='empires'?t('sub_empires_lost'):gameMode==='biblical'?t('sub_biblical_lost'):gameMode==='characters'?t('sub_characters_lost'):t('sub_lost')):t('sub_free')));
+      :(livesMode?(gameMode==='empires'?t('sub_empires_lost'):gameMode==='abrahamic'?t('sub_biblical_lost'):gameMode==='characters'?t('sub_characters_lost'):t('sub_lost')):t('sub_free')));
   _voluntaryEnd=false;
   document.getElementById('go-sub').textContent=goSub;
   document.getElementById('go-score').textContent=score;
@@ -2825,7 +2825,7 @@ function _applyAllTranslations() {
 
 
 // ── CULTURES HUB ─────────────────────────────────────────────────────────
-let cultureMode='biblical', cultureLivesMode=true, _fromCultures=false;
+let cultureMode='abrahamic', cultureLivesMode=true, _fromCultures=false;
 
 function openCultures(){
   document.getElementById('intro').classList.remove('show');
@@ -2842,7 +2842,7 @@ function closeCultures(){
 
 function selectCultureMode(m){
   cultureMode = m;
-  document.getElementById('mc-biblical').classList.toggle('selected', m==='biblical');
+  document.getElementById('mc-biblical').classList.toggle('selected', m==='abrahamic');
   document.getElementById('mc-roman').classList.toggle('selected', m==='roman');
   document.getElementById('mc-eastern').classList.toggle('selected', m==='eastern');
 }
