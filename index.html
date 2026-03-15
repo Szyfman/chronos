@@ -1513,7 +1513,6 @@ function initGame(){
   document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):t(MODE_LABEL[gameMode]||'subtitle');
   document.getElementById('streak-lbl').textContent=t('streak');
   document.getElementById('score-lbl').textContent=t('score');
-  var _plbl2=document.getElementById('placed-lbl');if(_plbl2)_plbl2.textContent=t('placed_lbl');
   var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
   document.getElementById('bottom-label').textContent=t(MODE_DRAG_LABEL[gameMode]||'drag_label');
   // Pills permanently hidden — no mode label in header
@@ -2487,7 +2486,7 @@ function renderCP() {
   if (!list) return;
 
   if (!filtered.length) {
-    list.innerHTML = '<p style="text-align:center;color:#9a9080;padding:40px 20px;font-family:Inter,sans-serif;font-size:.9rem">'+(lang='pt'?'Nenhuma carta encontrada.':'No cards match.')+'</p>';
+    list.innerHTML = '<p style="text-align:center;color:#9a9080;padding:40px 20px;font-family:Inter,sans-serif;font-size:.9rem">'+(lang==='pt'?'Nenhuma carta encontrada.':'No cards match.')+'</p>';
     return;
   }
 
