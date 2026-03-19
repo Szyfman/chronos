@@ -143,14 +143,29 @@ function makeTCard(card,idx){
     d.className='timeline-card';
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}</div><div class="tc-meta">${card.era} · ${cCat(card)}</div></div><div class="tc-year">${formatYear(card.year)}</div><div class="tc-peek">ℹ</div>`;
   }
-  d.addEventListener('click',()=>reviewCard(card));
+  d.addEventListener('click',()=>{
+    const fp=document.getElementById('fact-panel');
+    if(fp&&fp.classList.contains('open')&&!reviewMode){
+      // Post-placement trivia is open; preserve pending draw, then show review
+      _pendingDraw=true;
+      fp.classList.remove('open');
+      fp.classList.remove('review-mode');
+      _currentFactCard=null;
+      reviewMode=false;
+    }
+    reviewCard(card);
+  });
   return d;
 }
 function makeDZ(idx){
   const d=document.createElement('div');d.className='drop-zone';d.dataset.index=idx;
   d.setAttribute('data-label',t('drop_here'));
   const line=document.createElement('div');line.className='dz-line';d.appendChild(line);
-  d.addEventListener('click',()=>{if(!isDragging&&currentCard){SFX.play('drop');attemptPlacement(idx);}});
+  d.addEventListener('click',(e)=>{
+    const fp=document.getElementById('fact-panel');
+    if(fp&&fp.classList.contains('open')){closeFact();return;}
+    if(!isDragging&&currentCard){SFX.play('drop');_justPlaced=true;setTimeout(()=>{_justPlaced=false;},0);attemptPlacement(idx);}
+  });
   return d;
 }
 
@@ -229,6 +244,7 @@ function dzAt(x,y){
 }
 
 var _feedbackTimer=null;
+var _justPlaced=false;
 function showFeedback(ok,hint){
   const el=document.getElementById('feedback');el.className='';
   if(ok){el.textContent=t('correct');}
@@ -1198,6 +1214,17 @@ window.addEventListener('DOMContentLoaded', function() {
   // Keyboard shortcuts
   document.addEventListener('keydown', e => { if(e.key==='Escape'){closeFact();closeConfirm();cancelDel();} });
   document.addEventListener('touchmove', e => { if(isDragging)e.preventDefault(); }, {passive:false});
+  // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
+  function _closeFactIfOpen(e){
+    if(_justPlaced)return;
+    var fp=document.getElementById('fact-panel');
+    if(!fp||!fp.classList.contains('open'))return;
+    if(fp.contains(e.target))return;
+    if(e.target.closest('.timeline-card'))return;
+    closeFact();
+  }
+  document.getElementById('timeline-area').addEventListener('click',_closeFactIfOpen);
+  document.getElementById('bottom-area').addEventListener('click',_closeFactIfOpen);
   // Set initial mode UI state
   selectMode('classic');
   updateIntroHistBtn();
