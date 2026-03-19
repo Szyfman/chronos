@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -749,7 +748,7 @@
   #settings-panel.open{pointer-events:all}
   #settings-bg{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);opacity:0;transition:opacity .25s}
   #settings-panel.open #settings-bg{opacity:1}
-  #settings-sheet{position:absolute;bottom:0;left:0;right:0;background:#1a1710;border-radius:18px 18px 0 0;padding:20px 20px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  #settings-sheet{position:absolute;bottom:0;left:0;right:0;background:#1a1710;border-radius:18px 18px 0 0;padding:20px 20px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);max-height:90dvh;overflow-y:auto;scrollbar-width:none}
   body.light #settings-sheet{background:#ffffff;border-top:1.5px solid #cbd5e1}
   body.light #settings-pill{background:#bfdbfe}
   #settings-panel.open #settings-sheet{transform:translateY(0)}
@@ -920,7 +919,7 @@
 <script id="pwa-init">
 (function(){
   if('serviceWorker' in navigator){
-    var b=new Blob([atob('Y29uc3QgQ0FDSEU9J2Nocm9ub3MtdjInO3NlbGYuYWRkRXZlbnRMaXN0ZW5lcignaW5zdGFsbCcsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMuYWRkQWxsKFtzZWxmLmxvY2F0aW9uLmhyZWZ8fCcvJ10pLmNhdGNoKCgpPT57fSkpKTtzZWxmLnNraXBXYWl0aW5nKCk7fSk7c2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5rZXlzKCkudGhlbihrZXlzPT5Qcm9taXNlLmFsbChrZXlzLmZpbHRlcihrPT5rIT09Q0FDSEUpLm1hcChrPT5jYWNoZXMuZGVsZXRlKGspKSkpKTtzZWxmLmNsaWVudHMuY2xhaW0oKTt9KTtzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJyxlPT57ZS5yZXNwb25kV2l0aChjYWNoZXMubWF0Y2goZS5yZXF1ZXN0KS50aGVuKHI9PnJ8fGZldGNoKGUucmVxdWVzdCkudGhlbihyZXNwPT57Y29uc3QgY2w9cmVzcC5jbG9uZSgpO2NhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMucHV0KGUucmVxdWVzdCxjbCkpO3JldHVybiByZXNwO30pLmNhdGNoKCgpPT5jYWNoZXMubWF0Y2goZS5yZXF1ZXN0KSkpKTt9KTs=')],{type:'application/javascript'});
+    var b=new Blob([atob('Y29uc3QgQ0FDSEU9J2Nocm9ub3MtdjMnO3NlbGYuYWRkRXZlbnRMaXN0ZW5lcignaW5zdGFsbCcsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMuYWRkQWxsKFtzZWxmLmxvY2F0aW9uLmhyZWZ8fCcvJ10pLmNhdGNoKCgpPT57fSkpKTtzZWxmLnNraXBXYWl0aW5nKCk7fSk7c2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5rZXlzKCkudGhlbitrZXlzPT5Qcm9taXNlLmFsbChrZXlzLmZpbHRlcihrPT5rIT09Q0FDSEUpLm1hcChrPT5jYWNoZXMuZGVsZXRlKGspKSkpKTtzZWxmLmNsaWVudHMuY2xhaW0oKTt9KTtzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJyxlPT57ZS5yZXNwb25kV2l0aChjYWNoZXMubWF0Y2goZS5yZXF1ZXN0KS50aGVuKHI9PnJ8fGZldGNoKGUucmVxdWVzdCkudGhlbihyZXNwPT57Y29uc3QgY2w9cmVzcC5jbG9uZSgpO2NhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMucHV0KGUucmVxdWVzdCxjbCkpO3JldHVybiByZXNwO30pLmNhdGNoKCgpPT5jYWNoZXMubWF0Y2goZS5yZXF1ZXN0KSkpKTt9KTs=')],{type:'application/javascript'});
     navigator.serviceWorker.register(URL.createObjectURL(b)).catch(function(){});
   }
   var _dp;
@@ -1301,6 +1300,13 @@
       <div class="settings-opts">
         <button class="sopt on" id="sopt-en" onclick="setLangSetting('en')">🇬🇧 English</button>
         <button class="sopt" id="sopt-pt" onclick="setLangSetting('pt')">🇧🇷 Português</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-lbl" id="sett-placed-trivia-lbl">Trivia on Placement</div>
+      <div class="settings-opts">
+        <button class="sopt on" id="sopt-placed-trivia-on" onclick="togglePlacedTrivia(true)">✓ On</button>
+        <button class="sopt" id="sopt-placed-trivia-off" onclick="togglePlacedTrivia(false)">✗ Off</button>
       </div>
     </div>
     <div class="settings-row">
