@@ -1507,9 +1507,76 @@ clues_pt:["Encerrou uma república que havia existido por quase 500 anos — e i
   "O perdedor fugiu para o Egito com uma famosa rainha — e ambos tiraram suas próprias vidas no ano seguinte.",
   "O vencedor desta batalha tornou-se o primeiro homem a ostentar o título que todos os futuros governantes romanos usariam."]},
 {name:"Leif Erikson",name_pt:"Leif Eriksson",year:970,cat:"People",cat_pt:"Pessoas",era:"Medieval",culture:"Norse",culture_pt:"Nórdico",tags:[],hint:"The Norse explorer who reached North America five centuries before Columbus — son of Erik the Red, sailing from Greenland around the turn of the first millennium",hint_pt:"O explorador nórdico que chegou à América do Norte cinco séculos antes de Colombo",facts:["Leif Erikson sailed from Greenland and established a Norse settlement at a place he called Vínland — now believed to be L'Anse aux Meadows in Newfoundland, Canada, the only confirmed pre-Columbian European settlement in the Americas. Archaeological excavations in 1960 found the remains of Norse buildings and ironworking, proving the Norse reached America around 1000 CE.","According to the Vinland Sagas, Leif first heard of the land to the west from another Norse sailor, then organised his own expedition. He wintered there, noting wild grapes, wheat, and salmon in rivers so large that fish could be found even in the dry season. The settlement was eventually abandoned due to conflicts with the indigenous people the Norse called Skrælings."],facts_pt:["Leif Eriksson navegou da Groenlândia e estabeleceu um assentamento nórdico em um lugar que chamou de Vínland — hoje identificado como L'Anse aux Meadows em Newfoundland, Canadá, o único assentamento europeu pré-colombiano confirmado nas Américas.","Segundo as Sagas de Vinland, Leif organizou sua própria expedição após ouvir falar de terras a oeste. Ele invernalizou lá, notando uvas silvestres, trigo e salmão. O assentamento foi eventualmente abandonado por conflitos com os povos indígenas que os nórdicos chamavam de Skrælings."],clues:["He reached North America roughly five hundred years before Columbus — and the ruins of his settlement have been found and confirmed by archaeologists in Canada.","He was the son of Erik the Red, the Norse explorer who settled Greenland — exploration ran in the family.","He called the new land Vínland after the wild grapes he found there, and wintered before returning home."],clues_pt:["Chegou à América do Norte cerca de quinhentos anos antes de Colombo — e as ruínas de seu assentamento foram encontradas e confirmadas por arqueólogos no Canadá.","Era filho de Erik, o Vermelho, o explorador nórdico que colonizou a Groenlândia.","Chamou a nova terra de Vínland pelas uvas silvestres que encontrou lá."]},
-{name:"Sabbatai Zevi",name_pt:"Sabatai Zevi",year:1626,cat:"People",cat_pt:"Pessoas",era:"Early Modern",culture:"Jewish",culture_pt:"Judeu",tags:[],hint:"The most influential false messiah in Jewish history — who ignited a mass messianic movement across the Jewish world before converting to Islam under Ottoman pressure",hint_pt:"O falso messias mais influente da história judaica — que converteu ao islã após enorme movimento messiânico",facts:["Sabbatai Zevi was a Kabbalistic rabbi from Smyrna (modern Izmir, Turkey) who declared himself the Messiah in 1665, triggering one of the greatest mass movements in Jewish history. His prophet and publicist Nathan of Gaza spread word of his mission, and within months Jews across Europe, the Ottoman Empire, and the Middle East were selling their possessions and preparing to follow him to the Holy Land. Synagogues held celebrations; merchants abandoned trade; families dissolved.","In 1666, the Ottoman Sultan Mehmed IV arrested him and gave him a stark choice: convert to Islam or be executed. Sabbatai converted, taking the name Aziz Mehmed Efendi. The shock was catastrophic for world Jewry. Some followers refused to accept the apostasy and formed the Dönmeh — a sect that outwardly practiced Islam but secretly maintained Sabbatean rituals. The trauma of the false messiah deeply influenced later Jewish thought, including a wariness of messianic movements that shaped the Hasidic and later Zionist responses to messianism."],facts_pt:["Sabatai Zevi foi um rabino cabalístico de Esmirna (atual Izmir, Turquia) que se declarou o Messias em 1665, desencadeando um dos maiores movimentos de massas da história judaica. Em meses, judeus por toda a Europa e o Oriente Médio vendiam seus pertences e se preparavam para segui-lo à Terra Santa.","Em 1666, o Sultão Otomano Mehmed IV o prendeu e lhe deu uma escolha: converter-se ao islã ou ser executado. Sabatai converteu-se, tomando o nome Aziz Mehmed Efendi. O choque foi catastrófico. Alguns seguidores formaram os Dönmeh — uma seita que externamente praticava o islã mas secretamente mantinha rituais sabatianos."],
+{name:"Sabbatai Zevi",name_pt:"Sabatai Zevi",year:1626,cat:"People",cat_pt:"Pessoas",era:"Early Modern",culture:"Jewish",culture_pt:"Judeu",tags:["abrahamic"],hint:"The most influential false messiah in Jewish history — who ignited a mass messianic movement across the Jewish world before converting to Islam under Ottoman pressure",hint_pt:"O falso messias mais influente da história judaica — que converteu ao islã após enorme movimento messiânico",facts:["Sabbatai Zevi was a Kabbalistic rabbi from Smyrna (modern Izmir, Turkey) who declared himself the Messiah in 1665, triggering one of the greatest mass movements in Jewish history. His prophet and publicist Nathan of Gaza spread word of his mission, and within months Jews across Europe, the Ottoman Empire, and the Middle East were selling their possessions and preparing to follow him to the Holy Land. Synagogues held celebrations; merchants abandoned trade; families dissolved.","In 1666, the Ottoman Sultan Mehmed IV arrested him and gave him a stark choice: convert to Islam or be executed. Sabbatai converted, taking the name Aziz Mehmed Efendi. The shock was catastrophic for world Jewry. Some followers refused to accept the apostasy and formed the Dönmeh — a sect that outwardly practiced Islam but secretly maintained Sabbatean rituals. The trauma of the false messiah deeply influenced later Jewish thought, including a wariness of messianic movements that shaped the Hasidic and later Zionist responses to messianism."],facts_pt:["Sabatai Zevi foi um rabino cabalístico de Esmirna (atual Izmir, Turquia) que se declarou o Messias em 1665, desencadeando um dos maiores movimentos de massas da história judaica. Em meses, judeus por toda a Europa e o Oriente Médio vendiam seus pertences e se preparavam para segui-lo à Terra Santa.","Em 1666, o Sultão Otomano Mehmed IV o prendeu e lhe deu uma escolha: converter-se ao islã ou ser executado. Sabatai converteu-se, tomando o nome Aziz Mehmed Efendi. O choque foi catastrófico. Alguns seguidores formaram os Dönmeh — uma seita que externamente praticava o islã mas secretamente mantinha rituais sabatianos."],
   clues:["He declared himself the Messiah in 1665 and within months Jews across three continents were selling everything to follow him to the Holy Land.","When the Ottoman Sultan arrested him and offered him the choice of conversion or death, he converted to Islam — and the mass movement he had built collapsed overnight.","His apostasy was so traumatic for world Jewry that it shaped Jewish attitudes to messianic claims for centuries afterward."],clues_pt:["Declarou-se o Messias em 1665 e em meses judeus em três continentes vendiam tudo para segui-lo à Terra Santa.",
-  "Quando o sultão otomano o prendeu e ofereceu conversão ou morte, ele converteu-se ao islã — e o movimento que havia construído colapsou da noite para o dia.","Sua apostasia foi tão traumática para o mundo judaico que moldou as atitudes judaicas em relação às reivindicações messiânicas por séculos."]}];
+  "Quando o sultão otomano o prendeu e ofereceu conversão ou morte, ele converteu-se ao islã — e o movimento que havia construído colapsou da noite para o dia.","Sua apostasia foi tão traumática para o mundo judaico que moldou as atitudes judaicas em relação às reivindicações messiânicas por séculos."]},
+{name:"Timur",name_pt:"Timur",year:1320,cat:"People",cat_pt:"Pessoas",era:"Medieval",
+culture:"Central Asian",culture_pt:"Centro-Asiático",tags:["eastern"],
+hint:"The Turco-Mongol conqueror who built the last great Central Asian empire — razing Delhi, Baghdad and Damascus in a generation, yet leaving behind some of the most exquisite architecture in the world",
+hint_pt:"O conquistador turco-mongol que construiu o último grande império da Ásia Central — arrasando Delhi, Bagdá e Damasco em uma geração",
+facts:[
+  "Timur (Tamerlane, 1336–1405) was a Turco-Mongol warlord from Samarkand who conquered an empire stretching from Turkey to India in less than 35 years. He was lame in one leg and one arm from a wound in youth — the name 'Tamerlane' is a European corruption of 'Timur-i-lang' (Timur the Lame). Despite projecting ferocity on the battlefield — his campaigns killed an estimated 17 million people, roughly 5% of the world's population — he was a passionate patron of art and architecture. His capital Samarkand became one of the most beautiful cities in the world, filled with tiled mausoleums and grand madrasas.",
+  "Timur defeated the Ottoman Sultan Bayezid I at the Battle of Ankara (1402), capturing him alive — the only time an Ottoman sultan was taken prisoner in battle. He died in 1405 while marching to invade Ming China. His body was buried in a jade tomb in Samarkand; when Soviet archaeologists opened it in 1941, they found an inscription warning that whoever disturbed his rest would unleash a conqueror more terrible than himself. Germany invaded the Soviet Union three days later."
+],
+facts_pt:[
+  "Timur (Tamerlão, 1336–1405) foi um senhor de guerra turco-mongol de Samarcanda que conquistou um império da Turquia à Índia em menos de 35 anos. Era coxo em uma perna e um braço por uma ferida na juventude. Apesar de suas campanhas terem matado cerca de 17 milhões de pessoas, era um apaixonado patrono da arte e arquitetura. Sua capital Samarcanda tornou-se uma das cidades mais belas do mundo.",
+  "Timur derrotou o sultão otomano Bayezid I na Batalha de Ancara (1402), capturando-o vivo — a única vez que um sultão otomano foi feito prisioneiro em batalha. Morreu em 1405 enquanto marchava para invadir a China Ming. Quando arqueólogos soviéticos abriram seu túmulo de jade em 1941, encontraram uma inscrição de advertência. A Alemanha invadiu a União Soviética três dias depois."
+],
+clues:[
+  "He was lame from a battle wound in his youth — and the European nickname for him is simply a corruption of 'Timur the Lame' in Persian.",
+  "He defeated the Ottoman Sultan in battle and took him prisoner — the only time an Ottoman sultan was ever captured alive.",
+  "He died marching to invade China, and his jade tomb in Samarkand bore a warning: whoever disturbs his rest will unleash a worse conqueror."
+],
+clues_pt:[
+  "Era coxo de uma ferida de guerra na juventude — e o apelido europeu para ele é simplesmente uma corruptela de 'Timur, o Coxo' em persa.",
+  "Derrotou o sultão otomano em batalha e o capturou — a única vez que um sultão otomano foi feito prisioneiro vivo.",
+  "Morreu marchando para invadir a China, e seu túmulo de jade em Samarcanda continha uma advertência: quem perturbar seu descanso libertará um conquistador pior."
+]},
+{name:"Babur",name_pt:"Babur",year:1483,cat:"People",cat_pt:"Pessoas",era:"Early Modern",
+culture:"Mughal",culture_pt:"Mughal",tags:["eastern"],
+hint:"The Timurid prince who lost Central Asia, conquered India, and founded the Mughal dynasty — a poet-warrior who wrote one of history's first true autobiographies",
+hint_pt:"O príncipe timúrida que perdeu a Ásia Central, conquistou a Índia e fundou a dinastia Mughal — um guerreiro-poeta que escreveu uma das primeiras autobiografias da história",
+facts:[
+  "Babur (1483–1530) was a direct descendant of both Timur and Genghis Khan. He spent his youth being driven out of his Central Asian homeland by the Uzbek Shaybanids, losing Samarkand — the jewel of his Timurid ancestors — multiple times. In 1526, with just 12,000 men and artillery, he defeated the 100,000-strong army of the Delhi Sultanate at the First Battle of Panipat, founding the Mughal Empire. His secret weapon was mobile artillery, almost unknown in India at the time.",
+  "Babur left behind the Baburnama — his personal memoir — considered one of the world's first true autobiographies, written in Chagatai Turkic. He described battles, gardens, melons he missed from Central Asia, and his grief at his son's illness with startling intimacy. He is buried in a garden tomb in Kabul, Afghanistan, in accordance with his wishes — not in India. The Mughal Empire he founded would reach its greatest extent under his great-great-grandson Aurangzeb, ruling nearly all of the Indian subcontinent."
+],
+facts_pt:[
+  "Babur (1483–1530) era descendente direto de Timur e Genghis Khan. Passou sua juventude sendo expulso de sua terra natal na Ásia Central pelos Uzbeques. Em 1526, com apenas 12.000 homens e artilharia, derrotou o exército de 100.000 homens do Sultanato de Delhi na Primeira Batalha de Panipat, fundando o Império Mughal.",
+  "Babur deixou o Baburnama — suas memórias pessoais — considerado uma das primeiras autobiografias verdadeiras do mundo, escrita em turco chagatai. Descreve batalhas, jardins, melões que sentia saudade da Ásia Central e seu sofrimento com a doença de seu filho. Está enterrado em um jardim em Cabul, Afeganistão, conforme seu desejo."
+],
+clues:[
+  "He was descended from both Timur and Genghis Khan — and spent years being driven out of his Central Asian homeland before turning south toward India.",
+  "He won India with a tiny army and artillery against a force ten times larger — the first time gunpowder cannon decided a battle on the subcontinent.",
+  "He wrote one of the world's first true autobiographies — a remarkably personal memoir describing gardens, fruit, grief and battle in equal detail."
+],
+clues_pt:[
+  "Era descendente de Timur e Genghis Khan — e passou anos sendo expulso de sua terra natal na Ásia Central antes de se voltar para o sul em direção à Índia.",
+  "Conquistou a Índia com um exército minúsculo e artilharia contra uma força dez vezes maior — a primeira vez que canhões de pólvora decidiram uma batalha no subcontinente.",
+  "Escreveu uma das primeiras autobiografias verdadeiras do mundo — um relato notavelmente pessoal descrevendo jardins, frutas, tristeza e batalha com igual detalhe."
+]},
+{name:"Oxford University Founded",name_pt:"Fundação da Universidade de Oxford",year:1096,cat:"Events",cat_pt:"Eventos",era:"Medieval",
+culture:"European",culture_pt:"Europeu",tags:[],
+hint:"The English-speaking world's oldest university — founded when the Crusades had just begun and the Magna Carta was still a century away",
+hint_pt:"A universidade mais antiga do mundo anglófono — fundada quando as Cruzadas haviam acabado de começar",
+facts:[
+  "Teaching at Oxford began around 1096–1167, but the university grew rapidly after 1167 when King Henry II banned English students from attending the University of Paris. By 1209 some Oxford scholars fled a dispute with townspeople and founded Cambridge University — making the two institutions nearly inseparable in origin. Oxford received its first royal charter from Henry III in 1248.",
+  "Oxford's collegiate system — where scholars live, eat and study within self-governing colleges — was revolutionary and became the model for universities worldwide. Among its alumni: Roger Bacon (who pioneered the scientific method), John Wycliffe (who first translated the Bible into English), William Tyndale, Thomas More, John Locke, Adam Smith, Percy Shelley, Lewis Carroll, Oscar Wilde, T.S. Eliot, C.S. Lewis, J.R.R. Tolkien, and 28 British Prime Ministers."
+],
+facts_pt:[
+  "O ensino em Oxford começou por volta de 1096–1167, mas a universidade cresceu rapidamente após 1167, quando o Rei Henrique II proibiu estudantes ingleses de frequentar a Universidade de Paris. Em 1209, alguns estudiosos de Oxford fugiram de uma disputa com moradores e fundaram a Universidade de Cambridge.",
+  "O sistema colegial de Oxford — onde estudiosos vivem, comem e estudam em faculdades autogovernadoras — foi revolucionário e tornou-se modelo para universidades em todo o mundo. Entre seus ex-alunos: Roger Bacon, John Locke, Adam Smith, Oscar Wilde, C.S. Lewis, J.R.R. Tolkien e 28 Primeiros-Ministros britânicos."
+],
+clues:[
+  "It grew rapidly after an English king banned his subjects from studying in Paris — forcing scholars to establish something at home.",
+  "A violent dispute between its scholars and local townspeople caused a group to flee north and found a second great university.",
+  "J.R.R. Tolkien, C.S. Lewis, Oscar Wilde, John Locke and Adam Smith all studied or taught here."
+],
+clues_pt:[
+  "Cresceu rapidamente depois que um rei inglês proibiu seus súditos de estudar em Paris — forçando estudiosos a estabelecer algo em casa.",
+  "Uma disputa violenta entre seus estudiosos e moradores locais fez um grupo fugir para o norte e fundar uma segunda grande universidade.",
+  "J.R.R. Tolkien, C.S. Lewis, Oscar Wilde, John Locke e Adam Smith estudaram ou ensinaram aqui."
+]}
+];
 
 
 // ── INTERVALS ─────────────────────────────────────────────────────────────
@@ -2319,5 +2386,135 @@ clues_pt:["Seu primeiro rei encerrou uma geração de guerra civil religiosa na 
 clues_pt:["Seu líder sobreviveu a uma tentativa de assassinato por uma sociedade secreta — e voltou para casa antes de atingir seus objetivos.",
   "Foi a última grande Cruzada à Terra Santa — e não alcançou quase nada.",
   "Seu líder tornou-se mais tarde o rei que conquistou Gales e tentou conquistar a Escócia."],tags:["abrahamic"]},
-{name:"Seven Years' War",name_pt:"Guerra dos Sete Anos",startYear:1756,endYear:1763,era:"Early Modern",region:"Global",region_pt:"Global",type:"War",type_pt:"Guerra",culture:"European",culture_pt:"Europeu",hint:"History's first truly global war — fought across five continents simultaneously, reshaping the colonial world and planting the seeds of the American Revolution",hint_pt:"A primeira guerra verdadeiramente global — travada em cinco continentes, precursora da Revolução Americana",description:"The Seven Years' War (1756–1763) was fought across Europe, North America, the Caribbean, West Africa, India and the Philippines simultaneously — making it arguably the first world war. Britain and Prussia faced France, Austria, Russia, Spain and Sweden. Britain emerged as the dominant global colonial power, seizing French Canada and consolidating control in India.",description_pt:"A Guerra dos Sete Anos (1756–1763) foi travada pela Europa, América do Norte, Caribe, África Ocidental, Índia e Filipinas simultaneamente — tornando-a possivelmente a primeira guerra mundial. A Grã-Bretanha emergiu como a potência colonial global dominante, tomando o Canadá francês e consolidando o controle na Índia.",clues:["It was fought simultaneously across Europe, North America, India and the Caribbean — often called the first true world war.","Britain's victory stripped France of most of its colonial empire — Canada, India, and much of the Caribbean changed hands.","The massive war debts it left Britain drove the taxation of the American colonies — helping to trigger the American Revolution just thirteen years later."],clues_pt:["Foi travada simultaneamente na Europa, América do Norte, Índia e Caribe — frequentemente chamada de primeira guerra mundial verdadeira.","A vitória britânica despojou a França da maior parte de seu império colonial — o Canadá, a Índia e grande parte do Caribe mudaram de mãos.","As enormes dívidas de guerra deixadas à Grã-Bretanha levaram à tributação das colônias americanas — ajudando a desencadear a Revolução Americana apenas treze anos depois."],tags:[]}
+{name:"Seven Years' War",name_pt:"Guerra dos Sete Anos",startYear:1756,endYear:1763,era:"Early Modern",region:"Global",region_pt:"Global",type:"War",type_pt:"Guerra",culture:"European",culture_pt:"Europeu",hint:"History's first truly global war — fought across five continents simultaneously, reshaping the colonial world and planting the seeds of the American Revolution",hint_pt:"A primeira guerra verdadeiramente global — travada em cinco continentes, precursora da Revolução Americana",description:"The Seven Years' War (1756–1763) was fought across Europe, North America, the Caribbean, West Africa, India and the Philippines simultaneously — making it arguably the first world war. Britain and Prussia faced France, Austria, Russia, Spain and Sweden. Britain emerged as the dominant global colonial power, seizing French Canada and consolidating control in India.",description_pt:"A Guerra dos Sete Anos (1756–1763) foi travada pela Europa, América do Norte, Caribe, África Ocidental, Índia e Filipinas simultaneamente — tornando-a possivelmente a primeira guerra mundial. A Grã-Bretanha emergiu como a potência colonial global dominante, tomando o Canadá francês e consolidando o controle na Índia.",clues:["It was fought simultaneously across Europe, North America, India and the Caribbean — often called the first true world war.","Britain's victory stripped France of most of its colonial empire — Canada, India, and much of the Caribbean changed hands.","The massive war debts it left Britain drove the taxation of the American colonies — helping to trigger the American Revolution just thirteen years later."],clues_pt:["Foi travada simultaneamente na Europa, América do Norte, Índia e Caribe — frequentemente chamada de primeira guerra mundial verdadeira.","A vitória britânica despojou a França da maior parte de seu império colonial — o Canadá, a Índia e grande parte do Caribe mudaram de mãos.","As enormes dívidas de guerra deixadas à Grã-Bretanha levaram à tributação das colônias americanas — ajudando a desencadear a Revolução Americana apenas treze anos depois."],tags:[]},
+{name:"Timurid Empire",name_pt:"Império Timúrida",startYear:1370,endYear:1507,era:"Medieval",
+region:"Central Asia / Persia",region_pt:"Ásia Central / Pérsia",
+type:"Empire",type_pt:"Império",
+culture:"Central Asian",culture_pt:"Centro-Asiático",
+hint:"The empire of Timur the Great — a dynasty of warrior-scholars who turned Samarkand into the most dazzling city in the Islamic world",
+hint_pt:"O império de Timur, o Grande — uma dinastia de guerreiros-estudiosos que transformou Samarcanda na cidade mais deslumbrante do mundo islâmico",
+description:"Founded by Timur (Tamerlane) in 1370, the Timurid Empire stretched from Anatolia to India at its height. After Timur's death in 1405 it fragmented but its successor states — especially Herat — became extraordinary centres of Persian art, poetry and science. The empire ended when the Uzbek Shaybanids took Samarkand in 1500 and when Babur, the last Timurid prince of consequence, conquered India and founded the Mughal dynasty in 1526.",
+description_pt:"Fundado por Timur (Tamerlão) em 1370, o Império Timúrida se estendia da Anatólia à Índia em seu auge. Após a morte de Timur em 1405, fragmentou-se, mas seus estados sucessores — especialmente Herat — tornaram-se extraordinários centros de arte persa, poesia e ciência. O império terminou quando os Uzbeques tomaram Samarcanda em 1500.",
+facts:[
+  "The Timurid dynasty produced a remarkable cultural paradox: descendants of one of history's most destructive conquerors became among its greatest patrons of art and learning. The Timurid court at Herat (in modern Afghanistan) presided over a golden age of Persian miniature painting, poetry, astronomy and architecture. The poet Jami and the painter Bihzad — considered the greatest miniaturist of the Islamic world — both worked there.",
+  "The last great Timurid prince was Babur, who lost his Central Asian lands to the Uzbeks but turned south and conquered the Indian subcontinent, founding the Mughal Empire in 1526. Mughal art, architecture (including the Taj Mahal), and court culture were all direct continuations of the Timurid aesthetic tradition, making the Timurids the cultural grandparents of the Mughal Empire."
+],
+facts_pt:[
+  "A dinastia timúrida produziu um paradoxo cultural notável: descendentes de um dos conquistadores mais destrutivos da história tornaram-se grandes patronos da arte e do aprendizado. A corte timúrida em Herat presidiu uma era de ouro da pintura em miniatura persa, poesia, astronomia e arquitetura.",
+  "O último grande príncipe timúrida foi Babur, que perdeu suas terras da Ásia Central para os Uzbeques mas voltou-se para o sul e conquistou o subcontinente indiano, fundando o Império Mughal em 1526. A arte, arquitetura e cultura da corte mughal foram continuações diretas da tradição estética timúrida."
+],
+clues:[
+  "It was founded by one of history's most destructive conquerors — yet his descendants turned his capital into a centre of poetry, painting and astronomy.",
+  "Its last great prince lost his Central Asian homeland and turned south to found a new empire in India instead.",
+  "The architectural style it perfected — intricate tilework, formal gardens, domed mausoleums — was passed directly to the builders of the Taj Mahal."
+],
+clues_pt:[
+  "Foi fundado por um dos conquistadores mais destrutivos da história — mas seus descendentes transformaram sua capital em um centro de poesia, pintura e astronomia.",
+  "Seu último grande príncipe perdeu sua terra natal na Ásia Central e voltou-se para o sul para fundar um novo império na Índia.",
+  "O estilo arquitetônico que aperfeiçoou — intrincados azulejos, jardins formais, mausoléus com cúpulas — foi transmitido diretamente aos construtores do Taj Mahal."
+],tags:["eastern"]},
+{name:"Mamluk Sultanate",name_pt:"Sultanato Mameluco",startYear:1250,endYear:1517,era:"Medieval",
+region:"Egypt / Levant",region_pt:"Egito / Levante",
+type:"Empire",type_pt:"Império",
+culture:"Islamic",culture_pt:"Islâmico",
+hint:"The slave-soldiers who stopped the Mongols and the Crusaders — ruling Egypt for 267 years and making Cairo the jewel of the Islamic world after Baghdad's destruction",
+hint_pt:"Os soldados-escravos que detiveram os mongóis e os cruzados — governando o Egito por 267 anos e tornando o Cairo a joia do mundo islâmico",
+description:"The Mamluk Sultanate (1250–1517) was ruled by a military caste of freed slave-soldiers, originally bought as boys from the Eurasian steppe and trained as elite cavalry. They overthrew the Ayyubid dynasty, halted the Mongol advance at the Battle of Ain Jalut (1260) — the first major Mongol defeat — and expelled the Crusaders from the Holy Land by 1291. Cairo became the cultural and commercial capital of the Islamic world after the Mongol destruction of Baghdad, a position it held for centuries.",
+description_pt:"O Sultanato Mameluco (1250–1517) foi governado por uma casta militar de soldados-escravos libertos, originalmente comprados como meninos da estepe eurasiana e treinados como cavalaria de elite. Eles derrubaram a dinastia Aiúbida, detiveram o avanço mongol na Batalha de Ain Jalut (1260) — a primeira grande derrota mongol — e expulsaram os cruzados da Terra Santa em 1291.",
+facts:[
+  "The Mamluks were a military caste of soldiers who had been bought as enslaved boys from the Eurasian steppe (mostly Kipchak Turks and Circassians), converted to Islam, trained in elite cavalry warfare, and then freed. Their unusual system meant that power was hereditary only by military competition — sons of sultans rarely succeeded their fathers, since a stronger general would usually seize power. This produced outstanding military leaders but chronic political instability.",
+  "The Mamluk victory at the Battle of Ain Jalut in 1260 — where they defeated the Mongol army in Palestine — was one of the most consequential battles in history. It halted the westward Mongol advance that had destroyed Baghdad and showed the Mongols could be beaten in open field. The Mamluks also finally expelled the last Crusader strongholds from the Holy Land (Acre fell in 1291). They were eventually defeated by the Ottoman Turks under Selim I in 1517, becoming a province of the Ottoman Empire."
+],
+facts_pt:[
+  "Os mamelucos eram uma casta militar de soldados que haviam sido comprados como meninos escravizados da estepe eurasiana, convertidos ao islã, treinados em guerra de cavalaria de elite e depois libertados. Seu sistema incomum significava que o poder era hereditário apenas por competição militar.",
+  "A vitória mameluca na Batalha de Ain Jalut em 1260 — onde derrotaram o exército mongol na Palestina — foi uma das batalhas mais consequentes da história. Deteve o avanço mongol para o oeste que havia destruído Bagdá. Os mamelucos também expulsaram os últimos bastões cruzados da Terra Santa (Acre caiu em 1291)."
+],
+clues:[
+  "They began as enslaved soldiers — bought as boys, trained as elite cavalry, then freed — and ended up ruling Egypt for over two and a half centuries.",
+  "They stopped the Mongols at a battle in Palestine — the first time the Mongols had ever been defeated in open field.",
+  "After the Mongols destroyed Baghdad, their capital Cairo became the new heart of the Islamic world."
+],
+clues_pt:[
+  "Começaram como soldados escravizados — comprados como meninos, treinados como cavalaria de elite, depois libertos — e acabaram governando o Egito por mais de dois séculos e meio.",
+  "Detiveram os mongóis em uma batalha na Palestina — a primeira vez que os mongóis foram derrotados em campo aberto.",
+  "Após os mongóis destruírem Bagdá, sua capital Cairo tornou-se o novo coração do mundo islâmico."
+],tags:["eastern","abrahamic"]},
+{name:"Al-Andalus",name_pt:"Al-Ândalus",startYear:711,endYear:1492,era:"Medieval",
+region:"Iberian Peninsula",region_pt:"Península Ibérica",
+type:"Era",type_pt:"Era",
+culture:"Islamic",culture_pt:"Islâmico",
+hint:"The Muslim civilisation of medieval Spain — where Arab, Berber, Jewish and Christian scholars translated the ancient world and kept philosophy alive while Europe was in its Dark Ages",
+hint_pt:"A civilização muçulmana da Espanha medieval — onde estudiosos árabes, berberes, judeus e cristãos traduziram o mundo antigo enquanto a Europa estava em suas Idades das Trevas",
+description:"Al-Andalus was the Arabic name for the Muslim-controlled territory of the Iberian Peninsula, established when Umayyad forces crossed from Morocco in 711 CE and lasting until the fall of Granada to Ferdinand and Isabella in 1492. At its peak under Abd al-Rahman III (Córdoba Caliphate, 929–1031), Córdoba was the largest city in Western Europe with a population of 500,000, a library of 400,000 volumes, and street lighting — while London had neither paved roads nor public lighting.",
+description_pt:"Al-Ândalus foi o nome árabe para o território da Península Ibérica controlado pelos muçulmanos, estabelecido quando as forças omíadas cruzaram de Marrocos em 711 EC e durando até a queda de Granada para Fernando e Isabel em 1492. Em seu auge sob Abd al-Rahman III, Córdoba era a maior cidade da Europa Ocidental com uma população de 500.000 e uma biblioteca de 400.000 volumes.",
+facts:[
+  "At its height in the 10th century, the Caliphate of Córdoba was the most sophisticated civilization in Western Europe. The city of Córdoba had street lighting, running water, hundreds of public baths, and a library containing some 400,000 volumes — at a time when the largest library in Christian Europe held perhaps a few hundred manuscripts. Jewish, Christian and Muslim scholars worked side-by-side in Córdoba, translating Aristotle, Plato, and the Greek medical tradition into Arabic and then into Latin — the knowledge pipeline that fueled the European Renaissance.",
+  "The Reconquista — the gradual Christian reconquest of Iberia — took nearly 800 years (722–1492). The last Muslim emirate, Granada, fell on January 2, 1492 — the same year Columbus sailed, and the same year Spain expelled its Jewish population in the Alhambra Decree. The legacy of Al-Andalus shaped Spanish language (thousands of words from Arabic), architecture (the Alhambra, Córdoba's Mezquita), mathematics (algebra came to Europe through Arabic-language translations made here), and music."
+],
+facts_pt:[
+  "Em seu auge no século X, o Califado de Córdoba era a civilização mais sofisticada da Europa Ocidental. A cidade de Córdoba tinha iluminação pública, água corrente, centenas de banhos públicos e uma biblioteca com cerca de 400.000 volumes. Estudiosos judeus, cristãos e muçulmanos trabalhavam lado a lado em Córdoba, traduzindo Aristóteles e Platão.",
+  "A Reconquista — a gradual reconquista cristã da Ibéria — durou quase 800 anos (722–1492). O último emirado muçulmano, Granada, caiu em 2 de janeiro de 1492 — o mesmo ano em que Colombo navegou e em que a Espanha expulsou sua população judaica."
+],
+clues:[
+  "At its peak, its capital was the largest and most sophisticated city in Western Europe — with street lighting, public baths, and a library of 400,000 books.",
+  "Jewish, Christian and Muslim scholars translated Greek philosophy here into Arabic and then into Latin — directly fueling the European Renaissance.",
+  "It ended the same year Columbus sailed west — when its last city surrendered to the Spanish monarchs who then immediately funded the voyage to America."
+],
+clues_pt:[
+  "Em seu auge, sua capital era a maior e mais sofisticada cidade da Europa Ocidental — com iluminação pública, banhos públicos e uma biblioteca de 400.000 livros.",
+  "Estudiosos judeus, cristãos e muçulmanos traduziram a filosofia grega aqui para o árabe e depois para o latim — alimentando diretamente o Renascimento europeu.",
+  "Terminou no mesmo ano em que Colombo navegou para o oeste — quando sua última cidade se rendeu aos monarcas espanhóis que então imediatamente financiaram a viagem à América."
+],tags:["eastern","abrahamic"]},
+{name:"Fatimid Caliphate",name_pt:"Califado Fatímida",startYear:909,endYear:1171,era:"Medieval",
+region:"North Africa / Egypt / Levant",region_pt:"Norte da África / Egito / Levante",
+type:"Empire",type_pt:"Império",
+culture:"Islamic",culture_pt:"Islâmico",
+hint:"The Shia caliphate that ruled Egypt and North Africa for two and a half centuries — founding Cairo and the Al-Azhar mosque, still the oldest university in continuous operation",
+hint_pt:"O califado xiita que governou o Egito e o Norte da África por dois séculos e meio — fundando o Cairo e a mesquita Al-Azhar",
+description:"The Fatimid Caliphate (909–1171 CE) was the only Shia caliphate ever to rule a major Islamic empire. Founded in Tunisia and claiming descent from Fatima, daughter of the Prophet Muhammad, it conquered Egypt in 969 CE and founded the city of Cairo (al-Qahira, 'the Victorious') as its capital. The Fatimids established Al-Azhar Mosque and university — today the world's oldest continuously operating university and the most influential institution in Sunni Islam, despite being founded by Shia rulers.",
+description_pt:"O Califado Fatímida (909–1171 EC) foi o único califado xiita a governar um grande império islâmico. Fundado na Tunísia e reivindicando descendência de Fátima, filha do Profeta Maomé, conquistou o Egito em 969 EC e fundou a cidade do Cairo (al-Qahira, 'a Vitoriosa') como capital. Os fatímidas estabeleceram a Mesquita e universidade Al-Azhar — hoje a universidade em funcionamento contínuo mais antiga do mundo.",
+facts:[
+  "The Fatimid Caliphate was a Shia dynasty that challenged the Sunni Abbasid Caliphate in Baghdad for over two centuries. At its height it controlled North Africa, Egypt, Sicily, the Levant (including Jerusalem) and parts of Arabia. Cairo, founded by the Fatimids in 969 CE, became one of the great cities of the medieval world. The caliphate's most eccentric ruler, Caliph al-Hakim (996–1021), destroyed the Church of the Holy Sepulchre in Jerusalem, banned women from leaving their homes, outlawed chess and certain vegetables, and was eventually assassinated (or disappeared — his end remains mysterious).",
+  "The Fatimids were finally ended by Saladin (himself a Sunni Kurd) who was invited to Egypt as a vizier, gradually took power, abolished the Fatimid Caliphate in 1171, and realigned Egypt with the Sunni Abbasid Caliphate. The Al-Azhar institution they founded, however, survived — today it is the most prestigious centre of Sunni Islamic scholarship in the world, a remarkable legacy for an institution founded by Shia rulers."
+],
+facts_pt:[
+  "O Califado Fatímida era uma dinastia xiita que desafiou o Califado Abássida Sunita em Bagdá por mais de dois séculos. Em seu auge controlava o Norte da África, Egito, Sicília, o Levante e partes da Arábia. O Cairo, fundado pelos fatímidas em 969 EC, tornou-se uma das grandes cidades do mundo medieval.",
+  "Os fatímidas foram finalmente encerrados por Saladino (ele próprio um curdo sunita) que foi convidado ao Egito como vizir, gradualmente tomou o poder e aboliu o Califado Fatímida em 1171. A instituição Al-Azhar que fundaram, no entanto, sobreviveu — hoje é o mais prestigioso centro de erudição islâmica sunita no mundo."
+],
+clues:[
+  "They founded Cairo — naming it 'the Victorious' — and established a mosque-university there that is still the most important institution in Islamic scholarship today.",
+  "They were Shia Muslims who ruled a Sunni-majority population and rivalled the Abbasid Caliphate in Baghdad for legitimacy over the Islamic world.",
+  "They were abolished by Saladin — the same general who later recaptured Jerusalem from the Crusaders."
+],
+clues_pt:[
+  "Fundaram o Cairo — nomeando-o 'a Vitoriosa' — e estabeleceram lá uma mesquita-universidade que ainda é hoje a instituição mais importante na erudição islâmica.",
+  "Eram muçulmanos xiitas que governaram uma população de maioria sunita e rivalizaram com o Califado Abássida em Bagdá pela legitimidade sobre o mundo islâmico.",
+  "Foram abolidos por Saladino — o mesmo general que mais tarde reconquistou Jerusalém dos Cruzados."
+],tags:["eastern","abrahamic"]},
+{name:"Ayyubid Sultanate",name_pt:"Sultanato Aiúbida",startYear:1171,endYear:1260,era:"Medieval",
+region:"Egypt / Levant / Arabia",region_pt:"Egito / Levante / Arábia",
+type:"Empire",type_pt:"Império",
+culture:"Islamic",culture_pt:"Islâmico",
+hint:"Saladin's dynasty — the Kurdish sultanate that abolished the Fatimids, recaptured Jerusalem from the Crusaders, and held the Islamic world together through the height of the Crusades",
+hint_pt:"A dinastia de Saladino — o sultanato curdo que aboliu os fatímidas, reconquistou Jerusalém dos cruzados e manteve o mundo islâmico unido durante o auge das Cruzadas",
+description:"The Ayyubid Sultanate (1171–1260 CE) was founded by Saladin (Salah ad-Din Yusuf ibn Ayyub) after he abolished the Fatimid Caliphate and reunified Egypt with the Sunni world. At its height it controlled Egypt, Syria, northern Mesopotamia, the Hejaz (Mecca and Medina), Yemen and parts of North Africa. Saladin's recapture of Jerusalem in 1187 triggered the Third Crusade — his greatest military achievement and the defining moment of the Crusading era.",
+description_pt:"O Sultanato Aiúbida (1171–1260 EC) foi fundado por Saladino após ele abolir o Califado Fatímida e reunificar o Egito com o mundo sunita. Em seu auge controlava o Egito, Síria, norte da Mesopotâmia, o Hijaz (Meca e Medina), Iêmen e partes do Norte da África. A reconquista de Jerusalém por Saladino em 1187 desencadeou a Terceira Cruzada.",
+facts:[
+  "Saladin founded the Ayyubid dynasty after outmaneuvering the Fatimid caliphs whose vizier he had become. In 1187 he won the decisive Battle of Hattin, trapping the Crusader army in a waterless valley and annihilating it, then retook Jerusalem after 88 years of Crusader rule. Unlike the Crusaders' brutal sack of 1099, Saladin allowed Christians to ransom themselves and leave safely — earning him admiration across religious lines in medieval chronicles.",
+  "The Ayyubid sultanate fragmented after Saladin's death in 1193 into rival principalities held by his descendants. The dynasty's end came when its own Mamluk slave-soldiers — led by Baybars — overthrew the last Ayyubid sultan in Egypt in 1250, just in time to halt the Mongol invasion at the Battle of Ain Jalut in 1260. The Ayyubids continued ruling in parts of Syria until the Mongols and Mamluks divided the region."
+],
+facts_pt:[
+  "Saladino fundou a dinastia Aiúbida após superar os califas fatímidas cujo vizir havia se tornado. Em 1187 venceu a decisiva Batalha de Hattin, prendendo o exército cruzado em um vale sem água e aniquilando-o, depois retomou Jerusalém após 88 anos de domínio cruzado.",
+  "O sultanato aiúbida fragmentou-se após a morte de Saladino em 1193 em principados rivais. O fim da dinastia veio quando seus próprios soldados-escravos mamelucos derrubaram o último sultão aiúbida no Egito em 1250, a tempo de deter a invasão mongol em 1260."
+],
+clues:[
+  "It was founded by the same general who recaptured Jerusalem from the Crusaders in 1187 — allowing Christians to leave safely rather than massacring them.",
+  "Its own slave-soldiers eventually overthrew it — but those same soldiers then stopped the Mongols and became the next rulers of Egypt.",
+  "It ruled Egypt, Syria, Mecca and Medina simultaneously — the first dynasty since the early caliphs to control both the holy cities and Egypt."
+],
+clues_pt:[
+  "Foi fundado pelo mesmo general que reconquistou Jerusalém dos cruzados em 1187 — permitindo que os cristãos partissem com segurança em vez de massacrá-los.",
+  "Seus próprios soldados-escravos acabaram derrubando-o — mas esses mesmos soldados então detiveram os mongóis e tornaram-se os próximos governantes do Egito.",
+  "Governou simultaneamente o Egito, a Síria, a Meca e Medina — a primeira dinastia desde os primeiros califas a controlar tanto as cidades santas quanto o Egito."
+],tags:["eastern","abrahamic"]}
 ];
