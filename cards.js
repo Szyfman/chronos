@@ -1575,7 +1575,15 @@ clues_pt:[
   "Cresceu rapidamente depois que um rei inglês proibiu seus súditos de estudar em Paris — forçando estudiosos a estabelecer algo em casa.",
   "Uma disputa violenta entre seus estudiosos e moradores locais fez um grupo fugir para o norte e fundar uma segunda grande universidade.",
   "J.R.R. Tolkien, C.S. Lewis, Oscar Wilde, John Locke e Adam Smith estudaram ou ensinaram aqui."
-]}
+]},
+{name:"Metric System Introduced",name_pt:"Introdução do Sistema Métrico",year:1795,cat:"Events",cat_pt:"Eventos",era:"Modern",culture:"French",culture_pt:"Francês",tags:["western"],hint:"A revolutionary system of measurement born during the French Revolution — designed to replace centuries of inconsistent local units",hint_pt:"Sistema universal de medidas criado na Revolução Francesa",facts:["The metric system was officially adopted in France in 1795, replacing thousands of local measurement systems that varied from town to town.","It was based on natural constants — originally defined using the Earth's meridian — making it the first standardized, rational system of measurement in history."],facts_pt:["O sistema métrico foi oficialmente adotado na França em 1795, substituindo milhares de sistemas locais de medidas que variavam de cidade para cidade.","Foi baseado em constantes naturais — originalmente definidas usando o meridiano da Terra — tornando-se o primeiro sistema de medição padronizado e racional da história."],clues:["It replaced thousands of inconsistent local units across France during the Revolution.","It introduced units like meter, kilogram, and liter.","Today it is used by nearly every country in the world."],clues_pt:["Substituiu milhares de sistemas locais inconsistentes durante a Revolução Francesa.","Introduziu unidades como metro, quilograma e litro.","Hoje é usado por quase todos os países do mundo."]},
+{name:"Lincoln Cathedral Completed",name_pt:"Catedral de Lincoln Concluída",year:1311,cat:"Events",cat_pt:"Eventos",era:"Medieval",culture:"English",culture_pt:"Inglês",tags:["western"],hint:"The medieval church that surpassed the Great Pyramid as the tallest structure on Earth",hint_pt:"A estrutura mais alta do mundo medieval",facts:["Lincoln Cathedral became the tallest building in the world in 1311, surpassing the Great Pyramid of Giza after nearly 4,000 years.","Its central spire collapsed in 1549, and it has never regained its title as the world's tallest structure."],facts_pt:["A Catedral de Lincoln tornou-se o edifício mais alto do mundo em 1311, superando a Grande Pirâmide de Gizé após quase 4.000 anos.","Sua torre central desabou em 1549, e ela nunca mais recuperou o título de estrutura mais alta do mundo."],clues:["It was the first building to surpass the height of the Great Pyramid.","It stood as the tallest structure in the medieval Christian world.","Its central spire later collapsed, ending its record."],clues_pt:["Foi o primeiro edifício a superar a altura da Grande Pirâmide.","Foi a estrutura mais alta do mundo medieval cristão.","Sua torre central desabou posteriormente, encerrando seu recorde."]},
+{name:"Age of Enlightenment",name_pt:"Iluminismo",year:1700,cat:"Events",cat_pt:"Eventos",era:"Modern",culture:"European",culture_pt:"Europeu",tags:["western"],hint:"An intellectual movement emphasizing reason, science, and individual rights — shaping modern Western thought",hint_pt:"Movimento intelectual que valorizou razão, ciência e liberdade",facts:["The Enlightenment (17th–18th centuries) promoted reason over tradition, challenging monarchy and religious authority.","Its ideas influenced major revolutions, including the American and French Revolutions."],facts_pt:["O Iluminismo (séculos XVII–XVIII) promoveu a razão sobre a tradição, desafiando monarquias e autoridade religiosa.","Suas ideias influenciaram grandes revoluções, incluindo a Americana e a Francesa."],clues:["It emphasized reason, science, and skepticism of authority.","Thinkers of this movement inspired modern democracy and human rights.","It directly influenced the French Revolution."],clues_pt:["Enfatizou a razão, a ciência e o questionamento da autoridade.","Seus pensadores inspiraram a democracia moderna e os direitos humanos.","Influenciou diretamente a Revolução Francesa."]},
+{name:"Scientific Revolution",name_pt:"Revolução Científica",year:1543,cat:"Events",cat_pt:"Eventos",era:"Modern",culture:"European",culture_pt:"Europeu",tags:["western"],hint:"The transformation of science through observation and mathematics — beginning with Copernicus",hint_pt:"Mudança radical na forma de fazer ciência",facts:["The Scientific Revolution began with Copernicus's heliocentric model, placing the Sun at the center instead of the Earth.","It led to breakthroughs by Galileo, Newton, and Kepler, establishing modern physics and astronomy."],facts_pt:["A Revolução Científica começou com o modelo heliocêntrico de Copérnico, colocando o Sol no centro em vez da Terra.","Levou a avanços de Galileu, Newton e Kepler, estabelecendo a física e astronomia modernas."],clues:["It replaced medieval views of the universe with observation and mathematics.","It introduced the idea that Earth orbits the Sun.","It laid the foundations for modern science."],clues_pt:["Substituiu visões medievais por observação e matemática.","Introduziu a ideia de que a Terra gira ao redor do Sol.","Estabeleceu as bases da ciência moderna."]},
+{name:"Voltaire",name_pt:"Voltaire",year:1694,cat:"People",cat_pt:"Pessoas",era:"Modern",culture:"French",culture_pt:"Francês",tags:["western"],hint:"A leading Enlightenment thinker who championed free speech and criticized religious intolerance",hint_pt:"Filósofo iluminista defensor da liberdade de expressão",facts:["Voltaire was one of the most influential writers of the Enlightenment, known for his wit and criticism of organized religion.","He famously advocated freedom of speech and separation of church and state."],facts_pt:["Voltaire foi um dos pensadores mais influentes do Iluminismo, conhecido por sua crítica à religião organizada.","Defendeu a liberdade de expressão e a separação entre Igreja e Estado."],clues:["He was a central figure of the Enlightenment in France.","He criticized religious institutions and promoted tolerance.","He influenced revolutionary ideas in Europe."],clues_pt:["Foi figura central do Iluminismo na França.","Criticou instituições religiosas e promoveu tolerância.","Influenciou ideias revolucionárias na Europa."]},
+{name:"Thomas Hobbes",name_pt:"Thomas Hobbes",year:1588,cat:"People",cat_pt:"Pessoas",era:"Modern",culture:"English",culture_pt:"Inglês",tags:["western"],hint:"The philosopher who believed humans needed a strong ruler to avoid chaos",hint_pt:"Filósofo que defendia um governo forte",facts:["Hobbes wrote 'Leviathan', arguing that life without government would be 'nasty, brutish, and short'.","He believed in absolute monarchy as the best way to maintain order."],facts_pt:["Hobbes escreveu 'Leviatã', argumentando que a vida sem governo seria 'solitária, pobre, sórdida, brutal e curta'.","Defendia a monarquia absoluta como forma de manter a ordem."],clues:["He believed humans are naturally self-interested and prone to conflict.","He supported strong centralized authority.","He lived during the English Civil War."],clues_pt:["Acreditava que humanos são naturalmente egoístas.","Defendia autoridade central forte.","Viveu durante a Guerra Civil Inglesa."]},
+{name:"John Locke",name_pt:"John Locke",year:1632,cat:"People",cat_pt:"Pessoas",era:"Modern",culture:"English",culture_pt:"Inglês",tags:["western"],hint:"The philosopher of natural rights — influencing modern democracy",hint_pt:"Filósofo dos direitos naturais",facts:["Locke argued that people have natural rights to life, liberty, and property.","His ideas influenced the U.S. Constitution and modern liberal democracy."],facts_pt:["Locke argumentava que as pessoas têm direitos naturais à vida, liberdade e propriedade.","Suas ideias influenciaram a Constituição dos EUA e a democracia moderna."],clues:["He believed government exists to protect natural rights.","His ideas inspired revolutions.","He opposed absolute monarchy."],clues_pt:["Defendia que o governo protege direitos naturais.","Inspirou revoluções.","Se opunha à monarquia absoluta."]},
+{name:"Jean-Jacques Rousseau",name_pt:"Jean-Jacques Rousseau",year:1712,cat:"People",cat_pt:"Pessoas",era:"Modern",culture:"French",culture_pt:"Francês",tags:["western"],hint:"The philosopher who argued that sovereignty belongs to the people",hint_pt:"Filósofo da vontade geral",facts:["Rousseau's 'Social Contract' argued that legitimate authority comes from the general will of the people.","His ideas influenced democratic theory and the French Revolution."],facts_pt:["O 'Contrato Social' de Rousseau defendia que a autoridade vem da vontade geral do povo.","Suas ideias influenciaram a teoria democrática e a Revolução Francesa."],clues:["He believed society should reflect the will of the people.","He influenced revolutionary movements.","He criticized inequality and private property."],clues_pt:["Defendia que a sociedade deve refletir a vontade do povo.","Influenciou revoluções.","Criticou a desigualdade social."]},
 ];
 
 
@@ -2530,5 +2538,248 @@ clues_pt:[
   "Foi fundado pelo mesmo general que reconquistou Jerusalém dos cruzados em 1187 — permitindo que os cristãos partissem com segurança em vez de massacrá-los.",
   "Seus próprios soldados-escravos acabaram derrubando-o — mas esses mesmos soldados então detiveram os mongóis e tornaram-se os próximos governantes do Egito.",
   "Governou simultaneamente o Egito, a Síria, a Meca e Medina — a primeira dinastia desde os primeiros califas a controlar tanto as cidades santas quanto o Egito."
-],tags:["eastern","abrahamic"]}
+],tags:["eastern","abrahamic"]},
+{name:"Paraguayan War",name_pt:"Guerra do Paraguai",startYear:1864,endYear:1870,era:"Modern",
+region:"South America",region_pt:"América do Sul",
+type:"War",type_pt:"Guerra",
+culture:"South American",culture_pt:"Sul-americano",
+hint:"The deadliest war in South American history — Paraguay versus a devastating triple alliance",
+hint_pt:"A guerra mais devastadora da América do Sul — o Paraguai contra uma aliança tripla",
+description:"The Paraguayan War (1864–1870) was the deadliest conflict in South American history, fought between Paraguay and the Triple Alliance of Brazil, Argentina, and Uruguay. Led by Francisco Solano López, Paraguay initially invaded neighboring territories but was gradually overwhelmed by the combined forces. The war ended in catastrophic defeat for Paraguay, which lost a large portion of its population and territory.",
+description_pt:"A Guerra do Paraguai (1864–1870) foi o conflito mais mortal da história da América do Sul, travado entre o Paraguai e a Tríplice Aliança formada por Brasil, Argentina e Uruguai. Liderado por Francisco Solano López, o Paraguai iniciou invasões, mas foi gradualmente derrotado pelas forças combinadas. A guerra terminou com uma derrota catastrófica para o país, que perdeu grande parte de sua população e território.",
+facts:[
+  "Paraguay lost up to 60–70% of its male population, making it one of the most devastating demographic collapses in modern history.",
+  "Brazil emerged as the dominant military power in South America after the war, while Paraguay was left economically and socially devastated."
+],
+facts_pt:[
+  "O Paraguai perdeu até 60–70% de sua população masculina, um dos maiores colapsos demográficos da história moderna.",
+  "O Brasil emergiu como a principal potência militar da região, enquanto o Paraguai ficou devastado economicamente e socialmente."
+],
+clues:[
+  "It involved a triple alliance of Brazil, Argentina, and Uruguay against a single nation.",
+  "Its outcome nearly destroyed an entire country's population.",
+  "It was the deadliest conflict in South American history."
+],
+clues_pt:[
+  "Envolveu uma aliança tripla entre Brasil, Argentina e Uruguai contra um único país.",
+  "Seu resultado quase destruiu a população de uma nação inteira.",
+  "Foi o conflito mais mortal da história da América do Sul."
+],
+tags:["western"]},
+{name:"Gojoseon Dynasty",name_pt:"Dinastia Gojoseon",startYear:-2333,endYear:-108,era:"Ancient",
+region:"Korean Peninsula",region_pt:"Península Coreana",
+type:"Kingdom",type_pt:"Reino",
+culture:"Korean",culture_pt:"Coreano",
+hint:"The legendary first Korean kingdom, said to be founded by Dangun",
+hint_pt:"O primeiro reino coreano lendário, fundado por Dangun",
+description:"Gojoseon (traditionally dated 2333–108 BCE) is considered the first Korean kingdom, founded according to legend by Dangun. It developed early state structures, bronze culture, and laws before falling to the Han Dynasty of China, which established commanderies in northern Korea.",
+description_pt:"Gojoseon (tradicionalmente datado de 2333–108 a.C.) é considerado o primeiro reino coreano, fundado segundo a lenda por Dangun. Desenvolveu estruturas estatais iniciais, cultura do bronze e leis antes de cair para a dinastia Han da China.",
+facts:[
+  "The foundation myth of Gojoseon centers on Dangun, a semi-divine figure said to be born of a heavenly prince and a bear-woman.",
+  "Its fall led to Chinese commanderies in Korea, influencing early Korean political and cultural development."
+],
+facts_pt:[
+  "O mito de fundação gira em torno de Dangun, figura semidivina nascida de um príncipe celestial e uma mulher-urso.",
+  "Sua queda levou à criação de comandarias chinesas na Coreia, influenciando seu desenvolvimento inicial."
+],
+clues:[
+  "It is the earliest recorded Korean state, rooted in legend.",
+  "Its founder is a mythical figure linked to heaven and transformation.",
+  "It ended with Chinese expansion into the Korean peninsula."
+],
+clues_pt:[
+  "É o primeiro estado coreano registrado, ligado à lenda.",
+  "Seu fundador é uma figura mítica ligada ao céu e transformação.",
+  "Terminou com a expansão chinesa na península coreana."
+],
+tags:["eastern"]},
+{name:"Joseon Dynasty",name_pt:"Dinastia Joseon",startYear:1392,endYear:1897,era:"Medieval",
+region:"Korean Peninsula",region_pt:"Península Coreana",
+type:"Kingdom",type_pt:"Reino",
+culture:"Korean",culture_pt:"Coreano",
+hint:"The long-lasting Korean dynasty that shaped Confucian society and national identity",
+hint_pt:"Dinastia coreana duradoura que moldou a sociedade confucionista",
+description:"The Joseon Dynasty (1392–1897) was Korea’s longest-lasting ruling dynasty, founded by Yi Seong-gye. It established Confucianism as the state ideology, developed a centralized bureaucracy, and created Hangul, the Korean alphabet, under King Sejong the Great.",
+description_pt:"A Dinastia Joseon (1392–1897) foi a mais duradoura da Coreia, fundada por Yi Seong-gye. Estabeleceu o confucionismo como ideologia estatal, desenvolveu uma burocracia centralizada e criou o alfabeto coreano Hangul sob o rei Sejong, o Grande.",
+facts:[
+  "King Sejong the Great created Hangul in the 15th century, dramatically increasing literacy among common people.",
+  "Joseon maintained a rigid Confucian social hierarchy that defined Korean society for centuries."
+],
+facts_pt:[
+  "O rei Sejong, o Grande, criou o Hangul no século XV, aumentando drasticamente a alfabetização.",
+  "Joseon manteve uma rígida hierarquia confucionista que definiu a sociedade coreana por séculos."
+],
+clues:[
+  "It introduced the Korean alphabet still used today.",
+  "It was Korea’s longest-lasting dynasty.",
+  "Its society was deeply shaped by Confucian ideals."
+],
+clues_pt:[
+  "Introduziu o alfabeto coreano usado até hoje.",
+  "Foi a dinastia mais duradoura da Coreia.",
+  "Sua sociedade foi profundamente moldada pelo confucionismo."
+],
+tags:["eastern"]},
+{name:"Song Dynasty",name_pt:"Dinastia Song",startYear:960,endYear:1279,era:"Medieval",
+region:"China",region_pt:"China",
+type:"Dynasty",type_pt:"Dinastia",
+culture:"Chinese",culture_pt:"Chinês",
+hint:"A Chinese dynasty known for technological innovation, commerce, and urban growth",
+hint_pt:"Dinastia chinesa marcada por inovação tecnológica e crescimento econômico",
+description:"The Song Dynasty (960–1279) was a period of remarkable economic growth, technological innovation, and cultural development in China. It saw the invention of gunpowder weapons, paper money, and advances in printing, while its cities became some of the largest in the world.",
+description_pt:"A Dinastia Song (960–1279) foi um período de grande crescimento econômico, inovação tecnológica e desenvolvimento cultural na China. Houve invenções como armas de pólvora, papel-moeda e avanços na impressão.",
+facts:[
+  "The Song economy was one of the most advanced in the medieval world, with widespread use of paper currency.",
+  "It eventually fell to the Mongols under Kublai Khan, who founded the Yuan Dynasty."
+],
+facts_pt:[
+  "A economia Song foi uma das mais avançadas do mundo medieval, com uso de papel-moeda.",
+  "Caiu para os mongóis liderados por Kublai Khan, que fundou a dinastia Yuan."
+],
+clues:[
+  "It introduced paper money on a large scale.",
+  "It was conquered by the Mongols.",
+  "It was a golden age of Chinese technology and urban life."
+],
+clues_pt:[
+  "Introduziu o papel-moeda em larga escala.",
+  "Foi conquistada pelos mongóis.",
+  "Foi uma era de ouro tecnológica e urbana na China."
+],
+tags:["eastern"]},
+{name:"Qin Dynasty",name_pt:"Dinastia Qin",startYear:-221,endYear:-206,era:"Ancient",
+region:"China",region_pt:"China",
+type:"Dynasty",type_pt:"Dinastia",
+culture:"Chinese",culture_pt:"Chinês",
+hint:"The dynasty that unified China and laid the foundations of the imperial system",
+hint_pt:"Dinastia que unificou a China e criou o sistema imperial",
+description:"The Qin Dynasty (221–206 BCE) was the first imperial dynasty of China, founded by Qin Shi Huang. It unified the warring states, standardized writing, currency, and measurements, and began major projects such as the early Great Wall and the Terracotta Army.",
+description_pt:"A Dinastia Qin (221–206 a.C.) foi a primeira dinastia imperial da China, fundada por Qin Shi Huang. Unificou os estados combatentes, padronizou escrita, moeda e medidas, e iniciou grandes obras como a Muralha e o Exército de Terracota.",
+facts:[
+  "Qin Shi Huang centralized power and ruled with strict Legalist policies.",
+  "The dynasty collapsed shortly after his death, but its reforms shaped all future Chinese empires."
+],
+facts_pt:[
+  "Qin Shi Huang centralizou o poder com políticas legalistas rígidas.",
+  "A dinastia colapsou logo após sua morte, mas suas reformas moldaram a China futura."
+],
+clues:[
+  "It was China’s first unified empire.",
+  "It standardized writing and measurements.",
+  "Its founder is buried with a vast terracotta army."
+],
+clues_pt:[
+  "Foi o primeiro império unificado da China.",
+  "Padronizou escrita e medidas.",
+  "Seu fundador está enterrado com um exército de terracota."
+],
+tags:["eastern"]},
+{name:"Delhi Sultanate",name_pt:"Sultanato de Déli",startYear:1206,endYear:1526,era:"Medieval",
+region:"Northern India",region_pt:"Norte da Índia",
+type:"Sultanate",type_pt:"Sultanato",
+culture:"Indian",culture_pt:"Indiano",
+hint:"A series of Muslim dynasties ruling northern India before the Mughal Empire",
+hint_pt:"Sultanato islâmico que governou o norte da Índia antes dos mongóis",
+description:"The Delhi Sultanate (1206–1526) was a succession of Muslim dynasties that ruled large parts of northern India. It introduced Islamic governance, architecture, and culture to the region and laid the groundwork for the later Mughal Empire.",
+description_pt:"O Sultanato de Déli (1206–1526) foi uma série de dinastias muçulmanas que governaram grande parte do norte da Índia. Introduziu governo, arquitetura e cultura islâmica na região.",
+facts:[
+  "It consisted of multiple dynasties, including the Mamluks, Khaljis, Tughlaqs, Sayyids, and Lodis.",
+  "It ended when Babur defeated Ibrahim Lodi at the First Battle of Panipat, founding the Mughal Empire."
+],
+facts_pt:[
+  "Incluiu várias dinastias como Mamelucos, Khaljis, Tughlaqs, Sayyids e Lodis.",
+  "Terminou quando Babur derrotou Ibrahim Lodi na Primeira Batalha de Panipat."
+],
+clues:[
+  "It ruled northern India before the Mughal Empire.",
+  "It was composed of several successive dynasties.",
+  "It ended with a famous battle at Panipat."
+],
+clues_pt:[
+  "Governou o norte da Índia antes do Império Mughal.",
+  "Era composto por várias dinastias sucessivas.",
+  "Terminou com uma famosa batalha em Panipat."
+],
+tags:["eastern"]},
+{name:"Ghurid Dynasty",name_pt:"Dinastia Gúrida",startYear:786,endYear:1215,era:"Medieval",
+region:"Afghanistan / Northern India",region_pt:"Afeganistão / Norte da Índia",
+type:"Dynasty",type_pt:"Dinastia",
+culture:"Persian",culture_pt:"Persa",
+hint:"The dynasty that paved the way for Islamic rule in northern India",
+hint_pt:"Dinastia que abriu caminho para o domínio islâmico na Índia",
+description:"The Ghurid Dynasty (c. 786–1215) rose from the mountainous region of Ghor in present-day Afghanistan. Under rulers like Muhammad of Ghor, it expanded into northern India, defeating Rajput kingdoms and laying the foundation for the Delhi Sultanate.",
+description_pt:"A Dinastia Gúrida (c. 786–1215) surgiu na região montanhosa de Ghor, no atual Afeganistão. Sob governantes como Muhammad de Ghor, expandiu-se para o norte da Índia, derrotando reinos rajputes e preparando o caminho para o Sultanato de Déli.",
+facts:[
+  "Muhammad of Ghor’s victories in India directly enabled the rise of the Delhi Sultanate.",
+  "The dynasty declined rapidly after internal conflicts and was replaced by its former generals."
+],
+facts_pt:[
+  "As vitórias de Muhammad de Ghor permitiram diretamente a ascensão do Sultanato de Déli.",
+  "A dinastia declinou rapidamente após conflitos internos."
+],
+clues:[
+  "It came from Afghanistan and expanded into India.",
+  "It defeated Rajput kingdoms.",
+  "It paved the way for the Delhi Sultanate."
+],
+clues_pt:[
+  "Veio do Afeganistão e expandiu-se para a Índia.",
+  "Derrotou reinos rajputes.",
+  "Preparou o caminho para o Sultanato de Déli."
+],
+tags:["eastern"]},
+{name:"Age of Enlightenment",name_pt:"Iluminismo",startYear:1685,endYear:1815,era:"Modern",
+region:"Europe",region_pt:"Europa",
+type:"Intellectual Movement",type_pt:"Movimento Intelectual",
+culture:"European",culture_pt:"Europeu",
+hint:"An intellectual movement emphasizing reason, science, and individual rights — shaping modern Western thought",
+hint_pt:"Movimento baseado na razão, ciência e direitos individuais",
+description:"The Age of Enlightenment (c. 1685–1815) was a European intellectual movement that emphasized reason, scientific inquiry, and individual rights. Thinkers like Voltaire, Rousseau, and Locke challenged traditional authority and influenced revolutions in America and France.",
+description_pt:"O Iluminismo (c. 1685–1815) foi um movimento intelectual europeu que enfatizou a razão, a ciência e os direitos individuais. Pensadores como Voltaire, Rousseau e Locke desafiaram a autoridade tradicional e influenciaram revoluções.",
+facts:[
+  "Enlightenment ideas directly inspired the American and French Revolutions.",
+  "It promoted secularism and questioned the power of monarchies and the Church."
+],
+facts_pt:[
+  "Ideias iluministas inspiraram diretamente as Revoluções Americana e Francesa.",
+  "Promoveu o secularismo e questionou o poder de monarquias e da Igreja."
+],
+clues:[
+  "It emphasized reason over tradition.",
+  "It influenced major revolutions in the West.",
+  "It challenged monarchy and religious authority."
+],
+clues_pt:[
+  "Enfatizou a razão sobre a tradição.",
+  "Influenciou grandes revoluções no Ocidente.",
+  "Desafiou monarquias e a autoridade religiosa."
+],
+tags:["western"]},
+{name:"Scientific Revolution",name_pt:"Revolução Científica",startYear:1543,endYear:1687,era:"Modern",
+region:"Europe",region_pt:"Europa",
+type:"Intellectual Movement",type_pt:"Movimento Intelectual",
+culture:"European",culture_pt:"Europeu",
+hint:"The transformation of science through observation, mathematics, and experimentation — from Copernicus to Newton",
+hint_pt:"Transformação da ciência baseada em observação, matemática e experimentação",
+description:"The Scientific Revolution (1543–1687) marked a fundamental transformation in science, driven by figures like Copernicus, Galileo, and Newton. It replaced classical and medieval understandings with empirical observation, mathematical laws, and experimentation.",
+description_pt:"A Revolução Científica (1543–1687) marcou uma transformação fundamental na ciência, liderada por Copérnico, Galileu e Newton. Substituiu visões clássicas por observação empírica, leis matemáticas e experimentação.",
+facts:[
+  "It began with Copernicus’ heliocentric model and culminated in Newton’s laws of motion and gravity.",
+  "It laid the foundations for modern science and the Enlightenment."
+],
+facts_pt:[
+  "Começou com o modelo heliocêntrico de Copérnico e culminou nas leis de Newton.",
+  "Estabeleceu as bases da ciência moderna e do Iluminismo."
+],
+clues:[
+  "It introduced the heliocentric model.",
+  "It emphasized experimentation and mathematics.",
+  "It culminated with Isaac Newton."
+],
+clues_pt:[
+  "Introduziu o modelo heliocêntrico.",
+  "Enfatizou experimentação e matemática.",
+  "Culminou com Isaac Newton."
+],
+tags:["western"]}
 ];
