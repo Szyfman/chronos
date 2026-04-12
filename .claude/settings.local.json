@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Usuário/.claude/plans/**)",
+      "Bash(ls -lh *.js *.html)",
+      "Bash(awk '{print $9, $5}')",
+      "Bash(grep -rn \"import\\\\|fetch\\\\|\\\\.js\\\\|\\\\.json\\\\|\\\\.png\\\\|url\\(\" /c/Users/Usuário/Desktop/Personal/Outros/Game/chronos/*.js)",
+      "Bash(grep -rn \"^\\\\s*//.*\\\\\\(state\\\\|game\\\\|ui\\\\|cards\\\\|bgm\\\\|sfx\\\\|i18n\\\\|trophies\\\\|manifest\\\\|icon\\\\|sw\\\\.js\\\\\\)\" /c/Users/Usuário/Desktop/Personal/Outros/Game/chronos/ --include=\"*.js\")",
+      "Bash(xargs ls:*)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Usuário\\Desktop\\Personal\\Outros\\Game\\chronos"
+    ]
+  }
+}

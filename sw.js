@@ -1,22 +1,22 @@
 // ── sw.js ─────────────────────────────────────────────────────────────────
 // Chronos service worker.
 // BUMP THIS VERSION on every deploy that changes any cached file.
-const CACHE = 'chronos-v4';
+const CACHE = 'chronos-v6';
 
 const FILES = [
   './',
   './index.html',
-  './state.js',
-  './cards.js',
-  './trophies.js',
-  './sfx.js',
-  './i18n.js',
-  './game.js',
-  './ui.js',
-  './manifest.json',
-  './icon-192.png',
-  './icon-512.png',
-  './apple-touch-icon.png'
+  './src/state.js',
+  './src/cards.js',
+  './src/trophies.js',
+  './src/sfx.js',
+  './src/i18n.js',
+  './src/game.js',
+  './src/ui.js',
+  './assets/manifest.json',
+  './assets/icon-192.png',
+  './assets/icon-512.png',
+  './assets/apple-touch-icon.png'
   // bgm.js intentionally excluded — large base64 asset, browser cache handles it fine
 ];
 
