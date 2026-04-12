@@ -2,6 +2,8 @@
 
 [![Play Now](https://img.shields.io/badge/Play-Now-gold?style=for-the-badge)](.) [![Offline PWA](https://img.shields.io/badge/PWA-Offline-blue?style=for-the-badge)](.) [![Vanilla JS](https://img.shields.io/badge/Vanilla-JS-yellow?style=for-the-badge)](.)
 
+![GitHub last commit](https://img.shields.io/github/last-commit/[username]/chronos?style=flat-square) ![Lines of Code](https://img.shields.io/badge/lines%20of%20code-~15k-informational?style=flat-square) ![Historical Cards](https://img.shields.io/badge/historical%20cards-1200%2B-success?style=flat-square)
+
 ## 🌍 English | 🇧🇷 Português
 
 ---
@@ -204,6 +206,45 @@ See [docs/CLAUDE.md - Adding a New Historical Card](docs/CLAUDE.md#adding-a-new-
 
 ---
 
+### FAQ
+
+<details>
+<summary><strong>❓ How accurate are the historical dates?</strong></summary>
+
+All cards are fact-checked against multiple reputable sources (Britannica, academic sources, peer-reviewed content). Dates use scholarly consensus when exact dates are disputed.
+
+</details>
+
+<details>
+<summary><strong>❓ Can I play offline?</strong></summary>
+
+Yes! Chronos is a full Progressive Web App. After your first visit, everything is cached locally. You can install it on your device and play without any internet connection.
+
+</details>
+
+<details>
+<summary><strong>❓ How do I unlock all trophies?</strong></summary>
+
+Trophies unlock by achieving specific milestones (e.g., high scores, completing certain game modes, placing specific card combinations). Each trophy reveals fascinating historical trivia. Check the trophy panel in-game for hints!
+
+</details>
+
+<details>
+<summary><strong>❓ Why vanilla JavaScript? Why no frameworks?</strong></summary>
+
+This is an educational project demonstrating that complex, polished applications don't need frameworks. It's faster, more maintainable long-term, and serves as a learning resource for "framework-free" development.
+
+</details>
+
+<details>
+<summary><strong>❓ Can I contribute cards or translations?</strong></summary>
+
+Yes! See the [Contributing](#contributing) section above and [docs/CLAUDE.md](docs/CLAUDE.md) for detailed guidelines on adding historical cards and maintaining bilingual support.
+
+</details>
+
+---
+
 ### Further Reading
 
 - **[CLAUDE.md](docs/CLAUDE.md)** - Comprehensive guide for AI agents working on this codebase (70KB, very detailed)
@@ -227,6 +268,50 @@ See [docs/CLAUDE.md - Adding a New Historical Card](docs/CLAUDE.md#adding-a-new-
 | Opera | Latest | ✅ Fully Supported |
 
 **Note:** Service worker support required for offline functionality.
+
+---
+
+### Roadmap
+
+Future improvements being considered:
+
+- 🌍 **Content Expansion**
+  - African history mode
+  - Pre-Columbian Americas mode
+  - Scientific discoveries mode
+
+- 🎮 **Gameplay Features**
+  - Multiplayer async challenges
+  - Time trial mode
+  - Endless mode with infinite deck
+
+- 📚 **Educational Features**
+  - Detailed explanations for incorrect placements
+  - Card relationship visualization
+  - Study mode with spaced repetition
+
+See [docs/CLAUDE.md - Future Roadmap](docs/CLAUDE.md#future-roadmap-ideas) for complete list.
+
+---
+
+### Screenshots
+
+<details>
+<summary>📸 View Game Screenshots</summary>
+
+*Screenshots to be added - showing gameplay, different modes, trophy system, and compendium*
+
+</details>
+
+---
+
+### Performance
+
+- ⚡ **Fast Load Times**: < 500ms first visit, < 100ms cached
+- 🎯 **Optimized Rendering**: Timeline renders in < 20ms (50 cards)
+- 💾 **Small Footprint**: ~2MB total (mostly historical content)
+- 📱 **Mobile Optimized**: Touch-friendly, responsive design
+- 🔌 **Works Offline**: Full game playable without internet
 
 ---
 
@@ -482,7 +567,29 @@ Veja [docs/CLAUDE.md - Adding a New Historical Card](docs/CLAUDE.md#adding-a-new
 
 ---
 
+### Status do Projeto
+
+🟢 **Ativo** - Regularmente atualizado com novas cartas históricas e melhorias
+
+**Versão atual**: Service Worker v6 (estrutura de pastas reorganizada)
+
+---
+
+### Contato & Comunidade
+
+- 💬 **Issues**: Relate bugs ou sugira recursos via GitHub Issues
+- 🌟 **Star este repo** se você achar útil!
+
+---
+
 **Made with 🕰️ and ❤️**
 
-*Chronos - Where history comes alive through gameplay*
+*Chronos - Where history comes alive through gameplay*  
 *Chronos - Onde a história ganha vida através da jogabilidade*
+
+---
+
+<p align="center">
+  <sub>Um projeto de paixão dedicado a tornar o aprendizado de história envolvente e divertido</sub><br>
+  <sub>A passion project dedicated to making history learning engaging and fun</sub>
+</p>

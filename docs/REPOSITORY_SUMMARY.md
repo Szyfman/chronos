@@ -40,19 +40,26 @@
 ```
 chronos/
 ├── index.html          # Main HTML structure (53k+ tokens)
-├── manifest.json       # PWA manifest
-├── state.js            # Global game state variables
-├── cards.js            # Historical card data (2787 lines)
-├── trophies.js         # Trophy definitions and checking logic
-├── game.js             # Core game mechanics
-├── ui.js               # UI rendering and interactions
-├── i18n.js             # Internationalization and translations
-├── bgm.js              # Background music (base64 data)
-├── sfx.js              # Sound effects engine
 ├── sw.js               # Service worker for caching
-├── icon-192.png        # PWA icon (192x192)
-├── icon-512.png        # PWA icon (512x512)
-├── icon-1024.png       # High-res icon
+├── README.md           # Project documentation (bilingual)
+├── src/                # JavaScript source files
+│   ├── state.js        # Global game state variables
+│   ├── game.js         # Core game mechanics (22KB)
+│   ├── ui.js           # UI rendering and interactions (63KB)
+│   ├── i18n.js         # Internationalization and translations (19KB)
+│   ├── cards.js        # Historical card data (727KB, 1200+ cards)
+│   ├── trophies.js     # Trophy definitions and checking logic (41KB)
+│   ├── sfx.js          # Sound effects engine (8KB)
+│   └── bgm.js          # Background music (1.3MB, base64 data)
+├── assets/             # Static assets
+│   ├── manifest.json   # PWA manifest
+│   ├── apple-touch-icon.png  # iOS home screen icon
+│   ├── icon-192.png    # PWA icon (192x192)
+│   ├── icon-512.png    # PWA icon (512x512)
+│   └── icon-1024.png   # High-res icon
+├── docs/               # Documentation
+│   ├── CLAUDE.md       # Comprehensive guide for AI agents
+│   └── REPOSITORY_SUMMARY.md  # This file
 └── .gitignore          # Git ignore rules
 ```
 

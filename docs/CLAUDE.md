@@ -39,7 +39,7 @@ When working on this codebase, you should:
 
 4. **Follow existing patterns**
    - Study similar code before adding new features
-   - Keep separation of concerns: state.js (data), game.js (logic), ui.js (rendering)
+   - Keep separation of concerns: src/state.js (data), src/game.js (logic), src/ui.js (rendering)
    - Use consistent naming conventions (see Repository Summary)
 
 5. **Test thoroughly**
@@ -114,7 +114,7 @@ When working on this codebase, you should:
 
 ### Adding a New Historical Card
 
-**Location**: `cards.js`
+**Location**: `src/cards.js`
 
 **For single-year events/people (CARDS array)**:
 ```javascript
@@ -251,7 +251,7 @@ When working on this codebase, you should:
 
 ### Modifying the Scoring System
 
-**Location**: `game.js`, `attemptPlacement()` function
+**Location**: `src/game.js`, `attemptPlacement()` function
 
 **Current formula**:
 ```javascript
@@ -275,7 +275,7 @@ score += basePoints + streak * 2;
 
 ### Adding a New Trophy
 
-**Location**: `trophies.js`, `TROPHY_DEFS` array
+**Location**: `src/trophies.js`, `TROPHY_DEFS` array
 
 ```javascript
 {
@@ -388,7 +388,7 @@ score += basePoints + streak * 2;
 
 ### Updating Translations
 
-**Location**: `i18n.js`, `S` object
+**Location**: `src/i18n.js`, `S` object
 
 **Adding new strings**:
 1. Add key-value pairs to both `en` and `pt` objects:
@@ -463,13 +463,13 @@ const CACHE = 'chronos-v4';  // Increment on every deploy
 ```
 User Input (DOM events)
   ↓
-UI handlers (ui.js)
+UI handlers (src/ui.js)
   ↓
-Game logic functions (game.js)
+Game logic functions (src/game.js)
   ↓
-State updates (state.js variables)
+State updates (src/state.js variables)
   ↓
-Render functions (ui.js)
+Render functions (src/ui.js)
   ↓
 DOM updates (visible to user)
 ```
@@ -480,14 +480,14 @@ DOM updates (visible to user)
 
 | File | Responsible For | NOT Responsible For |
 |------|----------------|---------------------|
-| `state.js` | Variable declarations, initial values | Logic, calculations, rendering |
-| `cards.js` | Historical content (data only) | Game mechanics, UI |
-| `trophies.js` | Trophy definitions, check logic | Rendering, state management |
-| `game.js` | Game rules, scoring, lifecycle | DOM manipulation, translations |
-| `ui.js` | Rendering, animations, interactions | Game rules, content data |
-| `i18n.js` | Translations, language switching | Game logic, state management |
-| `bgm.js` | Background music data | Volume controls (in ui.js) |
-| `sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
+| `src/state.js` | Variable declarations, initial values | Logic, calculations, rendering |
+| `src/cards.js` | Historical content (data only) | Game mechanics, UI |
+| `src/trophies.js` | Trophy definitions, check logic | Rendering, state management |
+| `src/game.js` | Game rules, scoring, lifecycle | DOM manipulation, translations |
+| `src/ui.js` | Rendering, animations, interactions | Game rules, content data |
+| `src/i18n.js` | Translations, language switching | Game logic, state management |
+| `src/bgm.js` | Background music data | Volume controls (in ui.js) |
+| `src/sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
 | `sw.js` | Caching, offline support | Game logic, content |
 
 ### Naming Conventions
@@ -945,7 +945,7 @@ console.log('Has all needed:', def.needed.every(n => placed.indexOf(n) >= 0));
 **A**: Yes, if widely supported. Check caniuse.com. Avoid very new features (ES2023+) that require transpilation.
 
 ### Q: Should I split cards.js into multiple files?
-**A**: Not yet. It's large but manageable. Only split if approaching 5000+ lines or if load time becomes measurably slow.
+**A**: Not yet. src/cards.js is large but manageable. Only split if approaching 5000+ lines or if load time becomes measurably slow.
 
 ### Q: Can I add a backend server?
 **A**: No. The game is intentionally client-side only. No servers, no APIs, no databases.
@@ -969,7 +969,7 @@ console.log('Has all needed:', def.needed.every(n => placed.indexOf(n) >= 0));
 **A**: No. CSS transitions and simple JS are sufficient. Don't add dependencies.
 
 ### Q: Can I reorganize file structure (src/, dist/, etc.)?
-**A**: Only if absolutely necessary. Current flat structure is simple and works. No src/dist split needed (no build step).
+**A**: The project now uses organized folders (src/, assets/, docs/) while maintaining the vanilla JS philosophy. The structure balances simplicity with scalability. No build step required.
 
 ### Q: Should I add ESLint / Prettier?
 **A**: Optional. If added, configure to match existing style. Don't enforce new conventions.

@@ -1244,7 +1244,7 @@ var _bgmFadeTimer = null;
 
 function _initBGM() {
   if (_bgm) return;
-  _bgm = new Audio(BGM_BASE64);
+  _bgm = new Audio('./assets/bgm.mp3');
   _bgm.loop = true;
   _bgm.volume = _musicMute ? 0 : _musicVol / 100;
   _bgm.preload = 'auto';

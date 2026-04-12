@@ -1,7 +1,7 @@
 // ── sw.js ─────────────────────────────────────────────────────────────────
 // Chronos service worker.
 // BUMP THIS VERSION on every deploy that changes any cached file.
-const CACHE = 'chronos-v6';
+const CACHE = 'chronos-v7';
 
 const FILES = [
   './',
@@ -13,11 +13,11 @@ const FILES = [
   './src/i18n.js',
   './src/game.js',
   './src/ui.js',
+  './assets/bgm.mp3',
   './assets/manifest.json',
   './assets/icon-192.png',
   './assets/icon-512.png',
   './assets/apple-touch-icon.png'
-  // bgm.js intentionally excluded — large base64 asset, browser cache handles it fine
 ];
 
 self.addEventListener('install', e => {
