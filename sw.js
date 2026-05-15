@@ -1,49 +1,78 @@
-// ── sw.js ─────────────────────────────────────────────────────────────────
-// Chronos service worker.
-// BUMP THIS VERSION on every deploy that changes any cached file.
-const CACHE = 'chronos-v8';
+const CACHE = 'chronos-v9';
+
+const BASE = '/chronos/';
 
 const FILES = [
-  './',
-  './index.html',
-  './src/state.js',
-  './src/cards.js',
-  './src/trophies.js',
-  './src/sfx.js',
-  './src/i18n.js',
-  './src/game.js',
-  './src/ui.js',
-  './assets/bgm.mp3',
-  './assets/manifest.json',
-  './assets/icon-192.png',
-  './assets/icon-512.png',
-  './assets/apple-touch-icon.png'
+  BASE,
+  BASE + 'index.html',
+
+  BASE + 'src/state.js',
+  BASE + 'src/cards.js',
+  BASE + 'src/trophies.js',
+  BASE + 'src/sfx.js',
+  BASE + 'src/i18n.js',
+  BASE + 'src/game.js',
+  BASE + 'src/ui.js',
+
+  BASE + 'assets/bgm.mp3',
+  BASE + 'assets/manifest.json',
+  BASE + 'assets/icon-192.png',
+  BASE + 'assets/icon-512.png',
+  BASE + 'assets/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(FILES).catch(() => {}))
+    caches.open(CACHE).then(cache => cache.addAll(FILES))
   );
+
   self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+      Promise.all(
+        keys
+          .filter(k => k !== CACHE)
+          .map(k => caches.delete(k))
+      )
     )
   );
+
   self.clients.claim();
 });
 
 self.addEventListener('fetch', e => {
+
+  if (e.request.method !== 'GET') return;
+
   e.respondWith(
-    caches.match(e.request).then(r =>
-      r || fetch(e.request).then(resp => {
-        const cl = resp.clone();
-        caches.open(CACHE).then(c => c.put(e.request, cl));
+    caches.match(e.request).then(cached => {
+
+      if (cached) return cached;
+
+      return fetch(e.request).then(resp => {
+
+        // Não cachear erros/404
+        if (!resp || resp.status !== 200) {
+          return resp;
+        }
+
+        const url = new URL(e.request.url);
+
+        // Cachear apenas mesmo domínio
+        if (url.origin === location.origin) {
+
+          const clone = resp.clone();
+
+          caches.open(CACHE).then(cache => {
+            cache.put(e.request, clone);
+          });
+        }
+
         return resp;
-      }).catch(() => caches.match(e.request))
-    )
+      });
+    })
   );
 });

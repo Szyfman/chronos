@@ -925,7 +925,34 @@
 <script id="pwa-init">
 (function(){
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./sw.js').catch(function(){});
+    navigator.serviceWorker.register('./sw.js?v=9').then(function(reg){
+      // Check for updates every 10 seconds on first load, then every 5 minutes
+      var checkCount = 0;
+      var checkInterval = setInterval(function(){
+        reg.update();
+        checkCount++;
+        if(checkCount >= 6) clearInterval(checkInterval); // Stop after 1 minute
+      }, 10000);
+
+      // Continue checking every 5 minutes
+      setTimeout(function(){
+        setInterval(function(){ reg.update(); }, 5 * 60 * 1000);
+      }, 60000);
+
+      // Listen for new service worker waiting
+      reg.addEventListener('updatefound', function(){
+        var newWorker = reg.installing;
+        if(newWorker){
+          newWorker.addEventListener('statechange', function(){
+            if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
+              // New SW installed, trigger reload after short delay
+              console.log('Update detected - reloading in 2s');
+              setTimeout(function(){ window.location.reload(); }, 2000);
+            }
+          });
+        }
+      });
+    }).catch(function(){});
   }
   var _dp;
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();_dp=e;setTimeout(function(){var b=document.getElementById('pwa-banner');if(b)b.style.display='flex';},2500);});
