@@ -1,7 +1,7 @@
 // ── sw.js ─────────────────────────────────────────────────────────────────
 // Chronos service worker.
 // BUMP THIS VERSION on every deploy that changes any cached file.
-const CACHE = 'chronos-v7';
+const CACHE = 'chronos-v8';
 
 const FILES = [
   './',
