@@ -177,6 +177,9 @@ When working on this codebase, you should:
 - **Names**: Use commonly recognized English names (Julius Caesar, not Gaius Julius Caesar)
 - **Dates**: Be as precise as possible, use reputable sources (Wikipedia + 2 other sources)
 - **Categories**: People (individuals), Events (everything else)
+- **Ranged vs single-year (IMPORTANT)**:
+  - **Empires, kingdoms, countries, and dynasties must ALWAYS be ranged cards** (INTERVALS array with `startYear`/`endYear`), never single-year cards. The same applies to other things with a clear span (eras, wars, movements). Use the rise/founding year as `startYear` and the fall/dissolution year as `endYear` (e.g. Bulgarian Empire: 681–1018).
+  - **Character (People) cards must use the person's BIRTH YEAR** as `year` — not the year they took power, were crowned, or died. (e.g. Constantine XI → 1405, Basil II → 958, Harun al-Rashid → 763, Baal Shem Tov → 1698.)
 - **Eras**: See Repository Summary for full era list
 - **Facts**: Write 3-5 interesting facts, make them engaging (not just "Born in X, died in Y")
 - **Clues**: Progressive difficulty - vague → specific → very specific (3 clues total)
