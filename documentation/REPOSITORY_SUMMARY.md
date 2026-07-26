@@ -127,7 +127,7 @@ var CARDS = [
   {
     name: 'Julius Caesar',          // English name
     name_pt: 'Júlio César',         // Portuguese name
-    year: -44,                       // BCE = negative, CE = positive
+    year: -100,                       // BCE = negative, CE = positive
     cat: 'People',                   // Category
     cat_pt: 'Pessoas',              // Portuguese category
     era: 'Classical',                // Historical era
