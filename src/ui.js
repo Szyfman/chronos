@@ -305,6 +305,7 @@ function openHistory(){
   if(gameActive)return;
   _fromGameover=false;
   document.getElementById('gameover').classList.remove('show');
+  _hpTab='streak';
   renderHistoryPanel();
   document.getElementById('history-panel').classList.add('open');
   _pushNavState('history');
@@ -317,6 +318,7 @@ function openHistory(){
 function openHistoryFromGameover(){
   _fromGameover=true;
   document.getElementById('gameover').classList.remove('show');
+  _hpTab='streak';
   renderHistoryPanel();
   document.getElementById('history-panel').classList.add('open');
   _pushNavState('history');
@@ -340,7 +342,7 @@ function closeHistory(){
   if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
 }
 function renderHistoryPanel(){
-  switchHpTab('timelines');
+  switchHpTab(_hpTab);
   document.getElementById('hp-title').textContent=t('history_title');
   document.getElementById('hp-close').textContent=t('hp_close');
   const list=document.getElementById('history-list');list.innerHTML='';
@@ -375,7 +377,7 @@ function toggleEntry(i){
 
 
 // ── HISTORY TABS ──────────────────────────────────────────────────────────
-var _hpTab = 'timelines';
+var _hpTab = 'streak';
 
 // ── HISTORY PANEL SWIPE ───────────────────────────────────────────────────
 var _hpSwipeStart = null;
