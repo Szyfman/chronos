@@ -4,7 +4,9 @@
       "Bash(git mv *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(grep -oE '[,{]year:' src/cards.js)"
+      "Bash(grep -oE '[,{]year:' src/cards.js)",
+      "PowerShell(git -C \"c:\\\\Users\\\\Usu�rio\\\\Desktop\\\\Personal\\\\Outros\\\\Game\\\\chronos\" status --porcelain)",
+      "Bash(awk 'NR==39||NR==67{n=index\\($0,\"tab_timelines\"\\); print NR\": \"substr\\($0,n\\)}' src/i18n.js)"
     ]
   }
 }
