@@ -46,11 +46,13 @@ function showIntro(){
   if(cs) cs.classList.remove('show');
   document.getElementById('gameover').classList.remove('show');
   document.getElementById('intro').classList.add('show');
+  _lastDailyResult=null; _hideDailyGameoverBtns();
   updateIntroHistBtn();
 }
 function restartGame(){
   _voluntaryEnd=false; _pendingGameRecord=null;
   currentCard=null; reviewMode=false;
+  _lastDailyResult=null; _hideDailyGameoverBtns();
   // Hide gameover and close any open panels immediately
   document.getElementById('gameover').classList.remove('show');
   var _fp2=document.getElementById('fact-panel');
@@ -507,27 +509,50 @@ function renderStreakTab(){
   var week=document.createElement('div'); week.className='streak-week';
   for(var i=0;i<7;i++){
     var day=new Date(monday); day.setDate(monday.getDate()+i);
+    var dst=_dailyStatus(day);
     var done=_isDailyDone(day);
     var isToday=day.getTime()===today.getTime();
     var dc=document.createElement('div'); dc.className='streak-day';
-    var dotCls='streak-dot'+(done?' done':'')+(isToday?' today':'');
+    var dotCls='streak-dot'+(done?' done':'')+(done&&!dst.won?' lost':'')+(isToday?' today':'');
     dc.innerHTML='<div class="streak-day-lbl">'+dayNames[i]+'</div><div class="'+dotCls+'"></div>';
     week.appendChild(dc);
   }
   panel.appendChild(week);
 
-  // ── Play button ───────────────────────────────────────────────────────
-  var doneToday=_todayDone();
+  // ── Play / retry button ───────────────────────────────────────────────
+  // Four states: never played · lost with tries left · won · out of tries.
+  // Note that "played today" (streak) and "can still play" are different
+  // questions — the latter is _dailyStatus().locked.
+  var st2=_dailyTodayStatus();
   var btn=document.createElement('button');
   btn.className='streak-play-btn';
-  btn.textContent=doneToday?t('daily_done'):t('daily_play');
-  btn.disabled=doneToday;
-  if(!doneToday) btn.onclick=function(){ closeHistory(); startDailyChallenge(); };
+  btn.disabled=st2.locked;
+  if(st2.won)              btn.textContent=t('daily_done');
+  else if(st2.locked)      btn.textContent=t('daily_no_tries');
+  else if(st2.attemptsUsed>0) btn.textContent=t('daily_retry');
+  else                     btn.textContent=t('daily_play');
+  if(!st2.locked) btn.onclick=function(){ closeHistory(); startDailyChallenge(); };
   panel.appendChild(btn);
-  if(doneToday){
+
+  if(!st2.locked&&st2.attemptsUsed>0){
+    var tries=document.createElement('div'); tries.className='streak-tries-msg';
+    tries.textContent=t('daily_tries_left').replace('{n}',st2.attemptsLeft).replace('{max}',DAILY_MAX_ATTEMPTS);
+    panel.appendChild(tries);
+  }
+  if(st2.won){
+    var cardBtn=document.createElement('button'); cardBtn.className='streak-card-btn';
+    cardBtn.textContent=t('daily_view_card');
+    cardBtn.onclick=function(){ openDailyCard(today.getFullYear(),today.getMonth(),today.getDate()); };
+    panel.appendChild(cardBtn);
+  }
+  if(st2.locked){
     var msg=document.createElement('div'); msg.className='streak-done-msg';
-    msg.textContent=t('daily_comeback');
+    msg.textContent=st2.won?t('daily_comeback'):t('daily_out_of_tries');
     panel.appendChild(msg);
+  } else if(st2.attemptsUsed===0){
+    var hint=document.createElement('div'); hint.className='streak-done-msg';
+    hint.textContent=t('daily_card_hint');
+    panel.appendChild(hint);
   }
 
   // ── Monthly calendar with prev/next navigation ───────────────────────
@@ -606,17 +631,22 @@ function _renderCalMonth(yr, mo){
   }
   var daysInMonth=new Date(yr,mo+1,0).getDate();
   for(var d=1;d<=daysInMonth;d++){
-    var rec=_getDailyRecord(new Date(yr,mo,d));
-    var cell=document.createElement('div');
     var dayDate=new Date(yr,mo,d); dayDate.setHours(0,0,0,0);
+    var dst=_dailyStatus(dayDate);
+    var rec=dst.rec;
+    var cell=document.createElement('div');
     var isFutureDay=dayDate.getTime()>today.getTime();
-    cell.className='dc-cal-cell'+(rec?' done':'')+(isFutureDay?' future':'');
+    cell.className='dc-cal-cell'+(rec?' done':'')+(rec?(dst.won?' won':' lost'):'')+(isFutureDay?' future':'');
     if(dayDate.getTime()===today.getTime()) cell.classList.add('today');
     cell.textContent=d;
     if(rec){
-      (function(r,cellEl,dayNum){
-        cellEl.onclick=function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
-      })(rec,cell,d);
+      // Won days open the reward card; played-but-unfinished days keep the
+      // existing inline run summary.
+      (function(r,cellEl,dayNum,won){
+        cellEl.onclick=won
+          ?function(){ openDailyCard(yr,mo,dayNum); }
+          :function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
+      })(rec,cell,d,dst.won);
     }
     grid.appendChild(cell);
   }
@@ -737,6 +767,81 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
   panel.innerHTML=html;
   // Insert after the grid row containing the cell
   cellEl.closest('.dc-month-block').appendChild(panel);
+}
+
+// ── DAILY REWARD CARD MODAL ───────────────────────────────────────────────
+// Unlocked by winning a daily (all 18 placed). Content comes from
+// DAILY_CARDS (dailycards.js) via _dailyCardFor(); days with no content yet
+// still open, showing the run stats plus a placeholder.
+var _dcardDate=null;   // date currently displayed, for language re-render
+
+function _fillDailyCard(date){
+  var card=_dailyCardFor(date);
+  var rec=_getDailyRecord(date);
+  var color=(card&&ERA_COLORS[card.era])||'var(--gold)';
+  var bar=document.getElementById('dcard-bar');
+  var frame=document.getElementById('dcard-frame');
+  if(bar) bar.style.background=color;
+  if(frame) frame.style.borderColor=card&&ERA_COLORS[card.era]?ERA_COLORS[card.era]+'66':'';
+  document.getElementById('dcard-tag').textContent=t('dcard_tag');
+  var yearEl=document.getElementById('dcard-year');
+  var titleEl=document.getElementById('dcard-title');
+  var metaEl=document.getElementById('dcard-meta');
+  var textEl=document.getElementById('dcard-text');
+  var factsEl=document.getElementById('dcard-facts');
+  factsEl.innerHTML='';
+  if(card){
+    yearEl.textContent=formatYear(card.year);
+    yearEl.style.display='';
+    titleEl.textContent=dcTitle(card);
+    var meta=[];
+    var _tag=dcTag(card); if(_tag) meta.push(_tag);
+    var _reg=dcRegion(card); if(_reg) meta.push(_reg);
+    if(card.era) meta.push(card.era);
+    metaEl.textContent=meta.join(' · ');
+    metaEl.style.display=meta.length?'':'none';
+    textEl.textContent=dcText(card);
+    dcFacts(card).forEach(function(f){
+      var li=document.createElement('li'); li.textContent=f; factsEl.appendChild(li);
+    });
+  } else {
+    yearEl.style.display='none';
+    titleEl.textContent=date.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'long'});
+    metaEl.style.display='none';
+    textEl.textContent=t('dcard_soon');
+  }
+  // Footer: the run that unlocked this card
+  var runEl=document.getElementById('dcard-run');
+  var dateStr=date.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short',year:'numeric'});
+  if(rec){
+    runEl.textContent='📅 '+dateStr+' · '+rec.score+' pts · '+rec.placed+'/'+DAILY_DECK_SIZE+' '
+      +(lang==='pt'?'cartas':'cards')
+      +(rec.attempts>1?' · '+_dailyAttemptLabel(rec.attempts):'');
+  } else {
+    runEl.textContent='📅 '+dateStr;
+  }
+  document.getElementById('dcard-close').textContent=t('dcard_close');
+}
+
+function openDailyCard(yr,mo,d){
+  _dcardDate=new Date(yr,mo,d);
+  _fillDailyCard(_dcardDate);
+  document.getElementById('dcard-modal').scrollTop=0;
+  document.getElementById('dcard-bg').classList.add('open');
+  document.getElementById('dcard-modal').classList.add('open');
+  _pushNavState('dailycard');
+}
+
+function closeDailyCard(){
+  var m=document.getElementById('dcard-modal');
+  if(!m||!m.classList.contains('open')) return;
+  // Only pop when we own the top of the stack: the popstate handler has
+  // already popped by the time it calls us, so a blind pop would eat the
+  // entry of whatever panel we were opened from.
+  if(_navStack[_navStack.length-1]==='dailycard') _popNavState();
+  m.classList.remove('open');
+  document.getElementById('dcard-bg').classList.remove('open');
+  _dcardDate=null;
 }
 
 // ── DAILY CHALLENGE ───────────────────────────────────────────────────────
@@ -1351,7 +1456,7 @@ window.addEventListener('DOMContentLoaded', function() {
   ghost = document.getElementById('ghost');
   document.getElementById('hand-card').addEventListener('pointerdown', startDrag);
   // Keyboard shortcuts
-  document.addEventListener('keydown', e => { if(e.key==='Escape'){closeFact();closeConfirm();cancelDel();} });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){closeDailyCard();closeFact();closeConfirm();cancelDel();} });
   document.addEventListener('touchmove', e => { if(isDragging)e.preventDefault(); }, {passive:false});
   // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
   function _closeFactIfOpen(e){
@@ -1418,6 +1523,7 @@ function _closePanel(panel) {
     case 'trophies': closeTrophies(); break;
     case 'settings': closeSettings(); break;
     case 'cultures': closeCultures(); break;
+    case 'dailycard': closeDailyCard(); break;
     case 'gameover': showIntro(); break;
   }
 }

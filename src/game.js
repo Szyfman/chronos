@@ -41,7 +41,15 @@ const MODE_LOST={
 var _pendingGameRecord = null;
 var _voluntaryEnd = false;
 
+// ── DAILY CHALLENGE STATE ─────────────────────────────────────────────────
+var DAILY_MAX_ATTEMPTS = 3;   // tries allowed per calendar day
+var DAILY_DECK_SIZE    = 18;  // cards to place to win the daily
+
 var _isDailyChallenge = false;
+var _dailyAttempt     = 0;     // 1-based index of the attempt being played
+var _dailyRunDate     = null;  // date pinned at launch — immune to midnight rollover
+var _dailyCommitted   = false; // has this attempt been written to localStorage yet?
+var _lastDailyResult  = null;  // {won, attempts, attemptsLeft, date} for the gameover screen
 
 // Seeded PRNG (mulberry32) — same seed = same sequence every time
 function _seededRNG(seed){
@@ -52,11 +60,11 @@ function _seededRNG(seed){
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
   };
 }
-function _dailySeed(){
-  var d = new Date(); 
+function _dailySeedFor(date){
   // seed = YYYYMMDD as integer
-  return d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
+  return date.getFullYear() * 10000 + (date.getMonth()+1) * 100 + date.getDate();
 }
+function _dailySeed(){ return _dailySeedFor(new Date()); }
 function _seededShuffle(arr, rng){
   var a = arr.slice();
   for(var i = a.length - 1; i > 0; i--){
@@ -66,8 +74,16 @@ function _seededShuffle(arr, rng){
   return a;
 }
 
-function startDailyChallenge(){
-  if(_todayDone()) return;
+// Launches (or relaunches) today's daily. Shared by the Streak-tab button and
+// the gameover retry button — the only difference is which attempt it is.
+function _launchDaily(){
+  var today = new Date(); today.setHours(0,0,0,0);
+  var st = _dailyStatus(today);
+  if(st.locked) return;   // already won today, or out of attempts
+  _dailyRunDate    = today;
+  _dailyAttempt    = st.attemptsUsed + 1;
+  _dailyCommitted  = false;
+  _lastDailyResult = null;
   gameMode = 'classic';
   eraFilter = 'all';
   livesMode = true;
@@ -78,6 +94,7 @@ function startDailyChallenge(){
   var _cs=document.getElementById('cultures-screen');
   if(_cs) _cs.classList.remove('show');
   document.getElementById('gameover').classList.remove('show');
+  _hideDailyGameoverBtns();
   // Restore hint/skip visibility (will be re-hidden inside initGame daily block)
   var _hBtnR=document.getElementById('hint-btn');
   var _sBtnR=document.getElementById('skip-btn');
@@ -85,22 +102,57 @@ function startDailyChallenge(){
   if(_sBtnR) _sBtnR.style.display='';
   initGame();
 }
+function startDailyChallenge(){ _launchDaily(); }
+function retryDailyChallenge(){ _launchDaily(); }
 
-function _markDailyDone(){
-  var today = new Date(); today.setHours(0,0,0,0);
-  var record = {
-    score: score,
-    placed: timeline.length,
-    timeline: timeline.map(function(c){
-      return {
-        name: cName(c),
-        year: cardYear(c),
-        span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
-        era: c.era
-      };
-    })
+// Timeline snapshot as stored inside a daily record
+function _dailyTimelineSnapshot(){
+  return timeline.map(function(c){
+    return {
+      name: cName(c),
+      year: cardYear(c),
+      span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
+      era: c.era
+    };
+  });
+}
+
+// Called on the first placement of a daily run. Burns the attempt immediately
+// so killing the app mid-run can't hand out unlimited tries — and it's what
+// makes the day count towards the streak.
+function _commitDailyAttempt(){
+  if(!_dailyRunDate) return;
+  var rec = _getDailyRecord(_dailyRunDate) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
+  rec.v = 2;
+  rec.attempts = Math.max(rec.attempts, _dailyAttempt);
+  _writeDailyRecord(_dailyRunDate, rec);
+  _dailyCommitted = true;
+}
+
+// Called from endGame: merges this attempt into the day's record, keeping only
+// the best run, and remembers the outcome for the gameover screen.
+function _saveDailyResult(won){
+  var date = _dailyRunDate || new Date();
+  var rec = _getDailyRecord(date) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
+  rec.v = 2;
+  rec.attempts = Math.max(rec.attempts, _dailyAttempt);
+  var better = won || timeline.length > rec.placed
+            || (timeline.length === rec.placed && score > rec.score);
+  if(better){
+    rec.score = score;
+    rec.placed = timeline.length;
+    rec.timeline = _dailyTimelineSnapshot();
+  }
+  rec.won = rec.won || !!won;
+  _writeDailyRecord(date, rec);
+  _lastDailyResult = {
+    won: rec.won,
+    attempts: rec.attempts,
+    attemptsLeft: rec.won ? 0 : Math.max(0, DAILY_MAX_ATTEMPTS - rec.attempts),
+    date: date
   };
-  try{ localStorage.setItem(_dailyKey(today), JSON.stringify(record)); }catch(e){}
+  _isDailyChallenge = false;
+  _dailyCommitted = false;
 }
 
 
@@ -273,9 +325,14 @@ function initGame(){
   deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;lives=3;hints=3;skip=1;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
   // Daily challenge overrides
   if(_isDailyChallenge){
-    var _dcPool=[...CARDS,...INTERVALS];
-    var _rng=_seededRNG(_dailySeed());
-    deck=_seededShuffle(_dcPool,_rng).slice(0,18);
+    // Two-stage seeding: WHICH 18 cards comes from the plain day seed, so every
+    // player faces the same set. Retries reshuffle only the ORDER, so a second
+    // attempt can't be won from memory. Attempt 1 is byte-identical to before.
+    var _seed=_dailySeedFor(_dailyRunDate||new Date());
+    var _base=_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE);
+    deck=_dailyAttempt>1
+      ?_seededShuffle(_base,_seededRNG(_seed+_dailyAttempt*104729))
+      :_base;
     hints=0; skip=0;
     var _hcEl=document.getElementById('hint-count');
     if(_hcEl) _hcEl.textContent='0';
@@ -350,6 +407,8 @@ function useSkip(){
 // ── GAME LOGIC ────────────────────────────────────────────────────────────
 function attemptPlacement(idx){
   if(!currentCard||!gameActive)return;
+  // Burn the daily attempt on the very first placement, not at endGame
+  if(_isDailyChallenge&&!_dailyCommitted)_commitDailyAttempt();
   const card=currentCard;
   const cy=cardYear(card);
   const prev=timeline[idx-1],next=timeline[idx];
@@ -400,15 +459,16 @@ function attemptPlacement(idx){
 // ── GAME OVER ─────────────────────────────────────────────────────────────
 function endGame(won){
   gameActive=false;
-  // Zero cards placed: skip gameover, return to intro
+  // Zero cards placed: skip gameover, return to intro.
+  // No attempt was committed either, so the daily stays fully available.
   if(timeline.length===0){
     document.getElementById('hist-btn').style.visibility='';
     _pendingGameRecord=null; _voluntaryEnd=false;
-    _isDailyChallenge=false;
+    _isDailyChallenge=false; _dailyCommitted=false; _lastDailyResult=null;
     showIntro(); return;
   }
-  // Mark daily challenge complete
-  if(_isDailyChallenge){ _markDailyDone(); _isDailyChallenge=false; }
+  // Record the daily attempt (win or loss) — also clears _isDailyChallenge
+  if(_isDailyChallenge){ _saveDailyResult(won); }
   _pendingGameRecord = buildGameRecord(won);
   _eagerSaveDiscovered();
   checkTrophies();
@@ -426,8 +486,48 @@ function endGame(won){
   var _saveBtn=document.getElementById('go-save-btn');
   if(_saveBtn){_saveBtn.textContent=lang==='pt'?'💾 Salvar Timeline':'💾 Save Timeline';_saveBtn.disabled=false;_saveBtn.style.opacity='';}
   document.getElementById('go-again-btn').textContent=t('play_again');
+  _renderDailyGameover();
   // stopMusic(true);
   document.getElementById('gameover').classList.add('show');
+}
+
+// ── DAILY GAMEOVER CONTROLS ───────────────────────────────────────────────
+function _hideDailyGameoverBtns(){
+  var r=document.getElementById('go-retry-btn'); if(r) r.style.display='none';
+  var c=document.getElementById('go-dcard-btn'); if(c) c.style.display='none';
+}
+function _dailyAttemptLabel(n){
+  return t('daily_attempt_of').replace('{n}',n).replace('{max}',DAILY_MAX_ATTEMPTS);
+}
+// Decorates the gameover screen for a daily run: retry, reward card, or nothing
+function _renderDailyGameover(){
+  _hideDailyGameoverBtns();
+  if(!_lastDailyResult) return;
+  var res=_lastDailyResult;
+  var retry=document.getElementById('go-retry-btn');
+  var dcard=document.getElementById('go-dcard-btn');
+  var again=document.getElementById('go-again-btn');
+  if(again) again.textContent=t('daily_exit');
+  if(res.won){
+    if(dcard){
+      dcard.style.display='';
+      dcard.textContent=t('daily_view_card');
+      dcard.onclick=function(){
+        openDailyCard(res.date.getFullYear(),res.date.getMonth(),res.date.getDate());
+      };
+    }
+  } else if(res.attemptsLeft>0){
+    var _sub=document.getElementById('go-sub');
+    if(_sub) _sub.textContent=t('daily_try_again_sub');
+    if(retry){
+      retry.style.display='';
+      retry.textContent=t('daily_retry')+' · '+_dailyAttemptLabel(res.attempts+1);
+      retry.onclick=function(){ retryDailyChallenge(); };
+    }
+  } else {
+    var _sub2=document.getElementById('go-sub');
+    if(_sub2) _sub2.textContent=t('daily_out_of_tries');
+  }
 }
 
 // ── HISTORY ───────────────────────────────────────────────────────────────
@@ -471,16 +571,49 @@ function _dailyKey(date){
   var d=String(date.getDate()).padStart(2,'0');
   return 'chronos_daily_'+y+'-'+m+'-'+d;
 }
+// NOTE: "done" means the day was PLAYED, win or loss — this is what feeds the
+// streak, and it deliberately stays key-presence only. Whether the day can
+// still be played is a separate question, answered by _dailyStatus().locked.
 function _isDailyDone(date){
   try{ return !!localStorage.getItem(_dailyKey(date)); }catch(e){ return false; }
+}
+function _writeDailyRecord(date, rec){
+  try{ localStorage.setItem(_dailyKey(date), JSON.stringify(rec)); }catch(e){}
 }
 function _getDailyRecord(date){
   try{
     var raw=localStorage.getItem(_dailyKey(date));
     if(!raw) return null;
-    if(raw==='1') return {score:0,placed:0,timeline:[]};
-    return JSON.parse(raw);
+    if(raw==='1') return {v:1,attempts:1,won:false,score:0,placed:0,timeline:[]};
+    var rec=JSON.parse(raw);
+    if(!rec||typeof rec!=='object') return null;
+    // Lazy migration for v1 records (no attempt/win tracking): the stored
+    // `placed` still tells us whether the day was actually completed.
+    // Nothing is rewritten here — normalisation persists on the next write.
+    if(typeof rec.placed!=='number') rec.placed=0;
+    if(typeof rec.score!=='number') rec.score=0;
+    if(typeof rec.won!=='boolean') rec.won=rec.placed>=DAILY_DECK_SIZE;
+    if(typeof rec.attempts!=='number'||rec.attempts<1) rec.attempts=1;
+    if(!Array.isArray(rec.timeline)) rec.timeline=[];
+    return rec;
   }catch(e){ return null; }
+}
+// Single source of truth for "what can the player do with this day?"
+function _dailyStatus(date){
+  var rec=_getDailyRecord(date);
+  var used=rec?rec.attempts:0;
+  var won=!!(rec&&rec.won);
+  return {
+    rec: rec,
+    attemptsUsed: used,
+    won: won,
+    attemptsLeft: won?0:Math.max(0,DAILY_MAX_ATTEMPTS-used),
+    locked: won||used>=DAILY_MAX_ATTEMPTS
+  };
+}
+function _dailyTodayStatus(){
+  var d=new Date(); d.setHours(0,0,0,0);
+  return _dailyStatus(d);
 }
 function _calcStreak(){
   var today=new Date(); today.setHours(0,0,0,0);
@@ -517,6 +650,28 @@ function _calcStreak(){
 function _todayDone(){
   var t=new Date(); t.setHours(0,0,0,0);
   return _isDailyDone(t);
+}
+
+// ── DAILY REWARD CARD ─────────────────────────────────────────────────────
+// Content lives in dailycards.js, keyed by MM-DD so 366 entries cover every
+// year. A day may hold several alternates; pick one deterministically by year.
+function _dailyCardKey(date){
+  return String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
+}
+function _dailyCardFor(date){
+  if(typeof DAILY_CARDS==='undefined') return null;
+  var arr=DAILY_CARDS[_dailyCardKey(date)];
+  if(!Array.isArray(arr)||!arr.length) return null;
+  return arr.length===1?arr[0]:arr[date.getFullYear()%arr.length];
+}
+// Localised accessors, matching the cName/cHint pattern in i18n.js
+function dcTitle(c){ return (lang==='pt'?c.title_pt:c.title)||c.title||''; }
+function dcText(c){ return (lang==='pt'?c.text_pt:c.text)||c.text||''; }
+function dcRegion(c){ return (lang==='pt'?(c.region_pt||c.region):c.region)||''; }
+function dcTag(c){ return (lang==='pt'?(c.tag_pt||c.tag):c.tag)||''; }
+function dcFacts(c){
+  var f=lang==='pt'?(c.facts_pt||c.facts):(c.facts||c.facts_pt);
+  return Array.isArray(f)?f:[];
 }
 
 

@@ -542,6 +542,24 @@
   body.light .dc-cal-cell.done{background:#1d4ed8;color:#ffffff}
   body.light .dc-cal-cell.today.done{box-shadow:0 0 0 2px rgba(29,78,216,.35)}
   body.light .dc-cal-cell.today:not(.done){border-color:#1d4ed8;color:#1d4ed8}
+  /* Played days: .done keeps the streak visuals, .won/.lost split the outcome.
+     .won keeps the solid gold + a corner marker (the reward card is unlocked);
+     .lost is played-but-unfinished and only opens the run summary. */
+  .dc-cal-cell.done{position:relative}
+  .dc-cal-cell.done.won::after{content:'★';position:absolute;top:-3px;right:-1px;font-size:.42rem;line-height:1;color:var(--gold);text-shadow:0 0 2px #0d0c0a}
+  .dc-cal-cell.done.lost{background:rgba(201,168,76,.16);color:var(--gold);border:1px dashed rgba(201,168,76,.45);font-weight:600}
+  .dc-cal-cell.done.lost:hover{background:rgba(201,168,76,.26)}
+  body.light .dc-cal-cell.done.won::after{color:#1d4ed8;text-shadow:0 0 2px #fff}
+  body.light .dc-cal-cell.done.lost{background:#e8efff;color:#1d4ed8;border-color:#93c5fd}
+  body.light .dc-cal-cell.done.lost:hover{background:#dbe7ff}
+  /* Week dots mirror the same split */
+  .streak-dot.lost{background:rgba(201,168,76,.3);border-color:rgba(201,168,76,.5)}
+  body.light .streak-dot.lost{background:#c7d8fb;border-color:#93c5fd}
+  .streak-tries-msg{font-size:.62rem;color:var(--cream-dim);font-family:'Inter',sans-serif;text-align:center;margin-top:-4px}
+  .streak-card-btn{width:100%;max-width:280px;padding:11px 0;background:transparent;border:1px solid var(--gold-dim);border-radius:10px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:background .2s}
+  .streak-card-btn:hover{background:rgba(201,168,76,.12)}
+  body.light .streak-card-btn{border-color:#93c5fd;color:#1d4ed8}
+  body.light .streak-card-btn:hover{background:#eff6ff}
   .dc-entry-panel{margin-top:8px;border-top:1px solid rgba(201,168,76,.12);padding-top:10px}
   .dc-entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .dc-entry-date{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;color:var(--gold)}
@@ -742,6 +760,46 @@
   body.light #tp-modal-divider{background:rgba(29,78,216,.12)!important}
   body.light #tp-modal-req-lbl{color:#64748b!important}
   body.light #tp-modal-req-body{color:#334155!important}
+  /* ── DAILY REWARD CARD MODAL ──────────────────────────────────────────
+     z-index sits above #history-panel (710) and the trophy modal (801),
+     since it can be opened from the calendar inside the history panel. */
+  #dcard-bg{position:fixed;inset:0;z-index:810;background:rgba(0,0,0,.72);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s}
+  #dcard-bg.open{opacity:1;pointer-events:all}
+  #dcard-modal{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:420px;z-index:811;background:#1a1710;border-radius:16px 16px 0 0;padding:18px 20px 30px;transition:transform .32s cubic-bezier(.22,1,.36,1);max-height:88dvh;overflow-y:auto;scrollbar-width:none;box-shadow:0 -8px 40px rgba(0,0,0,.6)}
+  #dcard-modal::-webkit-scrollbar{display:none}
+  #dcard-modal.open{transform:translateX(-50%) translateY(0)}
+  body.light #dcard-modal{background:#ffffff;box-shadow:0 -8px 40px rgba(15,23,42,.14)}
+  #dcard-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:0 auto 16px;cursor:pointer}
+  body.light #dcard-pill{background:#cbd5e1}
+  /* The card itself — framed, with an era-coloured top bar */
+  #dcard-frame{position:relative;border:1px solid rgba(201,168,76,.28);border-radius:12px;padding:20px 18px 18px;background:linear-gradient(180deg,rgba(201,168,76,.07),rgba(201,168,76,.01));overflow:hidden}
+  body.light #dcard-frame{border-color:#cbd5e1;background:linear-gradient(180deg,#f8fafc,#ffffff)}
+  #dcard-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold)}
+  #dcard-tag{font-size:.46rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  #dcard-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
+  body.light #dcard-tag{color:#1d4ed8}
+  body.light #dcard-tag::after{background:#cbd5e1}
+  #dcard-year{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
+  body.light #dcard-year{color:#1d4ed8}
+  #dcard-title{font-family:'Inter',sans-serif;font-weight:700;font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:5px}
+  body.light #dcard-title{color:#0f172a}
+  #dcard-meta{font-size:.54rem;color:var(--cream-dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px;font-family:'Inter',sans-serif}
+  body.light #dcard-meta{color:#64748b}
+  #dcard-text{font-family:'Inter',sans-serif;font-size:.9rem;color:var(--cream);line-height:1.68;font-weight:300}
+  body.light #dcard-text{color:#334155}
+  #dcard-facts{list-style:none;margin:14px 0 0;padding:13px 0 0;border-top:1px solid rgba(201,168,76,.14);display:flex;flex-direction:column;gap:8px}
+  body.light #dcard-facts{border-top-color:#e2e8f0}
+  #dcard-facts:empty{display:none}
+  #dcard-facts li{font-family:'Inter',sans-serif;font-size:.76rem;line-height:1.6;color:var(--cream-dim);padding-left:14px;position:relative}
+  #dcard-facts li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700}
+  body.light #dcard-facts li{color:#475569}
+  body.light #dcard-facts li::before{color:#1d4ed8}
+  #dcard-run{margin-top:14px;font-family:'Inter',sans-serif;font-size:.58rem;color:var(--cream-dim);text-align:center;letter-spacing:.06em}
+  body.light #dcard-run{color:#64748b}
+  #dcard-close{width:100%;margin-top:16px;padding:11px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;color:rgba(201,168,76,.75);font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.08em;cursor:pointer;transition:all .2s}
+  #dcard-close:hover{background:rgba(201,168,76,.14);color:#c9a84c}
+  body.light #dcard-close{background:#f1f5f9;border-color:#cbd5e1;color:#334155}
+  body.light #dcard-close:hover{background:#dbeafe;border-color:#1d4ed8;color:#1d4ed8}
   /* Cards grid inside modal — make cards tappable */
   .tc{cursor:pointer}
   .tc:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
@@ -925,7 +983,7 @@
 <script id="pwa-init">
 (function(){
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./sw.js?v=10').then(function(reg){
+    navigator.serviceWorker.register('./sw.js?v=15').then(function(reg){
       // Check for updates every 10 seconds on first load, then every 5 minutes
       var checkCount = 0;
       var checkInterval = setInterval(function(){
@@ -966,6 +1024,7 @@
 <script src="src/state.js"></script>
 <script src="src/cards.js"></script>
 <script src="src/trophies.js"></script>
+<script src="src/dailycards.js"></script>
 <script src="src/sfx.js"></script>
 <script src="src/i18n.js"></script>
 <script src="src/game.js"></script>
@@ -1196,6 +1255,8 @@
   <div id="go-score">0</div>
   <div id="go-score-lbl">Final Score</div>
   <div class="go-btns">
+    <button class="go-btn primary" id="go-retry-btn" style="display:none" onclick="retryDailyChallenge()">🔄 Try Again</button>
+    <button class="go-btn primary" id="go-dcard-btn" style="display:none">🎴 See Today's Card</button>
     <button class="go-btn secondary" id="go-save-btn" onclick="saveAndOpenHistory()">💾 Save Timeline</button>
     <button class="go-btn primary" id="go-again-btn" onclick="restartGame()">Play Again</button>
   </div>
@@ -1286,6 +1347,25 @@
   <div id="tp-modal-req-lbl" style="display:none;font:700 .6rem/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,76,.35);margin-bottom:8px"></div>
   <div id="tp-modal-req-body" style="display:none;font-size:.82rem;line-height:1.65;color:rgba(201,168,76,.55);font-family:Inter,sans-serif"></div>
   <button id="tp-modal-close" onclick="closeTrophyModal()">Close</button>
+</div>
+
+<!-- DAILY REWARD CARD MODAL -->
+<!-- Must stay a body-level sibling: #history-panel is a transformed element, so
+     a fixed-position child would be positioned/clipped relative to it. -->
+<div id="dcard-bg" onclick="closeDailyCard()"></div>
+<div id="dcard-modal">
+  <div id="dcard-pill" onclick="closeDailyCard()"></div>
+  <div id="dcard-frame">
+    <div id="dcard-bar"></div>
+    <div id="dcard-tag"></div>
+    <div id="dcard-year"></div>
+    <div id="dcard-title"></div>
+    <div id="dcard-meta"></div>
+    <div id="dcard-text"></div>
+    <ul id="dcard-facts"></ul>
+  </div>
+  <div id="dcard-run"></div>
+  <button id="dcard-close" onclick="closeDailyCard()">✕ Close</button>
 </div>
 
 <!-- TROPHY TOAST -->
