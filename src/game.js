@@ -577,8 +577,36 @@ function _dailyKey(date){
 function _isDailyDone(date){
   try{ return !!localStorage.getItem(_dailyKey(date)); }catch(e){ return false; }
 }
+// Browsers disagree on how a full quota surfaces: the spec name, Firefox's
+// legacy name, and older WebKit's numeric code 22 are all in the wild.
+function _isQuotaError(e){
+  if(!e) return false;
+  return e.name==='QuotaExceededError'
+      || e.name==='NS_ERROR_DOM_QUOTA_REACHED'
+      || e.code===22 || e.code===1014;
+}
+
+// Returns whether the write actually landed. A silent failure here is the
+// worst outcome in the app: the key never appears, so _isDailyDone reads false,
+// the run is forgotten and the streak breaks with no signal to the player.
+// If the quota is what stopped us, free the timelines and retry once.
 function _writeDailyRecord(date, rec){
-  try{ localStorage.setItem(_dailyKey(date), JSON.stringify(rec)); }catch(e){}
+  try{
+    localStorage.setItem(_dailyKey(date), JSON.stringify(rec));
+    return true;
+  }catch(e){
+    // Only a full quota justifies the fallback. Any other failure (storage
+    // disabled, private-mode restrictions, a transient error) would otherwise
+    // destroy every stored timeline for nothing.
+    if(_isQuotaError(e) && _pruneDailyTimelines(0)){
+      try{
+        localStorage.setItem(_dailyKey(date), JSON.stringify(rec));
+        return true;
+      }catch(e2){}
+    }
+    try{ console.warn('chronos: daily record not saved — storage full'); }catch(e3){}
+    return false;
+  }
 }
 function _getDailyRecord(date){
   try{
@@ -651,6 +679,91 @@ function _todayDone(){
   var t=new Date(); t.setHours(0,0,0,0);
   return _isDailyDone(t);
 }
+
+// ── STORAGE HYGIENE ───────────────────────────────────────────────────────
+// Daily records are the only unbounded store in the game: one key per day,
+// kept forever. Everything else has a ceiling — history at 30 entries, the
+// discovered set at deck size, the rest scalars — and together they stall
+// around 110KB. A daily record is ~1.3KB and roughly 95% of it is the 18-card
+// timeline snapshot, which exists only so a recent run can be re-read from the
+// calendar. At one key per day that reaches the ~5MB localStorage ceiling in
+// about five years, and localStorage offers no way to ask for more.
+//
+// So we put a ceiling on the one thing that lacks one: drop the timeline once
+// it is older than the retention window. score/placed/won/attempts total ~80
+// chars and are kept forever, so the calendar, the streak and the reward card
+// are unaffected; only "review that day's timeline" expires. The renderer
+// already guards on an empty timeline (ui.js:760), so it degrades to the
+// date-and-score header on its own.
+var DAILY_TIMELINE_RETENTION_DAYS = 120;
+var _DAILY_PREFIX   = 'chronos_daily_';
+var _PRUNE_MARK_KEY = 'chronos_prune_mark';  // deliberately NOT _DAILY_PREFIX,
+                                             // or the sweep would scan itself
+
+// Strips stored timelines dated strictly BEFORE (today - retentionDays); the
+// cutoff day itself is kept. That boundary is load-bearing, not incidental: it
+// is what makes retentionDays=0 mean "every past day, but never today", so the
+// quota fallback below can free space without eating the run it is trying to
+// save. Returns true only if something was actually freed, so the caller knows
+// whether a retry is worth attempting.
+function _pruneDailyTimelines(retentionDays){
+  var freed=false;
+  try{
+    var cutoff=new Date(); cutoff.setHours(0,0,0,0);
+    cutoff.setDate(cutoff.getDate()-retentionDays);
+    var cutoffStr=_dailyKey(cutoff).slice(_DAILY_PREFIX.length);
+    // Days at or below the watermark were swept on an earlier boot and hold no
+    // timeline any more. Only the window that has aged past the cutoff since
+    // then needs re-reading — without this the sweep would re-read every key
+    // on every boot, forever.
+    var mark=retentionDays>0?(localStorage.getItem(_PRUNE_MARK_KEY)||''):'';
+    var stale=[];
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(!k||k.lastIndexOf(_DAILY_PREFIX,0)!==0) continue;
+      var ds=k.slice(_DAILY_PREFIX.length);
+      // 'YYYY-MM-DD' sorts lexicographically, so a string compare is a date
+      // compare. Length check also rejects any non-date key sharing the prefix.
+      if(ds.length!==10||ds>=cutoffStr||ds<=mark) continue;
+      stale.push(k);
+    }
+    // Collected first, mutated after: never write to localStorage while
+    // walking it by index.
+    stale.forEach(function(k){
+      var raw=localStorage.getItem(k);
+      // Cheap string test skips already-pruned and v1 records without parsing.
+      if(!raw||raw.indexOf('"timeline":[]')>=0||raw.indexOf('"timeline"')<0) return;
+      try{
+        var rec=JSON.parse(raw);
+        if(!rec||!Array.isArray(rec.timeline)||!rec.timeline.length) return;
+        rec.timeline=[];
+        localStorage.setItem(k,JSON.stringify(rec));
+        freed=true;
+      }catch(e){}
+    });
+    if(retentionDays>0) localStorage.setItem(_PRUNE_MARK_KEY,cutoffStr);
+  }catch(e){}
+  return freed;
+}
+
+// Does not raise the quota — nothing can — but marks the origin as persistent
+// so the browser will not evict this data under disk pressure, and so Safari's
+// cap on script-writable storage does not sweep it. For a game whose whole
+// value is a multi-year streak, being evicted is worse than filling up.
+function _requestPersistentStorage(){
+  try{
+    if(!navigator.storage||!navigator.storage.persist||!navigator.storage.persisted) return;
+    navigator.storage.persisted().then(function(already){
+      if(!already) return navigator.storage.persist();
+    }).catch(function(){});
+  }catch(e){}
+}
+
+// Deferred so neither one delays first paint.
+setTimeout(function(){
+  _pruneDailyTimelines(DAILY_TIMELINE_RETENTION_DAYS);
+  _requestPersistentStorage();
+},0);
 
 // ── DAILY REWARD CARD ─────────────────────────────────────────────────────
 // Content lives in dailycards.js, keyed by MM-DD so 366 entries cover every
