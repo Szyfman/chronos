@@ -278,6 +278,164 @@ var DAILY_CARDS = {
     }
   ],
 
+  '08-02': [
+    {
+      year: -216,
+      title: 'Hannibal Destroys a Roman Army at Cannae',
+      title_pt: 'Aníbal Destrói um Exército Romano em Canas',
+      era: 'Classical',
+      region: 'Apulia, southern Italy', region_pt: 'Apúlia, sul da Itália',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'Hannibal let his own centre buckle on purpose. As the legions pressed into the sagging line, his veterans held the flanks and his cavalry closed the ring from behind — between 50,000 and 70,000 Romans died in a single afternoon, packed too tightly to raise their swords. It is the most studied tactical victory ever won, and it did not win the war.',
+      text_pt: 'Aníbal deixou o próprio centro ceder de propósito. Enquanto as legiões avançavam sobre a linha que recuava, seus veteranos seguraram os flancos e sua cavalaria fechou o cerco por trás — entre 50 mil e 70 mil romanos morreram em uma única tarde, comprimidos demais para erguer a espada. É a vitória tática mais estudada da história, e não venceu a guerra.',
+      facts: [
+        'Among the dead were one of the two consuls, eighty senators and twenty-nine of the forty-eight military tribunes. Public mourning was capped at thirty days because the city could not function otherwise.',
+        'Rome refused to ransom the survivors, refused to negotiate, armed slaves and boys of seventeen — and buried four foreigners alive in the Forum as a sacrifice. Surrender never reached a vote, and that is the reason Hannibal ultimately lost.',
+        'His cavalry commander Maharbal begged him to march on Rome at once. Hannibal declined, and Maharbal is said to have answered: "You know how to win a victory, but not how to use one."'
+      ],
+      facts_pt: [
+        'Entre os mortos estavam um dos dois cônsules, oitenta senadores e vinte e nove dos quarenta e oito tribunos militares. O luto público foi limitado a trinta dias porque, de outro modo, a cidade não teria como funcionar.',
+        'Roma se recusou a resgatar os sobreviventes, recusou negociar, armou escravos e meninos de dezessete anos — e enterrou quatro estrangeiros vivos no Fórum como sacrifício. A rendição nunca chegou a ser votada, e é por isso que Aníbal acabou perdendo.',
+        'Seu comandante de cavalaria, Maarbal, implorou que marchasse sobre Roma imediatamente. Aníbal recusou, e Maarbal teria respondido: "Tu sabes vencer, Aníbal, mas não sabes usar a vitória."'
+      ]
+    },
+    {
+      year: 1492,
+      title: 'Spain Expels Its Jews — and the Sultan Sends Ships',
+      title_pt: 'A Espanha Expulsa Seus Judeus — e o Sultão Envia Navios',
+      era: 'Jewish History',
+      region: 'Spain to the Ottoman Empire', region_pt: 'Espanha ao Império Otomano',
+      tag: 'Exile', tag_pt: 'Exílio',
+      text: 'The Alhambra Decree gave Spain’s Jews four months to convert or go, and the final deadline fell on 2 August. Somewhere between 40,000 and 200,000 people left a country their families had lived in for more than a thousand years. Sultan Bayezid II sent the Ottoman navy to carry them east.',
+      text_pt: 'O Decreto de Alhambra deu aos judeus da Espanha quatro meses para se converter ou partir, e o prazo final caiu em 2 de agosto. Entre 40 mil e 200 mil pessoas deixaram um país onde suas famílias viviam havia mais de mil anos. O sultão Bayezid II enviou a marinha otomana para levá-las ao oriente.',
+      facts: [
+        'By tradition the deadline fell on the Ninth of Av, the fast that already mourned the destruction of both Temples in Jerusalem — the date on which Jewish memory files its catastrophes.',
+        'Columbus sailed from Palos the next morning, 3 August, through harbours crowded with exiles. He opens his journal by placing the voyage in the same breath as the expulsion: the monarchs, he writes, having driven the Jews out of all their kingdoms.',
+        'Thessaloniki took in the most of them and stayed a Jewish-majority city for four and a half centuries, speaking Ladino — Spanish frozen as it sounded in 1492. In 1943 the Germans deported almost all of it to Auschwitz.'
+      ],
+      facts_pt: [
+        'Por tradição, o prazo caiu em Tishá BeAv, o jejum que já lamentava a destruição dos dois Templos de Jerusalém — a data em que a memória judaica arquiva suas catástrofes.',
+        'Colombo partiu de Palos na manhã seguinte, 3 de agosto, por portos apinhados de exilados. Ele abre seu diário colocando a viagem na mesma frase que a expulsão: os monarcas, escreve, tendo expulsado os judeus de todos os seus reinos.',
+        'Salonica recebeu a maior parte deles e permaneceu uma cidade de maioria judaica por quatro séculos e meio, falando ladino — o espanhol congelado como soava em 1492. Em 1943, os alemães deportaram quase toda ela para Auschwitz.'
+      ]
+    }
+  ],
+
+  '08-03': [
+    {
+      year: 1031,
+      title: 'Norway Makes a Saint of the King It Killed',
+      title_pt: 'A Noruega Faz Santo o Rei que Matou',
+      era: 'Medieval',
+      region: 'Nidaros, Norway', region_pt: 'Nidaros, Noruega',
+      tag: 'Religion', tag_pt: 'Religião',
+      text: 'Thirteen months after Norwegian farmers cut him down at Stiklestad, Olaf Haraldsson was dug out of a sandbank beside the river and declared holy. The bishop who did it, Grimkell, was English. The country that had risen against Olaf and driven him from his throne now had a saint — and it would build itself around him.',
+      text_pt: 'Treze meses depois de camponeses noruegueses o abaterem em Stiklestad, Olaf Haraldsson foi desenterrado de um banco de areia à beira do rio e declarado santo. O bispo que fez isso, Grimkell, era inglês. O país que se levantara contra Olaf e o expulsara do trono agora tinha um santo — e passaria a se construir em torno dele.',
+      facts: [
+        'No pope was involved, and none could have been: Rome only reserved canonisation to itself some 140 years later. Grimkell followed the ordinary medieval procedure — exhume the body, declare it holy, move it into a church. Olaf is a saint by local acclamation.',
+        'He became Rex Perpetuus Norvegiae, Norway’s eternal king. Later monarchs were held to reign as his vassals, and the cathedral raised over his grave at Nidaros — today Trondheim — grew into the greatest pilgrimage site in northern Europe.',
+        'The Reformation reached Norway in 1537. The shrine was stripped and the body reburied somewhere beneath the cathedral floor, unmarked. For almost five centuries nobody has known where Norway’s eternal king actually lies.'
+      ],
+      facts_pt: [
+        'Nenhum papa participou, e nenhum poderia: Roma só reservaria a canonização para si cerca de 140 anos depois. Grimkell seguiu o procedimento medieval comum — exumar o corpo, declará-lo santo, transladá-lo para uma igreja. Olaf é santo por aclamação local.',
+        'Tornou-se Rex Perpetuus Norvegiae, o rei eterno da Noruega. Os monarcas seguintes eram tidos como seus vassalos, e a catedral erguida sobre seu túmulo em Nidaros — a atual Trondheim — virou o maior destino de peregrinação do norte da Europa.',
+        'A Reforma chegou à Noruega em 1537. O relicário foi saqueado e o corpo enterrado outra vez em algum ponto sob o piso da catedral, sem marca alguma. Há quase cinco séculos ninguém sabe onde de fato jaz o rei eterno da Noruega.'
+      ]
+    }
+  ],
+
+  '08-04': [
+    {
+      year: 1854,
+      title: 'The Hinomaru Is Raised for Foreign Eyes',
+      title_pt: 'O Hinomaru é Erguido para Olhos Estrangeiros',
+      era: 'Modern',
+      region: 'Edo, Japan', region_pt: 'Edo, Japão',
+      tag: 'Symbols', tag_pt: 'Símbolos',
+      text: 'Four months after Perry’s gunboats forced the end of two centuries of seclusion, the shogunate ordered that every Japanese ship fly a white banner with a red sun. Japan had never had a national flag, because a country closed to the world has nobody to identify itself to. The Hinomaru was born as an answer to strangers.',
+      text_pt: 'Quatro meses depois de os navios de guerra de Perry forçarem o fim de dois séculos de reclusão, o xogunato ordenou que todo navio japonês hasteasse um pano branco com um sol vermelho. O Japão nunca tivera bandeira nacional, porque um país fechado ao mundo não tem a quem se identificar. O Hinomaru nasceu como resposta a estranhos.',
+      facts: [
+        'The sun disc itself was ancient: "Nippon" means the origin of the sun, and the imperial line claims descent from the sun goddess Amaterasu. What was new in 1854 was not the symbol but the European idea that a country ought to have one.',
+        'No law made it the national flag until 1999. For 145 years the Hinomaru flew by custom and proclamation alone — through the empire, the war and the occupation — with no statute behind it.',
+        'That 1999 act quietly redrew it. The 1870 specification had set the disc slightly toward the mast on a 7:10 field; the law centred it on a 2:3 field. The banner people had saluted for over a century was a subtly different shape.'
+      ],
+      facts_pt: [
+        'O disco solar em si era antigo: "Nippon" significa origem do sol, e a linhagem imperial se diz descendente da deusa solar Amaterasu. O que era novo em 1854 não era o símbolo, mas a ideia europeia de que um país deve ter um.',
+        'Nenhuma lei o tornou bandeira nacional até 1999. Por 145 anos o Hinomaru tremulou apenas por costume e proclamação — atravessando o império, a guerra e a ocupação — sem nenhum estatuto que o sustentasse.',
+        'E essa lei de 1999 o redesenhou em silêncio. A especificação de 1870 punha o disco levemente deslocado para o lado do mastro, num campo 7:10; a lei o centralizou num campo 2:3. O pano que as pessoas saudavam havia mais de um século tinha, discretamente, outra forma.'
+      ]
+    }
+  ],
+
+  '08-05': [
+    {
+      year: 25,
+      title: 'The Han Dynasty Comes Back from the Dead',
+      title_pt: 'A Dinastia Han Ressuscita',
+      era: 'Classical',
+      region: 'Northern China', region_pt: 'Norte da China',
+      tag: 'Dynasty', tag_pt: 'Dinastia',
+      text: 'Sixteen years after Wang Mang seized the throne and abolished the Han, a distant imperial cousin declared himself emperor and took it back. Guangwu moved the capital east to Luoyang and reassembled a house that had been formally extinct — a restoration Chinese history almost never permitted. The Han would run another two centuries.',
+      text_pt: 'Dezesseis anos depois de Wang Mang tomar o trono e abolir os Han, um primo imperial distante se declarou imperador e o retomou. Guangwu mudou a capital para leste, Luoyang, e reergueu uma casa formalmente extinta — uma restauração que a história chinesa quase nunca permitiu. Os Han durariam mais dois séculos.',
+      facts: [
+        'The Xin dynasty was undone in good part by hydrology. Around AD 11 the Yellow River burst its banks and changed course across the plain, drowning farmland and uprooting millions. The famine that followed raised the rebel armies — among them the Red Eyebrows, who painted their brows to tell friend from foe — that pulled Wang Mang down.',
+        'Guangwu was a ninth-generation descendant of an emperor, which in a house with hundreds of concubines meant a provincial landowner with a famous surname. When a rival Han claimant had his elder brother executed, he survived by refusing to mourn in public, eating and drinking and apologising as though nothing had happened.',
+        'The restored dynasty held until AD 220, giving the Han some four centuries in all. Its name outlasted it by two thousand years: "Han" is still what the largest ethnic group on earth calls itself, around 1.4 billion people.'
+      ],
+      facts_pt: [
+        'A dinastia Xin foi derrubada em boa parte pela hidrologia. Por volta do ano 11, o rio Amarelo rompeu as margens e mudou de curso pela planície, afogando lavouras e desalojando milhões. A fome que se seguiu levantou os exércitos rebeldes — entre eles as Sobrancelhas Vermelhas, que as pintavam para distinguir amigo de inimigo — que puxaram Wang Mang para baixo.',
+        'Guangwu era descendente de um imperador em nona geração, o que numa casa com centenas de concubinas significava um proprietário de terras provinciano com um sobrenome famoso. Quando um pretendente Han rival mandou executar seu irmão mais velho, ele sobreviveu recusando-se a demonstrar luto em público, comendo, bebendo e pedindo desculpas como se nada tivesse acontecido.',
+        'A dinastia restaurada durou até 220, dando aos Han cerca de quatro séculos no total. O nome sobreviveu a ela por dois mil anos: "Han" é como o maior grupo étnico da Terra ainda se chama, cerca de 1,4 bilhão de pessoas.'
+      ]
+    }
+  ],
+
+  '08-06': [
+    {
+      year: 1806,
+      title: 'Francis II Abolishes His Own Empire',
+      title_pt: 'Francisco II Abole o Próprio Império',
+      era: 'Modern',
+      region: 'Vienna', region_pt: 'Viena',
+      tag: 'Empire', tag_pt: 'Império',
+      text: 'Facing a Napoleonic ultimatum to give up the imperial title, Francis II did something stranger than surrender: he declared the Holy Roman Empire itself extinct, releasing every prince, city and official from allegiance to it. Rather than let a thousand-year-old crown pass to Napoleon, he abolished the office — and kept the Austrian throne he had invented for himself two years earlier.',
+      text_pt: 'Diante de um ultimato napoleônico para abrir mão do título imperial, Francisco II fez algo mais estranho que se render: declarou extinto o próprio Sacro Império Romano-Germânico, liberando cada príncipe, cidade e funcionário do juramento de fidelidade. Em vez de deixar uma coroa milenar passar a Napoleão, aboliu o cargo — e ficou com o trono austríaco que inventara para si dois anos antes.',
+      facts: [
+        'He had seen it coming. In August 1804, months after Napoleon crowned himself Emperor of the French, Francis carved an Austrian Empire out of his hereditary lands and took a second imperial title. For two years he was emperor twice over — a spare crown, kept ready.',
+        'Napoleon had demanded only an abdication. Declaring the empire extinct went further, and that was the point: an office nobody holds cannot be claimed. The imperial regalia were carried off to Vienna, where they still sit.',
+        'Almost nobody noticed. Travelling the next day, Goethe wrote in his diary that a shouting match between his servant and the coachman stirred more feeling in the carriage than the news that the thousand-year empire had ended.'
+      ],
+      facts_pt: [
+        'Ele viu aquilo chegando. Em agosto de 1804, meses depois de Napoleão se coroar Imperador dos Franceses, Francisco recortou um Império Austríaco de suas terras hereditárias e assumiu um segundo título imperial. Por dois anos foi imperador em dobro — uma coroa reserva, deixada pronta.',
+        'Napoleão exigira apenas a abdicação. Declarar o império extinto ia além, e era esse o ponto: um cargo que ninguém ocupa não pode ser reivindicado. As insígnias imperiais foram levadas para Viena, onde estão até hoje.',
+        'Quase ninguém notou. Viajando no dia seguinte, Goethe anotou no diário que uma discussão entre seu criado e o cocheiro agitou mais a carruagem do que a notícia de que o império milenar havia acabado.'
+      ]
+    }
+  ],
+
+  '08-07': [
+    {
+      year: 461,
+      title: 'Majorian, the Last Emperor Who Tried',
+      title_pt: 'Majoriano, o Último Imperador que Tentou',
+      era: 'Classical',
+      region: 'Northern Italy', region_pt: 'Norte da Itália',
+      tag: 'Execution', tag_pt: 'Execução',
+      text: 'Ricimer, the Germanic general who actually ran the Western Empire, could not be emperor himself — so he appointed men who would not govern. Majorian governed. He recovered Gaul and Hispania, legislated against corruption, and built a fleet to take Africa back from the Vandals. Five days after stripping him of the purple, Ricimer had him beheaded beside the river Iria. The West had fifteen years left.',
+      text_pt: 'Ricimer, o general germânico que de fato comandava o Império do Ocidente, não podia ser imperador — então nomeava homens que não governassem. Majoriano governou. Retomou a Gália e a Hispânia, legislou contra a corrupção e construiu uma frota para tomar a África dos vândalos. Cinco dias depois de arrancar-lhe a púrpura, Ricimer mandou decapitá-lo à beira do rio Iria. Ao Ocidente restavam quinze anos.',
+      facts: [
+        'Ricimer was a barbarian and an Arian Christian, which closed the throne to him absolutely. He ran the West for fifteen years instead through emperors he raised and removed at will. Majorian was not deposed for failing — he was deposed for succeeding.',
+        'The fleet decided it. Some three hundred ships lay at Cartagena, ready to retake Africa and its grain, when Vandal agents reached them in harbour and destroyed them before they sailed. Majorian never recovered the prestige, and with no army of his own left nothing stood between him and Ricimer.',
+        'In 458 he had made it a crime to quarry Rome for building stone, fining the magistrates who let ancient monuments be pulled down for material. The last emperor who tried to save the empire also tried to stop people carrying the city away piece by piece.'
+      ],
+      facts_pt: [
+        'Ricimer era bárbaro e cristão ariano, o que lhe fechava o trono em definitivo. Comandou o Ocidente por quinze anos através de imperadores que erguia e removia à vontade. Majoriano não foi deposto por fracassar — foi deposto por dar certo.',
+        'A frota decidiu tudo. Cerca de trezentos navios estavam em Cartagena, prontos para retomar a África e seu trigo, quando agentes vândalos chegaram a eles ainda no porto e os destruíram antes que zarpassem. Majoriano nunca recuperou o prestígio e, sem exército próprio, nada mais restava entre ele e Ricimer.',
+        'Em 458 ele tornara crime extrair pedra de Roma para construção, multando os magistrados que deixassem monumentos antigos ser derrubados por material. O último imperador que tentou salvar o império também tentou impedir que carregassem a cidade embora aos pedaços.'
+      ]
+    }
+  ],
+
   '08-08': [
     {
       year: 1588,
