@@ -108,6 +108,11 @@ When working on this codebase, you should:
    - Don't oversimplify complex historical events
    - Respect cultural sensitivity in content
 
+9. **Don't let cards contradict each other**
+   - No two cards may state different dates or conflicting versions of the same event
+   - Check existing related cards before adding or editing a card (see "Adding a New Historical Card")
+   - When a contradiction is found, fix every affected card in the same change
+
 ---
 
 ## Common Tasks Guide
@@ -181,6 +186,13 @@ When working on this codebase, you should:
   - **Empires, kingdoms, countries, and dynasties must ALWAYS be ranged cards** (INTERVALS array with `startYear`/`endYear`), never single-year cards. The same applies to other things with a clear span (eras, wars, movements). Use the rise/founding year as `startYear` and the fall/dissolution year as `endYear` (e.g. Bulgarian Empire: 681–1018).
   - **Character (People) cards must use the person's BIRTH YEAR** as `year` — not the year they took power, were crowned, or died. (e.g. Constantine XI → 1405, Basil II → 958, Harun al-Rashid → 763, Baal Shem Tov → 1698.)
 - **Eras**: See Repository Summary for full era list
+- **No contradictions between cards (IMPORTANT)**: A new card must never contradict a card that already exists. Before adding, search `cards.js` for related people, events, empires and dynasties and check that:
+  - Dates agree: an event's `year` must fall inside the `startYear`/`endYear` of the empire/kingdom it belongs to, and a person's birth year must be consistent with the events they take part in.
+  - Facts agree: if card A's fact states "founded in 1206", no other card (or its `facts`/`clues`/`hint`) may state a different founding year for the same thing.
+  - Boundaries agree: fall/founding years shared by two cards (e.g. "Fall of Constantinople" 1453 and the Byzantine Empire's `endYear`) must use the exact same number.
+  - Both languages agree: `facts` and `facts_pt` (and `hint`/`hint_pt`, `clues`/`clues_pt`) must state the same dates and claims — a translation must never introduce a different date or a different version of the event.
+  - No duplicates: don't add a card that covers the same subject as an existing one under another name.
+  - If a conflict is found, resolve it across ALL affected cards in the same change (fix the wrong one, don't leave two versions in the deck) and mention the correction to the developer.
 - **Facts**: Write 3-5 interesting facts, make them engaging (not just "Born in X, died in Y")
 - **Clues**: Progressive difficulty - vague → specific → very specific (3 clues total)
 - **Tags**: Only add if card should appear in special mode (roman, abrahamic, eastern)
@@ -632,6 +644,7 @@ function doSomething() { ... }
 - Cross-reference dates with at least 2 reputable sources
 - Use consensus dates when exact dates are disputed
 - Note uncertainty in facts when appropriate ("likely", "estimated", "around")
+- **Internal consistency**: the deck must tell one coherent story. Cards can never contradict each other — the same event, reign, founding or fall must carry the same date and the same version of events everywhere it is mentioned (`year`, `startYear`/`endYear`, `hint`, `facts`, `clues`, and their `_pt` counterparts, plus trophy `trivia` in `trophies.js`). When sources disagree, pick one consensus date and use it in every card that references it, rather than mixing versions.
 
 **Acceptable sources**:
 - Academic history books
