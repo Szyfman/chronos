@@ -766,6 +766,328 @@ var DAILY_CARDS = {
     }
   ],
 
+  '08-18': [
+    {
+      year: 1783,
+      title: 'The Fireball Nobody Could Explain',
+      title_pt: 'A Bola de Fogo que Ninguém Soube Explicar',
+      era: 'Early Modern',
+      region: 'Great Britain', region_pt: 'Grã-Bretanha',
+      tag: 'Astronomy', tag_pt: 'Astronomia',
+      text: 'On a summer evening a fireball crossed the whole length of Britain — first seen over Shetland, running south down the east coast and out over the Channel — bright enough to light the ground, and visible for the better part of half a minute. A party on the north terrace at Windsor Castle watched it pass. One of them wrote it up for the Royal Society; another painted it.',
+      text_pt: 'Numa noite de verão, uma bola de fogo cruzou a Grã-Bretanha de ponta a ponta — avistada primeiro sobre as Shetland, descendo pela costa leste e saindo sobre o Canal — brilhante o bastante para iluminar o chão, e visível por quase meio minuto. Um grupo no terraço norte do Castelo de Windsor a viu passar. Um deles escreveu o relato para a Royal Society; outro a pintou.',
+      facts: [
+        'Europe was already living under a strange sky. The Laki fissure in Iceland had been erupting since June, and a sulphurous haze lay over the continent all summer — the sun rising blood-red, crops failing, the air smelling of brimstone. The fireball crossed a sky people had spent months finding ominous.',
+        'Almost nobody thought it came from space. Meteors were classed as weather — the word still shares its root with meteorology — and stones falling from the sky were dismissed as a country superstition. Because so many trained observers fixed its position that night, its height could be worked out at tens of miles, far above any cloud. The question was not settled for another twenty years.',
+        'Nine days later the first hydrogen balloon rose over Paris, and in November two men left the ground for the first time. 1783 was the year Europeans could not stop looking up.'
+      ],
+      facts_pt: [
+        'A Europa já vivia sob um céu estranho. A fissura de Laki, na Islândia, entrara em erupção em junho, e uma névoa sulfurosa cobriu o continente o verão inteiro — o sol nascendo vermelho-sangue, lavouras perdidas, cheiro de enxofre no ar. A bola de fogo cruzou um céu que as pessoas já achavam agourento havia meses.',
+        'Quase ninguém achava que aquilo vinha do espaço. Meteoros eram classificados como fenômeno do tempo — a palavra ainda divide a raiz com meteorologia — e pedras caindo do céu eram tidas como superstição de camponês. Como muitos observadores treinados fixaram sua posição naquela noite, foi possível calcular sua altura em dezenas de quilômetros, muito acima de qualquer nuvem. A questão só se resolveria vinte anos depois.',
+        'Nove dias depois, o primeiro balão de hidrogênio subiu sobre Paris, e em novembro dois homens deixaram o chão pela primeira vez. 1783 foi o ano em que os europeus não conseguiram parar de olhar para cima.'
+      ]
+    }
+  ],
+
+  '08-19': [
+    {
+      year: 797,
+      title: 'Blinded in the Room Where He Was Born',
+      title_pt: 'Cegado no Quarto Onde Nasceu',
+      era: 'Medieval',
+      region: 'Great Palace, Constantinople', region_pt: 'Grande Palácio, Constantinopla',
+      tag: 'Succession', tag_pt: 'Sucessão',
+      text: 'Constantine VI had spent seven years trying to rule out from under his mother, and had ruined himself doing it: to marry his mistress he put his wife aside, and the church and the monasteries turned against him. When Irene’s people came, they took him in the Porphyra, the purple chamber of the Great Palace, and blinded him there. He is thought to have died of the wounds.',
+      text_pt: 'Constantino VI passara sete anos tentando governar por fora da mãe, e havia se arruinado no processo: para casar com a amante, repudiou a esposa, e a igreja e os mosteiros se voltaram contra ele. Quando os homens de Irene vieram, renderam-no na Porfira, a câmara púrpura do Grande Palácio, e o cegaram ali mesmo. Acredita-se que tenha morrido dos ferimentos.',
+      facts: [
+        'The Porphyra was the room imperial children were delivered in, so that they could be called porphyrogennetos — born in the purple. It was the proof of legitimacy that had made him co-emperor at the age of five.',
+        'Byzantium blinded people for a reason. An emperor had to be physically whole, so mutilation disqualified a man from the throne for good without the sin or the danger of killing him. It became the ordinary way to retire a rival, used on emperors, patriarchs and generals for centuries.',
+        'The chronicler Theophanes records that the sun then dimmed for seventeen days, so badly that ships lost their course, and that everyone said it had withheld its light because of the blinding of the emperor.'
+      ],
+      facts_pt: [
+        'A Porfira era o cômodo onde os filhos imperiais nasciam, para que pudessem ser chamados de porfirogênitos — nascidos na púrpura. Era a prova de legitimidade que o tornara co-imperador aos cinco anos de idade.',
+        'Bizâncio cegava por um motivo. Um imperador precisava ser fisicamente íntegro, de modo que a mutilação desqualificava um homem do trono para sempre, sem o pecado nem o risco de matá-lo. Virou a forma corriqueira de aposentar um rival, aplicada a imperadores, patriarcas e generais por séculos.',
+        'O cronista Teófanes registra que o sol então escureceu por dezessete dias, a ponto de os navios perderem o rumo, e que todos diziam ter ele retido sua luz por causa do cegamento do imperador.'
+      ]
+    }
+  ],
+
+  '08-20': [
+    {
+      year: 917,
+      title: 'The Bones Were Still There Seventy Years Later',
+      title_pt: 'Os Ossos Ainda Estavam Lá Setenta Anos Depois',
+      era: 'Medieval',
+      region: 'Black Sea coast, Bulgaria', region_pt: 'Costa do Mar Negro, Bulgária',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'One of the largest armies Byzantium had assembled in generations met Simeon of Bulgaria on the Black Sea coast, and lost it all. The collapse began with a rumour that the Byzantine commander had been killed: the line broke, and the killing went on down the shore. It was among the bloodiest days of the medieval centuries and the worst Byzantine defeat in living memory.',
+      text_pt: 'Um dos maiores exércitos que Bizâncio reunira em gerações encontrou Simeão da Bulgária na costa do Mar Negro, e perdeu tudo. O colapso começou com um boato de que o comandante bizantino fora morto: a linha se rompeu, e a matança seguiu costa abaixo. Foi um dos dias mais sangrentos dos séculos medievais e a pior derrota bizantina em memória viva.',
+      facts: [
+        'Seventy-odd years afterwards the historian Leo the Deacon wrote that the heaps of bones were still lying there by the river. Nobody had ever come to bury them.',
+        'The plan had depended on help that never came. The Pechenegs were to attack from the north and did not, after falling out with the admiral Romanos Lekapenos, whose fleet then failed to support the army either. Three years later Lekapenos took the throne for himself and ruled as emperor for a quarter of a century.',
+        'This was the high-water mark, and it did not hold. Bulgarian power ebbed after Simeon died in 927, and within a century Basil II had broken the country and earned the name Bulgar-Slayer for how he did it.'
+      ],
+      facts_pt: [
+        'Uns setenta anos depois, o historiador Leão, o Diácono, escreveu que os montes de ossos ainda estavam lá, junto ao rio. Ninguém jamais fora enterrá-los.',
+        'O plano dependia de uma ajuda que não veio. Os pechenegues deveriam atacar pelo norte e não atacaram, após se desentenderem com o almirante Romano Lecapeno, cuja frota também deixou de apoiar o exército. Três anos mais tarde, Lecapeno tomou o trono para si e governou como imperador por um quarto de século.',
+        'Este foi o ponto mais alto, e ele não se sustentou. O poder búlgaro refluiu depois da morte de Simeão, em 927, e em menos de um século Basílio II havia quebrado o país e ganhado o nome de Matador de Búlgaros pelo modo como o fez.'
+      ]
+    }
+  ],
+
+  '08-21': [
+    {
+      year: 1778,
+      title: 'The American War Reaches India',
+      title_pt: 'A Guerra Americana Chega à Índia',
+      era: 'Early Modern',
+      region: 'Pondichéry, India', region_pt: 'Pondicherry, Índia',
+      tag: 'Siege', tag_pt: 'Cerco',
+      text: 'Six months after France joined the American rebels, British troops opened a siege eight thousand miles from Boston, around a French trading town on the Coromandel coast. What had begun as a quarrel over colonial taxation was now being fought in the Channel, the Caribbean, West Africa and the Bay of Bengal.',
+      text_pt: 'Seis meses depois de a França aderir aos rebeldes americanos, tropas britânicas abriram um cerco a treze mil quilômetros de Boston, em torno de uma feitoria francesa na costa de Coromandel. O que começara como uma briga por impostos coloniais agora era travado no Canal da Mancha, no Caribe, na África Ocidental e na Baía de Bengala.',
+      facts: [
+        'France turned a colonial revolt into a world war. Within two years Britain was fighting France, Spain and the Dutch Republic at once, with no ally in Europe, and had to defend Gibraltar, the sugar islands and India while trying to hold America.',
+        'Pondichéry changed hands so often it became a kind of barometer of Anglo-French relations — taken, returned by treaty, taken again. It stayed French long after the rest of India was not, and was only handed over to India in 1954.',
+        'Britain lost the war and the thirteen colonies, and came out of it with a firmer grip on India. The empire that emerged from 1783 had its centre of gravity in Asia rather than the Atlantic.'
+      ],
+      facts_pt: [
+        'A França transformou uma revolta colonial em guerra mundial. Em dois anos a Grã-Bretanha lutava contra França, Espanha e República Holandesa ao mesmo tempo, sem aliado algum na Europa, tendo de defender Gibraltar, as ilhas do açúcar e a Índia enquanto tentava segurar a América.',
+        'Pondicherry trocou de mãos tantas vezes que virou uma espécie de barômetro das relações anglo-francesas — tomada, devolvida por tratado, tomada de novo. Continuou francesa muito depois de o resto da Índia não ser, e só foi entregue à Índia em 1954.',
+        'A Grã-Bretanha perdeu a guerra e as treze colônias, e saiu dela com a Índia mais firme na mão. O império que emergiu de 1783 tinha seu centro de gravidade na Ásia, não no Atlântico.'
+      ]
+    }
+  ],
+
+  '08-22': [
+    {
+      year: 1942,
+      title: 'A Dictatorship Declares War on Fascism',
+      title_pt: 'Uma Ditadura Declara Guerra ao Fascismo',
+      era: 'Contemporary',
+      region: 'Brazil', region_pt: 'Brasil',
+      tag: 'War', tag_pt: 'Guerra',
+      text: 'German submarines had sunk five Brazilian ships in three days off the north-east coast, drowning some six hundred people, most of them civilians. The streets filled, and Getúlio Vargas — who ran an authoritarian state built partly on the fascist model — declared war on Germany, Japan and Italy.',
+      text_pt: 'Submarinos alemães haviam afundado cinco navios brasileiros em três dias na costa nordeste, matando cerca de seiscentas pessoas, a maioria civis. As ruas se encheram, e Getúlio Vargas — que comandava um Estado autoritário erguido em parte sobre o modelo fascista — declarou guerra à Alemanha, ao Japão e à Itália.',
+      facts: [
+        'Brazil was the only South American country to put soldiers on the ground in Europe. Some twenty-five thousand men of the Brazilian Expeditionary Force fought in Italy under American command from 1944.',
+        'People had said it was likelier for a snake to smoke than for Brazil to send troops to the front. The force adopted a smoking snake as its insignia and painted it on its equipment.',
+        'The war undid the regime that fought it. Vargas was removed in October 1945, two months after the surrender — a government that had sent men to fight dictatorship abroad could not easily explain itself at home when they came back.'
+      ],
+      facts_pt: [
+        'O Brasil foi o único país sul-americano a pôr soldados em terra na Europa. Cerca de vinte e cinco mil homens da Força Expedicionária Brasileira combateram na Itália sob comando americano a partir de 1944.',
+        'Diziam ser mais fácil uma cobra fumar do que o Brasil mandar tropas para o front. A força adotou a cobra fumando como emblema e a pintou em seus equipamentos.',
+        'A guerra desfez o regime que a travou. Vargas foi deposto em outubro de 1945, dois meses depois da rendição — um governo que mandara homens combater a ditadura lá fora tinha dificuldade de se explicar em casa quando eles voltaram.'
+      ]
+    }
+  ],
+
+  '08-23': [
+    {
+      year: 79,
+      title: 'The Date of the Eruption May Be Wrong',
+      title_pt: 'A Data da Erupção Talvez Esteja Errada',
+      era: 'Classical',
+      region: 'Bay of Naples', region_pt: 'Baía de Nápoles',
+      tag: 'Archaeology', tag_pt: 'Arqueologia',
+      text: 'Tradition puts the first tremors on the feast of Vulcan, god of fire, with the mountain opening the next day. It is a very tidy story, and the physical evidence coming out of Pompeii keeps pointing somewhere else — to an autumn eruption, two months later than everyone has said for four hundred years.',
+      text_pt: 'A tradição põe os primeiros tremores na festa de Vulcano, deus do fogo, com a montanha se abrindo no dia seguinte. É uma história muito bem-arrumada, e as evidências físicas que saem de Pompeia insistem em apontar para outro lugar — uma erupção de outono, dois meses depois do que todo mundo diz há quatrocentos anos.',
+      facts: [
+        'In 2018 excavators found a line of charcoal writing on a wall, dated by its own text to the sixteenth day before the calends of November — 17 October. Charcoal smudges away within weeks, so it was written shortly before the ash arrived.',
+        'The food and the clothing agree with it. Pomegranates and walnuts, braziers set up against the cold, wine still fermenting in sealed jars, victims found in heavy garments: an autumn household, not one in late August.',
+        'The August date rests on a single sentence in a letter Pliny the Younger wrote about twenty-five years afterwards, and the surviving copies of that letter do not agree with each other on what the date was.'
+      ],
+      facts_pt: [
+        'Em 2018, escavadores encontraram uma linha escrita a carvão numa parede, datada pelo próprio texto do décimo sexto dia antes das calendas de novembro — 17 de outubro. Carvão se apaga em poucas semanas, então aquilo foi escrito pouco antes de a cinza chegar.',
+        'A comida e a roupa concordam. Romãs e nozes, braseiros armados contra o frio, vinho ainda fermentando em jarros lacrados, vítimas encontradas com vestes pesadas: uma casa de outono, não de fim de agosto.',
+        'A data de agosto se apoia numa única frase de uma carta que Plínio, o Jovem, escreveu uns vinte e cinco anos depois — e as cópias sobreviventes dessa carta não concordam entre si sobre qual era a data.'
+      ]
+    }
+  ],
+
+  '08-24': [
+    {
+      year: 1215,
+      title: 'The Pope Kills Magna Carta, and Saves It',
+      title_pt: 'O Papa Mata a Magna Carta, e a Salva',
+      era: 'Medieval',
+      region: 'Rome and England', region_pt: 'Roma e Inglaterra',
+      tag: 'Law', tag_pt: 'Direito',
+      text: 'Ten weeks after King John sealed it, Innocent III declared the charter void and forbade anyone to observe it. The barons went to war, and Magna Carta had to be offered again — and again, and again — as the price of peace. That is how it survived: not because it was honoured in 1215, but because it kept being reissued after it had failed.',
+      text_pt: 'Dez semanas depois de o rei João a selar, Inocêncio III declarou a carta nula e proibiu que alguém a observasse. Os barões foram à guerra, e a Magna Carta teve de ser oferecida de novo — e de novo, e de novo — como preço da paz. Foi assim que sobreviveu: não porque tenha sido cumprida em 1215, mas porque continuou sendo reeditada depois de fracassar.',
+      facts: [
+        'England at that moment belonged to the pope. Two years earlier John had surrendered his kingdom to Innocent III and received it back as a papal fief, paying annual tribute — which is why a bishop in Rome had any standing to annul an English charter.',
+        'The annulment started a civil war. The barons offered the English crown to Prince Louis of France, who landed in 1216, was proclaimed in London and held over half the country. John died of dysentery that October, leaving a nine-year-old heir.',
+        'The version that actually entered English law is not the one sealed at Runnymede. It is the reissue of 1225 under Henry III, the fourth attempt, cut down and confirmed in exchange for a tax.'
+      ],
+      facts_pt: [
+        'A Inglaterra naquele momento pertencia ao papa. Dois anos antes, João entregara seu reino a Inocêncio III e o recebera de volta como feudo papal, pagando tributo anual — razão pela qual um bispo em Roma tinha alguma legitimidade para anular uma carta inglesa.',
+        'A anulação começou uma guerra civil. Os barões ofereceram a coroa inglesa ao príncipe Luís da França, que desembarcou em 1216, foi proclamado em Londres e chegou a controlar mais da metade do país. João morreu de disenteria em outubro, deixando um herdeiro de nove anos.',
+        'A versão que de fato entrou no direito inglês não é a selada em Runnymede. É a reedição de 1225, sob Henrique III, a quarta tentativa, encurtada e confirmada em troca de um imposto.'
+      ]
+    }
+  ],
+
+  '08-25': [
+    {
+      year: 1609,
+      title: 'He Sold It as a Spyglass',
+      title_pt: 'Ele o Vendeu como Luneta',
+      era: 'Early Modern',
+      region: 'Venice', region_pt: 'Veneza',
+      tag: 'Optics', tag_pt: 'Óptica',
+      text: 'From the bell tower of St Mark’s, Galileo showed the Venetian senators ships that were still two hours from harbour. He pitched the instrument as what it plainly was to a maritime republic: a way to see an approaching fleet before it could see you. They doubled his salary and made his chair at Padua permanent.',
+      text_pt: 'Do campanário de São Marcos, Galileu mostrou aos senadores venezianos navios que ainda estavam a duas horas do porto. Vendeu o instrumento pelo que ele evidentemente era para uma república marítima: um jeito de ver uma frota se aproximando antes que ela o visse. Dobraram seu salário e tornaram vitalícia sua cátedra em Pádua.',
+      facts: [
+        'He had not invented it. A spectacle-maker in the Netherlands had applied for a patent the year before; Galileo heard the thing described, worked out the optics himself and ground better lenses, going from roughly three times magnification to eight, and then to twenty.',
+        'Four months later he turned it on Jupiter and found four points of light that moved — things going round something that was not the Earth. He named them for the Medici, took a post in Florence, and left Venice and the salary behind.',
+        'The Venetians had bought a naval instrument. What they had actually financed was the end of the idea that everything in the sky went around us.'
+      ],
+      facts_pt: [
+        'Ele não o inventara. Um fabricante de óculos nos Países Baixos pedira patente no ano anterior; Galileu ouviu a descrição, deduziu a óptica sozinho e poliu lentes melhores, passando de cerca de três vezes de ampliação para oito, e depois para vinte.',
+        'Quatro meses depois apontou-o para Júpiter e encontrou quatro pontos de luz que se moviam — coisas girando em torno de algo que não era a Terra. Batizou-os em honra dos Médici, aceitou um cargo em Florença e deixou para trás Veneza e o salário.',
+        'Os venezianos haviam comprado um instrumento naval. O que financiaram, na verdade, foi o fim da ideia de que tudo no céu girava em torno de nós.'
+      ]
+    }
+  ],
+
+  '08-26': [
+    {
+      year: 1071,
+      title: 'Anatolia Was Lost After the Battle, Not In It',
+      title_pt: 'A Anatólia Foi Perdida Depois da Batalha, Não Nela',
+      era: 'Medieval',
+      region: 'Manzikert, Armenia', region_pt: 'Manziquerta, Armênia',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'The Byzantine emperor was beaten and captured by the Seljuk sultan, who received him courteously and let him go. The defeat itself was survivable. What followed was not: Constantinople deposed him, blinded him so badly that he died of it, and spent ten years in civil war while Turkish groups settled the countryside nobody was defending.',
+      text_pt: 'O imperador bizantino foi derrotado e capturado pelo sultão seljúcida, que o recebeu com cortesia e o deixou partir. A derrota em si era sobrevivível. O que veio depois não era: Constantinopla o depôs, o cegou de forma tão brutal que ele morreu disso, e passou dez anos em guerra civil enquanto grupos turcos se instalavam no campo que ninguém defendia.',
+      facts: [
+        'Alp Arslan is said to have asked Romanos what he would have done had their places been reversed. Romanos answered that he would have had him beaten to death. The sultan replied that his own punishment was the heavier one: he forgave him and set him free.',
+        'Rival Byzantine claimants then hired Turkish troops against one another and paid them in land. Anatolia was not so much conquered as handed over piecemeal by men bidding for the throne in Constantinople.',
+        'Anatolia was where the empire raised its soldiers and much of its grain. Twenty-four years later an emperor wrote to the pope asking for mercenaries to win it back, and got the First Crusade instead.'
+      ],
+      facts_pt: [
+        'Conta-se que Alp Arslan perguntou a Romano o que ele teria feito se os papéis estivessem invertidos. Romano respondeu que o teria mandado espancar até a morte. O sultão retrucou que seu próprio castigo era o mais pesado: perdoava-o e o punha em liberdade.',
+        'Pretendentes bizantinos rivais passaram então a contratar tropas turcas uns contra os outros e a pagá-las com terra. A Anatólia não foi tanto conquistada quanto entregue aos pedaços por homens que disputavam o trono em Constantinopla.',
+        'A Anatólia era de onde o império tirava seus soldados e boa parte de seu trigo. Vinte e quatro anos depois, um imperador escreveu ao papa pedindo mercenários para retomá-la, e recebeu a Primeira Cruzada.'
+      ]
+    }
+  ],
+
+  '08-27': [
+    {
+      year: 410,
+      title: 'The Gentlest Sack in Roman Memory',
+      title_pt: 'O Saque Mais Brando da Memória Romana',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Sack', tag_pt: 'Saque',
+      text: 'After three days the Visigoths left, and Rome was still standing. Alaric was a Christian, and had ordered the basilicas of St Peter and St Paul kept as sanctuary; thousands sheltered inside them. By the standards Rome itself had used on Carthage and Corinth, this was mild. It still broke the world.',
+      text_pt: 'Ao fim de três dias os visigodos partiram, e Roma continuava de pé. Alarico era cristão e ordenara que as basílicas de São Pedro e São Paulo fossem preservadas como refúgio; milhares se abrigaram nelas. Pelos critérios que a própria Roma aplicara a Cartago e Corinto, aquilo foi brando. Ainda assim, quebrou o mundo.',
+      facts: [
+        'The shock was not the damage but the fact of it. Rome had not been entered by a foreign enemy in eight hundred years, and had not been the imperial capital for a century — the emperor sat safely at Ravenna and did not come.',
+        'Among the hostages carried off was Galla Placidia, the emperor’s half-sister. Four years later she married Alaric’s successor in a Roman ceremony at Narbonne, and ended her life ruling the Western Empire as regent for her son.',
+        'Alaric died within months. His men are said to have diverted the river Busento, buried him in the dry bed with his share of the plunder, let the water back over him, and killed the labourers so the place could never be found. It never has been.'
+      ],
+      facts_pt: [
+        'O choque não foi o estrago, foi o fato. Roma não era invadida por inimigo estrangeiro havia oitocentos anos, e já não era capital imperial havia um século — o imperador estava seguro em Ravena e não veio.',
+        'Entre os reféns levados estava Gala Placídia, meia-irmã do imperador. Quatro anos depois casou-se com o sucessor de Alarico numa cerimônia romana em Narbona, e terminou a vida governando o Império do Ocidente como regente do próprio filho.',
+        'Alarico morreu poucos meses depois. Conta-se que seus homens desviaram o rio Busento, o enterraram no leito seco com sua parte do saque, deixaram a água voltar por cima e mataram os trabalhadores para que o lugar jamais fosse achado. Nunca foi.'
+      ]
+    }
+  ],
+
+  '08-28': [
+    {
+      year: 632,
+      title: 'The Grave Nobody Marked',
+      title_pt: 'O Túmulo que Ninguém Marcou',
+      era: 'Medieval',
+      region: 'Medina', region_pt: 'Medina',
+      tag: 'Islam', tag_pt: 'Islã',
+      text: 'Fatimah, the daughter of Muhammad and the wife of Ali, died within months of her father. She asked to be buried at night and quietly, and the place was never marked. Where exactly she lies is unknown, and why she wanted it that way is one of the oldest disagreements in Islam.',
+      text_pt: 'Fátima, filha de Maomé e esposa de Ali, morreu poucos meses depois do pai. Pediu para ser enterrada à noite e em silêncio, e o lugar nunca foi marcado. Onde exatamente ela jaz é desconhecido, e por que ela quis assim é uma das divergências mais antigas do Islã.',
+      facts: [
+        'The dispute over her death is really a dispute about the succession. Shia tradition holds that she was injured when a delegation came to compel her husband’s allegiance to the first caliph, and never recovered. Sunni tradition holds that she died of illness and grief in the months after losing her father.',
+        'Both traditions agree on the burial itself: at night, without ceremony, in an unmarked place, at her own request. They read that request very differently.',
+        'Hers is the only line of Muhammad’s that continued. From her sons Hasan and Husayn descend the millions who today claim the title of sayyid, and dynasties running from the Fatimids of Egypt to the ruling houses of Morocco and Jordan.'
+      ],
+      facts_pt: [
+        'A divergência sobre a morte dela é, no fundo, uma divergência sobre a sucessão. A tradição xiita sustenta que ela se feriu quando uma delegação veio forçar o juramento de fidelidade do marido ao primeiro califa, e nunca se recuperou. A tradição sunita sustenta que morreu de doença e de luto nos meses após perder o pai.',
+        'As duas tradições concordam quanto ao sepultamento em si: à noite, sem cerimônia, em lugar não marcado, a pedido dela. E leem esse pedido de maneiras muito diferentes.',
+        'A dela é a única linhagem de Maomé que teve continuidade. De seus filhos Hasan e Huceine descendem os milhões que hoje reivindicam o título de sayyid, e dinastias que vão dos fatímidas do Egito às casas reinantes do Marrocos e da Jordânia.'
+      ]
+    }
+  ],
+
+  '08-29': [
+    {
+      year: 1756,
+      title: 'He Invaded a Neutral Country to Prevent a War',
+      title_pt: 'Ele Invadiu um País Neutro para Evitar uma Guerra',
+      era: 'Early Modern',
+      region: 'Saxony', region_pt: 'Saxônia',
+      tag: 'Alliances', tag_pt: 'Alianças',
+      text: 'Saxony had not attacked Prussia and was not at war with anyone. Frederick marched in regardless, reasoning that a coalition was forming against him and that he would rather start the fight than receive it. He was right that the coalition existed. Invading first is what turned it into a real one.',
+      text_pt: 'A Saxônia não havia atacado a Prússia e não estava em guerra com ninguém. Frederico entrou assim mesmo, pelo raciocínio de que uma coalizão se formava contra ele e de que era melhor começar a briga do que recebê-la. Estava certo quanto à existência da coalizão. Invadir primeiro é o que a transformou numa coalizão de verdade.',
+      facts: [
+        'Europe had just swapped partners wholesale. Austria and France, enemies for two and a half centuries, signed an alliance against Prussia; Britain, long tied to Austria, went with Frederick instead. Contemporaries called it the reversal of alliances, and it happened in a matter of months.',
+        'He held Saxony for the whole war and bled it: its army pressed into Prussian service, enormous levies extracted, its currency counterfeited to pay his troops.',
+        'By January 1762 Prussia was finished, and then the Empress Elizabeth of Russia died. Her heir admired Frederick to the point of devotion, made peace at once and changed sides. Prussians called it the miracle of the House of Brandenburg: he survived because a woman in Saint Petersburg happened to die.'
+      ],
+      facts_pt: [
+        'A Europa acabara de trocar de par por atacado. Áustria e França, inimigas havia dois séculos e meio, assinaram uma aliança contra a Prússia; a Grã-Bretanha, havia muito ligada à Áustria, foi com Frederico. Os contemporâneos chamaram aquilo de inversão das alianças, e aconteceu em questão de meses.',
+        'Ele manteve a Saxônia pela guerra inteira e a sangrou: o exército saxão incorporado à força ao prussiano, contribuições enormes extraídas, a moeda falsificada para pagar suas tropas.',
+        'Em janeiro de 1762 a Prússia estava acabada, e então a imperatriz Isabel da Rússia morreu. Seu herdeiro admirava Frederico a ponto de devoção, fez a paz imediatamente e mudou de lado. Os prussianos chamaram aquilo de milagre da Casa de Brandemburgo: ele sobreviveu porque uma mulher em São Petersburgo por acaso morreu.'
+      ]
+    }
+  ],
+
+  '08-30': [
+    {
+      year: 70,
+      title: 'The Ninth of Av, Again',
+      title_pt: 'O Nono Dia de Av, Outra Vez',
+      era: 'Classical',
+      region: 'Jerusalem', region_pt: 'Jerusalém',
+      tag: 'Destruction', tag_pt: 'Destruição',
+      text: 'The Temple burned. By Jewish reckoning it fell on the ninth of Av — the same day of the same month on which the Babylonians had destroyed the First Temple some six and a half centuries earlier. That date became the fixed fast of Jewish grief, and later catastrophes were gathered onto it, the expulsion from Spain in 1492 among them.',
+      text_pt: 'O Templo ardeu. Pela contagem judaica, caiu no nono dia de Av — o mesmo dia do mesmo mês em que os babilônios haviam destruído o Primeiro Templo, uns seis séculos e meio antes. Essa data virou o jejum fixo do luto judaico, e catástrofes posteriores foram reunidas nela, entre elas a expulsão da Espanha em 1492.',
+      facts: [
+        'The Arch of Titus still stands in Rome, and the relief inside it shows the menorah and the Temple vessels being carried through the streets in triumph. For centuries Jews in Rome would not walk under it. In 1948, when Israel was declared, some walked under it deliberately, in the other direction.',
+        'Josephus was in the Roman camp and wrote that Titus had ordered the Temple spared, and that a soldier threw the firebrand against orders. Josephus was a Jewish commander who had surrendered and was living on Roman patronage. Other ancient accounts say Titus ordered the destruction.',
+        'Without a Temple there could be no sacrifice and no priesthood as it had existed. What replaced them was study, prayer and law, worked out by rabbis over the following centuries — the shape Judaism has kept for two thousand years. The catastrophe forced the invention of what outlived it.'
+      ],
+      facts_pt: [
+        'O Arco de Tito ainda está de pé em Roma, e o relevo em seu interior mostra a menorá e os utensílios do Templo sendo carregados pelas ruas em triunfo. Por séculos, os judeus de Roma se recusaram a passar sob ele. Em 1948, quando Israel foi declarado, alguns passaram de propósito, no sentido contrário.',
+        'Josefo estava no acampamento romano e escreveu que Tito ordenara poupar o Templo, e que um soldado atirou o tição contra as ordens. Josefo era um comandante judeu que se rendera e vivia sob patrocínio romano. Outros relatos antigos dizem que Tito mandou destruí-lo.',
+        'Sem Templo não podia haver sacrifício nem sacerdócio como existira. O que os substituiu foi o estudo, a oração e a lei, elaborados pelos rabinos nos séculos seguintes — a forma que o judaísmo manteve por dois mil anos. A catástrofe obrigou a inventar aquilo que a sobreviveu.'
+      ]
+    }
+  ],
+
+  '08-31': [
+    {
+      year: 2016,
+      title: 'Removed From Office, but Not Barred',
+      title_pt: 'Destituída do Cargo, mas Não Inelegível',
+      era: 'Contemporary',
+      region: 'Brasília', region_pt: 'Brasília',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'The Senate voted 61 to 20 to remove Dilma Rousseff, the first woman to hold the Brazilian presidency, over budget manoeuvres carried out without congressional authorisation. It then voted separately on whether to strip her of the right to hold office, and that motion failed. Her vice-president was sworn in the same day.',
+      text_pt: 'O Senado votou 61 a 20 pela destituição de Dilma Rousseff, primeira mulher a ocupar a presidência do Brasil, por manobras orçamentárias feitas sem autorização do Congresso. Em seguida votou separadamente se lhe retirava o direito de exercer cargo público, e essa moção não passou. Seu vice tomou posse no mesmo dia.',
+      facts: [
+        'The split verdict had no clear precedent: 61 votes to remove her, but only 42 of the 54 needed to disqualify her from future office. She left the presidency with her political rights intact.',
+        'The charge concerned the pedaladas fiscais — decrees opening supplementary credit without authorisation, and delayed transfers to state banks, which had the effect of understating the deficit. Whether that conduct met the constitutional standard for a crime of responsibility is still argued in Brazil, as is whether the process was a legitimate impeachment or a parliamentary manoeuvre.',
+        'Eduardo Cunha, the speaker of the lower house who had admitted the petition against her, lost his own mandate twelve days later and was afterwards convicted and imprisoned for corruption.'
+      ],
+      facts_pt: [
+        'O placar dividido não tinha precedente claro: 61 votos pela destituição, mas apenas 42 dos 54 necessários para torná-la inelegível. Ela deixou a presidência com os direitos políticos preservados.',
+        'A acusação tratava das pedaladas fiscais — decretos de crédito suplementar sem autorização e atrasos em repasses a bancos públicos, com o efeito de subestimar o déficit. Se essa conduta atendia ao padrão constitucional de crime de responsabilidade segue em disputa no Brasil, assim como se o processo foi um impeachment legítimo ou uma manobra parlamentar.',
+        'Eduardo Cunha, presidente da Câmara que admitira a denúncia contra ela, perdeu o próprio mandato doze dias depois e foi em seguida condenado e preso por corrupção.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,
