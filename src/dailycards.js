@@ -1088,6 +1088,186 @@ var DAILY_CARDS = {
     }
   ],
 
+  '09-01': [
+    {
+      year: 1449,
+      title: 'The Emperor Was Captured and China Shrugged',
+      title_pt: 'O Imperador Foi Capturado e a China Deu de Ombros',
+      era: 'Medieval',
+      region: 'Tumu, northern China', region_pt: 'Tumu, norte da China',
+      tag: 'Capture', tag_pt: 'Captura',
+      text: 'Talked into leading a campaign in person by a favourite eunuch, the Zhengtong Emperor marched an enormous army north, had it mismanaged into a waterless position, and lost it. The Mongols took him alive. It should have been the greatest bargaining chip of the century, and it turned out to be worth nothing at all.',
+      text_pt: 'Convencido por um eunuco favorito a comandar pessoalmente uma campanha, o imperador Zhengtong marchou um exército enorme para o norte, viu-o ser conduzido a uma posição sem água, e o perdeu. Os mongóis o capturaram vivo. Deveria ter sido a maior moeda de troca do século, e não valeu absolutamente nada.',
+      facts: [
+        'The court in Beijing refused to pay. It enthroned his brother, declared the prisoner a retired emperor, and went on governing. With a hostage nobody wanted back, Esen eventually released him for free the following year.',
+        'His brother then kept him under house arrest for seven years. In 1457 he seized the throne back and reigned a second time under a new name — and executed Yu Qian, the minister who had organised the defence of Beijing and saved the dynasty while he was a prisoner.',
+        'After Tumu the Ming gave up campaigning on the steppe and spent their money on walls instead. The brick and stone Great Wall that people photograph today is largely a product of the century that followed this defeat.'
+      ],
+      facts_pt: [
+        'A corte em Pequim recusou-se a pagar. Entronizou o irmão dele, declarou o prisioneiro imperador aposentado e seguiu governando. Com um refém que ninguém queria de volta, Esen acabou soltando-o de graça no ano seguinte.',
+        'O irmão então o manteve em prisão domiciliar por sete anos. Em 1457 ele retomou o trono e reinou uma segunda vez sob outro nome — e mandou executar Yu Qian, o ministro que organizara a defesa de Pequim e salvara a dinastia enquanto ele estava preso.',
+        'Depois de Tumu, os Ming desistiram de campanhas na estepe e gastaram seu dinheiro em muralhas. A Grande Muralha de tijolo e pedra que as pessoas fotografam hoje é em boa parte produto do século que se seguiu a essa derrota.'
+      ]
+    }
+  ],
+
+  '09-02': [
+    {
+      year: -31,
+      title: 'The Battle That Was Barely a Battle',
+      title_pt: 'A Batalha que Mal Foi uma Batalha',
+      era: 'Classical',
+      region: 'Actium, Greece', region_pt: 'Áccio, Grécia',
+      tag: 'Naval', tag_pt: 'Naval',
+      text: 'Antony had the bigger fleet and could not row it. Disease and desertion had emptied his benches, and Agrippa had him blockaded. What is remembered as the battle that decided the Roman world was mostly an attempt to break out of a trap: Cleopatra’s squadron got through the middle and ran for Egypt, Antony followed her, and most of what remained surrendered.',
+      text_pt: 'Antônio tinha a frota maior e não conseguia remá-la. Doença e deserção haviam esvaziado seus bancos, e Agripa o mantinha bloqueado. O que se lembra como a batalha que decidiu o mundo romano foi sobretudo uma tentativa de escapar de uma armadilha: o esquadrão de Cleópatra rompeu pelo meio e correu para o Egito, Antônio a seguiu, e quase tudo o que restou se rendeu.',
+      facts: [
+        'Octavian had declared war on Cleopatra, not on Antony. Framing a civil war as a foreign one let him fight a Roman rival without admitting he was doing it, and the framing held: two thousand years later this is still remembered as Rome against the East.',
+        'Antony’s army did not fight at all. Nineteen legions were waiting on shore, and a week after the fleet broke they surrendered without a battle.',
+        'Octavian did not win it. Agrippa, his friend since boyhood, commanded the fleet and won most of his wars for him; Octavian had a habit of falling ill at the decisive moment of his own campaigns.'
+      ],
+      facts_pt: [
+        'Otaviano declarara guerra a Cleópatra, não a Antônio. Enquadrar uma guerra civil como guerra estrangeira permitiu-lhe combater um rival romano sem admitir que o fazia, e o enquadramento pegou: dois mil anos depois, isso ainda é lembrado como Roma contra o Oriente.',
+        'O exército de Antônio não chegou a lutar. Dezenove legiões esperavam em terra e, uma semana depois de a frota se romper, renderam-se sem combate.',
+        'Não foi Otaviano quem venceu. Agripa, seu amigo de infância, comandava a frota e ganhou a maior parte de suas guerras por ele; Otaviano tinha o hábito de adoecer no momento decisivo das próprias campanhas.'
+      ]
+    },
+    {
+      year: 1192,
+      title: 'The King Who Would Not Look at Jerusalem',
+      title_pt: 'O Rei que Não Quis Olhar para Jerusalém',
+      era: 'Medieval',
+      region: 'Jaffa', region_pt: 'Jafa',
+      tag: 'Crusades', tag_pt: 'Cruzadas',
+      text: 'The treaty left Jerusalem in Muslim hands and opened it to Christian pilgrims, and gave the crusaders the coast. Richard sailed home a month later having never entered the city he had come for. He and Saladin had fought each other for three years and never once met.',
+      text_pt: 'O tratado deixou Jerusalém em mãos muçulmanas e a abriu aos peregrinos cristãos, e deu a costa aos cruzados. Ricardo partiu um mês depois sem jamais ter entrado na cidade por que viera. Ele e Saladino haviam lutado três anos um contra o outro e nunca se encontraram.',
+      facts: [
+        'He came within sight of Jerusalem twice and turned back both times, knowing he could take it and could not hold it. The story told afterwards is that he raised his shield over his eyes rather than look at a city he would not enter.',
+        'The courtesies between them were real and so was the savagery. Saladin sent fruit and snow from Mount Hermon when Richard was ill, and two horses when Richard’s was killed under him. Richard had some two thousand seven hundred prisoners executed at Acre the year before.',
+        'Richard had proposed ending the war by marrying his sister to Saladin’s brother and making Jerusalem their joint capital; she refused outright. Saladin died six months after the treaty. Richard was seized on his way home and ransomed for something close to two years of England’s revenue.'
+      ],
+      facts_pt: [
+        'Chegou a avistar Jerusalém duas vezes e voltou atrás nas duas, sabendo que podia tomá-la e não podia mantê-la. Conta-se que ergueu o escudo sobre os olhos em vez de olhar para uma cidade em que não entraria.',
+        'As cortesias entre os dois eram reais, e a selvageria também. Saladino mandou frutas e neve do monte Hermon quando Ricardo adoeceu, e dois cavalos quando o dele foi morto. Ricardo mandara executar cerca de dois mil e setecentos prisioneiros em Acre no ano anterior.',
+        'Ricardo propusera encerrar a guerra casando sua irmã com o irmão de Saladino e fazendo de Jerusalém a capital conjunta dos dois; ela recusou de imediato. Saladino morreu seis meses depois do tratado. Ricardo foi capturado no caminho de volta e resgatado por algo próximo de dois anos da receita da Inglaterra.'
+      ]
+    }
+  ],
+
+  '09-03': [
+    {
+      year: 1260,
+      title: 'The Slaves Who Stopped the Mongols',
+      title_pt: 'Os Escravos que Detiveram os Mongóis',
+      era: 'Medieval',
+      region: 'Jezreel Valley, Palestine', region_pt: 'Vale de Jezreel, Palestina',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'The Mongols had taken Baghdad two years before and had not lost a serious battle in living memory. At a spring in the Jezreel valley the army of Egypt met them and broke them. It was the first defeat the Mongols could not shrug off, and the western edge of their empire stopped there for good.',
+      text_pt: 'Os mongóis haviam tomado Bagdá dois anos antes e não perdiam uma batalha séria em memória viva. Junto a uma fonte no vale de Jezreel, o exército do Egito os encontrou e os quebrou. Foi a primeira derrota que os mongóis não conseguiram ignorar, e a borda ocidental do império deles parou ali para sempre.',
+      facts: [
+        'The army they beat was a remnant. The Great Khan had died in China the year before, and Hulagu had pulled the bulk of his forces east to be near the succession, leaving a fraction of them behind. The Mongol advance was halted partly by a death four thousand miles away.',
+        'The victors had been sold as children. The Mamluks were Turkic and Circassian boys bought, converted and trained as heavy cavalry; ten years earlier they had overthrown the dynasty that owned them and taken Egypt for themselves. A slave army stopped the largest empire on earth.',
+        'The crusaders at Acre let them pass. Given a choice between the Mongols, whose commander here was a Christian, and the Mamluks, the Franks granted the Muslim army passage and supplies. On the ride home from the victory, Baibars murdered his own sultan and took the throne.'
+      ],
+      facts_pt: [
+        'O exército que derrotaram era um resto. O Grande Cã morrera na China no ano anterior, e Hulagu levara o grosso de suas forças para leste a fim de estar perto da sucessão, deixando para trás uma fração delas. O avanço mongol foi detido em parte por uma morte a seis mil quilômetros dali.',
+        'Os vencedores haviam sido vendidos quando crianças. Os mamelucos eram meninos turcos e circassianos comprados, convertidos e treinados como cavalaria pesada; dez anos antes haviam derrubado a dinastia que os possuía e tomado o Egito para si. Um exército de escravos deteve o maior império da Terra.',
+        'Os cruzados de Acre os deixaram passar. Diante da escolha entre os mongóis, cujo comandante ali era cristão, e os mamelucos, os francos concederam passagem e suprimentos ao exército muçulmano. Na volta da vitória, Baibars assassinou o próprio sultão e tomou o trono.'
+      ]
+    }
+  ],
+
+  '09-04': [
+    {
+      year: 476,
+      title: 'Nobody Noticed the Empire Had Ended',
+      title_pt: 'Ninguém Percebeu que o Império Havia Acabado',
+      era: 'Classical',
+      region: 'Ravenna', region_pt: 'Ravena',
+      tag: 'Deposition', tag_pt: 'Deposição',
+      text: 'Odoacer removed a teenage emperor and did not replace him. He sent the imperial regalia to Constantinople and asked to govern Italy as a patrician under the emperor in the East — presenting the whole thing not as an ending but as a tidying up. One empire, one emperor, and he would run Italy on its behalf.',
+      text_pt: 'Odoacro removeu um imperador adolescente e não o substituiu. Mandou as insígnias imperiais a Constantinopla e pediu para governar a Itália como patrício sob o imperador do Oriente — apresentando aquilo não como um fim, mas como uma arrumação. Um império, um imperador, e ele tocaria a Itália em nome dele.',
+      facts: [
+        'Romulus was not even the legitimate emperor. He was a usurper’s son, never recognised in Constantinople, and the emperor the East did recognise was alive in exile in Dalmatia for another four years. What ended in 476 was the reign of a boy with no proper claim.',
+        'He was not killed. Odoacer gave him an allowance and a villa in Campania, and he vanishes from the record — nobody knows when he died. The last emperor in the West was named for the man who founded the city and the man who founded the empire, and he ended as a private citizen with a pension.',
+        'The date became famous much later. Contemporaries barely remarked on it; it took historians centuries, and Gibbon above all, to decide that this was the year the Roman Empire fell.'
+      ],
+      facts_pt: [
+        'Rômulo nem sequer era o imperador legítimo. Era filho de um usurpador, nunca reconhecido em Constantinopla, e o imperador que o Oriente de fato reconhecia esteve vivo, exilado na Dalmácia, por mais quatro anos. O que acabou em 476 foi o reinado de um menino sem título próprio.',
+        'Ele não foi morto. Odoacro lhe deu uma pensão e uma villa na Campânia, e ele desaparece dos registros — ninguém sabe quando morreu. O último imperador do Ocidente tinha o nome do homem que fundou a cidade e do homem que fundou o império, e terminou como cidadão comum com uma renda.',
+        'A data ficou famosa muito depois. Os contemporâneos quase não a comentaram; foram precisos séculos de historiadores, e Gibbon acima de todos, para decidir que aquele fora o ano em que o Império Romano caiu.'
+      ]
+    }
+  ],
+
+  '09-05': [
+    {
+      year: 1698,
+      title: 'A Tax on the Image of God',
+      title_pt: 'Um Imposto sobre a Imagem de Deus',
+      era: 'Early Modern',
+      region: 'Moscow', region_pt: 'Moscou',
+      tag: 'Taxation', tag_pt: 'Tributação',
+      text: 'Peter had been away for a year and a half, travelling Europe under a false name and working in Dutch and English shipyards. He came home, called his nobles in, and started cutting their beards off himself. What could not be shaved by hand was then taxed: a hundred roubles a year for a nobleman who wanted to keep his face.',
+      text_pt: 'Pedro passara um ano e meio fora, viajando pela Europa sob nome falso e trabalhando em estaleiros holandeses e ingleses. Voltou, convocou seus nobres e começou a cortar as barbas deles com as próprias mãos. O que não desse para raspar à mão passou a ser tributado: cem rublos por ano para o nobre que quisesse manter o rosto.',
+      facts: [
+        'This was not a tax on fashion. In Russian Orthodox teaching a man’s beard belonged to the image of God he was made in, and shaving it was a sin; the Old Believers held a shaven face to be a mark of the Antichrist. Peter was putting a price on a religious obligation.',
+        'Those who paid were issued a bronze token to carry, stamped with a beard and the words "the tax has been taken", so they could prove it to anyone who stopped them in the street.',
+        'He had spent the Grand Embassy as Peter Mikhailov, labouring as a shipwright at Zaandam and Deptford — a tsar of two metres and three, unmistakable to everyone, insisting on being treated as a carpenter.'
+      ],
+      facts_pt: [
+        'Não era um imposto sobre moda. Na doutrina ortodoxa russa, a barba de um homem pertencia à imagem de Deus à qual ele fora feito, e raspá-la era pecado; os Velhos Crentes tinham o rosto raspado por marca do Anticristo. Pedro estava pondo preço numa obrigação religiosa.',
+        'Quem pagava recebia uma ficha de bronze para carregar, cunhada com uma barba e os dizeres "o imposto foi cobrado", para provar a quem o parasse na rua.',
+        'Ele passara a Grande Embaixada como Piotr Mikhailov, trabalhando como carpinteiro naval em Zaandam e Deptford — um tsar de dois metros e três, inconfundível para qualquer um, insistindo em ser tratado como marceneiro.'
+      ]
+    }
+  ],
+
+  '09-06': [
+    {
+      year: 2026,
+      title: 'Daniel and Carina, Under the Chuppah',
+      title_pt: 'Daniel e Carina, Sob a Chupá',
+      era: 'Contemporary',
+      tag: 'Wedding', tag_pt: 'Casamento',
+      text: 'Under a canopy open on all four sides, Daniel and Carina were married before God in a Jewish ceremony. Everything in the rite is old — the contract read aloud, the seven blessings, the glass broken underfoot — and all of it exists to say one thing: that two people are building a house, and that the house begins today.',
+      text_pt: 'Sob uma Chupá, Daniel e Carina se casaram perante Deus numa cerimônia judaica. Tudo no rito é antigo — o contrato lido em voz alta, as sete bênçãos, o copo partido sob o pé — e tudo existe para dizer uma coisa: que duas pessoas estão erguendo uma casa, e que a casa começa hoje.',
+      facts: [
+        'The chuppah has a roof and no walls, in memory of the tent of Abraham, which was said to stand open on every side so that no traveller would have to look for the door. A marriage begins as a shelter anyone can walk into.',
+        'At the highest point of the celebration the glass is broken. The custom recalls the destruction of the Temple in Jerusalem: joy is never quite whole while something in the world remains broken, and the two are held in the same moment rather than kept apart.',
+        'The seven blessings end by asking that the voice of joy and the voice of gladness, the voice of the groom and the voice of the bride, be heard again in the streets of Jerusalem. Close to two thousand years of couples have been sent off with those same words.'
+      ],
+      facts_pt: [
+        'A chupá tem teto e não tem paredes, em memória da tenda de Abraão, que se dizia aberta dos quatro lados para que nenhum viajante precisasse procurar a porta. Um casamento começa como um abrigo em que qualquer um pode entrar.',
+        'No ponto mais alto da festa, o copo é partido. O costume lembra a destruição do Templo em Jerusalém: a alegria nunca é inteira enquanto algo no mundo continua quebrado, e as duas coisas são seguradas no mesmo instante, em vez de mantidas separadas.',
+        'As sete bênçãos terminam pedindo que a voz da alegria e a voz do júbilo, a voz do noivo e a voz da noiva, sejam ouvidas outra vez nas ruas de Jerusalém. Há quase dois mil anos os casais são despedidos com essas mesmas palavras.'
+      ]
+    }
+  ],
+
+  '09-07': [
+    {
+      year: 1822,
+      title: 'Independence Took Two Years and Cost Two Million Pounds',
+      title_pt: 'A Independência Levou Dois Anos e Custou Dois Milhões de Libras',
+      era: 'Modern',
+      region: 'São Paulo', region_pt: 'São Paulo',
+      tag: 'Independence', tag_pt: 'Independência',
+      text: 'On the bank of a stream outside São Paulo, the heir to the Portuguese throne declared the country he was governing independent of his own father’s kingdom. Brazil became the only large state in the Americas to leave Europe and keep a monarchy — and the only one to come out of it in one piece.',
+      text_pt: 'À margem de um riacho nos arredores de São Paulo, o herdeiro do trono português declarou independente o país que governava, separando-o do reino do próprio pai. O Brasil se tornou o único grande Estado das Américas a deixar a Europa mantendo uma monarquia — e o único a sair disso inteiro.',
+      facts: [
+        'The painting is not the event. Pedro Américo painted it in 1888, sixty-six years afterwards; the escort was riding mules, not chargers, and Pedro had stopped at the stream because he was badly ill with a stomach complaint. The uniforms and the poses were invented for the empire’s final years.',
+        'Independence was not a single morning. Portuguese garrisons held Bahia, Maranhão and Pará, and the fighting ran into 1824. Salvador was only taken on 2 July 1823, which Bahia still keeps as its own independence day.',
+        'Portugal recognised the new country in 1825 in exchange for two million pounds sterling. Brazil borrowed the money from British banks to pay it, and began its national life in debt for the purchase of its own independence.'
+      ],
+      facts_pt: [
+        'O quadro não é o acontecimento. Pedro Américo o pintou em 1888, sessenta e seis anos depois; a comitiva ia em mulas, não em corcéis, e Pedro parara no riacho porque estava passando muito mal do estômago. Os uniformes e as poses foram inventados para os anos finais do império.',
+        'A independência não foi uma só manhã. Guarnições portuguesas seguravam Bahia, Maranhão e Pará, e o combate se estendeu até 1824. Salvador só foi tomada em 2 de julho de 1823, data que a Bahia mantém até hoje como sua própria independência.',
+        'Portugal reconheceu o novo país em 1825 em troca de dois milhões de libras esterlinas. O Brasil tomou o dinheiro emprestado de bancos britânicos para pagar, e começou a vida nacional endividado pela compra da própria independência.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,
