@@ -1231,7 +1231,7 @@ var DAILY_CARDS = {
       era: 'Contemporary',
       tag: 'Wedding', tag_pt: 'Casamento',
       text: 'Under a canopy open on all four sides, Daniel and Carina were married before God in a Jewish ceremony. Everything in the rite is old — the contract read aloud, the seven blessings, the glass broken underfoot — and all of it exists to say one thing: that two people are building a house, and that the house begins today.',
-      text_pt: 'Sob uma Chupá, Daniel e Carina se casaram perante Deus numa cerimônia judaica. Tudo no rito é antigo — o contrato lido em voz alta, as sete bênçãos, o copo partido sob o pé — e tudo existe para dizer uma coisa: que duas pessoas estão erguendo uma casa, e que a casa começa hoje.',
+      text_pt: 'Sob um dossel aberto dos quatro lados, Daniel e Carina se casaram perante Deus numa cerimônia judaica. Tudo no rito é antigo — o contrato lido em voz alta, as sete bênçãos, o copo partido sob o pé — e tudo existe para dizer uma coisa: que duas pessoas estão erguendo uma casa, e que a casa começa hoje.',
       facts: [
         'The chuppah has a roof and no walls, in memory of the tent of Abraham, which was said to stand open on every side so that no traveller would have to look for the door. A marriage begins as a shelter anyone can walk into.',
         'At the highest point of the celebration the glass is broken. The custom recalls the destruction of the Temple in Jerusalem: joy is never quite whole while something in the world remains broken, and the two are held in the same moment rather than kept apart.',
@@ -1248,8 +1248,8 @@ var DAILY_CARDS = {
   '09-07': [
     {
       year: 1822,
-      title: 'Independence Took Two Years and Cost Two Million Pounds',
-      title_pt: 'A Independência Levou Dois Anos e Custou Dois Milhões de Libras',
+      title: 'Independence or Death !!!',
+      title_pt: 'Independência ou Morte !!!',
       era: 'Modern',
       region: 'São Paulo', region_pt: 'São Paulo',
       tag: 'Independence', tag_pt: 'Independência',
@@ -1264,6 +1264,29 @@ var DAILY_CARDS = {
         'O quadro não é o acontecimento. Pedro Américo o pintou em 1888, sessenta e seis anos depois; a comitiva ia em mulas, não em corcéis, e Pedro parara no riacho porque estava passando muito mal do estômago. Os uniformes e as poses foram inventados para os anos finais do império.',
         'A independência não foi uma só manhã. Guarnições portuguesas seguravam Bahia, Maranhão e Pará, e o combate se estendeu até 1824. Salvador só foi tomada em 2 de julho de 1823, data que a Bahia mantém até hoje como sua própria independência.',
         'Portugal reconheceu o novo país em 1825 em troca de dois milhões de libras esterlinas. O Brasil tomou o dinheiro emprestado de bancos britânicos para pagar, e começou a vida nacional endividado pela compra da própria independência.'
+      ]
+    }
+  ],
+
+  '09-08': [
+    {
+      year: 1264,
+      title: 'The Charter That Went the Other Way',
+      title_pt: 'A Carta que Foi na Contramão',
+      era: 'Jewish History',
+      region: 'Kalisz, Poland', region_pt: 'Kalisz, Polônia',
+      tag: 'Law', tag_pt: 'Direito',
+      text: 'Bolesław the Pious put his name to thirty-six articles setting out what Jews in Greater Poland could expect: their own courts for their own disputes, the duke rather than the town as their protector, penalties for damaging a synagogue or a cemetery, and a duty on Christian neighbours to come out when a Jewish house was attacked at night. Western Europe in those same decades was drafting badges and expulsions.',
+      text_pt: 'Bolesław, o Piedoso, assinou trinta e seis artigos estabelecendo o que os judeus da Grande Polônia podiam esperar: tribunais próprios para suas próprias disputas, o duque e não a cidade como protetor, penas por danificar uma sinagoga ou um cemitério, e o dever de os vizinhos cristãos acudirem quando uma casa judaica fosse atacada à noite. A Europa Ocidental, nessas mesmas décadas, redigia distintivos e expulsões.',
+      facts: [
+        'One clause took direct aim at the blood libel. A Christian accusing a Jew of ritual murder had to produce three Christian witnesses and three Jewish ones, and if he could not, he suffered the punishment the accused would have suffered. The accusation was spreading across Europe at exactly that moment, and Poland made it expensive to make.',
+        'It was not only conscience. The Mongol invasions had emptied the country twenty years earlier, and the dukes wanted settlers, merchants and credit. Protection was written down because it was worth something to the man writing it.',
+        'Casimir the Great confirmed and widened the charter in the next century, and it held in some form until Poland itself was partitioned. By the eighteenth century most of the Jews alive were living in the Polish-Lithuanian Commonwealth. Hebrew reads the country’s name, Polin, as po lin — here, dwell.'
+      ],
+      facts_pt: [
+        'Um dos artigos mirava diretamente na difamação de sangue. O cristão que acusasse um judeu de assassinato ritual tinha de apresentar três testemunhas cristãs e três judias, e, se não conseguisse, sofria a pena que o acusado teria sofrido. A acusação se espalhava pela Europa exatamente naquele momento, e a Polônia tornou caro fazê-la.',
+        'Não era só consciência. As invasões mongóis haviam esvaziado o país vinte anos antes, e os duques queriam colonos, mercadores e crédito. A proteção foi posta no papel porque valia alguma coisa para quem a escrevia.',
+        'Casimiro, o Grande, confirmou e ampliou a carta no século seguinte, e ela vigorou de alguma forma até a própria Polônia ser repartida. No século XVIII, a maior parte dos judeus vivos morava na Comunidade Polaco-Lituana. O hebraico lê o nome do país, Polin, como po lin — aqui, habita.'
       ]
     }
   ],

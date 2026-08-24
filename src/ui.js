@@ -25,7 +25,7 @@ function selectEra(era,btn){
   document.querySelectorAll('.era-chip').forEach(c=>c.classList.remove('active'));
   btn.classList.add('active');
 }
-function startGame(){ _isDailyChallenge=false;
+function startGame(){ _isDailyChallenge=false; _isRecoverRun=false;
   var _hBtnR=document.getElementById('hint-btn');
   var _sBtnR=document.getElementById('skip-btn');
   if(_hBtnR) _hBtnR.style.display='';
@@ -554,6 +554,13 @@ function renderStreakTab(){
     hint.textContent=t('daily_card_hint');
     panel.appendChild(hint);
   }
+  // Catch-up pointer. Shown only once today is closed out, which is exactly
+  // when the past days in the calendar below become actionable.
+  if(_recoverGateOpen()){
+    var rHint=document.createElement('div'); rHint.className='streak-done-msg';
+    rHint.textContent=t('daily_recover_hint');
+    panel.appendChild(rHint);
+  }
 
   // ── Monthly calendar with prev/next navigation ───────────────────────
   var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
@@ -567,7 +574,7 @@ function renderStreakTab(){
 }
 
 // ── Calendar navigation state ─────────────────────────────────────────────
-var _CAL_MIN_YEAR=2026; var _CAL_MIN_MONTH=2; // March 2026 (0-indexed)
+var _CAL_MIN_YEAR=DAILY_EPOCH_YEAR; var _CAL_MIN_MONTH=DAILY_EPOCH_MONTH; // March 2026 (0-indexed)
 var _calViewYear  = new Date().getFullYear();
 var _calViewMonth = new Date().getMonth(); // 0-indexed
 
@@ -634,19 +641,30 @@ function _renderCalMonth(yr, mo){
     var dayDate=new Date(yr,mo,d); dayDate.setHours(0,0,0,0);
     var dst=_dailyStatus(dayDate);
     var rec=dst.rec;
+    var unlocked=_isCardUnlocked(dayDate);
     var cell=document.createElement('div');
     var isFutureDay=dayDate.getTime()>today.getTime();
-    cell.className='dc-cal-cell'+(rec?' done':'')+(rec?(dst.won?' won':' lost'):'')+(isFutureDay?' future':'');
+    // Guarded so the common cells cost no extra storage reads
+    var recoverable=!unlocked&&!isFutureDay&&_recoverEligible(dayDate);
+    // .done still means "played live", so the streak visuals are untouched.
+    // .won now means "card unlocked", which recovery can also achieve — hence
+    // .recovered, so a caught-up day never passes for a day actually kept.
+    cell.className='dc-cal-cell'+(rec?' done':'')
+      +(unlocked?' won':(rec?' lost':''))
+      +(unlocked&&!dst.won?' recovered':'')
+      +(recoverable?' recoverable':'')
+      +(isFutureDay?' future':'');
     if(dayDate.getTime()===today.getTime()) cell.classList.add('today');
     cell.textContent=d;
-    if(rec){
-      // Won days open the reward card; played-but-unfinished days keep the
-      // existing inline run summary.
-      (function(r,cellEl,dayNum,won){
-        cellEl.onclick=won
-          ?function(){ openDailyCard(yr,mo,dayNum); }
-          :function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
-      })(rec,cell,d,dst.won);
+    if(unlocked){
+      (function(dayNum){ cell.onclick=function(){ openDailyCard(yr,mo,dayNum); }; })(d);
+    } else if(rec||recoverable){
+      // Unfinished days keep the inline run summary, which now also carries the
+      // catch-up action — which is why never-played past days open it too:
+      // otherwise recovery would have nowhere to be offered from.
+      (function(r,cellEl,dayNum){
+        cellEl.onclick=function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
+      })(rec,cell,d);
     }
     grid.appendChild(cell);
   }
@@ -754,10 +772,14 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
   }
   var panel=document.createElement('div'); panel.className='dc-entry-panel';
   panel.dataset.cell=yr+'-'+mo+'-'+day;
-  var d=new Date(yr,mo,day);
+  var d=new Date(yr,mo,day); d.setHours(0,0,0,0);
   var dateStr=d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short',year:'numeric'});
-  var html='<div class="dc-entry-header"><span class="dc-entry-date">📅 '+dateStr+'</span><span class="dc-entry-score">'+rec.score+' pts · '+rec.placed+' '+(lang==='pt'?'cartas':'cards')+'</span></div>';
-  if(rec.timeline&&rec.timeline.length){
+  // rec is null for a day that was never played — the panel then exists purely
+  // to offer recovery, so every field below has to tolerate that.
+  var html='<div class="dc-entry-header"><span class="dc-entry-date">📅 '+dateStr+'</span>'
+    +(rec?'<span class="dc-entry-score">'+rec.score+' pts · '+rec.placed+' '+(lang==='pt'?'cartas':'cards')+'</span>':'')
+    +'</div>';
+  if(rec&&rec.timeline&&rec.timeline.length){
     html+='<div class="dc-entry-tl">';
     rec.timeline.forEach(function(c){
       html+='<div class="ht-card"><div class="ht-dot" style="background:'+(ERA_COLORS[c.era]||'#888')+'"></div><div class="ht-name">'+c.name+'</div><div class="ht-year">'+(c.span||formatYear(c.year))+'</div></div>';
@@ -765,8 +787,42 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
     html+='</div>';
   }
   panel.innerHTML=html;
+  _appendRecoverRow(panel,d);
   // Insert after the grid row containing the cell
   cellEl.closest('.dc-month-block').appendChild(panel);
+}
+
+// The catch-up affordance inside a past day's panel. Three states worth
+// rendering: playable now, playable but today's run is not finished yet, and
+// out of catch-up tries. Anything else (future day, before the calendar
+// starts, card already unlocked) renders nothing.
+function _appendRecoverRow(panel, date){
+  var st=_recoverStatus(date);
+  var row=document.createElement('div'); row.className='dc-recover-row';
+  if(!_recoverEligible(date)){
+    if(!st.won&&st.locked){
+      var none=document.createElement('div'); none.className='dc-recover-note';
+      none.textContent=t('daily_recover_none');
+      row.appendChild(none);
+    } else return;
+  } else if(!_recoverGateOpen()){
+    var gate=document.createElement('div'); gate.className='dc-recover-note';
+    gate.textContent=t('daily_recover_gate').replace('{max}',DAILY_MAX_ATTEMPTS);
+    row.appendChild(gate);
+  } else {
+    var btn=document.createElement('button'); btn.className='dc-recover-btn';
+    btn.textContent=t('daily_recover_btn');
+    btn.onclick=function(){
+      closeHistory();
+      startRecoverChallenge(date.getFullYear(),date.getMonth(),date.getDate());
+    };
+    row.appendChild(btn);
+    var note=document.createElement('div'); note.className='dc-recover-note';
+    note.textContent=t('daily_recover_tries').replace('{n}',st.attemptsLeft).replace('{max}',DAILY_MAX_ATTEMPTS)
+      +' · '+t('daily_recover_no_streak');
+    row.appendChild(note);
+  }
+  panel.appendChild(row);
 }
 
 // ── DAILY REWARD CARD MODAL ───────────────────────────────────────────────
@@ -777,7 +833,8 @@ var _dcardDate=null;   // date currently displayed, for language re-render
 
 function _fillDailyCard(date){
   var card=_dailyCardFor(date);
-  var rec=_getDailyRecord(date);
+  var unlock=_cardUnlockRun(date);
+  var rec=unlock.rec;
   var color=(card&&ERA_COLORS[card.era])||'var(--gold)';
   var bar=document.getElementById('dcard-bar');
   var frame=document.getElementById('dcard-frame');
@@ -816,7 +873,8 @@ function _fillDailyCard(date){
   if(rec){
     runEl.textContent='📅 '+dateStr+' · '+rec.score+' pts · '+rec.placed+'/'+DAILY_DECK_SIZE+' '
       +(lang==='pt'?'cartas':'cards')
-      +(rec.attempts>1?' · '+_dailyAttemptLabel(rec.attempts):'');
+      +(rec.attempts>1?' · '+_dailyAttemptLabel(rec.attempts):'')
+      +(unlock.recovered?' · '+t('dcard_recovered'):'');
   } else {
     runEl.textContent='📅 '+dateStr;
   }

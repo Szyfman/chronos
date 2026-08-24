@@ -291,6 +291,17 @@ function endGame(won)
 - No hints, no skips
 - Stored in localStorage per day: `chronos_daily_YYYY-MM-DD`
 - Streak tracking: current streak, longest streak across all time
+- 3 attempts per day; winning (all 18 placed) unlocks that day's reward card
+
+**Card Recovery (catch-up)**:
+- A past day whose card was never unlocked can be replayed later, for the card only
+- Own budget of 3 attempts per target day, independent of the attempts that day had
+- Gated on today's challenge being closed out (won, or all 3 tries spent)
+- Never touches the streak — stored under `chronos_recover_YYYY-MM-DD` precisely
+  because the streak is computed from the presence of `chronos_daily_*` keys
+- Eligible range: March 2026 (`DAILY_EPOCH_YEAR`/`DAILY_EPOCH_MONTH`) through yesterday
+- Same 18 cards as the original day; order seeded past the live attempts so a
+  catch-up run never repeats an order already seen
 
 ---
 
@@ -395,6 +406,8 @@ function renderHistoryPanel()
   - Month/year picker (drum-roll style)
   - Click completed days to view their timelines
   - "Play Today's Challenge" button (disabled if already done)
+  - Past days without a card open a panel offering catch-up (3 tries, gated on
+    today being finished); recovered days show a hollow ring and ✦ instead of ★
 
 **Compendium**:
 ```javascript

@@ -552,6 +552,36 @@
   body.light .dc-cal-cell.done.won::after{color:#1d4ed8;text-shadow:0 0 2px #fff}
   body.light .dc-cal-cell.done.lost{background:#e8efff;color:#1d4ed8;border-color:#93c5fd}
   body.light .dc-cal-cell.done.lost:hover{background:#dbe7ff}
+  /* A card can now also be unlocked by a catch-up run on a past day, so .won no
+     longer implies .done — it needs its own fill. .recovered stays hollow with
+     a ✦ instead of the ★: the card is earned, the day itself was not kept.
+     .recoverable is the affordance on a past day still open for catch-up. */
+  .dc-cal-cell.won{position:relative;background:var(--gold);color:#0d0c0a;font-weight:700;cursor:pointer}
+  .dc-cal-cell.won:hover{background:#e0b84a}
+  .dc-cal-cell.won.recovered{background:transparent;color:var(--gold);border:1.5px solid rgba(201,168,76,.75)}
+  .dc-cal-cell.won.recovered:hover{background:rgba(201,168,76,.18)}
+  .dc-cal-cell.won.recovered::after{content:'✦';position:absolute;top:-3px;right:-1px;font-size:.42rem;line-height:1;color:var(--gold);text-shadow:0 0 2px #0d0c0a}
+  .dc-cal-cell.recoverable{cursor:pointer;color:var(--gold);border:1px dotted rgba(201,168,76,.4)}
+  .dc-cal-cell.recoverable:hover{background:rgba(201,168,76,.12)}
+  /* NB: the accessibility pass at the end of this sheet forces
+     `body.light .dc-cal-cell{color:#0f172a!important}`, so the `color` below is
+     intent, not effect — light-mode cell text is dark either way (which reads
+     fine on the hollow and dotted variants). The ::after rules DO apply, since
+     they match the pseudo-element directly rather than inheriting. */
+  body.light .dc-cal-cell.won{background:#1d4ed8;color:#ffffff}
+  body.light .dc-cal-cell.won.recovered{background:transparent;color:#1d4ed8;border-color:#1d4ed8}
+  body.light .dc-cal-cell.won.recovered:hover{background:#eff6ff}
+  body.light .dc-cal-cell.won.recovered::after{color:#1d4ed8;text-shadow:0 0 2px #fff}
+  body.light .dc-cal-cell.recoverable{color:#1d4ed8;border-color:#93c5fd}
+  body.light .dc-cal-cell.recoverable:hover{background:#eff6ff}
+  /* Catch-up row inside a past day's inline panel */
+  .dc-recover-row{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.12)}
+  .dc-recover-btn{width:100%;max-width:260px;padding:10px 0;background:transparent;border:1px solid var(--gold-dim);border-radius:9px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:background .2s}
+  .dc-recover-btn:hover{background:rgba(201,168,76,.12)}
+  .dc-recover-note{font-size:.58rem;color:var(--cream-dim);font-family:'Inter',sans-serif;font-style:italic;text-align:center;line-height:1.4}
+  body.light .dc-recover-btn{border-color:#93c5fd;color:#1d4ed8}
+  body.light .dc-recover-btn:hover{background:#eff6ff}
+  body.light .dc-recover-note{color:#475569}
   /* Week dots mirror the same split */
   .streak-dot.lost{background:rgba(201,168,76,.3);border-color:rgba(201,168,76,.5)}
   body.light .streak-dot.lost{background:#c7d8fb;border-color:#93c5fd}

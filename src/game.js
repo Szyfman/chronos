@@ -45,11 +45,15 @@ var _voluntaryEnd = false;
 var DAILY_MAX_ATTEMPTS = 3;   // tries allowed per calendar day
 var DAILY_DECK_SIZE    = 18;  // cards to place to win the daily
 
+var DAILY_EPOCH_YEAR   = 2026; // first month the challenge calendar covers —
+var DAILY_EPOCH_MONTH  = 2;    // March 2026 (0-indexed). Also the recovery floor.
+
 var _isDailyChallenge = false;
 var _dailyAttempt     = 0;     // 1-based index of the attempt being played
 var _dailyRunDate     = null;  // date pinned at launch — immune to midnight rollover
 var _dailyCommitted   = false; // has this attempt been written to localStorage yet?
-var _lastDailyResult  = null;  // {won, attempts, attemptsLeft, date} for the gameover screen
+var _isRecoverRun     = false; // is the run in progress a past-day catch-up?
+var _lastDailyResult  = null;  // {won, attempts, attemptsLeft, date, recover} for the gameover screen
 
 // Seeded PRNG (mulberry32) — same seed = same sequence every time
 function _seededRNG(seed){
@@ -74,16 +78,15 @@ function _seededShuffle(arr, rng){
   return a;
 }
 
-// Launches (or relaunches) today's daily. Shared by the Streak-tab button and
-// the gameover retry button — the only difference is which attempt it is.
-function _launchDaily(){
-  var today = new Date(); today.setHours(0,0,0,0);
-  var st = _dailyStatus(today);
-  if(st.locked) return;   // already won today, or out of attempts
-  _dailyRunDate    = today;
-  _dailyAttempt    = st.attemptsUsed + 1;
+// Starts a daily run for `date`. Shared by today's daily (Streak tab and the
+// gameover retry) and by past-day recovery — the only differences are which
+// date seeds the deck and which attempt budget the run spends.
+function _beginDailyRun(date, attempt, isRecover){
+  _dailyRunDate    = date;
+  _dailyAttempt    = attempt;
   _dailyCommitted  = false;
   _lastDailyResult = null;
+  _isRecoverRun    = !!isRecover;
   gameMode = 'classic';
   eraFilter = 'all';
   livesMode = true;
@@ -102,8 +105,27 @@ function _launchDaily(){
   if(_sBtnR) _sBtnR.style.display='';
   initGame();
 }
+// Today's daily. No-op once the day is won or out of attempts.
+function _launchDaily(){
+  var today = new Date(); today.setHours(0,0,0,0);
+  var st = _dailyStatus(today);
+  if(st.locked) return;
+  _beginDailyRun(today, st.attemptsUsed + 1, false);
+}
+// A past day, replayed only to unlock its card — see RECOVERY below.
+function _launchRecover(date){
+  var d = new Date(date); d.setHours(0,0,0,0);
+  if(!_recoverEligible(d) || !_recoverGateOpen()) return;
+  _beginDailyRun(d, _recoverStatus(d).attemptsUsed + 1, true);
+}
 function startDailyChallenge(){ _launchDaily(); }
-function retryDailyChallenge(){ _launchDaily(); }
+function startRecoverChallenge(yr,mo,d){ _launchRecover(new Date(yr,mo,d)); }
+// Single retry entry point for the gameover button (also wired inline in
+// index.html), so it resumes whichever kind of run just ended.
+function retryDailyChallenge(){
+  if(_lastDailyResult && _lastDailyResult.recover) _launchRecover(_lastDailyResult.date);
+  else _launchDaily();
+}
 
 // Timeline snapshot as stored inside a daily record
 function _dailyTimelineSnapshot(){
@@ -118,22 +140,33 @@ function _dailyTimelineSnapshot(){
 }
 
 // Called on the first placement of a daily run. Burns the attempt immediately
-// so killing the app mid-run can't hand out unlimited tries — and it's what
-// makes the day count towards the streak.
+// so killing the app mid-run can't hand out unlimited tries — and, for a live
+// run, it's what makes the day count towards the streak. A recovery run lands
+// in the other store and so never affects the streak.
 function _commitDailyAttempt(){
   if(!_dailyRunDate) return;
-  var rec = _getDailyRecord(_dailyRunDate) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
+  var rec = _runRecord(_dailyRunDate) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
   rec.attempts = Math.max(rec.attempts, _dailyAttempt);
-  _writeDailyRecord(_dailyRunDate, rec);
+  _writeRunRecord(_dailyRunDate, rec);
   _dailyCommitted = true;
+}
+
+// Read/write for the run in progress. Both dispatch on _isRecoverRun because a
+// recovery run must never touch chronos_daily_* — that prefix IS the streak.
+function _runRecord(date){
+  return _isRecoverRun ? _getRecoverRecord(date) : _getDailyRecord(date);
+}
+function _writeRunRecord(date, rec){
+  return _isRecoverRun ? _writeRecoverRecord(date, rec) : _writeDailyRecord(date, rec);
 }
 
 // Called from endGame: merges this attempt into the day's record, keeping only
 // the best run, and remembers the outcome for the gameover screen.
 function _saveDailyResult(won){
   var date = _dailyRunDate || new Date();
-  var rec = _getDailyRecord(date) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
+  var recover = _isRecoverRun;
+  var rec = _runRecord(date) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
   rec.attempts = Math.max(rec.attempts, _dailyAttempt);
   var better = won || timeline.length > rec.placed
@@ -144,15 +177,17 @@ function _saveDailyResult(won){
     rec.timeline = _dailyTimelineSnapshot();
   }
   rec.won = rec.won || !!won;
-  _writeDailyRecord(date, rec);
+  _writeRunRecord(date, rec);
   _lastDailyResult = {
     won: rec.won,
     attempts: rec.attempts,
     attemptsLeft: rec.won ? 0 : Math.max(0, DAILY_MAX_ATTEMPTS - rec.attempts),
-    date: date
+    date: date,
+    recover: recover
   };
   _isDailyChallenge = false;
   _dailyCommitted = false;
+  _isRecoverRun = false;   // after the write — _writeRunRecord reads this flag
 }
 
 
@@ -330,8 +365,11 @@ function initGame(){
     // attempt can't be won from memory. Attempt 1 is byte-identical to before.
     var _seed=_dailySeedFor(_dailyRunDate||new Date());
     var _base=_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE);
-    deck=_dailyAttempt>1
-      ?_seededShuffle(_base,_seededRNG(_seed+_dailyAttempt*104729))
+    // Recovery attempts continue the same seed line past the live attempts, so
+    // a catch-up run never repeats an order the player already saw that day.
+    var _ord=_isRecoverRun?DAILY_MAX_ATTEMPTS+_dailyAttempt:_dailyAttempt;
+    deck=_ord>1
+      ?_seededShuffle(_base,_seededRNG(_seed+_ord*104729))
       :_base;
     hints=0; skip=0;
     var _hcEl=document.getElementById('hint-count');
@@ -348,7 +386,7 @@ function initGame(){
   }
     // Hide history access during play
   document.getElementById('hist-btn').style.visibility='hidden';
-  document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):t(MODE_LABEL[gameMode]||'subtitle');
+  document.getElementById('hdr-mode').textContent=_isDailyChallenge?_dailyHeaderLabel():t(MODE_LABEL[gameMode]||'subtitle');
   document.getElementById('streak-lbl').textContent=t('streak');
   document.getElementById('score-lbl').textContent=t('score');
   var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
@@ -464,7 +502,7 @@ function endGame(won){
   if(timeline.length===0){
     document.getElementById('hist-btn').style.visibility='';
     _pendingGameRecord=null; _voluntaryEnd=false;
-    _isDailyChallenge=false; _dailyCommitted=false; _lastDailyResult=null;
+    _isDailyChallenge=false; _dailyCommitted=false; _isRecoverRun=false; _lastDailyResult=null;
     showIntro(); return;
   }
   // Record the daily attempt (win or loss) — also clears _isDailyChallenge
@@ -499,6 +537,16 @@ function _hideDailyGameoverBtns(){
 function _dailyAttemptLabel(n){
   return t('daily_attempt_of').replace('{n}',n).replace('{max}',DAILY_MAX_ATTEMPTS);
 }
+// Short date, used wherever a past day has to name itself
+function _dailyShortDate(date){
+  return date.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short'});
+}
+// In-game header: a recovery run says which day it is replaying, so the player
+// is never confused about whose 18 cards these are.
+function _dailyHeaderLabel(){
+  if(!_isRecoverRun) return t('daily_title');
+  return t('daily_recover_title')+' · '+_dailyShortDate(_dailyRunDate||new Date());
+}
 // Decorates the gameover screen for a daily run: retry, reward card, or nothing
 function _renderDailyGameover(){
   _hideDailyGameoverBtns();
@@ -507,18 +555,25 @@ function _renderDailyGameover(){
   var retry=document.getElementById('go-retry-btn');
   var dcard=document.getElementById('go-dcard-btn');
   var again=document.getElementById('go-again-btn');
+  var rc=!!res.recover;
   if(again) again.textContent=t('daily_exit');
   if(res.won){
     if(dcard){
       dcard.style.display='';
-      dcard.textContent=t('daily_view_card');
+      dcard.textContent=rc?t('daily_view_card_past'):t('daily_view_card');
       dcard.onclick=function(){
         openDailyCard(res.date.getFullYear(),res.date.getMonth(),res.date.getDate());
       };
     }
+    // A recovered card is worth the card and nothing else — say so, or the
+    // player will go looking for a streak that did not move.
+    if(rc){
+      var _subw=document.getElementById('go-sub');
+      if(_subw) _subw.textContent=t('daily_recover_won_sub');
+    }
   } else if(res.attemptsLeft>0){
     var _sub=document.getElementById('go-sub');
-    if(_sub) _sub.textContent=t('daily_try_again_sub');
+    if(_sub) _sub.textContent=rc?t('daily_recover_again_sub'):t('daily_try_again_sub');
     if(retry){
       retry.style.display='';
       retry.textContent=t('daily_retry')+' · '+_dailyAttemptLabel(res.attempts+1);
@@ -526,7 +581,7 @@ function _renderDailyGameover(){
     }
   } else {
     var _sub2=document.getElementById('go-sub');
-    if(_sub2) _sub2.textContent=t('daily_out_of_tries');
+    if(_sub2) _sub2.textContent=rc?t('daily_recover_out'):t('daily_out_of_tries');
   }
 }
 
@@ -590,9 +645,9 @@ function _isQuotaError(e){
 // worst outcome in the app: the key never appears, so _isDailyDone reads false,
 // the run is forgotten and the streak breaks with no signal to the player.
 // If the quota is what stopped us, free the timelines and retry once.
-function _writeDailyRecord(date, rec){
+function _writeRecordAt(key, rec){
   try{
-    localStorage.setItem(_dailyKey(date), JSON.stringify(rec));
+    localStorage.setItem(key, JSON.stringify(rec));
     return true;
   }catch(e){
     // Only a full quota justifies the fallback. Any other failure (storage
@@ -600,7 +655,7 @@ function _writeDailyRecord(date, rec){
     // destroy every stored timeline for nothing.
     if(_isQuotaError(e) && _pruneDailyTimelines(0)){
       try{
-        localStorage.setItem(_dailyKey(date), JSON.stringify(rec));
+        localStorage.setItem(key, JSON.stringify(rec));
         return true;
       }catch(e2){}
     }
@@ -608,6 +663,7 @@ function _writeDailyRecord(date, rec){
     return false;
   }
 }
+function _writeDailyRecord(date, rec){ return _writeRecordAt(_dailyKey(date), rec); }
 function _getDailyRecord(date){
   try{
     var raw=localStorage.getItem(_dailyKey(date));
@@ -642,6 +698,79 @@ function _dailyStatus(date){
 function _dailyTodayStatus(){
   var d=new Date(); d.setHours(0,0,0,0);
   return _dailyStatus(d);
+}
+
+// ── RECOVERY: unlocking a missed day's card ───────────────────────────────
+// A past day whose card was never unlocked can be replayed later, purely for
+// the card. Three rules, and they are the whole feature:
+//   • its own budget of DAILY_MAX_ATTEMPTS tries, independent of the tries the
+//     day itself had — a day lost 3/3 back then is still recoverable;
+//   • only while today's daily is closed out (won, or all tries spent), so
+//     recovery can never become a way of dodging today's challenge;
+//   • it does NOT repair the streak.
+// That last rule is why recovery gets its own key prefix: the streak is read
+// from the mere presence of chronos_daily_* keys (_isDailyDone, _calcStreak),
+// so recording a recovery run there would silently mend a broken streak.
+// Nothing below writes to that prefix.
+var _RECOVER_PREFIX='chronos_recover_';
+function _recoverKey(date){
+  return _RECOVER_PREFIX+_dailyKey(date).slice(_DAILY_PREFIX.length);
+}
+function _writeRecoverRecord(date, rec){ return _writeRecordAt(_recoverKey(date), rec); }
+function _getRecoverRecord(date){
+  try{
+    var raw=localStorage.getItem(_recoverKey(date));
+    if(!raw) return null;
+    var rec=JSON.parse(raw);
+    if(!rec||typeof rec!=='object') return null;
+    if(typeof rec.placed!=='number') rec.placed=0;
+    if(typeof rec.score!=='number') rec.score=0;
+    if(typeof rec.won!=='boolean') rec.won=rec.placed>=DAILY_DECK_SIZE;
+    if(typeof rec.attempts!=='number'||rec.attempts<1) rec.attempts=1;
+    if(!Array.isArray(rec.timeline)) rec.timeline=[];
+    return rec;
+  }catch(e){ return null; }
+}
+// Mirrors _dailyStatus, over the recovery budget of one past day.
+function _recoverStatus(date){
+  var rec=_getRecoverRecord(date);
+  var used=rec?rec.attempts:0;
+  var won=!!(rec&&rec.won);
+  return {
+    rec: rec,
+    attemptsUsed: used,
+    won: won,
+    attemptsLeft: won?0:Math.max(0,DAILY_MAX_ATTEMPTS-used),
+    locked: won||used>=DAILY_MAX_ATTEMPTS
+  };
+}
+// The gate — today's challenge has to be finished, won or all tries burned.
+// Same condition as "today can no longer be played".
+function _recoverGateOpen(){ return _dailyTodayStatus().locked; }
+// Day-level eligibility, deliberately gate-free: the UI needs to tell "this
+// day is out of recovery tries" apart from "come back after today's run".
+function _recoverEligible(date){
+  var today=new Date(); today.setHours(0,0,0,0);
+  var d=new Date(date); d.setHours(0,0,0,0);
+  if(d.getTime()>=today.getTime()) return false;   // today is the daily itself
+  if(d.getTime()<new Date(DAILY_EPOCH_YEAR,DAILY_EPOCH_MONTH,1).getTime()) return false;
+  if(_isCardUnlocked(d)) return false;             // nothing left to win
+  return !_recoverStatus(d).locked;
+}
+// The card is unlocked by a win, whichever budget paid for it.
+function _isCardUnlocked(date){
+  return _dailyStatus(date).won || _recoverStatus(date).won;
+}
+// Which run to show in the card footer. A live win outranks a recovery one;
+// with no win at all, fall back to whatever run exists so the footer still
+// carries the day's best attempt.
+function _cardUnlockRun(date){
+  var live=_getDailyRecord(date);
+  if(live&&live.won) return {rec:live,recovered:false};
+  var rr=_getRecoverRecord(date);
+  if(rr&&rr.won) return {rec:rr,recovered:true};
+  if(live) return {rec:live,recovered:false};
+  return {rec:rr,recovered:!!rr};
 }
 function _calcStreak(){
   var today=new Date(); today.setHours(0,0,0,0);
@@ -706,6 +835,14 @@ var _PRUNE_MARK_KEY = 'chronos_prune_mark';  // deliberately NOT _DAILY_PREFIX,
 // quota fallback below can free space without eating the run it is trying to
 // save. Returns true only if something was actually freed, so the caller knows
 // whether a retry is worth attempting.
+// Recovery records carry a timeline of the same shape and age the same way, so
+// the sweep covers both prefixes. Their date suffix is identical, which is what
+// lets one watermark serve the two of them.
+function _recordDateSuffix(k){
+  if(k.lastIndexOf(_DAILY_PREFIX,0)===0)   return k.slice(_DAILY_PREFIX.length);
+  if(k.lastIndexOf(_RECOVER_PREFIX,0)===0) return k.slice(_RECOVER_PREFIX.length);
+  return null;
+}
 function _pruneDailyTimelines(retentionDays){
   var freed=false;
   try{
@@ -720,8 +857,9 @@ function _pruneDailyTimelines(retentionDays){
     var stale=[];
     for(var i=0;i<localStorage.length;i++){
       var k=localStorage.key(i);
-      if(!k||k.lastIndexOf(_DAILY_PREFIX,0)!==0) continue;
-      var ds=k.slice(_DAILY_PREFIX.length);
+      if(!k) continue;
+      var ds=_recordDateSuffix(k);
+      if(ds===null) continue;
       // 'YYYY-MM-DD' sorts lexicographically, so a string compare is a date
       // compare. Length check also rejects any non-date key sharing the prefix.
       if(ds.length!==10||ds>=cutoffStr||ds<=mark) continue;
