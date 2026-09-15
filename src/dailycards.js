@@ -1291,6 +1291,259 @@ var DAILY_CARDS = {
     }
   ],
 
+  '09-09': [
+    {
+      year: 337,
+      title: 'Three Brothers Divide an Empty Family',
+      title_pt: 'Três Irmãos Dividem uma Família Vazia',
+      era: 'Classical',
+      region: 'Roman Empire', region_pt: 'Império Romano',
+      tag: 'Succession', tag_pt: 'Sucessão',
+      text: 'Constantine had been dead for three and a half months, and in that gap the dynasty had been cut down to the three sons and almost nobody else. On this day they were proclaimed Augusti together and split the empire between them. It lasted three years before they began killing each other.',
+      text_pt: 'Constantino estava morto havia três meses e meio, e nesse intervalo a dinastia fora podada até sobrarem os três filhos e quase mais ninguém. Neste dia eles foram proclamados Augustos em conjunto e dividiram o império entre si. Durou três anos, até começarem a se matar.',
+      facts: [
+        'Two of Constantine’s half-brothers and seven of his nephews were killed in those months, reportedly by the army, on the story that the dead emperor had been poisoned by his own relatives. Two boys were spared as too young to matter.',
+        'One of the two was five years old and named Julian. Twenty-four years later he was emperor, and he spent his short reign trying to undo his uncle’s religion — the last pagan to rule Rome.',
+        'The division did not hold. Constantine II invaded his brother’s territory in 340 and was killed in an ambush; Constans was murdered by a usurper in 350; Constantius II ruled alone and died in 361 while marching to fight Julian.'
+      ],
+      facts_pt: [
+        'Dois meios-irmãos de Constantino e sete de seus sobrinhos foram mortos nesses meses, ao que se conta pelo exército, sob a versão de que o imperador morto fora envenenado pelos próprios parentes. Dois meninos foram poupados por serem novos demais para importar.',
+        'Um dos dois tinha cinco anos e se chamava Juliano. Vinte e quatro anos depois era imperador, e passou seu curto reinado tentando desfazer a religião do tio — o último pagão a governar Roma.',
+        'A divisão não se sustentou. Constantino II invadiu o território do irmão em 340 e morreu numa emboscada; Constante foi assassinado por um usurpador em 350; Constâncio II governou sozinho e morreu em 361, marchando para enfrentar Juliano.'
+      ]
+    }
+  ],
+
+  '09-10': [
+    {
+      year: 1509,
+      title: 'The Lesser Judgment Day',
+      title_pt: 'O Pequeno Juízo Final',
+      era: 'Renaissance',
+      region: 'Constantinople', region_pt: 'Constantinopla',
+      tag: 'Earthquake', tag_pt: 'Terremoto',
+      text: 'The earthquake that struck the Sea of Marmara brought down houses, minarets and stretches of the sea wall, and the water came over what was left. Istanbul called it Küçük Kıyamet — the Lesser Judgment Day — and the name stuck, because for a month and a half nobody could be sure it was over.',
+      text_pt: 'O terremoto que atingiu o mar de Mármara derrubou casas, minaretes e trechos da muralha marítima, e a água passou por cima do que sobrou. Istambul o chamou de Küçük Kıyamet — o Pequeno Juízo Final — e o nome pegou, porque por um mês e meio ninguém tinha certeza de que havia acabado.',
+      facts: [
+        'The aftershocks ran for forty-five days. The city moved outdoors into tents and open ground, the sultan among them, and people did not go back inside for something close to two months.',
+        'Bayezid II rebuilt by conscription. Every household in the region had to send a labourer or pay for one, and something like eighty thousand men were put to work on the city.',
+        'Hagia Sophia stood. It lost a minaret and kept its dome, as it had through earthquakes for nearly a thousand years by then, and it is standing still.'
+      ],
+      facts_pt: [
+        'Os tremores secundários duraram quarenta e cinco dias. A cidade se mudou para tendas e terrenos abertos, o sultão entre eles, e as pessoas só voltaram para dentro perto de dois meses depois.',
+        'Bayezid II reconstruiu por convocação. Cada domicílio da região tinha de enviar um trabalhador ou pagar por um, e cerca de oitenta mil homens foram postos a trabalhar na cidade.',
+        'Santa Sofia ficou de pé. Perdeu um minarete e manteve a cúpula, como já fizera em terremotos por quase mil anos até ali, e continua de pé.'
+      ]
+    }
+  ],
+
+  '09-11': [
+    {
+      year: 2001,
+      title: 'Four Planes',
+      title_pt: 'Quatro Aviões',
+      era: 'Contemporary',
+      region: 'United States', region_pt: 'Estados Unidos',
+      tag: 'Attack', tag_pt: 'Atentado',
+      text: 'Nineteen men hijacked four airliners. Two were flown into the towers of the World Trade Center, one into the Pentagon, and one came down in a field in Pennsylvania. Two thousand nine hundred and seventy-seven people were killed, citizens of more than ninety countries. It is the deadliest terrorist attack ever carried out.',
+      text_pt: 'Dezenove homens sequestraram quatro aviões de carreira. Dois foram lançados contra as torres do World Trade Center, um contra o Pentágono, e um caiu num campo na Pensilvânia. Morreram duas mil novecentas e setenta e sete pessoas, cidadãs de mais de noventa países. É o atentado terrorista mais letal já cometido.',
+      facts: [
+        'The fourth aircraft never reached its target. The passengers learned from telephone calls what had already happened in New York, decided together what to do, and went for the cockpit; the plane went into the ground about twenty minutes’ flying time short of Washington.',
+        'Half a million people were taken off Manhattan by boat that day. The Coast Guard put out a call for any vessel available and ferries, tugs, and private craft answered; the lift ran some nine hours and moved more people than the evacuation of Dunkirk.',
+        'The dying did not stop that day. Thousands of firefighters, police officers, cleanup workers and residents have since died of illnesses caused by the dust, and people are still being certified for them a quarter of a century on.'
+      ],
+      facts_pt: [
+        'O quarto avião nunca chegou ao alvo. Os passageiros souberam por telefone o que já havia acontecido em Nova York, decidiram juntos o que fazer e partiram para a cabine; o avião caiu a cerca de vinte minutos de voo de Washington.',
+        'Meio milhão de pessoas saíram de Manhattan de barco naquele dia. A Guarda Costeira pediu qualquer embarcação disponível e balsas, rebocadores e barcos particulares atenderam; a operação durou umas nove horas e transportou mais gente que a evacuação de Dunquerque.',
+        'As mortes não pararam naquele dia. Milhares de bombeiros, policiais, trabalhadores da remoção de escombros e moradores morreram depois de doenças causadas pela poeira, e há pessoas sendo diagnosticadas até hoje, um quarto de século depois.'
+      ]
+    }
+  ],
+
+  '09-12': [
+    {
+      year: -490,
+      title: 'The Run That Did Not Happen',
+      title_pt: 'A Corrida que Não Aconteceu',
+      era: 'Classical',
+      region: 'Marathon, Attica', region_pt: 'Maratona, Ática',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'The Athenians and a small contingent from Plataea met the first Persian invasion on the plain at Marathon and broke it. Herodotus counts one hundred and ninety-two Athenian dead against six thousand four hundred Persians. The race named after the battle commemorates something that, as it is usually told, did not take place.',
+      text_pt: 'Os atenienses e um pequeno contingente de Plateia enfrentaram a primeira invasão persa na planície de Maratona e a quebraram. Heródoto conta cento e noventa e dois mortos atenienses contra seis mil e quatrocentos persas. A corrida que leva o nome da batalha comemora algo que, do modo como costuma ser contado, não aconteceu.',
+      facts: [
+        'Herodotus does have a runner, but he runs the other way and before the fighting: Pheidippides sent to Sparta, some two hundred and fifty kilometres, to ask for help — and the Spartans replied that they could not march until the moon was full. The man dying as he announces the victory turns up centuries later, in sources that name different men.',
+        'What the army actually did was harder than the legend. Having won, the Athenians marched the forty kilometres back to Athens the same day, in armour, to reach the shore before the Persian fleet could round the cape and land.',
+        'The hundred and ninety-two were buried where they fell, under a mound that is still on the plain. Athens normally brought its war dead home; this was the exception. Aeschylus fought in the battle, and the epitaph he is said to have chosen mentions Marathon and not one of his plays.'
+      ],
+      facts_pt: [
+        'Heródoto tem sim um corredor, mas ele corre no sentido contrário e antes do combate: Fidípides enviado a Esparta, uns duzentos e cinquenta quilômetros, para pedir ajuda — e os espartanos responderam que não podiam marchar antes da lua cheia. O homem que morre ao anunciar a vitória aparece séculos depois, em fontes que dão nomes diferentes.',
+        'O que o exército de fato fez foi mais duro que a lenda. Tendo vencido, os atenienses marcharam os quarenta quilômetros de volta a Atenas no mesmo dia, de armadura, para chegar à praia antes que a frota persa contornasse o cabo e desembarcasse.',
+        'Os cento e noventa e dois foram enterrados onde caíram, sob um montículo que ainda está na planície. Atenas normalmente trazia seus mortos de guerra para casa; este foi a exceção. Ésquilo lutou na batalha, e o epitáfio que se diz ter escolhido menciona Maratona e nenhuma de suas peças.'
+      ]
+    }
+  ],
+
+  '09-13': [
+    {
+      year: -509,
+      title: 'The Republic Dedicates the Last King’s Temple',
+      title_pt: 'A República Dedica o Templo do Último Rei',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Temple', tag_pt: 'Templo',
+      text: 'The greatest temple in Rome was vowed by one king and built by another, and the men who dedicated it had just thrown the second one out. In the first year of the Republic, on the ides of September, the consuls consecrated the Capitoline temple of Jupiter Best and Greatest — the building the monarchy left behind.',
+      text_pt: 'O maior templo de Roma foi prometido por um rei e construído por outro, e os homens que o dedicaram acabavam de expulsar o segundo. No primeiro ano da República, nos idos de setembro, os cônsules consagraram o templo capitolino de Júpiter Ótimo Máximo — o edifício que a monarquia deixou para trás.',
+      facts: [
+        'Every year on that same day a nail was driven into the temple wall to mark the year that had passed. It was a calendar kept in iron, from a time when very few people could write one down.',
+        'Livy tells that as the consul held the doorpost to speak the words of dedication, a rival had word brought to him that his son had died, so that grief would make him let go and forfeit the honour. He answered that they could bury the boy, and finished the sentence.',
+        'Triumphs ended here. For the next five centuries every general who was granted one climbed the Capitoline to this building at the end of the procession, and almost nothing of it survives now but foundations under a later palace.'
+      ],
+      facts_pt: [
+        'Todo ano, nesse mesmo dia, um prego era cravado na parede do templo para marcar o ano que passara. Era um calendário guardado em ferro, de uma época em que pouquíssimos sabiam escrever um.',
+        'Lívio conta que, enquanto o cônsul segurava o batente para pronunciar as palavras da dedicação, um rival mandou avisá-lo de que seu filho havia morrido, para que a dor o fizesse soltar e perder a honra. Ele respondeu que podiam enterrar o menino, e terminou a frase.',
+        'Os triunfos terminavam aqui. Pelos cinco séculos seguintes, todo general que recebia um subia o Capitólio até este edifício ao fim do cortejo, e hoje quase nada resta dele além de fundações sob um palácio posterior.'
+      ]
+    }
+  ],
+
+  '09-14': [
+    {
+      year: 1752,
+      title: 'Eleven Days That Never Existed',
+      title_pt: 'Onze Dias que Nunca Existiram',
+      era: 'Early Modern',
+      region: 'Britain', region_pt: 'Grã-Bretanha',
+      tag: 'Calendar', tag_pt: 'Calendário',
+      text: 'Britain went to bed on Wednesday 2 September and got up on Thursday 14 September. Catholic Europe had made the correction a hundred and seventy years earlier; Protestant Britain had refused it that long because the arithmetic came from a pope. When it finally gave in, it had eleven days of drift to delete.',
+      text_pt: 'A Grã-Bretanha foi dormir na quarta-feira, 2 de setembro, e acordou na quinta-feira, 14 de setembro. A Europa católica fizera a correção cento e setenta anos antes; a Grã-Bretanha protestante a recusara todo esse tempo porque a aritmética vinha de um papa. Quando enfim cedeu, tinha onze dias de atraso para apagar.',
+      facts: [
+        'The riots probably never happened. "Give us our eleven days" comes from a Hogarth painting of an election three years later, where it appears on a stolen banner in a partisan brawl; there is very little evidence that crowds ever demanded the days back.',
+        'The year moved as well. Until then the English legal year had begun on 25 March, so the same Act cut 1751 down to two hundred and eighty-two days, running from March to December.',
+        'The change is still visible on paper. The British tax year begins on 6 April, which is 25 March shifted by the eleven days skipped here and one more added in 1800. Three centuries later the Treasury still keeps its books on a Julian date.'
+      ],
+      facts_pt: [
+        'Os tumultos provavelmente nunca existiram. "Devolvam nossos onze dias" vem de um quadro de Hogarth sobre uma eleição três anos depois, onde a frase aparece num estandarte roubado em meio a uma pancadaria partidária; há pouquíssima evidência de que multidões tenham exigido os dias de volta.',
+        'O ano também mudou. Até ali o ano legal inglês começava em 25 de março, de modo que a mesma lei encurtou 1751 para duzentos e oitenta e dois dias, de março a dezembro.',
+        'A mudança ainda é visível no papel. O ano fiscal britânico começa em 6 de abril, que é 25 de março deslocado pelos onze dias saltados aqui mais um acrescentado em 1800. Três séculos depois, o Tesouro britânico ainda fecha suas contas numa data juliana.'
+      ]
+    }
+  ],
+
+  '09-15': [
+    {
+      year: 1440,
+      title: 'The Marshal Who Fought Beside Joan of Arc',
+      title_pt: 'O Marechal que Lutou ao Lado de Joana d’Arc',
+      era: 'Medieval',
+      region: 'Nantes, Brittany', region_pt: 'Nantes, Bretanha',
+      tag: 'Trial', tag_pt: 'Julgamento',
+      text: 'Gilles de Rais had relieved Orléans with Joan of Arc, carried the holy ampulla at the king’s coronation, and been made a Marshal of France at twenty-five. Eleven years later the Bishop of Nantes had him arrested, and the case that followed turned into the earliest well-documented account of a serial murderer.',
+      text_pt: 'Gilles de Rais libertara Orléans ao lado de Joana d’Arc, carregara a santa ampola na coroação do rei e fora feito marechal da França aos vinte e cinco anos. Onze anos depois, o bispo de Nantes mandou prendê-lo, e o processo que se seguiu tornou-se o primeiro relato bem documentado de um assassino em série.',
+      facts: [
+        'The arrest was not for the killings. It began as a property quarrel — he had seized a cleric out of a church during a fight over a castle he had sold and wanted back, which handed jurisdiction to the bishop. The investigation widened from there.',
+        'He had spent a colossal inheritance on spectacle, including a staged play about the siege of Orléans with hundreds of costumed performers and free food and drink for anyone who came. His own family obtained a royal decree forbidding him to sell any more land.',
+        'He confessed under threat of excommunication and the rack, and was hanged and burned five weeks later. Both the duke who tried him and the bishop who accused him stood to gain from his estates, which is why some historians have argued the case was built to take them — though the testimony from the families of missing children was extensive and independent.'
+      ],
+      facts_pt: [
+        'A prisão não foi pelos assassinatos. Começou como uma disputa de propriedade — ele arrancara um clérigo de dentro de uma igreja durante uma briga por um castelo que vendera e queria de volta, o que entregou a jurisdição ao bispo. A investigação se ampliou a partir daí.',
+        'Ele torrara uma herança colossal em espetáculo, incluindo uma peça encenada sobre o cerco de Orléans com centenas de figurantes e comida e bebida de graça para quem aparecesse. A própria família obteve um decreto real proibindo-o de vender mais terras.',
+        'Confessou sob ameaça de excomunhão e de tortura, e foi enforcado e queimado cinco semanas depois. Tanto o duque que o julgou quanto o bispo que o acusou tinham a ganhar com seus bens, razão pela qual alguns historiadores sustentam que o caso foi montado para tomá-los — embora os depoimentos das famílias das crianças desaparecidas fossem numerosos e independentes entre si.'
+      ]
+    }
+  ],
+
+  '09-16': [
+    {
+      year: 1620,
+      title: 'They Were Aiming for Virginia',
+      title_pt: 'Eles Miravam a Virgínia',
+      era: 'Early Modern',
+      region: 'Plymouth, England', region_pt: 'Plymouth, Inglaterra',
+      tag: 'Voyage', tag_pt: 'Viagem',
+      text: 'The Mayflower left Plymouth with a hundred and two passengers, bound for the northern edge of the Virginia colony. Sixty-six days later she was off Cape Cod, hundreds of miles north of anywhere her passengers had permission to be, with winter coming and no legal authority over anyone aboard.',
+      text_pt: 'O Mayflower deixou Plymouth com cento e dois passageiros, rumo à borda norte da colônia da Virgínia. Sessenta e seis dias depois estava diante do cabo Cod, centenas de quilômetros ao norte de qualquer lugar onde seus passageiros tivessem permissão de estar, com o inverno chegando e sem autoridade legal alguma sobre quem estava a bordo.',
+      facts: [
+        'Two ships had set out and one had to be given up. The Speedwell leaked so badly that they turned back twice, losing six weeks; some have argued her crew over-masted her deliberately to get out of the crossing, and her passengers were crammed onto the Mayflower instead.',
+        'Landing outside their patent is exactly why they wrote a compact. With the document that gave them a government pointing at a place they had not reached, they drew up one of their own and signed it before going ashore.',
+        'Fewer than half were religious separatists. The rest had been recruited by the investors as labour and were called Strangers by the others. About half of everyone aboard was dead by spring.'
+      ],
+      facts_pt: [
+        'Dois navios haviam partido e um teve de ser abandonado. O Speedwell fazia água a tal ponto que voltaram atrás duas vezes, perdendo seis semanas; alguns sustentam que sua tripulação o sobrecarregou de mastreação de propósito para escapar da travessia, e seus passageiros foram espremidos no Mayflower.',
+        'Desembarcar fora da concessão é exatamente a razão de terem escrito um pacto. Como o documento que lhes dava um governo apontava para um lugar onde não haviam chegado, redigiram um próprio e o assinaram antes de pisar em terra.',
+        'Menos da metade eram separatistas religiosos. Os demais haviam sido recrutados pelos investidores como mão de obra e eram chamados de Estranhos pelos outros. Cerca de metade de todos a bordo estava morta na primavera.'
+      ]
+    }
+  ],
+
+  '09-17': [
+    {
+      year: 14,
+      title: 'A Senator Swore He Saw Him Rise',
+      title_pt: 'Um Senador Jurou Tê-lo Visto Subir',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Deification', tag_pt: 'Divinização',
+      text: 'A month after Augustus died, the Senate voted that he was a god. It was not a metaphor and not a formality: there were priests, a temple, a cult and a state calendar of his festivals. The man who had spent fifty years insisting he was merely the first citizen was legislated into a deity by the body he had always deferred to.',
+      text_pt: 'Um mês depois da morte de Augusto, o Senado votou que ele era um deus. Não era metáfora nem formalidade: houve sacerdotes, templo, culto e um calendário estatal de festas em sua honra. O homem que passara cinquenta anos insistindo em ser apenas o primeiro cidadão foi transformado em divindade por decreto do corpo a que sempre fingira obedecer.',
+      facts: [
+        'A senator swore under oath that he had watched the emperor’s spirit rise from the funeral pyre into the sky. Livia paid him a million sesterces. Dio records both halves of that.',
+        'He had written his own record first. The Res Gestae, a first-person account of everything he had done and everything he had paid for, was set up in bronze at his tomb and copied across the provinces; the surviving version is cut into a temple wall in Ankara.',
+        'Deification turned into a grading system. Emperors who were liked got a vote like this one; emperors who were not had their names chiselled off their own monuments. Vespasian, dying, is supposed to have said: dear me, I think I am becoming a god.'
+      ],
+      facts_pt: [
+        'Um senador jurou sob juramento ter visto o espírito do imperador subir da pira funerária para o céu. Lívia lhe pagou um milhão de sestércios. Dião registra as duas metades disso.',
+        'Ele havia escrito seu próprio registro antes. As Res Gestae, um relato em primeira pessoa de tudo o que fizera e de tudo o que custeara, foram fixadas em bronze junto a seu túmulo e copiadas pelas províncias; a versão sobrevivente está entalhada na parede de um templo em Ancara.',
+        'A divinização virou um sistema de notas. Imperadores queridos recebiam um voto como este; os que não eram tinham os nomes raspados dos próprios monumentos. Vespasiano, morrendo, teria dito: ai de mim, acho que estou virando um deus.'
+      ]
+    }
+  ],
+
+  '09-18': [
+    {
+      year: 1850,
+      title: 'Ten Dollars to Rule Him a Slave, Five to Set Him Free',
+      title_pt: 'Dez Dólares para Declará-lo Escravo, Cinco para Libertá-lo',
+      era: 'Modern',
+      region: 'United States', region_pt: 'Estados Unidos',
+      tag: 'Slavery', tag_pt: 'Escravidão',
+      text: 'The new law obliged citizens of the free states to help capture people who had escaped from the slave states, and denied the accused a jury and the right to speak in their own defence. The federal commissioner who decided each case was paid ten dollars for a ruling that the person before him was property, and five for a ruling that they were not.',
+      text_pt: 'A nova lei obrigava os cidadãos dos estados livres a ajudar na captura de pessoas que haviam fugido dos estados escravistas, e negava ao acusado júri e direito de falar em sua própria defesa. O comissário federal que decidia cada caso recebia dez dólares por uma decisão de que a pessoa diante dele era propriedade, e cinco por uma decisão de que não era.',
+      facts: [
+        'It made the free North a hunting ground. Any Black person could be seized on a claimant’s sworn affidavit with no way to answer it, and thousands of free people left for Canada in the decade that followed.',
+        'The section of the country that defended states’ rights had demanded federal power to override the states. Northern legislatures answered with personal liberty laws written to obstruct the federal officers, and the argument about who could nullify whom changed sides.',
+        'Compelling ordinary Northerners to take part did more for abolition than any argument had. Harriet Beecher Stowe said this law was the reason she wrote Uncle Tom’s Cabin, which came out two years later and sold three hundred thousand copies in its first year.'
+      ],
+      facts_pt: [
+        'Ela transformou o Norte livre em território de caça. Qualquer pessoa negra podia ser detida mediante declaração juramentada de um reclamante, sem meio de contestá-la, e milhares de pessoas livres partiram para o Canadá na década seguinte.',
+        'A parte do país que defendia os direitos dos estados exigiu poder federal para passar por cima dos estados. As assembleias do Norte responderam com leis de liberdade pessoal escritas para obstruir os agentes federais, e o debate sobre quem podia anular quem trocou de lado.',
+        'Obrigar nortistas comuns a participar fez mais pelo abolicionismo do que qualquer argumento. Harriet Beecher Stowe disse que foi por causa dessa lei que escreveu A Cabana do Pai Tomás, publicado dois anos depois e vendido em trezentos mil exemplares no primeiro ano.'
+      ]
+    }
+  ],
+
+  '09-19': [
+    {
+      year: 634,
+      title: 'The City Fell Twice in One Day',
+      title_pt: 'A Cidade Caiu Duas Vezes no Mesmo Dia',
+      era: 'Medieval',
+      region: 'Damascus', region_pt: 'Damasco',
+      tag: 'Conquest', tag_pt: 'Conquista',
+      text: 'Khalid ibn al-Walid stormed one gate of Damascus by force while, at a gate on the other side of the city, a second Muslim commander was accepting its peaceful surrender. The two columns met in the middle. Whether the city had been taken or had given itself up decided what could lawfully be done to it, and the commanders had to settle which had happened.',
+      text_pt: 'Khalid ibn al-Walid tomou de assalto um dos portões de Damasco enquanto, num portão do outro lado da cidade, um segundo comandante muçulmano aceitava sua rendição pacífica. As duas colunas se encontraram no meio. Se a cidade fora tomada ou se entregara decidia o que licitamente se podia fazer com ela, e os comandantes tiveram de resolver qual das duas coisas ocorrera.',
+      facts: [
+        'They ruled for the treaty. Taken by storm, Damascus could have been plundered and its people enslaved; taken by agreement, it was owed protection. The peaceful terms were extended over the whole city, including the quarter that had been carried by force.',
+        'Khalid had never lost a battle, and four years later the caliph dismissed him at the height of his reputation — by most accounts because people were starting to credit victories to Khalid rather than to God. He accepted it and went on serving under the man sent to replace him.',
+        'Heraclius had just spent a lifetime beating Persia and carrying the True Cross back to Jerusalem, and lost Syria within a few years of this. Damascus became the capital of a caliphate that reached from Spain to the Indus.'
+      ],
+      facts_pt: [
+        'Decidiram pelo tratado. Tomada de assalto, Damasco poderia ser saqueada e sua população escravizada; tomada por acordo, era-lhe devida proteção. Os termos pacíficos foram estendidos a toda a cidade, inclusive ao bairro que fora conquistado à força.',
+        'Khalid nunca perdera uma batalha, e quatro anos depois o califa o destituiu no auge de sua fama — pela maior parte dos relatos, porque as pessoas começavam a atribuir as vitórias a Khalid e não a Deus. Ele aceitou e seguiu servindo sob o homem enviado para substituí-lo.',
+        'Heráclio acabara de passar uma vida derrotando a Pérsia e levando a Vera Cruz de volta a Jerusalém, e perdeu a Síria poucos anos depois disto. Damasco tornou-se a capital de um califado que ia da Espanha ao Indo.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,

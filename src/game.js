@@ -148,6 +148,9 @@ function _commitDailyAttempt(){
   var rec = _runRecord(_dailyRunDate) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
   rec.attempts = Math.max(rec.attempts, _dailyAttempt);
+  // Bumped once per catch-up run, right here where the attempt is burned —
+  // the daily budget resets, so `attempts` can't be what orders the decks.
+  if(_isRecoverRun) rec.tries = (rec.tries||0) + 1;
   _writeRunRecord(_dailyRunDate, rec);
   _dailyCommitted = true;
 }
@@ -365,9 +368,15 @@ function initGame(){
     // attempt can't be won from memory. Attempt 1 is byte-identical to before.
     var _seed=_dailySeedFor(_dailyRunDate||new Date());
     var _base=_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE);
-    // Recovery attempts continue the same seed line past the live attempts, so
-    // a catch-up run never repeats an order the player already saw that day.
-    var _ord=_isRecoverRun?DAILY_MAX_ATTEMPTS+_dailyAttempt:_dailyAttempt;
+    // Catch-up runs continue the same seed line past the live attempts (which
+    // occupy 1..3), keyed on the LIFETIME try count rather than today's — the
+    // daily budget resets, and orders must not reset with it. `tries` counts
+    // runs already burned, so the first catch-up lands on 4.
+    var _ord=_dailyAttempt;
+    if(_isRecoverRun){
+      var _rr=_getRecoverRecord(_dailyRunDate);
+      _ord=DAILY_MAX_ATTEMPTS+((_rr&&_rr.tries)||0)+1;
+    }
     deck=_ord>1
       ?_seededShuffle(_base,_seededRNG(_seed+_ord*104729))
       :_base;
@@ -581,7 +590,9 @@ function _renderDailyGameover(){
     }
   } else {
     var _sub2=document.getElementById('go-sub');
-    if(_sub2) _sub2.textContent=rc?t('daily_recover_out'):t('daily_out_of_tries');
+    if(_sub2) _sub2.textContent=rc
+      ?t('daily_recover_out').replace('{max}',DAILY_MAX_ATTEMPTS)
+      :t('daily_out_of_tries');
   }
 }
 
@@ -620,12 +631,14 @@ function saveAndOpenHistory() {
 
 
 // ── STREAK HELPERS ────────────────────────────────────────────────────────
-function _dailyKey(date){
-  var y=date.getFullYear();
-  var m=String(date.getMonth()+1).padStart(2,'0');
-  var d=String(date.getDate()).padStart(2,'0');
-  return 'chronos_daily_'+y+'-'+m+'-'+d;
+// 'YYYY-MM-DD' for a local date. Used for both key prefixes and, below, to
+// tell which calendar day a catch-up budget was spent on.
+function _dayStamp(date){
+  return date.getFullYear()+'-'
+    +String(date.getMonth()+1).padStart(2,'0')+'-'
+    +String(date.getDate()).padStart(2,'0');
 }
+function _dailyKey(date){ return 'chronos_daily_'+_dayStamp(date); }
 // NOTE: "done" means the day was PLAYED, win or loss — this is what feeds the
 // streak, and it deliberately stays key-presence only. Whether the day can
 // still be played is a separate question, answered by _dailyStatus().locked.
@@ -703,8 +716,9 @@ function _dailyTodayStatus(){
 // ── RECOVERY: unlocking a missed day's card ───────────────────────────────
 // A past day whose card was never unlocked can be replayed later, purely for
 // the card. Three rules, and they are the whole feature:
-//   • its own budget of DAILY_MAX_ATTEMPTS tries, independent of the tries the
-//     day itself had — a day lost 3/3 back then is still recoverable;
+//   • DAILY_MAX_ATTEMPTS tries per calendar day, refilled every new day, and
+//     independent of the tries the day itself had — so no card is ever lost for
+//     good: a player who keeps coming back can always reach the whole content;
 //   • only while today's daily is closed out (won, or all tries spent), so
 //     recovery can never become a way of dodging today's challenge;
 //   • it does NOT repair the streak.
@@ -713,10 +727,19 @@ function _dailyTodayStatus(){
 // so recording a recovery run there would silently mend a broken streak.
 // Nothing below writes to that prefix.
 var _RECOVER_PREFIX='chronos_recover_';
-function _recoverKey(date){
-  return _RECOVER_PREFIX+_dailyKey(date).slice(_DAILY_PREFIX.length);
+// RECORD SHAPE (v3): {day, attempts, tries, won, score, placed, timeline}
+//   day       'YYYY-MM-DD' — the calendar day `attempts` was spent on
+//   attempts  tries spent ON THAT DAY; read as 0 once the day turns over
+//   tries     lifetime count, never reset — it is what keeps successive card
+//             orders distinct, since `attempts` cycles 1..3 every day
+function _recoverKey(date){ return _RECOVER_PREFIX+_dayStamp(date); }
+// Every write here belongs to a catch-up run happening now, so this is the one
+// place that has to stamp which calendar day the budget was spent on.
+function _writeRecoverRecord(date, rec){
+  rec.v = 3;
+  rec.day = _dayStamp(new Date());
+  return _writeRecordAt(_recoverKey(date), rec);
 }
-function _writeRecoverRecord(date, rec){ return _writeRecordAt(_recoverKey(date), rec); }
 function _getRecoverRecord(date){
   try{
     var raw=localStorage.getItem(_recoverKey(date));
@@ -727,11 +750,18 @@ function _getRecoverRecord(date){
     if(typeof rec.score!=='number') rec.score=0;
     if(typeof rec.won!=='boolean') rec.won=rec.placed>=DAILY_DECK_SIZE;
     if(typeof rec.attempts!=='number'||rec.attempts<1) rec.attempts=1;
+    if(typeof rec.tries!=='number'||rec.tries<rec.attempts) rec.tries=rec.attempts;
     if(!Array.isArray(rec.timeline)) rec.timeline=[];
+    // The budget refill lives here, on the read side, so everything downstream
+    // — status, the attempt counter, the gameover copy — sees a fresh day
+    // without each having to know about the rollover. Nothing is rewritten;
+    // the reset persists on the next write.
+    if(rec.day!==_dayStamp(new Date())) rec.attempts=0;
     return rec;
   }catch(e){ return null; }
 }
-// Mirrors _dailyStatus, over the recovery budget of one past day.
+// Mirrors _dailyStatus, over TODAY's catch-up budget for one past day. `locked`
+// here means "not right now" — it lifts by itself at midnight.
 function _recoverStatus(date){
   var rec=_getRecoverRecord(date);
   var used=rec?rec.attempts:0;

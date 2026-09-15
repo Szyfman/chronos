@@ -295,13 +295,15 @@ function endGame(won)
 
 **Card Recovery (catch-up)**:
 - A past day whose card was never unlocked can be replayed later, for the card only
-- Own budget of 3 attempts per target day, independent of the attempts that day had
+- 3 attempts per calendar day per target day, refilled at midnight, independent
+  of the attempts that day itself had — no card is ever permanently lost
 - Gated on today's challenge being closed out (won, or all 3 tries spent)
 - Never touches the streak — stored under `chronos_recover_YYYY-MM-DD` precisely
   because the streak is computed from the presence of `chronos_daily_*` keys
 - Eligible range: March 2026 (`DAILY_EPOCH_YEAR`/`DAILY_EPOCH_MONTH`) through yesterday
-- Same 18 cards as the original day; order seeded past the live attempts so a
-  catch-up run never repeats an order already seen
+- Same 18 cards as the original day; order seeded past the live attempts and
+  keyed on a lifetime try counter, so no catch-up run ever repeats an order
+  (the daily budget resets, the order sequence does not)
 
 ---
 

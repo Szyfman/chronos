@@ -802,7 +802,7 @@ function _appendRecoverRow(panel, date){
   if(!_recoverEligible(date)){
     if(!st.won&&st.locked){
       var none=document.createElement('div'); none.className='dc-recover-note';
-      none.textContent=t('daily_recover_none');
+      none.textContent=t('daily_recover_none').replace('{max}',DAILY_MAX_ATTEMPTS);
       row.appendChild(none);
     } else return;
   } else if(!_recoverGateOpen()){
