@@ -1544,6 +1544,282 @@ var DAILY_CARDS = {
     }
   ],
 
+  '09-20': [
+    {
+      year: 1519,
+      title: 'Two Hundred and Seventy Went, Eighteen Came Back',
+      title_pt: 'Partiram Duzentos e Setenta, Voltaram Dezoito',
+      era: 'Renaissance',
+      region: 'Sanlúcar de Barrameda', region_pt: 'Sanlúcar de Barrameda',
+      tag: 'Voyage', tag_pt: 'Viagem',
+      text: 'The fleet had come down the Guadalquivir from Seville five weeks earlier and sat at the river mouth taking on stores. On this day it finally put to sea — five ships and about two hundred and seventy men, provisioned for two years, sailing for a strait that nobody had proved existed.',
+      text_pt: 'A frota descera o Guadalquivir desde Sevilha cinco semanas antes e ficara na foz embarcando mantimentos. Neste dia ela enfim fez-se ao mar — cinco navios e cerca de duzentos e setenta homens, abastecidos para dois anos, rumo a um estreito que ninguém provara existir.',
+      facts: [
+        'Almost everything known about the voyage comes from one passenger who had no job on it. Antonio Pigafetta, a Venetian, signed on as a supernumerary because he wanted to see the wonders of the world, kept a journal the whole way, and was one of the handful who survived to bring it home.',
+        'Portugal treated Magellan as a traitor and tried to stop him. Agents worked against the fitting-out in Seville, and ships were sent after the fleet; his Spanish captains, for their part, distrusted him precisely because he was Portuguese.',
+        'The strait took fourteen months to find. They searched every opening down the length of South America, wintered on a freezing coast, and only entered the passage in October 1520 — thirty-eight days of channels and dead ends before the ocean on the other side.'
+      ],
+      facts_pt: [
+        'Quase tudo o que se sabe da viagem vem de um passageiro que não tinha função nela. Antonio Pigafetta, veneziano, embarcou como supranumerário porque queria ver as maravilhas do mundo, manteve um diário o tempo todo e foi um dos poucos que sobreviveram para trazê-lo de volta.',
+        'Portugal tratava Magalhães como traidor e tentou impedi-lo. Agentes trabalharam contra o aprestamento em Sevilha, e navios foram enviados atrás da frota; seus capitães espanhóis, por sua vez, desconfiavam dele justamente por ser português.',
+        'O estreito levou catorze meses para ser achado. Vasculharam cada abertura ao longo da América do Sul, invernaram numa costa gelada, e só entraram na passagem em outubro de 1520 — trinta e oito dias de canais e becos sem saída até o oceano do outro lado.'
+      ]
+    }
+  ],
+
+  '09-21': [
+    {
+      year: 1937,
+      title: 'A Blank Page in a Pile of Exam Papers',
+      title_pt: 'Uma Página em Branco numa Pilha de Provas',
+      era: 'Modern',
+      region: 'Oxford', region_pt: 'Oxford',
+      tag: 'Literature', tag_pt: 'Literatura',
+      text: 'Marking school examinations one summer, a professor of Anglo-Saxon turned a page, found it empty, and wrote on it that in a hole in the ground there lived a hobbit. He had no idea what a hobbit was and spent years finding out. The book came out on this day in a first printing of fifteen hundred copies.',
+      text_pt: 'Corrigindo provas escolares num verão, um professor de anglo-saxão virou uma folha, encontrou-a em branco e escreveu nela que num buraco no chão vivia um hobbit. Não fazia ideia do que era um hobbit e levou anos descobrindo. O livro saiu neste dia, numa primeira tiragem de mil e quinhentos exemplares.',
+      facts: [
+        'The publisher paid his ten-year-old son a shilling to read the manuscript and write a report. Rayner Unwin recommended it, noting that with maps it would need no illustrations and should suit children between five and nine. It is often called the best shilling ever spent in publishing.',
+        'That same boy, grown up, pushed through The Lord of the Rings years later against the firm’s own expectation of losing money on it.',
+        'There was a sequel only because the publisher asked for more about hobbits. Tolkien took seventeen years to answer, and the answer became the best-selling novel of the century.'
+      ],
+      facts_pt: [
+        'O editor pagou um xelim ao filho de dez anos para ler o manuscrito e escrever um parecer. Rayner Unwin recomendou a publicação, observando que, com mapas, o livro não precisaria de ilustrações e serviria a crianças entre cinco e nove anos. É frequentemente chamado de o melhor xelim já gasto na história editorial.',
+        'Esse mesmo menino, adulto, empurrou anos depois a publicação de O Senhor dos Anéis contra a expectativa da própria editora de perder dinheiro com ele.',
+        'Só houve continuação porque o editor pediu mais coisas sobre hobbits. Tolkien levou dezessete anos para responder, e a resposta virou o romance mais vendido do século.'
+      ]
+    }
+  ],
+
+  '09-22': [
+    {
+      year: 1692,
+      title: 'The Ones Who Would Not Confess',
+      title_pt: 'Os que Não Quiseram Confessar',
+      era: 'Early Modern',
+      region: 'Salem, Massachusetts', region_pt: 'Salem, Massachusetts',
+      tag: 'Trial', tag_pt: 'Julgamento',
+      text: 'Eight people were hanged at Salem on this day, and nobody else ever was. Three days earlier Giles Corey had been pressed to death under stones for refusing to enter a plea at all. Within weeks the court that had condemned them was dissolved and the remaining prisoners were acquitted almost to a person.',
+      text_pt: 'Oito pessoas foram enforcadas em Salem neste dia, e nunca mais ninguém o foi. Três dias antes, Giles Corey fora esmagado até a morte sob pedras por se recusar a sequer apresentar defesa. Em poucas semanas o tribunal que os condenara foi dissolvido e os prisioneiros restantes foram absolvidos quase sem exceção.',
+      facts: [
+        'Confessing saved your life. Everyone who admitted to witchcraft was spared; everyone who was hanged had refused to say they were guilty. By the court’s own workings, the nineteen who died were the ones who would not lie.',
+        'The trials did not end because people stopped believing in witches. They ended because the rules of evidence changed: spectral evidence — testimony that the accused’s spirit had appeared and tormented the witness — was barred that October, after Increase Mather argued it were better that ten suspected witches escape than one innocent be condemned.',
+        'Massachusetts kept clearing names for centuries. The last of them, Elizabeth Johnson Jr., was formally exonerated in 2022, three hundred and twenty-nine years later, after a class of schoolchildren took up her case.'
+      ],
+      facts_pt: [
+        'Confessar salvava a vida. Todos os que admitiram bruxaria foram poupados; todos os enforcados haviam se recusado a se dizer culpados. Pela própria lógica do tribunal, os dezenove que morreram foram os que não quiseram mentir.',
+        'Os julgamentos não terminaram porque as pessoas deixaram de acreditar em bruxas. Terminaram porque as regras de prova mudaram: a prova espectral — o depoimento de que o espírito do acusado aparecera e atormentara a testemunha — foi proibida em outubro, depois de Increase Mather argumentar que era melhor dez suspeitas de bruxaria escaparem do que um inocente ser condenado.',
+        'Massachusetts seguiu limpando nomes por séculos. O último deles, Elizabeth Johnson Jr., foi formalmente inocentado em 2022, trezentos e vinte e nove anos depois, após uma turma de estudantes assumir sua causa.'
+      ]
+    }
+  ],
+
+  '09-23': [
+    {
+      year: 1950,
+      title: 'Hit by Their Own Side',
+      title_pt: 'Atingidos pelo Próprio Lado',
+      era: 'Contemporary',
+      region: 'Hill 282, Korea', region_pt: 'Colina 282, Coreia',
+      tag: 'Friendly Fire', tag_pt: 'Fogo Amigo',
+      text: 'The Argyll and Sutherland Highlanders had taken the hill at dawn and were holding it under counterattack when they called for air support. They laid out their recognition panels. The Mustangs came in and put napalm on the panels.',
+      text_pt: 'Os Argyll and Sutherland Highlanders haviam tomado a colina ao amanhecer e a seguravam sob contra-ataque quando pediram apoio aéreo. Estenderam seus painéis de reconhecimento. Os Mustangs chegaram e despejaram napalm sobre os painéis.',
+      facts: [
+        'The markers were out and the position had been identified. That is what makes the incident notorious rather than merely tragic: the aircraft attacked a position that had been correctly marked, and roughly ninety men were killed or wounded by their own air support.',
+        'Major Kenny Muir gathered what was left and led them back up through the burning ground to retake the summit. He was killed doing it and received a posthumous Victoria Cross.',
+        'It was the first time since the Second World War that American fire had killed British troops, and it happened in a war that Britain fought for three years and largely stopped talking about afterwards.'
+      ],
+      facts_pt: [
+        'Os marcadores estavam estendidos e a posição fora identificada. É isso que torna o episódio notório, e não apenas trágico: as aeronaves atacaram uma posição corretamente sinalizada, e cerca de noventa homens foram mortos ou feridos pelo próprio apoio aéreo.',
+        'O major Kenny Muir reuniu o que restava e os conduziu de volta pelo terreno em chamas para retomar o cume. Morreu ao fazê-lo e recebeu a Victoria Cross póstuma.',
+        'Foi a primeira vez desde a Segunda Guerra que fogo americano matou tropas britânicas, e aconteceu numa guerra que o Reino Unido lutou por três anos e sobre a qual depois praticamente parou de falar.'
+      ]
+    }
+  ],
+
+  '09-24': [
+    {
+      year: 867,
+      title: 'The Bodyguard Who Took the Throne',
+      title_pt: 'O Guarda-Costas que Ficou com o Trono',
+      era: 'Medieval',
+      region: 'Constantinople', region_pt: 'Constantinopla',
+      tag: 'Murder', tag_pt: 'Assassinato',
+      text: 'Basil had been a peasant from Macedonia, a wrestler and a groom, taken up by the emperor Michael III as a favourite and raised to co-emperor. One night he had the man who had made him killed in his own bedchamber, and took the whole of it. The dynasty he founded ruled Byzantium for nearly two hundred years.',
+      text_pt: 'Basílio fora um camponês da Macedônia, lutador e cavalariço, adotado como favorito pelo imperador Miguel III e elevado a co-imperador. Certa noite mandou matar em seu próprio quarto o homem que o fizera, e ficou com tudo. A dinastia que fundou governou Bizâncio por quase duzentos anos.',
+      facts: [
+        'He had been promoted for his body. Basil came to notice by beating a Bulgarian champion at wrestling and by breaking a horse nobody else could, and he rose from stable work to the imperial bedchamber in about ten years.',
+        'The Macedonian dynasty he began produced the empire’s strongest period since Justinian, including the legal codification of the Basilika and the reign of Basil II, who annexed Bulgaria. It began with a murdered patron and a locked door.',
+        'Michael III went into the histories as Michael the Drunkard. Those histories were written under the dynasty of the man who killed him.'
+      ],
+      facts_pt: [
+        'Ele fora promovido pelo corpo. Basílio chamou atenção ao vencer um campeão búlgaro na luta e ao domar um cavalo que ninguém domava, e subiu do trabalho nas cavalariças ao quarto imperial em cerca de dez anos.',
+        'A dinastia macedônica que ele iniciou produziu o período mais forte do império desde Justiniano, incluindo a codificação legal das Basílicas e o reinado de Basílio II, que anexou a Bulgária. Começou com um patrono assassinado e uma porta trancada.',
+        'Miguel III entrou para as histórias como Miguel, o Beberrão. Essas histórias foram escritas sob a dinastia do homem que o matou.'
+      ]
+    }
+  ],
+
+  '09-25': [
+    {
+      year: 1768,
+      title: 'A Yam Between Two Boulders',
+      title_pt: 'Um Inhame Entre Duas Pedras',
+      era: 'Early Modern',
+      region: 'Kathmandu', region_pt: 'Catmandu',
+      tag: 'Unification', tag_pt: 'Unificação',
+      text: 'Prithvi Narayan Shah of Gorkha took Kathmandu during the Indra Jatra festival, walking in while the city was celebrating, and made himself king of the valley. Out of a mountain principality and a long campaign he assembled the state that is Nepal, and described its position between China and India as a yam between two boulders.',
+      text_pt: 'Prithvi Narayan Shah, de Gorkha, tomou Catmandu durante o festival Indra Jatra, entrando na cidade enquanto ela festejava, e fez-se rei do vale. De um principado de montanha e de uma longa campanha, montou o Estado que é o Nepal, e descreveu sua posição entre a China e a Índia como um inhame entre duas pedras.',
+      facts: [
+        'The phrase was a foreign policy. A yam between two boulders survives by not pressing on either, and Nepal spent the next two centuries keeping both neighbours at a distance — he expelled the European missionaries already in the valley and closed the country to outsiders.',
+        'His kingdom of Gorkha gave the world the word Gurkha. The regiments that name would later attach to were recruited by the British precisely because the Gorkhali had fought them so hard.',
+        'The dynasty he founded lasted two hundred and forty years. It effectively ended after the palace massacre of 2001, in which most of the royal family was shot dead, and formally in 2008, when Nepal abolished the monarchy.'
+      ],
+      facts_pt: [
+        'A frase era uma política externa. Um inhame entre duas pedras sobrevive não pressionando nenhuma das duas, e o Nepal passou os dois séculos seguintes mantendo ambos os vizinhos à distância — ele expulsou os missionários europeus que já estavam no vale e fechou o país a estrangeiros.',
+        'Seu reino de Gorkha deu ao mundo a palavra gurkha. Os regimentos a que esse nome se ligaria depois foram recrutados pelos britânicos justamente porque os gorkhali haviam lutado tão duro contra eles.',
+        'A dinastia que fundou durou duzentos e quarenta anos. Acabou na prática após o massacre do palácio em 2001, no qual quase toda a família real foi morta a tiros, e formalmente em 2008, quando o Nepal aboliu a monarquia.'
+      ]
+    }
+  ],
+
+  '09-26': [
+    {
+      year: -46,
+      title: 'He Vowed It to Victory and Dedicated It to Motherhood',
+      title_pt: 'Prometeu-o à Vitória e Dedicou-o à Maternidade',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Temple', tag_pt: 'Templo',
+      text: 'On the morning of Pharsalus, Caesar had vowed a temple to Venus if she gave him the battle. When he came to build it he quietly changed the dedication: not Venus the Bringer of Victory but Venus the Ancestress — the goddess from whom his own family claimed descent. A battlefield promise was converted into a genealogy.',
+      text_pt: 'Na manhã de Farsalos, César prometera um templo a Vênus se ela lhe desse a batalha. Quando foi construí-lo, mudou discretamente a dedicatória: não Vênus Vitoriosa, mas Vênus Genetriz — a deusa de quem sua própria família alegava descender. Uma promessa de campo de batalha foi convertida em genealogia.',
+      facts: [
+        'He put a gold statue of Cleopatra beside the goddess. A living foreign queen, mother of a child he had not publicly acknowledged, standing in a Roman temple next to the ancestress of his house.',
+        'The temple anchored a whole new forum built alongside the old one, paid for with the spoils of Gaul. Caesar had bought the land for it at a cost that contemporaries found obscene.',
+        'The genealogy was the point. Claiming descent from Venus through Aeneas put the family above the Republic’s other houses by an order of magnitude, and eighteen months later that claim made his heir something more than a great-nephew.'
+      ],
+      facts_pt: [
+        'Ele pôs uma estátua de ouro de Cleópatra ao lado da deusa. Uma rainha estrangeira viva, mãe de um filho que ele não reconhecera publicamente, de pé num templo romano ao lado da ancestral de sua casa.',
+        'O templo ancorava um fórum inteiramente novo, construído ao lado do antigo e pago com o espólio da Gália. César comprara o terreno por um valor que os contemporâneos acharam obsceno.',
+        'A genealogia era o ponto. Alegar descendência de Vênus por Eneias punha a família acima das outras casas da República por uma ordem de grandeza, e dezoito meses depois essa alegação fez de seu herdeiro algo mais do que um sobrinho-neto.'
+      ]
+    }
+  ],
+
+  '09-27': [
+    {
+      year: 1529,
+      title: 'The Empire Finds Its Radius',
+      title_pt: 'O Império Descobre Seu Raio',
+      era: 'Renaissance',
+      region: 'Vienna', region_pt: 'Viena',
+      tag: 'Siege', tag_pt: 'Cerco',
+      text: 'Suleiman arrived under the walls of Vienna with an army that had taken Belgrade, Rhodes and Hungary, and could not take a city defended by perhaps twenty thousand men. He was beaten less by the garrison than by the calendar and the weather: an exceptionally wet autumn had already cost him his heavy guns on the roads.',
+      text_pt: 'Solimão chegou sob as muralhas de Viena com um exército que tomara Belgrado, Rodes e a Hungria, e não conseguiu tomar uma cidade defendida por talvez vinte mil homens. Foi derrotado menos pela guarnição do que pelo calendário e pelo clima: um outono excepcionalmente chuvoso já lhe custara a artilharia pesada nas estradas.',
+      facts: [
+        'The siege train never arrived. Rain turned the Balkan roads to mud and the heavy cannon had to be abandoned along the way, leaving him to mine the walls instead of breaching them.',
+        'Vienna sat at about the limit of what an Ottoman army could reach and still get home before winter closed the passes. The campaign discovered the radius of the empire, and for a century and a half nobody tried to go further.',
+        'The defence was commanded by a man of seventy, Niklas Graf Salm, who was injured by a falling stone in the last assaults and died of it the following spring.'
+      ],
+      facts_pt: [
+        'O trem de cerco nunca chegou. A chuva transformou as estradas balcânicas em lama e os canhões pesados tiveram de ser abandonados pelo caminho, restando-lhe minar as muralhas em vez de arrombá-las.',
+        'Viena ficava mais ou menos no limite do que um exército otomano alcançava e ainda conseguia voltar antes que o inverno fechasse as passagens. A campanha descobriu o raio do império, e por um século e meio ninguém tentou ir além.',
+        'A defesa era comandada por um homem de setenta anos, Niklas Graf Salm, ferido por uma pedra que caiu nos últimos assaltos e morto por esse ferimento na primavera seguinte.'
+      ]
+    }
+  ],
+
+  '09-28': [
+    {
+      year: 1066,
+      title: 'He Waited for the Wind',
+      title_pt: 'Ele Esperou o Vento',
+      era: 'Medieval',
+      region: 'Pevensey, Sussex', region_pt: 'Pevensey, Sussex',
+      tag: 'Invasion', tag_pt: 'Invasão',
+      text: 'William had been sitting on the French coast for six weeks with a fleet he could not sail, waiting for the wind to turn. It turned at the best possible moment: Harold had just disbanded the militia that had watched the coast all summer, and was four hundred kilometres north, fighting a different invasion.',
+      text_pt: 'Guilherme passara seis semanas parado na costa francesa com uma frota que não conseguia fazer navegar, esperando o vento virar. Virou no melhor momento possível: Haroldo acabara de dispensar a milícia que vigiara a costa o verão inteiro, e estava a quatrocentos quilômetros ao norte, combatendo outra invasão.',
+      facts: [
+        'Harold had held the south coast all summer and ran out of supplies. He stood the fyrd down on 8 September because he could not feed it any longer. William landed twenty days later.',
+        'Three days before that, Harold had destroyed a Norwegian invasion at Stamford Bridge in Yorkshire. He then marched his army the length of England and fought at Hastings nineteen days after that battle, with men who had walked hundreds of kilometres twice.',
+        'William is said to have fallen flat on his face as he stepped ashore, and to have turned it into an omen on the spot by standing up with fists full of sand and declaring he had taken England with both hands.'
+      ],
+      facts_pt: [
+        'Haroldo guardara a costa sul o verão inteiro e ficou sem mantimentos. Dispensou o fyrd em 8 de setembro porque já não conseguia alimentá-lo. Guilherme desembarcou vinte dias depois.',
+        'Três dias antes disso, Haroldo destruíra uma invasão norueguesa em Stamford Bridge, em Yorkshire. Em seguida marchou seu exército de ponta a ponta da Inglaterra e combateu em Hastings dezenove dias depois daquela batalha, com homens que haviam caminhado centenas de quilômetros duas vezes.',
+        'Conta-se que Guilherme caiu de cara no chão ao pisar em terra, e converteu aquilo em presságio na hora, levantando-se com os punhos cheios de areia e declarando que tomara a Inglaterra com as duas mãos.'
+      ]
+    }
+  ],
+
+  '09-29': [
+    {
+      year: 1227,
+      title: 'Excommunicated for Not Going, Excommunicated for Going',
+      title_pt: 'Excomungado por Não Ir, Excomungado por Ir',
+      era: 'Medieval',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Excommunication', tag_pt: 'Excomunhão',
+      text: 'Frederick II had promised to go on crusade for eleven years and kept postponing. When he finally sailed, an epidemic swept the fleet, he fell ill himself and turned back — and Gregory IX excommunicated him for it. So he went the following year while excommunicated, and got Jerusalem.',
+      text_pt: 'Frederico II prometia ir à cruzada havia onze anos e adiava sempre. Quando enfim zarpou, uma epidemia varreu a frota, ele próprio adoeceu e voltou atrás — e Gregório IX o excomungou por isso. Então foi no ano seguinte, excomungado, e conseguiu Jerusalém.',
+      facts: [
+        'He took the city without a battle. Frederick negotiated a treaty with the sultan al-Kamil, who ceded Jerusalem, Bethlehem and Nazareth for ten years, and crowned himself king of Jerusalem in the Holy Sepulchre in 1229 — an excommunicate, so no churchman would perform it.',
+        'Rome was not grateful. The pope excommunicated him again for having done it, and the patriarch of Jerusalem placed the recovered city under interdict. A Christian had regained Jerusalem and the Church shut its churches.',
+        'He was excommunicated four times in his life and called the Antichrist from the pulpit. He was also called stupor mundi, the astonishment of the world: he spoke six languages, kept Muslim and Jewish scholars at his Sicilian court, and wrote a book on falconry that is still read as natural history.'
+      ],
+      facts_pt: [
+        'Ele tomou a cidade sem batalha. Frederico negociou um tratado com o sultão al-Kamil, que cedeu Jerusalém, Belém e Nazaré por dez anos, e coroou a si mesmo rei de Jerusalém no Santo Sepulcro em 1229 — excomungado, de modo que nenhum clérigo faria a cerimônia.',
+        'Roma não agradeceu. O papa o excomungou de novo por tê-lo feito, e o patriarca de Jerusalém pôs a cidade recuperada sob interdito. Um cristão reavia Jerusalém e a Igreja fechava suas igrejas.',
+        'Foi excomungado quatro vezes na vida e chamado de Anticristo do púlpito. Também foi chamado de stupor mundi, o assombro do mundo: falava seis línguas, mantinha sábios muçulmanos e judeus em sua corte siciliana, e escreveu um tratado de falcoaria que ainda se lê como história natural.'
+      ]
+    }
+  ],
+
+  '09-30': [
+    {
+      year: 1960,
+      title: 'A Cartoon Made for Adults',
+      title_pt: 'Um Desenho Feito para Adultos',
+      era: 'Contemporary',
+      region: 'United States', region_pt: 'Estados Unidos',
+      tag: 'Television', tag_pt: 'Televisão',
+      text: 'The Flintstones went out at half past eight in the evening, in the middle of the adult schedule, and was the first animated series made for prime time. It was a sitcom about a married couple with money problems, lifted almost directly from The Honeymooners and moved to the Stone Age.',
+      text_pt: 'Os Flintstones foi ao ar às oito e meia da noite, no meio da grade adulta, e foi a primeira série animada feita para o horário nobre. Era uma comédia sobre um casal com problemas de dinheiro, tirada quase diretamente de The Honeymooners e transportada para a Idade da Pedra.',
+      facts: [
+        'It was sponsored by a cigarette company. For the first two seasons Fred and Barney appeared in commercials lighting up Winstons, and the show was written for the audience those advertisements were aimed at.',
+        'It ran six seasons and a hundred and sixty-six episodes, and held the record for the longest-running prime-time animated series for thirty-seven years, until The Simpsons passed it.',
+        'It was among the first American programmes to show a married couple sharing a bed. By the time the reruns had turned it into children’s television, none of that was what anyone remembered about it.'
+      ],
+      facts_pt: [
+        'Era patrocinado por uma empresa de cigarros. Nas duas primeiras temporadas, Fred e Barney apareciam em comerciais acendendo Winstons, e o programa era escrito para o público a que esses anúncios se dirigiam.',
+        'Durou seis temporadas e cento e sessenta e seis episódios, e manteve o recorde de série animada mais longa do horário nobre por trinta e sete anos, até Os Simpsons o superarem.',
+        'Foi um dos primeiros programas americanos a mostrar um casal dividindo a mesma cama. Quando as reprises já o haviam transformado em programa infantil, nada disso era o que alguém lembrava dele.'
+      ]
+    }
+  ],
+
+  '10-01': [
+    {
+      year: -331,
+      title: 'Darius Ran Again',
+      title_pt: 'Dario Fugiu de Novo',
+      era: 'Classical',
+      region: 'Northern Mesopotamia', region_pt: 'Norte da Mesopotâmia',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'Darius had chosen the ground and had it levelled so that his chariots and his far larger cavalry could work on it. Alexander drew the Persian left out of position by marching obliquely across its front, opened a gap in the line, and drove the Companion cavalry through it straight at the king. Darius turned and rode, as he had at Issus two years earlier, and the army he left behind came apart.',
+      text_pt: 'Dario escolhera o terreno e o mandara aplainar para que seus carros de guerra e sua cavalaria, muito maior, pudessem operar nele. Alexandre puxou a esquerda persa para fora de posição marchando obliquamente diante dela, abriu uma brecha na linha e lançou a cavalaria dos Companheiros por ela, direto contra o rei. Dario deu meia-volta e cavalgou, como fizera em Isso dois anos antes, e o exército que deixou para trás se desfez.',
+      facts: [
+        'There is a record of that day that no Greek wrote. A Babylonian clay tablet, one of a routine series of astronomical diaries, notes the lunar eclipse eleven days earlier and then the battle and its outcome — dry, contemporary, in cuneiform, and entirely independent of Alexander’s own historians.',
+        'One Persian flank was winning. While Darius fled, his left had driven into Parmenion’s wing and got as far as the Macedonian baggage camp. What decided the day was the king leaving it, not the fighting on it.',
+        'Gaugamela is Aramaic for the camel’s house. Ancient writers thought that beneath the dignity of so large a battle and named it instead after Arbela, a town a hundred kilometres away, which is why it comes down to us under two names.'
+      ],
+      facts_pt: [
+        'Existe um registro daquele dia que nenhum grego escreveu. Uma tábua de argila babilônica, de uma série rotineira de diários astronômicos, anota o eclipse lunar de onze dias antes e em seguida a batalha e seu resultado — seco, contemporâneo, em cuneiforme, e inteiramente independente dos historiadores de Alexandre.',
+        'Um dos flancos persas estava vencendo. Enquanto Dario fugia, sua ala esquerda havia furado a ala de Parmênio e chegado até o acampamento de bagagens macedônio. O que decidiu o dia foi o rei ter saído dele, não o combate travado nele.',
+        'Gaugamela é aramaico para a casa do camelo. Os autores antigos acharam o nome indigno de uma batalha tão grande e a batizaram de Arbela, uma cidade a cem quilômetros dali, razão pela qual ela nos chega com dois nomes.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,
