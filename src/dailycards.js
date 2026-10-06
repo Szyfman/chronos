@@ -1820,6 +1820,189 @@ var DAILY_CARDS = {
     }
   ],
 
+  '10-02': [
+    {
+      year: 1870,
+      title: 'Infallible and Dispossessed in the Same Year',
+      title_pt: 'Infalível e Despojado no Mesmo Ano',
+      era: 'Modern',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Plebiscite', tag_pt: 'Plebiscito',
+      text: 'Italian troops had come through the wall at Porta Pia twelve days earlier, and the city voted on whether to join the Kingdom of Italy. The result was 133,681 for and 1,507 against. It ended eleven hundred years in which the pope had also been a territorial sovereign, and the pope refused to recognise it.',
+      text_pt: 'As tropas italianas haviam entrado pela brecha de Porta Pia doze dias antes, e a cidade votou se queria aderir ao Reino da Itália. O resultado foi 133.681 a favor e 1.507 contra. Encerrava-se ali um milênio e um século em que o papa fora também soberano territorial, e o papa se recusou a reconhecê-lo.',
+      facts: [
+        'Three months before losing the city, Pius IX had the First Vatican Council declare the pope infallible in matters of doctrine. He acquired the furthest reach of spiritual authority in the same year he lost the last of his temporal power.',
+        'He declared himself a prisoner of the Vatican and stopped going out. His successors kept it up for fifty-nine years, until the Lateran Treaty of 1929 cut a forty-four-hectare state out of Rome and handed it back.',
+        'He also forbade Italian Catholics to vote or stand in Italian elections. The prohibition was only lifted in 1919, so for half a century the largest body of believers in the country was told by Rome to stay out of its politics.'
+      ],
+      facts_pt: [
+        'Três meses antes de perder a cidade, Pio IX fizera o Concílio Vaticano I declarar o papa infalível em matéria de doutrina. Obteve o alcance máximo da autoridade espiritual no mesmo ano em que perdeu o que restava do poder temporal.',
+        'Declarou-se prisioneiro do Vaticano e parou de sair. Seus sucessores mantiveram isso por cinquenta e nove anos, até o Tratado de Latrão, em 1929, recortar de Roma um Estado de quarenta e quatro hectares e devolvê-lo.',
+        'Também proibiu os católicos italianos de votar e de se candidatar em eleições italianas. A proibição só foi levantada em 1919, de modo que por meio século o maior corpo de fiéis do país foi instruído por Roma a ficar fora da política dele.'
+      ]
+    }
+  ],
+
+  '10-03': [
+    {
+      year: -2457,
+      title: 'The Bear That Lasted a Hundred Days',
+      title_pt: 'A Ursa que Aguentou Cem Dias',
+      era: 'Ancient',
+      region: 'Korea', region_pt: 'Coreia',
+      tag: 'Myth', tag_pt: 'Mito',
+      text: 'The son of the Lord of Heaven came down onto a mountain with three thousand followers, and a tiger and a bear asked him to make them human. He gave them mugwort and garlic and told them to stay out of the sunlight for a hundred days. The tiger gave up. The bear became a woman, and her son founded the first Korean kingdom.',
+      text_pt: 'O filho do Senhor do Céu desceu sobre uma montanha com três mil seguidores, e um tigre e uma ursa lhe pediram que os tornasse humanos. Ele lhes deu artemísia e alho e mandou que ficassem longe da luz do sol por cem dias. O tigre desistiu. A ursa virou mulher, e o filho dela fundou o primeiro reino coreano.',
+      facts: [
+        'The story is first written down in 1281, more than three and a half thousand years after the date it claims, by a Buddhist monk compiling old traditions while Korea was under Mongol domination. A founding myth set down at the moment of deepest subjection.',
+        'The descent is dated to 2457 BC and the kingdom to 2333 BC, and that second number was the official calendar of South Korea from 1948 to 1961 — public documents counted the years from it.',
+        'It is still a national holiday, Gaecheonjeol, the opening of heaven. A country keeps a day off for the morning a bear finished eating garlic in the dark.'
+      ],
+      facts_pt: [
+        'A história só é posta por escrito em 1281, mais de três mil e quinhentos anos depois da data que reivindica, por um monge budista que compilava tradições antigas enquanto a Coreia estava sob domínio mongol. Um mito fundador registrado no momento de maior sujeição.',
+        'A descida é datada de 2457 a.C. e o reino de 2333 a.C., e esse segundo número foi o calendário oficial da Coreia do Sul de 1948 a 1961 — os documentos públicos contavam os anos a partir dele.',
+        'Continua sendo feriado nacional, Gaecheonjeol, a abertura do céu. Um país mantém um dia de folga pela manhã em que uma ursa terminou de comer alho no escuro.'
+      ]
+    }
+  ],
+
+  '10-04': [
+    {
+      year: 1582,
+      title: 'She Died on the Fourth and Was Buried on the Fifteenth',
+      title_pt: 'Morreu no Dia 4 e Foi Enterrada no Dia 15',
+      era: 'Early Modern',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Calendar', tag_pt: 'Calendário',
+      text: 'Thursday 4 October 1582 was followed by Friday 15 October 1582. Ten days were deleted outright to put the calendar back where it belonged. Teresa of Ávila happened to die that night, and was buried the next morning — her death and her funeral are ten days apart on paper and a few hours apart in fact.',
+      text_pt: 'À quinta-feira, 4 de outubro de 1582, seguiu-se a sexta-feira, 15 de outubro de 1582. Dez dias foram apagados de uma vez para pôr o calendário de volta onde devia estar. Teresa de Ávila morreu justamente naquela noite e foi enterrada na manhã seguinte — sua morte e seu enterro estão a dez dias de distância no papel e a poucas horas de distância na realidade.',
+      facts: [
+        'The whole reform exists to protect one feast. The Julian year ran about eleven minutes too long, and over twelve centuries the spring equinox had slid from 21 March to 11 March, which was dragging the calculation of Easter out of position with it.',
+        'The change itself is tiny: century years are leap years only when divisible by four hundred. That one rule, plus the ten deleted days, is the entire correction, and it is accurate to within a day in three thousand years.',
+        'The man who designed it never saw it adopted. Aloysius Lilius, a physician from Calabria, submitted the scheme and died first; the Jesuit mathematician Christopher Clavius worked out the details and spent decades afterwards defending it against people who were certain it was a papal trick.'
+      ],
+      facts_pt: [
+        'A reforma inteira existe para proteger uma única festa. O ano juliano corria cerca de onze minutos longo demais e, ao longo de doze séculos, o equinócio de primavera escorregara de 21 para 11 de março, arrastando consigo o cálculo da Páscoa para fora do lugar.',
+        'A mudança em si é minúscula: anos seculares só são bissextos quando divisíveis por quatrocentos. Essa única regra, mais os dez dias apagados, é a correção inteira, e ela erra menos de um dia em três mil anos.',
+        'O homem que a projetou não viu sua adoção. Aloysius Lilius, médico da Calábria, apresentou o esquema e morreu antes; o matemático jesuíta Cristóvão Clávio acertou os detalhes e passou décadas defendendo-a de gente convencida de que aquilo era um truque papal.'
+      ]
+    }
+  ],
+
+  '10-05': [
+    {
+      year: 1962,
+      title: 'The Producer Did Not Trust the Drummer',
+      title_pt: 'O Produtor Não Confiava no Baterista',
+      era: 'Contemporary',
+      region: 'London', region_pt: 'Londres',
+      tag: 'Music', tag_pt: 'Música',
+      text: 'The first Beatles single came out on Parlophone and reached number seventeen, and then nothing happened for three months. Paul had written most of it at about sixteen, skipping school. On the record he sounds tight, because John needed his mouth for the harmonica and the lead line fell to Paul at the last moment.',
+      text_pt: 'O primeiro compacto dos Beatles saiu pela Parlophone e chegou ao décimo sétimo lugar, e depois nada aconteceu por três meses. Paul escrevera a maior parte dela por volta dos dezesseis anos, matando aula. No disco ele soa tenso, porque John precisava da boca para a gaita e a linha principal caiu no colo de Paul no último instante.',
+      facts: [
+        'Ringo had been in the band six weeks and George Martin did not trust him. For the session that mattered the producer hired a session drummer and put Ringo on tambourine. Ringo said afterwards that he thought he was being sacked.',
+        'Three different drummers recorded it inside four months — Pete Best at the audition in June, Ringo in September, and the session man a week later. Which version you have heard depends on which pressing you own.',
+        'It was not the breakthrough. Seventeen in Britain and nothing abroad; the single that changed everything was the next one, in January.'
+      ],
+      facts_pt: [
+        'Ringo estava na banda havia seis semanas e George Martin não confiava nele. Para a sessão que importava, o produtor contratou um baterista de estúdio e pôs Ringo no pandeiro. Ringo diria depois que achou que estava sendo demitido.',
+        'Três bateristas diferentes a gravaram em quatro meses — Pete Best no teste de junho, Ringo em setembro e o músico de estúdio uma semana depois. Qual versão você já ouviu depende de qual prensagem tem.',
+        'Não foi o estouro. Décimo sétimo no Reino Unido e nada fora dele; o compacto que mudou tudo foi o seguinte, em janeiro.'
+      ]
+    }
+  ],
+
+  '10-06': [
+    {
+      year: 618,
+      title: 'The Tang Won a Battle They Did Not Fight',
+      title_pt: 'Os Tang Venceram uma Batalha que Não Travaram',
+      era: 'Medieval',
+      region: 'Luoyang, China', region_pt: 'Luoyang, China',
+      tag: 'Civil War', tag_pt: 'Guerra Civil',
+      text: 'The Sui had collapsed and China was being fought over by warlords. The strongest claimant was Li Mi, who held the imperial granaries; the man who broke him at Yanshi was Wang Shichong, holding Luoyang. Neither of them was the Tang, and the Tang are who ended up with the empire.',
+      text_pt: 'Os Sui haviam ruído e a China era disputada por senhores da guerra. O pretendente mais forte era Li Mi, que detinha os celeiros imperiais; quem o quebrou em Yanshi foi Wang Shichong, senhor de Luoyang. Nenhum dos dois era Tang, e foram os Tang que acabaram com o império.',
+      facts: [
+        'Li Mi’s power was grain. He had taken one of the enormous state granaries the Sui had built and opened it to the hungry, and that fed him an army. At a sister granary archaeologists have found hundreds of storage pits, one of them still holding half a million catties of carbonised millet.',
+        'The winner lasted three years. Wang Shichong deposed the puppet emperor he had been propping up, declared a dynasty of his own, and in 621 was destroyed along with another warlord in a single campaign by the Tang prince Li Shimin.',
+        'That prince went on to kill his elder brother, push his father off the throne, and reign as Taizong — remembered afterwards as one of the best rulers China ever had.'
+      ],
+      facts_pt: [
+        'O poder de Li Mi era grão. Ele tomara um dos enormes celeiros estatais construídos pelos Sui e o abrira aos famintos, e isso lhe alimentou um exército. Num celeiro irmão, arqueólogos encontraram centenas de fossos de armazenagem, um deles ainda com meio milhão de catis de painço carbonizado.',
+        'O vencedor durou três anos. Wang Shichong depôs o imperador-fantoche que vinha sustentando, declarou dinastia própria e, em 621, foi destruído junto com outro senhor da guerra numa única campanha do príncipe Tang Li Shimin.',
+        'Esse príncipe viria a matar o irmão mais velho, empurrar o pai para fora do trono e reinar como Taizong — lembrado depois como um dos melhores governantes que a China já teve.'
+      ]
+    }
+  ],
+
+  '10-07': [
+    {
+      year: -3761,
+      title: 'Year One, Counted Backwards',
+      title_pt: 'Ano Um, Contado de Trás para Frente',
+      era: 'Jewish History',
+      tag: 'Calendar', tag_pt: 'Calendário',
+      text: 'The Hebrew calendar counts from here, and nobody was here to see it. The year was arrived at by adding up the lifespans in Genesis and working backwards, and the count only came into ordinary Jewish use about a thousand years ago — the calendar is far younger than the year it begins from.',
+      text_pt: 'O calendário hebraico conta a partir daqui, e ninguém estava aqui para ver. O ano foi obtido somando as idades do Gênesis e caminhando para trás, e a contagem só entrou no uso judaico corrente há cerca de mil anos — o calendário é muito mais novo que o ano de que parte.',
+      facts: [
+        'The starting instant is specified to the minute. Tradition fixes the first new moon at a Monday, five hours and 204 parts after nightfall, the hour being divided into 1,080 parts. Everything since is computed forward from that one moment, with no observation of the sky required at all.',
+        'Before this count took hold, Jews dated documents by the Seleucid era — the years of a Greek dynasty founded by one of Alexander’s generals — and kept doing so in some communities for centuries after.',
+        'It drifts. The fixed year runs about six and a half minutes long, roughly a day every two centuries, and Passover is slowly walking toward summer. The problem has been known for most of a thousand years and deliberately left alone.'
+      ],
+      facts_pt: [
+        'O instante inicial é especificado ao minuto. A tradição fixa a primeira lua nova numa segunda-feira, cinco horas e 204 partes após o anoitecer, sendo a hora dividida em 1.080 partes. Tudo desde então é calculado para a frente a partir desse único momento, sem nenhuma necessidade de observar o céu.',
+        'Antes de essa contagem se firmar, os judeus datavam documentos pela era selêucida — os anos de uma dinastia grega fundada por um dos generais de Alexandre — e algumas comunidades seguiram assim por séculos depois.',
+        'Ele deriva. O ano fixo corre cerca de seis minutos e meio longo demais, aproximadamente um dia a cada dois séculos, e a Páscoa caminha devagar para o verão. O problema é conhecido há quase mil anos e foi deliberadamente deixado como está.'
+      ]
+    }
+  ],
+
+  '10-08': [
+    {
+      year: 1480,
+      title: 'The Battle Where Nobody Fought',
+      title_pt: 'A Batalha em que Ninguém Lutou',
+      era: 'Medieval',
+      region: 'Ugra River, Russia', region_pt: 'Rio Ugra, Rússia',
+      tag: 'Standoff', tag_pt: 'Impasse',
+      text: 'The Khan of the Great Horde came to collect a tribute Moscow had stopped paying, and Ivan III came out to meet him. The two armies stood on opposite banks of the Ugra for weeks, traded arrows, and waited. When the river froze and the obstacle between them disappeared, both of them turned around and went home.',
+      text_pt: 'O cã da Grande Horda veio cobrar um tributo que Moscou deixara de pagar, e Ivan III saiu ao seu encontro. Os dois exércitos ficaram semanas em margens opostas do Ugra, trocaram flechas e esperaram. Quando o rio congelou e o obstáculo entre eles desapareceu, ambos deram meia-volta e foram para casa.',
+      facts: [
+        'Akhmat was waiting for an ally who never arrived. Casimir of Poland-Lithuania was to join him and was kept occupied by a Crimean raid that Ivan had arranged. Akhmat went home and was killed by a rival khan a few months later.',
+        'The tribute had already stopped four years earlier. Whatever ended in 1480 had been ending for some time, and the river was where the two sides looked at each other and privately agreed not to settle it.',
+        'The meaning was attached afterwards. Later historians needed a date for the end of two and a half centuries of Tatar overlordship, and chose this one — so the most consequential event in medieval Russian history is a standoff in which nothing was decided by force.'
+      ],
+      facts_pt: [
+        'Akhmat esperava um aliado que nunca chegou. Casimiro, da Polônia-Lituânia, deveria se juntar a ele e foi mantido ocupado por uma incursão da Crimeia que Ivan havia arranjado. Akhmat voltou para casa e foi morto por um cã rival poucos meses depois.',
+        'O tributo já havia parado quatro anos antes. O que quer que tenha acabado em 1480 vinha acabando havia tempo, e o rio foi onde os dois lados se olharam e concordaram, sem dizer, em não resolver aquilo.',
+        'O significado foi colado depois. Historiadores posteriores precisavam de uma data para o fim de dois séculos e meio de suserania tártara, e escolheram esta — de modo que o acontecimento mais consequente da história medieval russa é um impasse em que nada se decidiu pela força.'
+      ]
+    }
+  ],
+
+  '10-09': [
+    {
+      year: 1980,
+      title: 'A Door That Was Later Closed',
+      title_pt: 'Uma Porta que Depois se Fechou',
+      era: 'Contemporary',
+      region: 'Vatican City', region_pt: 'Vaticano',
+      tag: 'Diplomacy', tag_pt: 'Diplomacia',
+      text: 'A pope received the Dalai Lama in private audience for the first time. One of them came from a Poland whose government treated his church as an enemy; the other had been governing Tibet from exile in India for twenty-one years. Both of them led faiths that a communist state had decided to manage.',
+      text_pt: 'Um papa recebeu o Dalai Lama em audiência privada pela primeira vez. Um deles vinha de uma Polônia cujo governo tratava sua igreja como inimiga; o outro governava o Tibete a partir do exílio na Índia havia vinte e um anos. Ambos lideravam religiões que um Estado comunista decidira administrar.',
+      facts: [
+        'They went on meeting, at least eight times over the next two decades.',
+        'In 1986 the pope invited him to Assisi along with leaders of a dozen other religions to pray together for peace. A section of his own church regarded that as a betrayal and has never let it go.',
+        'The opening did not hold. In 2014 the Vatican declined a meeting between Pope Francis and the Dalai Lama while he was in Rome for a gathering of Nobel laureates, and relations with Beijing were given as the reason.'
+      ],
+      facts_pt: [
+        'Eles continuaram se encontrando, ao menos oito vezes ao longo das duas décadas seguintes.',
+        'Em 1986 o papa o convidou para Assis, junto com líderes de uma dezena de outras religiões, para rezarem juntos pela paz. Uma parte de sua própria igreja considerou aquilo uma traição e nunca deixou o assunto morrer.',
+        'A abertura não se sustentou. Em 2014 o Vaticano recusou um encontro entre o papa Francisco e o Dalai Lama enquanto ele estava em Roma para uma reunião de laureados com o Nobel, e as relações com Pequim foram dadas como motivo.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,
