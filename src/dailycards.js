@@ -2003,6 +2003,256 @@ var DAILY_CARDS = {
     }
   ],
 
+  '10-10': [
+    {
+      year: 732,
+      title: 'The Raid That Made a Dynasty',
+      title_pt: 'A Incursão que Fez uma Dinastia',
+      era: 'Medieval',
+      region: 'near Tours, Francia', region_pt: 'perto de Tours, Frância',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'Charles Martel put his infantry on a wooded slope and made the Umayyad cavalry come to him, and it held — a chronicler described the Franks standing like a wall of ice frozen together. The commander against him was killed and the expedition turned back. Europe remembers it as the day the continent was saved; what it actually decided was which family would rule the Franks.',
+      text_pt: 'Carlos Martel pôs sua infantaria numa encosta arborizada e obrigou a cavalaria omíada a vir até ele, e ela aguentou — um cronista descreveu os francos de pé como uma muralha de gelo congelada. O comandante que o enfrentava foi morto e a expedição voltou atrás. A Europa lembra aquilo como o dia em que o continente foi salvo; o que de fato se decidiu ali foi qual família governaria os francos.',
+      facts: [
+        'Arab chroniclers barely registered it. They called the place the pavement of the martyrs and treated the setback as one among many; the expedition was a raid for plunder, aimed at the treasury of the monastery at Tours, rather than an attempt to conquer Francia.',
+        'Martel was not a king. He was mayor of the palace, running the kingdom for a Merovingian figurehead, and the standing this victory gave his house is what let his son depose the last Merovingian in 751. His grandson was Charlemagne.',
+        'He paid his army with church property. The man later celebrated as the shield of Christendom seized monastic estates to fund the troops, and the church spent the following decades trying to get them back.'
+      ],
+      facts_pt: [
+        'Os cronistas árabes quase não registraram o episódio. Chamaram o lugar de calçada dos mártires e trataram o reverso como um entre muitos; a expedição era uma incursão de pilhagem, visando o tesouro do mosteiro de Tours, e não uma tentativa de conquistar a Frância.',
+        'Martel não era rei. Era mordomo do palácio, governando o reino em nome de um merovíngio decorativo, e o prestígio que esta vitória deu à sua casa é o que permitiu ao filho dele depor o último merovíngio em 751. Seu neto foi Carlos Magno.',
+        'Ele pagou seu exército com propriedade da Igreja. O homem depois celebrado como o escudo da cristandade confiscou terras monásticas para financiar as tropas, e a Igreja passou as décadas seguintes tentando reavê-las.'
+      ]
+    }
+  ],
+
+  '10-11': [
+    {
+      year: 1962,
+      title: 'The Caretaker Pope Who Changed Everything',
+      title_pt: 'O Papa de Transição que Mudou Tudo',
+      era: 'Contemporary',
+      region: 'St Peter’s Basilica', region_pt: 'Basílica de São Pedro',
+      tag: 'Council', tag_pt: 'Concílio',
+      text: 'John XXIII was seventy-seven when he was elected and was understood by everyone, including the men who elected him, to be a stopgap. Three months in he announced a general council, the first in ninety-two years. Two and a half thousand bishops came, more of them from Africa and Asia than had ever attended anything, and the church that came out was not the one that went in.',
+      text_pt: 'João XXIII tinha setenta e sete anos quando foi eleito e era entendido por todos, inclusive pelos homens que o elegeram, como solução provisória. Três meses depois anunciou um concílio geral, o primeiro em noventa e dois anos. Vieram dois mil e quinhentos bispos, mais deles da África e da Ásia do que jamais comparecera a qualquer coisa, e a igreja que saiu não era a que entrou.',
+      facts: [
+        'The bishops threw out the prepared texts. The Curia had drafted some seventy documents to be approved; within days the assembly refused to simply ratify them and insisted on writing its own. That is the moment the council stopped being the one that had been planned.',
+        'He did not live to see it finish. John XXIII died after the first of four sessions, and Paul VI carried it to 1965 — so the pope who called it shaped almost none of what it produced.',
+        'One of the documents it produced, Nostra Aetate, repudiated the teaching that the Jewish people bore collective guilt for the death of Christ. It was four paragraphs long and reversed something the church had taught for the better part of two thousand years.'
+      ],
+      facts_pt: [
+        'Os bispos descartaram os textos preparados. A Cúria havia redigido cerca de setenta documentos para serem aprovados; em poucos dias a assembleia recusou-se a simplesmente ratificá-los e exigiu escrever os seus. Foi o momento em que o concílio deixou de ser o que havia sido planejado.',
+        'Ele não viveu para vê-lo terminar. João XXIII morreu depois da primeira das quatro sessões, e Paulo VI o levou até 1965 — de modo que o papa que o convocou moldou quase nada do que ele produziu.',
+        'Um dos documentos que saíram dali, a Nostra Aetate, repudiou o ensinamento de que o povo judeu carregava culpa coletiva pela morte de Cristo. Tinha quatro parágrafos e revertia algo que a igreja ensinara por quase dois mil anos.'
+      ]
+    }
+  ],
+
+  '10-12': [
+    {
+      year: -539,
+      title: 'The Only Foreigner the Bible Calls Messiah',
+      title_pt: 'O Único Estrangeiro que a Bíblia Chama de Messias',
+      era: 'Classical',
+      region: 'Babylon', region_pt: 'Babilônia',
+      tag: 'Conquest', tag_pt: 'Conquista',
+      text: 'Babylon had the most formidable walls in the world and they did not matter. Nabonidus had spent years away from the city and had neglected its chief god, the priesthood had turned against him, and the Persians were inside before there was much of a fight. Cyrus then did something conquerors did not do: he sent the deported peoples home.',
+      text_pt: 'A Babilônia tinha as muralhas mais formidáveis do mundo e elas não fizeram diferença. Nabonido passara anos longe da cidade e negligenciara seu deus principal, o sacerdócio se voltara contra ele, e os persas estavam dentro antes que houvesse grande combate. Ciro então fez algo que conquistadores não faziam: mandou os povos deportados de volta para casa.',
+      facts: [
+        'The Hebrew Bible calls him the Lord’s anointed — mashiach, messiah. Isaiah uses the word for Cyrus and for no other foreigner anywhere in scripture, because he let the exiles return to Jerusalem and rebuild the Temple.',
+        'His own account survives, on a clay cylinder dug up in 1879. It says Marduk chose him because the last king had offended the god, and records the restoration of temples and the return of captive peoples and their statues. It is often called the first declaration of human rights; it is more precisely an extremely well-made piece of Mesopotamian royal propaganda, which is not the same thing as being false.',
+        'He let the local religion keep its forms and had himself written into them. Where other conquerors replaced gods, Cyrus took the hand of Marduk in the new year ceremony and ruled as a legitimate Babylonian king, which is a large part of why the empire he assembled held together.'
+      ],
+      facts_pt: [
+        'A Bíblia hebraica o chama de ungido do Senhor — mashiach, messias. Isaías usa a palavra para Ciro e para nenhum outro estrangeiro em toda a escritura, porque ele permitiu aos exilados voltar a Jerusalém e reconstruir o Templo.',
+        'O relato dele próprio sobreviveu, num cilindro de argila desenterrado em 1879. Diz que Marduk o escolheu porque o rei anterior havia ofendido o deus, e registra a restauração de templos e o retorno dos povos cativos e de suas estátuas. É frequentemente chamado de primeira declaração de direitos humanos; é, mais precisamente, uma peça extremamente bem-feita de propaganda real mesopotâmica, o que não é a mesma coisa que ser falsa.',
+        'Ele deixou a religião local manter suas formas e fez-se inscrever nelas. Onde outros conquistadores substituíam deuses, Ciro tomou a mão de Marduk na cerimônia do ano-novo e governou como rei babilônico legítimo, o que é boa parte da razão de o império que montou ter se mantido de pé.'
+      ]
+    }
+  ],
+
+  '10-13': [
+    {
+      year: 1307,
+      title: 'The Pope Had Already Cleared Them',
+      title_pt: 'O Papa Já os Havia Absolvido',
+      era: 'Medieval',
+      region: 'France', region_pt: 'França',
+      tag: 'Arrest', tag_pt: 'Prisão',
+      text: 'Sealed orders had been sent across France weeks before, with instructions not to break the seal until the appointed dawn. On this morning almost every Templar in the kingdom was taken at once. Philip IV was broke, had already expelled the Jews and seized their property the year before, and the Templars were his creditors.',
+      text_pt: 'Ordens seladas haviam sido enviadas por toda a França semanas antes, com instruções de não romper o selo até o amanhecer marcado. Nesta manhã, quase todo templário do reino foi preso de uma vez. Filipe IV estava quebrado, já havia expulsado os judeus e confiscado seus bens no ano anterior, e os templários eram seus credores.',
+      facts: [
+        'A parchment found misfiled in the Vatican archives in 2001 shows Clement V secretly absolving the Templar leadership of heresy in 1308. He suppressed the order anyway in 1312 — not because he believed the charges, but because the scandal had made it unusable.',
+        'Friday the thirteenth has nothing to do with this. The superstition about the date does not appear in writing until the nineteenth century, and nobody tied it to the Templars until the twentieth.',
+        'Fifty-four men who retracted their confessions were burned in 1310 for retracting them. The last grand master went to the fire in 1314 and is said to have summoned the king and the pope to judgment within the year; both of them were dead within the year.'
+      ],
+      facts_pt: [
+        'Um pergaminho encontrado arquivado no lugar errado no Vaticano, em 2001, mostra Clemente V absolvendo secretamente a cúpula templária de heresia, em 1308. Ele suprimiu a ordem de todo modo em 1312 — não por acreditar nas acusações, mas porque o escândalo a tornara inutilizável.',
+        'A sexta-feira treze não tem nada a ver com isto. A superstição sobre a data só aparece por escrito no século XIX, e ninguém a ligou aos templários antes do século XX.',
+        'Cinquenta e quatro homens que se retrataram das confissões foram queimados em 1310 por terem se retratado. O último grão-mestre foi à fogueira em 1314 e teria convocado o rei e o papa a juízo dentro de um ano; ambos estavam mortos dentro de um ano.'
+      ]
+    }
+  ],
+
+  '10-14': [
+    {
+      year: 1066,
+      title: 'A Cow in the Field, Beef on the Table',
+      title_pt: 'Vaca no Campo, Carne na Mesa',
+      era: 'Medieval',
+      region: 'Hastings, Sussex', region_pt: 'Hastings, Sussex',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'The fighting ran most of the day, which almost no medieval battle did. The English shield wall held for hours on the ridge and broke only when it chased what looked like a Norman collapse down the slope and found itself in the open. Harold was killed, and England got a new ruling class, a new architecture, and a different language.',
+      text_pt: 'O combate durou quase todo o dia, o que praticamente nenhuma batalha medieval durava. A muralha de escudos inglesa aguentou horas na crista e só se rompeu quando perseguiu o que parecia um colapso normando encosta abaixo e se viu em campo aberto. Haroldo foi morto, e a Inglaterra ganhou uma nova classe dirigente, uma nova arquitetura e outra língua.',
+      facts: [
+        'For about three hundred years the business of English government was done in French, and some ten thousand French words came into the language. English has a cow and beef, a pig and pork, a sheep and mutton because one word belonged to whoever raised the animal and the other to whoever ate it.',
+        'The arrow in the eye may not be Harold. It comes from the Bayeux Tapestry, which is embroidery rather than tapestry and was almost certainly stitched in England — the conquered sewing the conquerors’ account of events. Written sources say he was cut down.',
+        'Twenty years later William had the whole kingdom surveyed, holding by holding, down to the ploughs and the pigs. Nothing like the Domesday Book was attempted anywhere in Europe for centuries, and it exists because a conqueror needed to know exactly what he had taken.'
+      ],
+      facts_pt: [
+        'Por cerca de trezentos anos os negócios do governo inglês foram conduzidos em francês, e umas dez mil palavras francesas entraram na língua. O inglês tem cow e beef, pig e pork, sheep e mutton porque uma palavra pertencia a quem criava o animal e a outra a quem o comia.',
+        'A flecha no olho talvez não seja Haroldo. Ela vem da Tapeçaria de Bayeux, que é bordado e não tapeçaria e foi quase certamente costurada na Inglaterra — os conquistados bordando a versão dos conquistadores. As fontes escritas dizem que ele foi abatido a golpes.',
+        'Vinte anos depois, Guilherme mandou levantar o reino inteiro, propriedade por propriedade, até os arados e os porcos. Nada parecido com o Domesday Book foi tentado em qualquer lugar da Europa por séculos, e ele existe porque um conquistador precisava saber exatamente o que havia tomado.'
+      ]
+    }
+  ],
+
+  '10-15': [
+    {
+      year: 1815,
+      title: 'He Won the Argument from the Island',
+      title_pt: 'Ele Ganhou a Discussão a Partir da Ilha',
+      era: 'Modern',
+      region: 'Saint Helena', region_pt: 'Santa Helena',
+      tag: 'Exile', tag_pt: 'Exílio',
+      text: 'Saint Helena is one of the remotest inhabited places on earth — nineteen hundred kilometres from Africa, nearly three thousand from South America — and Britain kept some two thousand eight hundred soldiers and a naval squadron there for one prisoner. He had five and a half years left, in a damp house on a windswept plateau, and he spent them talking.',
+      text_pt: 'Santa Helena é um dos lugares habitados mais remotos da Terra — mil e novecentos quilômetros da África, quase três mil da América do Sul — e a Grã-Bretanha manteve ali cerca de dois mil e oitocentos soldados e um esquadrão naval para um único prisioneiro. Restavam-lhe cinco anos e meio, numa casa úmida sobre um planalto varrido pelo vento, e ele os passou falando.',
+      facts: [
+        'The memoirs he dictated there did more for his reputation than any of his battles. Napoleon as the thwarted liberal who would have unified Europe, undone by kings and aristocrats, was written at Longwood and sold enormously, and it is substantially the version that survives.',
+        'The governor forbade anyone to address him as emperor, which he treated as the one subject worth being obstinate about for five years.',
+        'He died in 1821, almost certainly of the stomach cancer that had killed his father, though there is enough arsenic in his hair to have kept the poisoning theories alive for two centuries. In 1840 France brought the body home and carried it under the Arc de Triomphe he had ordered built and never saw finished.'
+      ],
+      facts_pt: [
+        'As memórias que ele ditou ali fizeram mais por sua reputação do que qualquer uma de suas batalhas. Napoleão como o liberal frustrado que teria unificado a Europa, desfeito por reis e aristocratas, foi escrito em Longwood, vendeu enormemente, e é substancialmente a versão que sobreviveu.',
+        'O governador proibiu que o tratassem de imperador, o que ele tomou como o único assunto digno de teimosia por cinco anos.',
+        'Morreu em 1821, quase certamente do câncer de estômago que matara seu pai, embora haja arsênico suficiente em seus cabelos para manter vivas por dois séculos as teses de envenenamento. Em 1840 a França trouxe o corpo de volta e o levou sob o Arco do Triunfo que ele mandara construir e nunca viu pronto.'
+      ]
+    }
+  ],
+
+  '10-16': [
+    {
+      year: 1793,
+      title: 'The Charge Nature Refuses to Answer',
+      title_pt: 'A Acusação que a Natureza Se Recusa a Responder',
+      era: 'Modern',
+      region: 'Paris', region_pt: 'Paris',
+      tag: 'Execution', tag_pt: 'Execução',
+      text: 'Her trial lasted two days and the verdict was never in question. She was thirty-seven, her hair had gone white, and she was taken to the scaffold in an open cart, which her husband nine months earlier had not been. The humiliation was the point, and on one count of the indictment it failed completely.',
+      text_pt: 'O julgamento dela durou dois dias e o veredito nunca esteve em questão. Tinha trinta e sete anos, os cabelos embranquecidos, e foi levada ao cadafalso numa carroça aberta, o que o marido, nove meses antes, não havia sido. A humilhação era o objetivo, e num dos itens da acusação ela falhou por completo.',
+      facts: [
+        'The prosecution accused her of incest with her eight-year-old son, on a statement taken from the boy. She refused to answer it, then turned to the women in the courtroom and said that if she had not replied, it was because nature itself refuses to answer such a charge laid against a mother. The room went with her and the subject was dropped.',
+        'Let them eat cake is not hers. The line appears in Rousseau years before she ever arrived in France, attributed to an unnamed princess, and no source from her own lifetime puts it in her mouth.',
+        'Her last recorded words were an apology. She stepped on the executioner’s foot on the scaffold and said she begged his pardon, she had not meant to do it.'
+      ],
+      facts_pt: [
+        'A acusação a incriminou de incesto com o filho de oito anos, com base num depoimento extraído do menino. Ela se recusou a responder, voltou-se para as mulheres na sala e disse que, se não havia respondido, era porque a própria natureza se recusa a responder a tal acusação feita contra uma mãe. A sala ficou com ela e o assunto foi abandonado.',
+        'O "que comam brioches" não é dela. A frase aparece em Rousseau anos antes de ela chegar à França, atribuída a uma princesa sem nome, e nenhuma fonte de seu tempo a põe em sua boca.',
+        'Suas últimas palavras registradas foram um pedido de desculpas. Pisou no pé do executor no cadafalso e disse que lhe pedia perdão, não tivera a intenção.'
+      ]
+    }
+  ],
+
+  '10-17': [
+    {
+      year: 690,
+      title: 'The Stele They Left Blank',
+      title_pt: 'A Estela que Deixaram em Branco',
+      era: 'Medieval',
+      region: 'China', region_pt: 'China',
+      tag: 'Dynasty', tag_pt: 'Dinastia',
+      text: 'Wu Zetian had been a consort, then the power behind her husband, then the power behind two of her sons. At about sixty-six she stopped working through men, declared a dynasty of her own and took the title of emperor — the only woman in three thousand years of Chinese history to hold it in her own name rather than as a regent.',
+      text_pt: 'Wu Zetian fora concubina, depois o poder por trás do marido, depois o poder por trás de dois de seus filhos. Por volta dos sessenta e seis anos parou de agir através de homens, declarou uma dinastia própria e tomou o título de imperador — a única mulher em três mil anos de história chinesa a detê-lo em seu próprio nome, e não como regente.',
+      facts: [
+        'She widened the examinations. High office had largely belonged to a closed circle of aristocratic families; she recruited by written test and promoted men with no connections at all, partly because men with no connections owed everything to her.',
+        'She had new written characters invented, including one for her own name, and commissioned the colossal Buddha at Longmen — whose face, it has long been said, was modelled on hers.',
+        'Her memorial tablet at her tomb is blank. A great stele stands there with nothing carved into it, and nobody knows whether she left it that way because she judged her deeds beyond words, or because the men who came after could not agree what to write about a woman who had been emperor.'
+      ],
+      facts_pt: [
+        'Ela ampliou os exames. Os altos cargos pertenciam em grande parte a um círculo fechado de famílias aristocráticas; ela recrutava por prova escrita e promovia homens sem relação alguma, em parte porque homens sem relações deviam tudo a ela.',
+        'Mandou inventar novos caracteres escritos, inclusive um para o próprio nome, e encomendou o Buda colossal de Longmen — cujo rosto, diz-se há muito, foi modelado no dela.',
+        'A lápide memorial em seu túmulo está em branco. Ali se ergue uma grande estela sem nada entalhado, e ninguém sabe se ela a deixou assim por julgar seus feitos acima das palavras, ou se os homens que vieram depois não conseguiram concordar sobre o que escrever a respeito de uma mulher que foi imperador.'
+      ]
+    }
+  ],
+
+  '10-18': [
+    {
+      year: 1009,
+      title: 'His Mother Was Christian',
+      title_pt: 'A Mãe Dele Era Cristã',
+      era: 'Medieval',
+      region: 'Jerusalem', region_pt: 'Jerusalém',
+      tag: 'Destruction', tag_pt: 'Destruição',
+      text: 'The Fatimid caliph al-Hakim ordered the church over the tomb of Christ taken down, and the work went to bedrock — the rock-cut tomb inside it was hacked away. The same ruler banned chess, prohibited a particular vegetable, and at one point forbade cobblers to make women’s shoes so that women could not leave their houses.',
+      text_pt: 'O califa fatímida al-Hakim ordenou que a igreja sobre o túmulo de Cristo fosse derrubada, e o trabalho desceu até a rocha viva — o sepulcro escavado em seu interior foi picado fora. O mesmo governante proibiu o xadrez, vetou um determinado legume e, em certo momento, proibiu os sapateiros de fazer calçados femininos para que as mulheres não pudessem sair de casa.',
+      facts: [
+        'His mother was a Christian and two of his uncles were Orthodox patriarchs. Before the end of his reign he permitted churches to be rebuilt, and the destruction was reversed in the 1040s with Byzantine money.',
+        'The consequences landed a continent away. Rumours that Jews had put the caliph up to it led to attacks on Jewish communities in Rouen, Orléans and Mainz within a year or two, and the destruction is routinely named among the long causes of the First Crusade, eighty-seven years later.',
+        'He vanished in 1021. He rode out at night into the hills above Cairo and did not come back; his donkey was found, and his bloodstained clothing, and nothing further was ever established. The Druze faith descends from the men who had accepted his claim to divinity and who hold that he did not die.'
+      ],
+      facts_pt: [
+        'Sua mãe era cristã e dois de seus tios eram patriarcas ortodoxos. Antes do fim de seu reinado ele permitiu que igrejas fossem reconstruídas, e a destruição foi revertida na década de 1040 com dinheiro bizantino.',
+        'As consequências caíram a um continente de distância. Rumores de que judeus teriam instigado o califa levaram a ataques a comunidades judaicas em Rouen, Orléans e Mainz em um ou dois anos, e a destruição é rotineiramente citada entre as causas longas da Primeira Cruzada, oitenta e sete anos depois.',
+        'Ele desapareceu em 1021. Saiu a cavalo de noite para as colinas acima do Cairo e não voltou; acharam seu burro e suas roupas manchadas de sangue, e nada mais foi jamais estabelecido. A fé drusa descende dos homens que aceitaram sua pretensão à divindade e que sustentam que ele não morreu.'
+      ]
+    }
+  ],
+
+  '10-19': [
+    {
+      year: -202,
+      title: 'Rome Finally Had the Better Cavalry',
+      title_pt: 'Roma Finalmente Teve a Melhor Cavalaria',
+      era: 'Classical',
+      region: 'Zama, North Africa', region_pt: 'Zama, Norte da África',
+      tag: 'Battle', tag_pt: 'Batalha',
+      text: 'Scipio had spent fifteen years studying the man in front of him, and he beat him with his own method. The thing that had made Hannibal unbeatable in Italy was his horsemen; at Zama the horsemen were Roman, because the Numidians had changed sides. Carthage asked for terms within weeks.',
+      text_pt: 'Cipião passara quinze anos estudando o homem à sua frente, e o venceu com o método dele. O que tornara Aníbal invencível na Itália eram seus cavaleiros; em Zama os cavaleiros eram romanos, porque os númidas haviam trocado de lado. Cartago pediu condições em poucas semanas.',
+      facts: [
+        'The elephants were turned back on their own army. Scipio opened lanes in his line so the charge could run through it instead of into it, and had the trumpets blown to panic them; a good part of the herd wheeled round into the Carthaginian cavalry.',
+        'The two of them are said to have met and talked before the battle, through interpreters, and failed to agree on terms.',
+        'Both ended badly. Hannibal went into exile, served Rome’s enemies, and poisoned himself in 183 rather than be handed over. Scipio, prosecuted by rivals at home, withdrew to the country and died at about the same time, reportedly leaving instructions that he not be buried in the city he had saved.'
+      ],
+      facts_pt: [
+        'Os elefantes foram voltados contra o próprio exército. Cipião abriu corredores em sua linha para que a carga passasse por ela em vez de contra ela, e mandou tocar as trombetas para apavorá-los; boa parte da manada girou de volta sobre a cavalaria cartaginesa.',
+        'Conta-se que os dois se encontraram e conversaram antes da batalha, por intérpretes, e não chegaram a acordo sobre os termos.',
+        'Os dois terminaram mal. Aníbal exilou-se, serviu aos inimigos de Roma e envenenou-se em 183 em vez de ser entregue. Cipião, processado por rivais em casa, retirou-se para o campo e morreu mais ou menos na mesma época, tendo deixado, ao que se conta, a instrução de não ser enterrado na cidade que salvara.'
+      ]
+    },
+    {
+      year: 1469,
+      title: 'Married on a Forged Dispensation',
+      title_pt: 'Casados com uma Dispensa Falsificada',
+      era: 'Medieval',
+      region: 'Valladolid, Castile', region_pt: 'Valladolid, Castela',
+      tag: 'Union', tag_pt: 'União',
+      text: 'He was seventeen and had crossed into Castile disguised as a servant in a merchant’s party, because her brother the king had men out to stop the wedding. She was eighteen and had left that brother’s court without permission. They were second cousins, which meant they needed a papal dispensation, and they did not have one.',
+      text_pt: 'Ele tinha dezessete anos e entrara em Castela disfarçado de criado numa comitiva de mercadores, porque o irmão dela, o rei, tinha homens em campo para impedir o casamento. Ela tinha dezoito e havia deixado a corte desse irmão sem permissão. Eram primos em segundo grau, o que significava precisar de dispensa papal, e eles não tinham nenhuma.',
+      facts: [
+        'The dispensation they produced at the ceremony was a counterfeit. The pope had refused to grant one, so a forged bull was manufactured; a genuine one arrived three years later, once the marriage was a fact that had to be dealt with.',
+        'It did not unify anything, legally. Aragon and Castile kept their own laws, parliaments, currencies and customs frontiers for more than two centuries after this, and the single state called Spain is an eighteenth-century creation. What 1469 produced was one couple wearing two crowns.',
+        'Their own line ran out within two generations. Every child who could have inherited died young or mad, and the two crowns passed to a grandson raised in Flanders who barely spoke Castilian — so the marriage that assembled Spain delivered it to the Habsburgs.'
+      ],
+      facts_pt: [
+        'A dispensa que apresentaram na cerimônia era falsa. O papa havia recusado conceder uma, então fabricou-se uma bula falsificada; a autêntica chegou três anos depois, quando o casamento já era um fato com que havia de se lidar.',
+        'Não unificou nada, juridicamente. Aragão e Castela mantiveram suas próprias leis, parlamentos, moedas e fronteiras aduaneiras por mais de dois séculos depois disto, e o Estado único chamado Espanha é uma criação do século XVIII. O que 1469 produziu foi um casal usando duas coroas.',
+        'A linhagem deles se esgotou em duas gerações. Todo filho que poderia herdar morreu jovem ou enlouqueceu, e as duas coroas passaram a um neto criado em Flandres que quase não falava castelhano — de modo que o casamento que montou a Espanha a entregou aos Habsburgos.'
+      ]
+    }
+  ],
+
   '11-09': [
     {
       year: 1989,

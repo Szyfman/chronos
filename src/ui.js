@@ -263,25 +263,47 @@ function showFeedback(ok,hint,yearDelta){
 }
 
 // ── FACT PANEL ────────────────────────────────────────────────────────────
-function showFact(card,isReview){
+// Each open of the panel advances to the card's next fact, so tapping a placed
+// card shows something new instead of a random (possibly repeated) one.
+// Index is kept per card name for the whole session and wraps around.
+var _factIdx={};
+function _factPool(card){
+  var pool=(lang==='pt'?(card.facts_pt||card.facts):(card.facts||card.facts_pt))||[];
+  if(isInterval(card)){
+    // Intervals lead with their description, then cycle through the facts
+    var desc=lang==='pt'?(card.description_pt||card.description):(card.description||card.description_pt);
+    if(desc)pool=[desc].concat(pool);
+  }
+  pool=pool.filter(Boolean);
+  if(!pool.length)pool=[(lang==='pt'?(card.hint_pt||card.hint):card.hint)||''];
+  return pool;
+}
+function _nextFact(card,keepIdx){
+  var pool=_factPool(card);
+  var prev=_factIdx[card.name];
+  var idx;
+  if(prev===undefined)idx=isInterval(card)?0:Math.floor(Math.random()*pool.length);
+  else idx=keepIdx?prev:prev+1;
+  idx%=pool.length;
+  _factIdx[card.name]=idx;
+  return pool[idx];
+}
+function showFact(card,isReview,keepIdx){
   reviewMode=!!isReview;
   _currentFactCard=card;
   const fp=document.getElementById('fact-panel');
   const iv=isInterval(card);
   document.getElementById('fp-tag').textContent=isReview?t('review_tag'):t('fact_tag');
   document.getElementById('fp-name').textContent=cName(card);
+  const fact=_nextFact(card,keepIdx);
   if(iv){
     const cul=cCulture(card);const reg=cRegion(card);
     document.getElementById('fp-year').textContent=formatYear(card.startYear)+' – '+formatYear(card.endYear)+(reg?' · '+reg:'');
-    // Use description if available, fall back to first fact, then hint
-    const desc=(lang==='pt'?(card.description_pt||card.description):(card.description||card.description_pt))
-      ||(lang==='pt'?(card.facts_pt&&card.facts_pt[0]):(card.facts&&card.facts[0]))
-      ||(lang==='pt'?(card.hint_pt||card.hint):(card.hint||''));
     const prefix=cul?cul+' · ':'';
-    document.getElementById('fp-text').textContent=prefix+desc;
+    document.getElementById('fp-text').textContent=prefix+fact;
   } else {
     document.getElementById('fp-year').textContent=formatYear(card.year)+' · '+card.era;
-    document.getElementById('fp-text').textContent=cFact(card);
+    document.getElementById('fp-text').textContent=fact;
   }
   document.getElementById('fp-btn').textContent=isReview?t('fp_close'):t('fp_continue');
   fp.classList.toggle('review-mode',isReview);

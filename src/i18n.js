@@ -70,7 +70,6 @@ const t=k=>S[lang][k]||k;
 const cName=c=>lang==='pt'?c.name_pt:c.name;
 const cCat=c=>lang==='pt'?c.cat_pt:c.cat;
 const cHint=c=>lang==='pt'?c.hint_pt:c.hint;
-const cFact=c=>{const pool=lang==='pt'?c.facts_pt:c.facts;return pool[Math.floor(Math.random()*pool.length)];};
 const cClues=c=>lang==='pt'?c.clues_pt:c.clues;
 const formatYear=y=>y<0?`${Math.abs(y)} ${lang==='pt'?'a.C.':'BCE'}`:`${y} ${lang==='pt'?'d.C.':'CE'}`;
 
@@ -200,7 +199,7 @@ function _applyAllTranslations() {
   }
   // Re-render open panels so dynamic content updates with new language
   if(document.getElementById('fact-panel').classList.contains('open')&&_currentFactCard){
-    showFact(_currentFactCard,reviewMode);
+    showFact(_currentFactCard,reviewMode,true);
   }
   if(document.getElementById('history-panel').classList.contains('open')){
     renderHistoryPanel();
