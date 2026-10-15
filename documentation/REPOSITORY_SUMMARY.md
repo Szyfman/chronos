@@ -499,7 +499,7 @@ const cHint = c => lang === 'pt' ? c.hint_pt : c.hint;
 const cFact = c => { /* Returns random fact in current language */ };
 const formatYear = y => y < 0 
   ? `${Math.abs(y)} ${lang === 'pt' ? 'AEC' : 'BCE'}`
-  : `${y} ${lang === 'pt' ? 'EC' : 'CE'}`;
+  : String(y);
 ```
 
 **Language Switching**:

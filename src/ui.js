@@ -872,9 +872,7 @@ function _fillDailyCard(date){
   if(card){
     // Year stays the hero; the calendar day rides beside it, smaller, so the
     // card says which day of the year it belongs to without burying the year.
-    // Plain number for CE years: the suffix only earns its place when it is
-    // actually disambiguating, which is to say when the year is BCE.
-    yearEl.textContent=card.year<0?formatYear(card.year):String(card.year);
+    yearEl.textContent=formatYear(card.year);
     var dayEl=document.createElement('span');
     dayEl.className='dcard-day';
     dayEl.textContent=date.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'long'});
