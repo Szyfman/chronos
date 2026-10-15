@@ -870,7 +870,15 @@ function _fillDailyCard(date){
   var factsEl=document.getElementById('dcard-facts');
   factsEl.innerHTML='';
   if(card){
-    yearEl.textContent=formatYear(card.year);
+    // Year stays the hero; the calendar day rides beside it, smaller, so the
+    // card says which day of the year it belongs to without burying the year.
+    // Plain number for CE years: the suffix only earns its place when it is
+    // actually disambiguating, which is to say when the year is BCE.
+    yearEl.textContent=card.year<0?formatYear(card.year):String(card.year);
+    var dayEl=document.createElement('span');
+    dayEl.className='dcard-day';
+    dayEl.textContent=date.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'long'});
+    yearEl.appendChild(dayEl);
     yearEl.style.display='';
     titleEl.textContent=dcTitle(card);
     var meta=[];
@@ -1102,8 +1110,8 @@ function renderCP() {
 
     var yr = disc
       ? (iv
-          ? (Math.abs(card.startYear) + (card.startYear < 0 ? ' BCE' : ' CE') + ' \u2013 ' + Math.abs(card.endYear) + (card.endYear < 0 ? ' BCE' : ' CE'))
-          : (Math.abs(card.year) + (card.year < 0 ? ' BCE' : ' CE')))
+          ? (formatYear(card.startYear) + ' \u2013 ' + formatYear(card.endYear))
+          : formatYear(card.year))
       : '????';
 
     var meta = esc(disc

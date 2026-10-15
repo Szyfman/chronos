@@ -809,8 +809,12 @@
   #dcard-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
   body.light #dcard-tag{color:#1d4ed8}
   body.light #dcard-tag::after{background:#cbd5e1}
-  #dcard-year{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
+  #dcard-year{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1.15;margin-bottom:6px}
   body.light #dcard-year{color:#1d4ed8}
+  #dcard-year .dcard-day{font-size:1em;font-weight:400;color:var(--cream-dim);margin-left:8px;white-space:nowrap}
+  #dcard-year .dcard-day::before{content:'·';margin-right:7px;color:var(--gold);opacity:.55}
+  body.light #dcard-year .dcard-day{color:#64748b}
+  body.light #dcard-year .dcard-day::before{color:#1d4ed8}
   #dcard-title{font-family:'Inter',sans-serif;font-weight:700;font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:5px}
   body.light #dcard-title{color:#0f172a}
   #dcard-meta{font-size:.54rem;color:var(--cream-dim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px;font-family:'Inter',sans-serif}

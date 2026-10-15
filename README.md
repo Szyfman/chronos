@@ -512,7 +512,7 @@ Veja [docs/CLAUDE.md - Adding a New Historical Card](docs/CLAUDE.md#adding-a-new
 {
   name: 'English Name',
   name_pt: 'Nome em Português',
-  year: 1492,  // Negativo para a.C.
+  year: 1492,  // Negativo para AEC
   cat: 'Events',
   cat_pt: 'Eventos',
   era: 'Renaissance',

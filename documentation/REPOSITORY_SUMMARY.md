@@ -498,8 +498,8 @@ const cCat = c => lang === 'pt' ? c.cat_pt : c.cat;
 const cHint = c => lang === 'pt' ? c.hint_pt : c.hint;
 const cFact = c => { /* Returns random fact in current language */ };
 const formatYear = y => y < 0 
-  ? `${Math.abs(y)} ${lang === 'pt' ? 'a.C.' : 'BCE'}`
-  : `${y} ${lang === 'pt' ? 'd.C.' : 'CE'}`;
+  ? `${Math.abs(y)} ${lang === 'pt' ? 'AEC' : 'BCE'}`
+  : `${y} ${lang === 'pt' ? 'EC' : 'CE'}`;
 ```
 
 **Language Switching**:
@@ -523,7 +523,7 @@ function setLang(l, btn)
 - All card names, categories, hints, facts, clues
 - Feedback messages (wrong placement directional hints)
 - Trophy names, descriptions, unlock hints, trivia
-- Date formatting (BCE/CE vs a.C./d.C.)
+- Date formatting (BCE/CE vs AEC/EC)
 - Modal and panel content
 
 ---

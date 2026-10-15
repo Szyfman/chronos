@@ -71,7 +71,7 @@ const cName=c=>lang==='pt'?c.name_pt:c.name;
 const cCat=c=>lang==='pt'?c.cat_pt:c.cat;
 const cHint=c=>lang==='pt'?c.hint_pt:c.hint;
 const cClues=c=>lang==='pt'?c.clues_pt:c.clues;
-const formatYear=y=>y<0?`${Math.abs(y)} ${lang==='pt'?'a.C.':'BCE'}`:`${y} ${lang==='pt'?'d.C.':'CE'}`;
+const formatYear=y=>y<0?`${Math.abs(y)} ${lang==='pt'?'AEC':'BCE'}`:`${y} ${lang==='pt'?'EC':'CE'}`;
 
 // Show intro history link if there are saved games
 window.addEventListener('DOMContentLoaded',()=>{
