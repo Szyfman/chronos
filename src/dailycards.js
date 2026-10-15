@@ -2103,8 +2103,8 @@ var DAILY_CARDS = {
       era: 'Medieval',
       region: 'Hastings, Sussex', region_pt: 'Hastings, Sussex',
       tag: 'Battle', tag_pt: 'Batalha',
-      text: 'The fighting ran most of the day, which almost no medieval battle did. The English shield wall held for hours on the ridge and broke only when it chased what looked like a Norman collapse down the slope and found itself in the open. Harold was killed, and England got a new ruling class, a new architecture, and a different language.',
-      text_pt: 'O combate durou quase todo o dia, o que praticamente nenhuma batalha medieval durava. A muralha de escudos inglesa aguentou horas na crista e só se rompeu quando perseguiu o que parecia um colapso normando encosta abaixo e se viu em campo aberto. Haroldo foi morto, e a Inglaterra ganhou uma nova classe dirigente, uma nova arquitetura e outra língua.',
+      text: 'On 14 October 1066, on a ridge outside Hastings, William of Normandy destroyed the army of King Harold Godwinson and killed him, and the Norman conquest of England began. The fighting ran most of the day, which almost no medieval battle did: the English shield wall held for hours and broke only when it chased what looked like a Norman collapse down the slope and found itself in the open. England got a new ruling class, a new architecture and a different language.',
+      text_pt: 'Em 14 de outubro de 1066, numa crista nos arredores de Hastings, Guilherme da Normandia destruiu o exército do rei Haroldo Godwinson e o matou, e começava a conquista normanda da Inglaterra. O combate durou quase todo o dia, o que praticamente nenhuma batalha medieval durava: a muralha de escudos inglesa aguentou horas e só se rompeu quando perseguiu o que parecia um colapso normando encosta abaixo e se viu em campo aberto. A Inglaterra ganhou uma nova classe dirigente, uma nova arquitetura e outra língua.',
       facts: [
         'For about three hundred years the business of English government was done in French, and some ten thousand French words came into the language. English has a cow and beef, a pig and pork, a sheep and mutton because one word belonged to whoever raised the animal and the other to whoever ate it.',
         'The arrow in the eye may not be Harold. It comes from the Bayeux Tapestry, which is embroidery rather than tapestry and was almost certainly stitched in England — the conquered sewing the conquerors’ account of events. Written sources say he was cut down.',
@@ -2249,6 +2249,322 @@ var DAILY_CARDS = {
         'A dispensa que apresentaram na cerimônia era falsa. O papa havia recusado conceder uma, então fabricou-se uma bula falsificada; a autêntica chegou três anos depois, quando o casamento já era um fato com que havia de se lidar.',
         'Não unificou nada, juridicamente. Aragão e Castela mantiveram suas próprias leis, parlamentos, moedas e fronteiras aduaneiras por mais de dois séculos depois disto, e o Estado único chamado Espanha é uma criação do século XVIII. O que 1469 produziu foi um casal usando duas coroas.',
         'A linhagem deles se esgotou em duas gerações. Todo filho que poderia herdar morreu jovem ou enlouqueceu, e as duas coroas passaram a um neto criado em Flandres que quase não falava castelhano — de modo que o casamento que montou a Espanha a entregou aos Habsburgos.'
+      ]
+    }
+  ],
+
+  '10-20': [
+    {
+      year: 1781,
+      title: 'A Church That Must Not Look Like One',
+      title_pt: 'Uma Igreja que Não Podia Parecer uma',
+      era: 'Early Modern',
+      region: 'Austria', region_pt: 'Áustria',
+      tag: 'Tolerance', tag_pt: 'Tolerância',
+      text: 'Joseph II granted Lutherans, Calvinists and the Orthodox the right to worship in his lands, which no Habsburg had done. The permission came with building regulations: a tolerated congregation could put up a prayer house, but it was to have no entrance on the street, no tower and no bells. It had to be a building that did not look like a church from outside.',
+      text_pt: 'José II concedeu a luteranos, calvinistas e ortodoxos o direito de culto em suas terras, o que nenhum Habsburgo havia feito. A permissão vinha com normas de construção: uma congregação tolerada podia erguer uma casa de oração, mas ela não deveria ter entrada para a rua, nem torre, nem sinos. Tinha de ser um edifício que, visto de fora, não parecesse uma igreja.',
+      facts: [
+        'Tolerated was not equal. The point of the rules was that the faith could exist and could not be seen to exist, and the dates of the patent differ from territory to territory because it was issued piecemeal across the Habsburg lands.',
+        'The same reforming impulse abolished serfdom, closed some seven hundred contemplative monasteries, made German the language of administration everywhere, and at one point required reusable coffins to save timber — which produced such an outcry that he withdrew it within months.',
+        'Almost all of it was undone. Most of his six thousand decrees were revoked within a few years of his death, and the epitaph he wrote for himself says that here lies a prince of pure intentions who had the misfortune to see all his plans fail.'
+      ],
+      facts_pt: [
+        'Tolerado não era igual. O sentido das regras era que a fé pudesse existir e não pudesse ser vista existindo, e as datas do édito variam de território para território porque ele foi emitido aos pedaços pelas terras dos Habsburgos.',
+        'O mesmo impulso reformista aboliu a servidão, fechou cerca de setecentos mosteiros contemplativos, tornou o alemão a língua da administração em toda parte e, em certo momento, exigiu caixões reutilizáveis para economizar madeira — o que gerou tamanho protesto que ele recuou em poucos meses.',
+        'Quase tudo foi desfeito. A maior parte de seus seis mil decretos foi revogada poucos anos após sua morte, e o epitáfio que escreveu para si diz que ali jaz um príncipe de intenções puras que teve o infortúnio de ver todos os seus planos fracassarem.'
+      ]
+    },
+    {
+      year: 1803,
+      title: 'Nobody Knew Where It Ended',
+      title_pt: 'Ninguém Sabia Onde Terminava',
+      era: 'Modern',
+      region: 'Washington', region_pt: 'Washington',
+      tag: 'Treaty', tag_pt: 'Tratado',
+      text: 'The Senate ratified the purchase of two million square kilometres for fifteen million dollars, roughly three cents an acre, doubling the size of the country. The treaty described what was being sold as having the same extent it had in the hands of Spain, which nobody could define, and the American minister in Paris had asked and been told not to worry about it.',
+      text_pt: 'O Senado ratificou a compra de dois milhões de quilômetros quadrados por quinze milhões de dólares, algo como três centavos o acre, dobrando o tamanho do país. O tratado descrevia o que estava sendo vendido como tendo a mesma extensão que tinha nas mãos da Espanha, coisa que ninguém sabia definir, e o ministro americano em Paris havia perguntado e ouvido que não se preocupasse com isso.',
+      facts: [
+        'Asked what exactly France was selling, Talleyrand told the Americans they had made a noble bargain and would no doubt make the most of it. Lewis and Clark set out the following year partly to find out what had been bought.',
+        'Jefferson did not believe he had the power to do it. He read the Constitution strictly and it gave no authority to acquire territory; he drafted an amendment to legalise the purchase, then dropped it on the grounds that Napoleon might change his mind, and signed anyway.',
+        'The land was home to dozens of nations who were not parties to the treaty and were not told of it, and the sale also moved tens of thousands of residents, enslaved people among them, from one sovereignty to another by signature.'
+      ],
+      facts_pt: [
+        'Perguntado sobre o que exatamente a França estava vendendo, Talleyrand respondeu aos americanos que haviam feito um belo negócio e sem dúvida tirariam o melhor proveito dele. Lewis e Clark partiram no ano seguinte em parte para descobrir o que fora comprado.',
+        'Jefferson não acreditava ter poder para fazer aquilo. Lia a Constituição de modo estrito e ela não dava autoridade para adquirir território; chegou a redigir uma emenda que legalizasse a compra, depois a abandonou sob o argumento de que Napoleão poderia mudar de ideia, e assinou mesmo assim.',
+        'A terra era o lar de dezenas de nações que não eram parte do tratado e não foram informadas dele, e a venda também transferiu dezenas de milhares de residentes, pessoas escravizadas entre eles, de uma soberania para outra por assinatura.'
+      ]
+    }
+  ],
+
+  '10-21': [
+    {
+      year: 1879,
+      title: 'He Did Not Invent the Light Bulb',
+      title_pt: 'Ele Não Inventou a Lâmpada',
+      era: 'Modern',
+      region: 'Menlo Park, New Jersey', region_pt: 'Menlo Park, Nova Jersey',
+      tag: 'Invention', tag_pt: 'Invenção',
+      text: 'The lamp in the Menlo Park laboratory burned for thirteen and a half hours before the filament gave out, and that was the result Edison had been working toward. At least twenty people had made an incandescent lamp before him, and one of them, in England, would sue him and win.',
+      text_pt: 'A lâmpada no laboratório de Menlo Park queimou por treze horas e meia antes de o filamento ceder, e era esse o resultado que Edison vinha perseguindo. Ao menos vinte pessoas haviam feito uma lâmpada incandescente antes dele, e uma delas, na Inglaterra, o processaria e venceria.',
+      facts: [
+        'Joseph Swan had demonstrated a working lamp in England and took Edison to court there successfully, which is why the British company ended up being called Ediswan.',
+        'What Edison actually contributed was a system rather than a lamp. A high-resistance filament meant many bulbs could run in parallel off one circuit, and around that he built generators, meters, sockets, switches and wiring. He was selling electricity as a service; the bulb was what made people want to buy it.',
+        'The filament that went into production was carbonised bamboo. He had people testing thousands of materials, and the one that burned for twelve hundred hours came from Japan.'
+      ],
+      facts_pt: [
+        'Joseph Swan havia demonstrado uma lâmpada funcional na Inglaterra e levou Edison aos tribunais de lá com sucesso, razão pela qual a empresa britânica acabou se chamando Ediswan.',
+        'O que Edison de fato contribuiu foi um sistema, não uma lâmpada. Um filamento de alta resistência permitia que muitas lâmpadas funcionassem em paralelo num mesmo circuito, e em torno disso ele construiu geradores, medidores, soquetes, interruptores e fiação. Vendia eletricidade como serviço; a lâmpada era o que fazia as pessoas quererem comprá-la.',
+        'O filamento que entrou em produção era bambu carbonizado. Ele tinha gente testando milhares de materiais, e o que queimou por mil e duzentas horas veio do Japão.'
+      ]
+    }
+  ],
+
+  '10-22': [
+    {
+      year: 1721,
+      title: 'Emperor, Not Tsar',
+      title_pt: 'Imperador, Não Tsar',
+      era: 'Early Modern',
+      region: 'Saint Petersburg', region_pt: 'São Petersburgo',
+      tag: 'Empire', tag_pt: 'Império',
+      text: 'Twenty-one years of war with Sweden had ended a month earlier, and Russia had taken the Baltic. The Senate offered Peter three titles, and the one that mattered was imperator. Tsar had come to Russia through Byzantium; imperator was Latin, and choosing it was a statement about which civilisation the country now considered itself part of.',
+      text_pt: 'Vinte e um anos de guerra com a Suécia haviam terminado um mês antes, e a Rússia ficara com o Báltico. O Senado ofereceu a Pedro três títulos, e o que importava era imperator. Tsar chegara à Rússia pela via bizantina; imperator era latino, e escolhê-lo era uma declaração sobre de qual civilização o país agora se considerava parte.',
+      facts: [
+        'Several European courts refused to use the title for decades, because emperor implied rank above a king and they were not willing to concede it. Poland held out until 1764.',
+        'In the same year he abolished the Patriarchate of Moscow and replaced it with a committee run by a lay official answerable to him, turning the Russian church into a department of state. It did not have a patriarch again until 1917.',
+        'The capital he was proclaimed in had been swamp eighteen years earlier. It was built by conscripted labour in conditions that killed an unknown number of workers, and the figure has never been settled because nobody was counting.'
+      ],
+      facts_pt: [
+        'Várias cortes europeias se recusaram a usar o título por décadas, porque imperador implicava posição acima de rei e elas não estavam dispostas a conceder isso. A Polônia resistiu até 1764.',
+        'No mesmo ano ele aboliu o Patriarcado de Moscou e o substituiu por um colegiado dirigido por um funcionário leigo subordinado a ele, transformando a igreja russa em repartição do Estado. Ela só voltaria a ter patriarca em 1917.',
+        'A capital em que foi proclamado era pântano dezoito anos antes. Foi construída com trabalho forçado em condições que mataram um número desconhecido de operários, e esse número nunca foi estabelecido porque ninguém estava contando.'
+      ]
+    }
+  ],
+
+  '10-23': [
+    {
+      year: 425,
+      title: 'Emperor at Six',
+      title_pt: 'Imperador aos Seis',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Succession', tag_pt: 'Sucessão',
+      text: 'A six-year-old was installed as emperor of the West by his cousin in Constantinople, after an army from the East put down a usurper on his behalf. He went on to reign for thirty years, which is longer than almost anyone managed, and he used the last months of it to destroy the one man holding the West together.',
+      text_pt: 'Um menino de seis anos foi instalado como imperador do Ocidente por seu primo em Constantinopla, depois que um exército do Oriente derrubou um usurpador em seu nome. Ele reinaria por trinta anos, mais do que quase todos conseguiram, e usou os últimos meses disso para destruir o único homem que mantinha o Ocidente de pé.',
+      facts: [
+        'His mother ran the empire for him. Galla Placidia had been carried off as a hostage when the Visigoths sacked Rome fifteen years earlier and had married their king’s successor; she governed the West in her son’s name for the next twelve years.',
+        'In 455 he stabbed Aetius to death with his own hand in the palace — the general who had stopped Attila four years before. A senator is said to have told him afterwards that he had cut off his right hand with his left.',
+        'Six months later two of Aetius’s men killed him while he was practising archery on the Campus Martius. Within three months the Vandals had sacked Rome, and no emperor in the West after him belonged to a dynasty.'
+      ],
+      facts_pt: [
+        'Sua mãe governou o império por ele. Gala Placídia fora levada como refém quando os visigodos saquearam Roma quinze anos antes e se casara com o sucessor do rei deles; governou o Ocidente em nome do filho pelos doze anos seguintes.',
+        'Em 455 ele apunhalou Aécio com as próprias mãos dentro do palácio — o general que detivera Átila quatro anos antes. Conta-se que um senador lhe disse depois que ele cortara a mão direita com a esquerda.',
+        'Seis meses mais tarde, dois homens de Aécio o mataram enquanto ele praticava arco no Campo de Marte. Em menos de três meses os vândalos saquearam Roma, e nenhum imperador do Ocidente depois dele pertenceu a uma dinastia.'
+      ]
+    }
+  ],
+
+  '10-24': [
+    {
+      year: 1930,
+      title: 'The Pact That Broke',
+      title_pt: 'O Pacto que se Rompeu',
+      era: 'Modern',
+      region: 'Brazil', region_pt: 'Brasil',
+      tag: 'Coup', tag_pt: 'Golpe',
+      text: 'A military junta removed the president and handed power, days later, to a man who had lost the election that March. What had actually collapsed was an arrangement: the presidency had been alternating between São Paulo and Minas Gerais by agreement, and the incumbent had broken it by backing a second paulista in a row.',
+      text_pt: 'Uma junta militar depôs o presidente e entregou o poder, dias depois, a um homem que perdera a eleição de março. O que havia ruído, na verdade, era um arranjo: a presidência vinha se alternando entre São Paulo e Minas Gerais por acordo, e o ocupante do cargo o rompera ao apoiar um segundo paulista seguido.',
+      facts: [
+        'The spark had almost nothing to do with national politics. Vargas’s running mate was shot dead in a Recife pastry shop in a private quarrel over seized letters, and a personal feud became the cause that the movement needed.',
+        'It is usually called bloodless, and relative to a civil war it was, but there was fighting in the north-east and the south and the dead were counted in the hundreds rather than in nobody at all.',
+        'Vargas held power for fifteen years without ever being elected to it, was removed by the army in 1945, was elected president by popular vote in 1950, and shot himself in the chest in the presidential palace in 1954, leaving a letter.'
+      ],
+      facts_pt: [
+        'O estopim quase nada tinha a ver com política nacional. O companheiro de chapa de Vargas foi morto a tiros numa confeitaria do Recife, numa briga particular por cartas apreendidas, e uma desavença pessoal virou a causa de que o movimento precisava.',
+        'Costuma-se chamá-lo de incruento e, comparado a uma guerra civil, foi; mas houve combates no Nordeste e no Sul, e os mortos se contaram às centenas, não em ninguém.',
+        'Vargas manteve o poder por quinze anos sem nunca ter sido eleito para ele, foi deposto pelo Exército em 1945, foi eleito presidente pelo voto popular em 1950 e deu um tiro no peito no palácio presidencial em 1954, deixando uma carta.'
+      ]
+    }
+  ],
+
+  '10-25': [
+    {
+      year: 473,
+      title: 'The Child Who Crowned His Father',
+      title_pt: 'A Criança que Coroou o Pai',
+      era: 'Classical',
+      region: 'Constantinople', region_pt: 'Constantinopla',
+      tag: 'Coronation', tag_pt: 'Coroação',
+      text: 'Leo I had no son, so he raised his grandson, a boy of about six, to imperial rank. When the old man died a few months later the child was sole emperor of the East — and the first thing done in his name was to make his own father emperor alongside him, because his father could not have become one on his own account.',
+      text_pt: 'Leão I não tinha filho homem, de modo que elevou o neto, um menino de uns seis anos, à dignidade imperial. Quando o velho morreu poucos meses depois, a criança era imperador único do Oriente — e a primeira coisa feita em seu nome foi tornar o próprio pai imperador ao seu lado, porque o pai não poderia tê-lo sido por conta própria.',
+      facts: [
+        'Zeno was an Isaurian, from a mountain people Constantinople regarded as barely civilised and had recruited mainly as a counterweight to its Germanic troops. Legitimacy had to pass through the child, who placed the diadem on his father’s head.',
+        'The boy reigned about ten months and died at seven. There were immediate rumours that his father or his grandmother had poisoned him, and nothing was ever established either way.',
+        'The father he had crowned ruled for seventeen years, and it was to him that Odoacer sent the Western imperial regalia in 476 — so the man who received his title from a small boy is the one who ended up holding the only Roman title left.'
+      ],
+      facts_pt: [
+        'Zenão era isáurico, de um povo de montanha que Constantinopla considerava mal civilizado e recrutara sobretudo como contrapeso às suas tropas germânicas. A legitimidade tinha de passar pela criança, que pôs o diadema na cabeça do pai.',
+        'O menino reinou cerca de dez meses e morreu aos sete. Correram de imediato rumores de que o pai ou a avó o haviam envenenado, e nada jamais foi estabelecido num sentido ou no outro.',
+        'O pai que ele coroou governou dezessete anos, e foi a ele que Odoacro enviou as insígnias imperiais do Ocidente em 476 — de modo que o homem que recebeu seu título de um menino pequeno é quem acabou com o único título romano que restava.'
+      ]
+    }
+  ],
+
+  '10-26': [
+    {
+      year: 1520,
+      title: 'The Crown the Bankers Paid For',
+      title_pt: 'A Coroa que os Banqueiros Pagaram',
+      era: 'Renaissance',
+      region: 'Aachen', region_pt: 'Aquisgrano',
+      tag: 'Election', tag_pt: 'Eleição',
+      text: 'He was twenty, and he already held Spain and its American possessions, Naples and Sicily, the Low Countries and the Austrian lands. The imperial title was elective, and he had won the election the year before by outbidding the king of France for seven votes.',
+      text_pt: 'Tinha vinte anos e já detinha a Espanha e suas possessões americanas, Nápoles e Sicília, os Países Baixos e as terras austríacas. O título imperial era eletivo, e ele vencera a eleição no ano anterior ao cobrir o lance do rei da França por sete votos.',
+      facts: [
+        'The bill came to something like 850,000 florins, nearly all of it borrowed from the Fugger bank in Augsburg. Jakob Fugger later wrote to the emperor to remind him, in plain terms, that without him he would not be wearing the crown.',
+        'None of the inheritance was planned. Spain and the Americas came through one grandmother, Burgundy and the Low Countries through his father, Austria and the imperial claim through the other grandfather — four separate deaths landing on one person.',
+        'He gave it all away. In 1555 and 1556 he abdicated everything, which almost no monarch does, divided it between his brother and his son, and retired to a monastery in Spain, where he spent his last years among a collection of clocks.'
+      ],
+      facts_pt: [
+        'A conta chegou a algo como 850 mil florins, quase tudo emprestado pelo banco Fugger, de Augsburgo. Jakob Fugger escreveria depois ao imperador para lembrá-lo, em termos diretos, de que sem ele não estaria usando aquela coroa.',
+        'Nada da herança foi planejado. A Espanha e as Américas vieram por uma avó, a Borgonha e os Países Baixos pelo pai, a Áustria e a pretensão imperial pelo outro avô — quatro mortes separadas aterrissando sobre uma só pessoa.',
+        'Ele devolveu tudo. Em 1555 e 1556 abdicou de tudo, o que quase nenhum monarca faz, dividiu entre o irmão e o filho, e retirou-se para um mosteiro na Espanha, onde passou os últimos anos em meio a uma coleção de relógios.'
+      ]
+    }
+  ],
+
+  '10-27': [
+    {
+      year: 312,
+      title: 'The Earliest Account Has No Cross',
+      title_pt: 'O Relato Mais Antigo Não Tem Cruz',
+      era: 'Classical',
+      region: 'Milvian Bridge, Rome', region_pt: 'Ponte Mílvia, Roma',
+      tag: 'Vision', tag_pt: 'Visão',
+      text: 'On 27 October 312, on the eve of the battle at the Milvian Bridge that would make him master of the Roman West, Constantine reported a sign from the Christian God and had his soldiers mark it on their shields. He won the next day, and within a year had made Christianity legal across the empire. The story everyone knows — a cross of light in the afternoon sky, seen by a whole army — comes from a biography written twenty-five years later, after he was dead. The earliest surviving account has no sky and no cross, only a dream the night before.',
+      text_pt: 'Em 27 de outubro de 312, na véspera da batalha da Ponte Mílvia que o tornaria senhor do Ocidente romano, Constantino relatou um sinal do Deus cristão e mandou que seus soldados o marcassem nos escudos. Venceu no dia seguinte e, em menos de um ano, tornou o cristianismo legal em todo o império. A história que todos conhecem — uma cruz de luz no céu da tarde, vista por um exército inteiro — vem de uma biografia escrita vinte e cinco anos depois, com ele já morto. O relato mais antigo que sobreviveu não tem céu nem cruz, apenas um sonho na véspera.',
+      facts: [
+        'Lactantius, the early source, says Constantine was instructed in his sleep to put a sign on his soldiers’ shields and did so in the morning. Eusebius, the late one, adds the vision in the sky and says the emperor swore to him personally that it had happened.',
+        'Whatever it was changed his politics quickly and his private religion slowly. He went on minting the unconquered sun on his coinage for years, and was not baptised until he was dying, a quarter of a century later.',
+        'His opponent drowned in the retreat. Maxentius had thrown a bridge of boats across the Tiber beside the broken stone one, and it went down under the weight of his own army going back across it.'
+      ],
+      facts_pt: [
+        'Lactâncio, a fonte antiga, diz que Constantino foi instruído durante o sono a pôr um sinal nos escudos de seus soldados e assim fez pela manhã. Eusébio, a fonte tardia, acrescenta a visão no céu e afirma que o imperador lhe jurou pessoalmente que aquilo acontecera.',
+        'O que quer que tenha sido mudou sua política depressa e sua religião pessoal devagar. Ele seguiu cunhando o sol invicto em suas moedas por anos, e só foi batizado no leito de morte, um quarto de século depois.',
+        'Seu adversário se afogou na retirada. Magêncio mandara lançar uma ponte de barcos sobre o Tibre ao lado da ponte de pedra rompida, e ela cedeu sob o peso do próprio exército voltando por ela.'
+      ]
+    }
+  ],
+
+  '10-28': [
+    {
+      year: 1492,
+      title: 'He Was Looking for Japan',
+      title_pt: 'Ele Procurava o Japão',
+      era: 'Renaissance',
+      region: 'Cuba', region_pt: 'Cuba',
+      tag: 'Exploration', tag_pt: 'Exploração',
+      text: 'Columbus reached the coast of Cuba and concluded it was Cipango, the island of Japan, or perhaps the edge of the Chinese mainland. He sent a party inland carrying a letter from Ferdinand and Isabella addressed to the Great Khan, with an interpreter who spoke Arabic and Hebrew, those being the languages thought useful in Asia.',
+      text_pt: 'Colombo alcançou a costa de Cuba e concluiu que era Cipango, a ilha do Japão, ou talvez a borda do continente chinês. Mandou um grupo terra adentro levando uma carta de Fernando e Isabel endereçada ao Grande Cã, com um intérprete que falava árabe e hebraico, por serem essas as línguas tidas como úteis na Ásia.',
+      facts: [
+        'The embassy came back having found villages, and people rolling dried leaves into tubes, setting fire to one end and drawing the smoke in through the other. It is the first European description of smoking.',
+        'The experts who had rejected him were right. His case rested on a small earth and a very wide Asia; the commissions in Portugal and Spain had the circumference roughly correct and told him the crossing could not be survived. It could not. He is in the record at all because two unknown continents happened to be in the way.',
+        'He never accepted it. Across four voyages and to the end of his life he maintained that he had reached Asia, and on the third he argued that he had found the earthly paradise.'
+      ],
+      facts_pt: [
+        'A embaixada voltou tendo encontrado aldeias, e pessoas enrolando folhas secas em tubos, ateando fogo a uma ponta e puxando a fumaça pela outra. É a primeira descrição europeia do ato de fumar.',
+        'Os especialistas que o haviam rejeitado estavam certos. Seu argumento se apoiava numa Terra pequena e numa Ásia larguíssima; as comissões de Portugal e da Espanha tinham a circunferência aproximadamente correta e lhe disseram que a travessia não era sobrevivível. Não era. Ele está no registro histórico porque dois continentes desconhecidos calharam de estar no caminho.',
+        'Ele nunca aceitou isso. Ao longo de quatro viagens e até o fim da vida sustentou que chegara à Ásia, e na terceira argumentou que encontrara o paraíso terreal.'
+      ]
+    }
+  ],
+
+  '10-29': [
+    {
+      year: 1390,
+      title: 'The Day Sorcery Became a Felony',
+      title_pt: 'O Dia em que Feitiçaria Virou Crime',
+      era: 'Medieval',
+      region: 'Paris', region_pt: 'Paris',
+      tag: 'Witchcraft', tag_pt: 'Bruxaria',
+      text: 'Two women were brought before the Parlement of Paris on charges of sorcery, and that is what makes the case matter. Magic had largely been something confessors dealt with by penance. Here it was tried by the king’s judges, as a capital crime, in a secular court.',
+      text_pt: 'Duas mulheres foram levadas ao Parlamento de Paris sob acusação de feitiçaria, e é isso que torna o caso importante. Magia era, em larga medida, assunto que os confessores resolviam com penitência. Ali, foi julgada pelos juízes do rei, como crime capital, num tribunal secular.',
+      facts: [
+        'That transfer is the whole significance — from sin to felony, from the confessional to the scaffold. The great persecutions were still a century and a half away, and when they came the sentences were handed down overwhelmingly by secular courts like this one.',
+        'The first of the accused confessed under torture, withdrew the confession, and was tortured again. Withdrawing it was treated as evidence of deeper guilt rather than as grounds for doubt.',
+        'Estimates of those executed for witchcraft across Europe over the following three centuries run to forty or fifty thousand, the great majority of them women. The trials in Massachusetts that ended the practice in the English-speaking world were three hundred years after this one.'
+      ],
+      facts_pt: [
+        'Essa transferência é toda a importância do caso — de pecado a crime, do confessionário ao cadafalso. As grandes perseguições ainda estavam a um século e meio de distância e, quando vieram, as sentenças foram proferidas esmagadoramente por tribunais seculares como este.',
+        'A primeira das acusadas confessou sob tortura, retirou a confissão e foi torturada de novo. Retirá-la foi tratado como prova de culpa mais profunda, não como motivo de dúvida.',
+        'As estimativas de executados por bruxaria na Europa ao longo dos três séculos seguintes chegam a quarenta ou cinquenta mil pessoas, a grande maioria mulheres. Os julgamentos de Massachusetts que encerraram a prática no mundo de língua inglesa aconteceram trezentos anos depois deste.'
+      ]
+    }
+  ],
+
+  '10-30': [
+    {
+      year: 130,
+      title: 'A God Made for a Drowned Boy',
+      title_pt: 'Um Deus Feito para um Menino Afogado',
+      era: 'Classical',
+      region: 'Nile, Egypt', region_pt: 'Nilo, Egito',
+      tag: 'Cult', tag_pt: 'Culto',
+      text: 'Antinous had drowned in the Nile a few weeks earlier, during the emperor’s tour of Egypt, and nobody has ever established how. Hadrian founded a Greek city on the river in his name, with Greek laws and settlers and institutions — and then did something no emperor had done for a private person. He made him a god.',
+      text_pt: 'Antínoo afogara-se no Nilo poucas semanas antes, durante a viagem do imperador pelo Egito, e nunca se estabeleceu como. Adriano fundou no rio uma cidade grega com o nome dele, com leis, colonos e instituições gregas — e então fez algo que nenhum imperador fizera por um particular. Transformou-o num deus.',
+      facts: [
+        'Deification belonged to emperors and their families. Antinous was a provincial Greek teenager who had held no office and done nothing, and the cult was not a formality: there were temples from Egypt to Italy, games held in his name, and a group of stars that Hadrian identified as him.',
+        'More ancient portraits of him survive than of almost anyone else. Something over a hundred sculptures have been identified, a number exceeded only by Augustus and by Hadrian — so one of the three most reproduced faces of the Roman world belongs to a boy of nineteen with no rank at all.',
+        'The city he was buried near was still standing in 1800 and was surveyed and drawn by Napoleon’s expedition. Within about twenty years it had been pulled apart for building stone and burned for lime to supply a sugar factory. What survives of Antinoöpolis is mostly those drawings.'
+      ],
+      facts_pt: [
+        'A divinização pertencia aos imperadores e às suas famílias. Antínoo era um adolescente grego de província que não ocupara cargo algum nem fizera nada, e o culto não foi formalidade: houve templos do Egito à Itália, jogos em seu nome e um grupo de estrelas que Adriano identificou como sendo ele.',
+        'Sobrevivem mais retratos antigos dele do que de quase qualquer outra pessoa. Foram identificadas pouco mais de cem esculturas, número superado apenas por Augusto e por Adriano — de modo que um dos três rostos mais reproduzidos do mundo romano pertence a um rapaz de dezenove anos sem posição alguma.',
+        'A cidade erguida perto de onde ele foi sepultado ainda estava de pé em 1800 e foi levantada e desenhada pela expedição de Napoleão. Em cerca de vinte anos havia sido desmontada para pedra de construção e queimada para cal, a fim de abastecer uma usina de açúcar. O que resta de Antinoópolis são sobretudo aqueles desenhos.'
+      ]
+    }
+  ],
+
+  '10-31': [
+    {
+      year: 1517,
+      title: 'Nobody Saw Him Nail Anything',
+      title_pt: 'Ninguém o Viu Pregar Coisa Alguma',
+      era: 'Renaissance',
+      region: 'Wittenberg', region_pt: 'Wittenberg',
+      tag: 'Reformation', tag_pt: 'Reforma',
+      text: 'On 31 October 1517 an Augustinian friar and university lecturer at Wittenberg issued ninety-five propositions in Latin against the sale of indulgences, and sent them that same day to the Archbishop of Mainz. Within weeks they had been printed, translated and carried across the empire, and the split they opened in Western Christianity has never closed. The hammer, the door and the crowd came later: no source from Luther’s lifetime mentions them, and he never did either.',
+      text_pt: 'Em 31 de outubro de 1517, um frade agostiniano e professor da universidade de Wittenberg lançou noventa e cinco proposições em latim contra a venda de indulgências, e as enviou naquele mesmo dia ao arcebispo de Mainz. Em poucas semanas estavam impressas, traduzidas e circulando pelo império, e a ruptura que abriram na cristandade ocidental nunca mais se fechou. O martelo, a porta e a multidão vieram depois: nenhuma fonte do tempo de Lutero os menciona, e ele tampouco.',
+      facts: [
+        'The story of the nailing first appears in 1546, in a preface written after Luther was dead by a colleague who had not yet arrived in Wittenberg in 1517. The church door was the university notice board, so posting a disputation there would have been routine rather than defiant.',
+        'They were not a break with Rome. The theses attack the sale and abuse of indulgences, not the authority of the pope, and Luther was a friar in good standing asking for a debate among scholars. What happened next was not his plan: within weeks they had been translated, printed and spread across the empire, and he said he was astonished.',
+        'The money being raised had a destination. The indulgence campaign in his region was servicing a loan the Archbishop of Mainz had taken from the Fugger bank to buy three bishoprics at once — half the takings went to Rome for the rebuilding of St Peter’s and half went straight to the bankers.'
+      ],
+      facts_pt: [
+        'A história da pregação na porta surge pela primeira vez em 1546, num prefácio escrito depois da morte de Lutero por um colega que ainda nem morava em Wittenberg em 1517. A porta da igreja era o quadro de avisos da universidade, de modo que afixar ali uma disputa seria rotina, não desafio.',
+        'Não eram um rompimento com Roma. As teses atacam a venda e o abuso das indulgências, não a autoridade do papa, e Lutero era um frade em boa situação pedindo um debate entre acadêmicos. O que veio depois não era plano dele: em semanas estavam traduzidas, impressas e espalhadas pelo império, e ele disse ter ficado perplexo.',
+        'O dinheiro que se levantava tinha destino. A campanha de indulgências em sua região pagava um empréstimo que o arcebispo de Mainz tomara do banco Fugger para comprar três bispados de uma vez — metade da arrecadação ia a Roma para a reconstrução de São Pedro e metade ia direto para os banqueiros.'
+      ]
+    },
+    {
+      year: 1956,
+      title: 'The War Was Written in Advance',
+      title_pt: 'A Guerra Foi Escrita de Antemão',
+      era: 'Contemporary',
+      region: 'Suez', region_pt: 'Suez',
+      tag: 'Crisis', tag_pt: 'Crise',
+      text: 'British and French aircraft began bombing Egyptian airfields, five days after Israel had invaded Sinai and two days after London and Paris had demanded that both sides pull back from the canal. The demand had been drafted before the invasion it was pretending to respond to.',
+      text_pt: 'Aviões britânicos e franceses começaram a bombardear aeródromos egípcios, cinco dias depois de Israel invadir o Sinai e dois dias depois de Londres e Paris exigirem que os dois lados se afastassem do canal. A exigência fora redigida antes da invasão a que fingia responder.',
+      facts: [
+        'The three governments had agreed it at a villa outside Paris the week before: Israel would attack, Britain and France would then order both sides away from the canal and move in to separate them. Eden had the British copy of the protocol destroyed. The French and Israeli copies survived.',
+        'The United States stopped it with money. Eisenhower had not been told and was furious; Washington blocked support for the pound and made clear it would sell its holdings of British debt. Sterling could not have taken it, and Britain accepted a ceasefire within a week of opening fire.',
+        'It produced United Nations peacekeeping. To let the invaders withdraw without total humiliation, a force of neutral troops was improvised to hold the canal zone — the first of its kind, and the idea won its Canadian author the Nobel Peace Prize.'
+      ],
+      facts_pt: [
+        'Os três governos haviam combinado aquilo numa casa nos arredores de Paris, na semana anterior: Israel atacaria, e então Reino Unido e França ordenariam que ambos os lados se afastassem do canal e entrariam para separá-los. Eden mandou destruir a cópia britânica do protocolo. As cópias francesa e israelense sobreviveram.',
+        'Os Estados Unidos puseram fim àquilo com dinheiro. Eisenhower não fora avisado e estava furioso; Washington bloqueou o apoio à libra e deixou claro que venderia seus títulos da dívida britânica. A libra não teria aguentado, e o Reino Unido aceitou um cessar-fogo uma semana depois de abrir fogo.',
+        'Daquilo nasceram as forças de paz da ONU. Para que os invasores pudessem se retirar sem humilhação completa, improvisou-se uma tropa neutra para ocupar a zona do canal — a primeira do gênero, e a ideia rendeu ao seu autor canadense o Nobel da Paz.'
       ]
     }
   ],
