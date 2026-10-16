@@ -1207,10 +1207,10 @@ function _showTrophyToastQueue(list, idx){
   }, 3200);
 }
 
-function openTrophies(){
+function openTrophies(tab){
   document.getElementById('tp-title-txt').textContent = lang==='pt' ? '🏆 Troféus' : '🏆 Trophies';
   document.getElementById('tp-close').textContent = lang==='pt' ? '✕ Fechar' : '✕ Close';
-  switchTpTab('trophies');
+  switchTpTab(tab || 'progress');
   document.getElementById('tp').classList.add('open');
   _pushNavState('trophies');
 }
@@ -1251,7 +1251,7 @@ function renderTrophies(){
 }
 
 // ── TROPHY PANEL TABS ─────────────────────────────────────────────────────
-var _tpTab = 'trophies';
+var _tpTab = 'progress';
 
 function switchTpTab(tab){
   _tpTab = tab;

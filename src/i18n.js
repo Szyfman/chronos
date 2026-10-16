@@ -118,7 +118,7 @@ function _applyAllTranslations() {
   var cb = document.getElementById('intro-comp-btn');
   if (cb) cb.textContent = lang === 'pt' ? '📚 Compêndio' : '📚 Compendium';
   var tb = document.getElementById('intro-trophy-btn');
-  if (tb) tb.textContent = lang === 'pt' ? '🏆 Troféus' : '🏆 Trophies';
+  if (tb) tb.textContent = t('tab_progress');
   var bb = document.getElementById('start-btn');
   if (bb) bb.textContent = t('begin');
   // Main hub lives/free
@@ -138,7 +138,7 @@ function _applyAllTranslations() {
   var chc = document.getElementById('cult-comp-btn');
   if (chc) chc.textContent = lang === 'pt' ? '📚 Compêndio' : '📚 Compendium';
   var cht = document.getElementById('cult-trophy-btn');
-  if (cht) cht.textContent = lang === 'pt' ? '🏆 Troféus' : '🏆 Trophies';
+  if (cht) cht.textContent = t('tab_progress');
   // Streak tab re-render if open
   if (document.getElementById('history-panel').classList.contains('open') && _hpTab === 'streak') {
     renderStreakTab();

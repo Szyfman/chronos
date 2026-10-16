@@ -1177,7 +1177,7 @@
     <div class="hub-btns" id="intro-btns" style="display:flex">
       <button class="hub-btn" id="intro-hist-btn" onclick="openHistory()">📜 History</button>
       <button class="hub-btn" id="intro-comp-btn" onclick="openCompendium()">📚 Compendium</button>
-      <button class="hub-btn" id="intro-trophy-btn" onclick="openTrophies()">🏆 Trophies</button>
+      <button class="hub-btn" id="intro-trophy-btn" onclick="openTrophies()">⭐ Progress</button>
     </div>
 
   </div>
@@ -1241,7 +1241,7 @@
     <div class="hub-btns">
       <button class="hub-btn" id="cult-hist-btn" onclick="_fromCultures=true;openHistory()">📜 History</button>
       <button class="hub-btn" id="cult-comp-btn" onclick="_fromCultures=true;openCompendium()">📚 Compendium</button>
-      <button class="hub-btn" id="cult-trophy-btn" onclick="_fromCultures=true;openTrophies()">🏆 Trophies</button>
+      <button class="hub-btn" id="cult-trophy-btn" onclick="_fromCultures=true;openTrophies()">⭐ Progress</button>
     </div>
 
   </div>
@@ -1421,11 +1421,11 @@
     </div>
   </div>
   <div id="tp-tabs">
-    <button class="hp-tab active" id="tp-tab-trophies" onclick="switchTpTab('trophies')">🏆 Trophies</button>
-    <button class="hp-tab" id="tp-tab-progress" onclick="switchTpTab('progress')">⭐ Progress</button>
+    <button class="hp-tab active" id="tp-tab-progress" onclick="switchTpTab('progress')">⭐ Progress</button>
+    <button class="hp-tab" id="tp-tab-trophies" onclick="switchTpTab('trophies')">🏆 Trophies</button>
   </div>
-  <div id="tp-list"></div>
-  <div id="tp-progress" style="display:none"></div>
+  <div id="tp-list" style="display:none"></div>
+  <div id="tp-progress" style="display:flex"></div>
 </div>
 </div>
 

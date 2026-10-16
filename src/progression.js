@@ -11,12 +11,13 @@ const PLAYER_NAME_MAX = 20;
 // Highest entry whose minLevel the player has reached is the current title.
 // Provisional thresholds — the definitive list is still to come.
 const PLAYER_TITLES = [
-  { minLevel: 1,  name: "Scribe's Apprentice", name_pt: 'Aprendiz de Escriba' },
-  { minLevel: 5,  name: 'Scribe',              name_pt: 'Escriba' },
-  { minLevel: 10, name: 'Chronicler',          name_pt: 'Cronista' },
-  { minLevel: 20, name: 'Historian',           name_pt: 'Historiador' },
-  { minLevel: 35, name: 'Keeper of Ages',      name_pt: 'Guardião das Eras' },
-  { minLevel: 50, name: 'Master of Chronos',   name_pt: 'Mestre de Chronos' }
+  { minLevel: 1,   name: 'Student',              name_pt: 'Aluno' },
+  { minLevel: 5,   name: 'Scribe',               name_pt: 'Escriba' },
+  { minLevel: 10,  name: 'Chronicler',           name_pt: 'Cronista' },
+  { minLevel: 20,  name: 'Historian',            name_pt: 'Historiador' },
+  { minLevel: 35,  name: "Alexandria's Guardian", name_pt: 'Guardião de Alexandria' },
+  { minLevel: 50,  name: 'Time Lord',            name_pt: 'Senhor do Tempo' },
+  { minLevel: 100, name: 'The Lore Keeper',      name_pt: 'The Lore Keeper' }
 ];
 
 // Each category holds exactly one selected item in playerCustom[cat.id].
