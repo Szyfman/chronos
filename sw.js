@@ -25,10 +25,12 @@ const FILES = [
 self.addEventListener('install', e => {
   e.waitUntil(
     // Cacheia cada arquivo individualmente: um 404 isolado não derruba o install inteiro.
+    // cache:'reload' ignora o cache HTTP do navegador (GitHub Pages usa max-age=600);
+    // sem isso a versão nova do cache podia nascer com os arquivos antigos.
     caches.open(CACHE).then(cache =>
       Promise.all(
         FILES.map(url =>
-          cache.add(url).catch(err => {
+          cache.add(new Request(url, { cache: 'reload' })).catch(err => {
             console.warn('[sw] falha ao cachear', url, err);
           })
         )
