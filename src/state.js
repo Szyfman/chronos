@@ -33,6 +33,16 @@ try {
   _dc.forEach(function(n){ discoveredCards.add(n); });
 } catch(e) {}
 
+// Player profile (see progression.js)
+var playerName = '';
+var playerXp = 0;
+var playerCustom = {};
+try {
+  playerName = localStorage.getItem('chronos_player_name') || '';
+  playerXp = parseInt(localStorage.getItem('chronos_xp'), 10) || 0;
+  playerCustom = JSON.parse(localStorage.getItem('chronos_custom') || '{}') || {};
+} catch(e) {}
+
 function saveDiscovered() {
   try { localStorage.setItem('chronos_discovered', JSON.stringify([...discoveredCards])); } catch(e) {}
 }

@@ -1,4 +1,4 @@
-const CACHE = 'chronos-v28';
+const CACHE = 'chronos-v29';
 
 const BASE = '/chronos/';
 
@@ -9,6 +9,7 @@ const FILES = [
   BASE + 'src/state.js',
   BASE + 'src/cards.js',
   BASE + 'src/trophies.js',
+  BASE + 'src/progression.js',
   BASE + 'src/dailycards.js',
   BASE + 'src/sfx.js',
   BASE + 'src/i18n.js',

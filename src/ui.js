@@ -1196,7 +1196,9 @@ function _showTrophyToastQueue(list, idx){
 }
 
 function openTrophies(){
-  renderTrophies();
+  document.getElementById('tp-title-txt').textContent = lang==='pt' ? '🏆 Troféus' : '🏆 Trophies';
+  document.getElementById('tp-close').textContent = lang==='pt' ? '✕ Fechar' : '✕ Close';
+  switchTpTab('trophies');
   document.getElementById('tp').classList.add('open');
   _pushNavState('trophies');
 }
@@ -1211,7 +1213,7 @@ function closeTrophies(){
 function renderTrophies(){
   var earnedCount = Object.keys(earnedTrophies).length;
   var cntEl = document.getElementById('tp-cnt');
-  if(cntEl) cntEl.textContent = earnedCount + ' / ' + TROPHY_DEFS.length + ' earned';
+  if(cntEl) cntEl.textContent = earnedCount + ' / ' + TROPHY_DEFS.length + ' ' + t('tp_earned');
 
   var html = '';
   TROPHY_DEFS.forEach(function(def, i){
@@ -1234,6 +1236,81 @@ function renderTrophies(){
     html += '</div>';
   });
   document.getElementById('tp-list').innerHTML = html;
+}
+
+// ── TROPHY PANEL TABS ─────────────────────────────────────────────────────
+var _tpTab = 'trophies';
+
+function switchTpTab(tab){
+  _tpTab = tab;
+  document.getElementById('tp-tab-trophies').classList.toggle('active', tab==='trophies');
+  document.getElementById('tp-tab-trophies').textContent=t('tab_trophies');
+  document.getElementById('tp-tab-progress').classList.toggle('active', tab==='progress');
+  document.getElementById('tp-tab-progress').textContent=t('tab_progress');
+  document.getElementById('tp-list').style.display = tab==='trophies' ? '' : 'none';
+  document.getElementById('tp-progress').style.display = tab==='progress' ? 'flex' : 'none';
+  renderTrophies(); // keeps the header count current on both tabs
+  if(tab==='progress') renderProgress();
+}
+
+// ── RENDER PROGRESSION TAB ────────────────────────────────────────────────
+function renderProgress(){
+  var info = playerLevelInfo();
+  var title = playerTitle(info.level);
+  var emblem = selectedCustom('emblem');
+  var frame = selectedCustom('frame');
+
+  var html = '<div class="pf-card">';
+  html += '<div class="pf-avatar pf-frame-'+frame.style+'">'+emblem.icon+'</div>';
+  html += '<div class="pf-name-wrap"><input id="pf-name" class="pf-name" type="text" maxlength="'+PLAYER_NAME_MAX+'" autocomplete="off" spellcheck="false"><span class="pf-name-edit">✎</span></div>';
+  html += '<div class="pf-title">'+(lang==='pt'?title.name_pt:title.name)+'</div>';
+  html += '</div>';
+
+  html += '<div class="pf-level"><div class="pf-level-row">';
+  html += '<span class="pf-level-lbl">'+t('pf_level').replace('{n}',info.level)+'</span>';
+  html += '<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',info.xp).replace('{max}',info.xpNeeded)+'</span>';
+  html += '</div><div class="pf-xp-bar"><div class="pf-xp-fill" style="width:'+Math.round(100*info.xp/info.xpNeeded)+'%"></div></div></div>';
+
+  html += '<div class="dc-section-title">'+t('pf_custom')+'</div>';
+  CUSTOM_CATEGORIES.forEach(function(cat){
+    var selected = selectedCustom(cat.id);
+    html += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts">';
+    CUSTOMIZATIONS.forEach(function(item){
+      if(item.cat !== cat.id) return;
+      var unlocked = isCustomUnlocked(item);
+      // Previews combine with the other current choice, so each tile shows the real result
+      var preview = cat.id==='frame'
+        ? '<div class="pf-avatar sm pf-frame-'+item.style+'">'+emblem.icon+'</div>'
+        : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+item.icon+'</div>';
+      var req = '';
+      if(!unlocked && item.unlock.level) req = t('pf_req_level').replace('{n}',item.unlock.level);
+      if(!unlocked && item.unlock.trophy){
+        var tdef = TROPHY_DEFS.find(function(d){ return d.id===item.unlock.trophy; });
+        req = t('pf_req_trophy').replace('{name}', tdef ? (lang==='pt'?tdef.name_pt:tdef.name) : item.unlock.trophy);
+      }
+      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(unlocked?'':' locked')+'"'+(unlocked?' onclick="pickCustomization(\''+item.id+'\')"':'')+'>';
+      html += preview;
+      html += '<div class="pf-opt-name">'+(lang==='pt'?item.name_pt:item.name)+'</div>';
+      if(req) html += '<div class="pf-opt-req">'+req+'</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+
+  document.getElementById('tp-progress').innerHTML = html;
+
+  // Name goes in via .value (never innerHTML) so user text is never parsed as markup
+  var nameInput = document.getElementById('pf-name');
+  nameInput.value = playerName;
+  nameInput.placeholder = t('pf_name_ph');
+  nameInput.addEventListener('change', function(){ setPlayerName(this.value); this.value = playerName; });
+  nameInput.addEventListener('keydown', function(e){ if(e.key==='Enter') this.blur(); });
+}
+
+function pickCustomization(id){
+  if(!selectCustomization(id)) return;
+  SFX.play('drop');
+  renderProgress();
 }
 
 function openTrophyModal(idx){
