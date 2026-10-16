@@ -13,7 +13,7 @@
 
 ### Key Features
 - **Multiple Game Modes**: Classic, Empires, Characters, Biblical, Greco-Roman, Eastern
-- **Era Filters**: Ancient, Medieval, Modern, or All Ages
+- **Era Filters**: multi-select — any combination of Ancient, Medieval, Modern and Contemporary (none selected = All Ages)
 - **Lives & Free Modes**: Play with 3 lives or practice freely
 - **Daily Challenge**: Seeded daily puzzle with fixed deck (18 cards, no hints/skips)
 - **Streak System**: Build streaks for bonus points; earn hints every 20 cards
@@ -79,7 +79,8 @@ var lang = 'en';  // 'en' or 'pt'
 // Game configuration
 var gameMode = 'classic';      // 'classic', 'empires', 'characters', 'abrahamic', 'roman', 'eastern'
 var livesMode = true;          // true = 3 lives, false = free play
-var eraFilter = 'all';         // 'all', 'ancient', 'medieval', 'modern'
+var eraFilter = [];            // running game's eras: any of 'ancient','medieval','modern','contemporary' ([] = all)
+var eraSelection = [];         // eras toggled on the main menu, copied into eraFilter by startGame()
 var empiresShownTutorial = false;
 
 // Game state
@@ -827,14 +828,14 @@ Game ends
 
 ### Classic Mode
 - **Pool**: All CARDS + INTERVALS, filtered by era
-- **Era Filters**: All Ages, Ancient, Medieval, Modern
+- **Era Filters**: multi-select Ancient, Medieval, Modern, Contemporary (none = All Ages)
 - **Lives**: Optional (3 lives or Free)
 - **Deck Size**: ~60-300 cards depending on era filter
 - **Description**: "Place people, events and discoveries in order"
 
 ### Empires Mode
 - **Pool**: INTERVALS only (empires/eras), filtered by era
-- **Era Filters**: All Ages, Ancient, Medieval, Modern
+- **Era Filters**: multi-select Ancient, Medieval, Modern, Contemporary (none = All Ages)
 - **Lives**: Optional (3 lives or Free)
 - **Special**: Shows duration, region, culture for each empire
 - **Scoring**: Bonus points for longer empires (10-30 points)
@@ -843,7 +844,7 @@ Game ends
 
 ### Characters Mode
 - **Pool**: CARDS where cat === 'People', filtered by era
-- **Era Filters**: All Ages, Ancient, Medieval, Modern
+- **Era Filters**: multi-select Ancient, Medieval, Modern, Contemporary (none = All Ages)
 - **Lives**: Optional (3 lives or Free)
 - **Description**: "Order the greatest figures in history"
 
@@ -1266,13 +1267,15 @@ function _calcStreak() {
 ### Era Filter Mapping
 ```javascript
 const ERA_FILTER_MAP = {
-  all: null,  // null = no filter
   ancient: ['Ancient', 'Classical'],
   medieval: ['Medieval', 'Renaissance'],
-  modern: ['Early Modern', 'Modern', 'Contemporary']
+  modern: ['Early Modern', 'Modern'],
+  contemporary: ['Contemporary']   // 20th century onward (1901+)
 };
 ```
-- Null filter: Include all eras
+- `eraFilter` is an array of keys; `allowedErasFor(eraFilter)` unions their eras
+- Empty array: no filter, include all eras (also used by culture modes and the daily challenge)
+- `normalizeEraFilter()` also accepts the legacy single-string values stored in old history entries
 - Era groups: Logical historical groupings
 - Used in buildPool() to filter cards
 

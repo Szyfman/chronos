@@ -171,6 +171,7 @@
   body.light .era-chip[data-era="ancient"].active{background:#fff7ed;border-color:#c2410c;color:#9a3412}
   body.light .era-chip[data-era="medieval"].active{background:#faf5ff;border-color:#7c3aed;color:#5b21b6}
   body.light .era-chip[data-era="modern"].active{background:#f0fdf4;border-color:#15803d;color:#14532d}
+  body.light .era-chip[data-era="contemporary"].active{background:#fff1f2;border-color:#be123c;color:#9f1239}
 
   /* ── Confirm dialog ── */
   body.light #confirm-dialog{background:rgba(15,23,42,.5)}
@@ -376,6 +377,7 @@
   .era-chip[data-era="ancient"].active{border-color:#c17f3a;color:#c17f3a;background:rgba(193,127,58,.1)}
   .era-chip[data-era="medieval"].active{border-color:#8a4ab8;color:#b07ad0;background:rgba(138,74,184,.1)}
   .era-chip[data-era="modern"].active{border-color:#4a7ab8;color:#7aaad0;background:rgba(74,122,184,.1)}
+  .era-chip[data-era="contemporary"].active{border-color:#b84a6a;color:#d07a92;background:rgba(184,74,106,.1)}
   .era-divider{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:10px;width:100%;text-align:left}
   /* START BUTTON */
   #start-btn,#cultures-start-btn{margin-top:6px;padding:12px 0;width:100%;background:var(--gold);border:none;border-radius:12px;color:#0d0c0a;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
@@ -1157,10 +1159,10 @@
     <div id="era-section">
       <p class="section-lbl" id="era-label">Era Filter</p>
       <div class="era-row">
-        <button class="era-chip active" data-era="all" onclick="selectEra('all',this)" id="ec-all">All Ages</button>
-        <button class="era-chip" data-era="ancient" onclick="selectEra('ancient',this)" id="ec-ancient">Ancient</button>
-        <button class="era-chip" data-era="medieval" onclick="selectEra('medieval',this)" id="ec-medieval">Medieval</button>
-        <button class="era-chip" data-era="modern" onclick="selectEra('modern',this)" id="ec-modern">Modern</button>
+        <button class="era-chip" data-era="ancient" onclick="selectEra('ancient')" id="ec-ancient">Ancient</button>
+        <button class="era-chip" data-era="medieval" onclick="selectEra('medieval')" id="ec-medieval">Medieval</button>
+        <button class="era-chip" data-era="modern" onclick="selectEra('modern')" id="ec-modern">Modern</button>
+        <button class="era-chip" data-era="contemporary" onclick="selectEra('contemporary')" id="ec-contemporary">Contemporary</button>
       </div>
     </div>
 
@@ -1220,10 +1222,10 @@
     <div id="cult-era-placeholder" aria-hidden="true">
       <p class="section-lbl" style="visibility:hidden">Era Filter</p>
       <div class="era-row" style="visibility:hidden;pointer-events:none">
-        <button class="era-chip active" tabindex="-1">All Ages</button>
         <button class="era-chip" tabindex="-1">Ancient</button>
         <button class="era-chip" tabindex="-1">Medieval</button>
         <button class="era-chip" tabindex="-1">Modern</button>
+        <button class="era-chip" tabindex="-1">Contemporary</button>
       </div>
     </div>
 
@@ -1391,6 +1393,7 @@
         <button class="cp-era-chip"    data-e="ancient"  onclick="setCpEra(this)">Ancient</button>
         <button class="cp-era-chip"    data-e="medieval" onclick="setCpEra(this)">Medieval</button>
         <button class="cp-era-chip"    data-e="modern"   onclick="setCpEra(this)">Modern</button>
+        <button class="cp-era-chip"    data-e="contemporary" onclick="setCpEra(this)">Contemporary</button>
       </div>
     </div>
   </div>

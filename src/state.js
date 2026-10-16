@@ -3,7 +3,8 @@ var lang = 'en'; // move this from i18n.js if you already put it there
 
 var gameMode = 'classic';
 var livesMode = true;
-var eraFilter = 'all';
+var eraFilter = [];     // era filter of the running game ([] = all eras)
+var eraSelection = [];  // eras toggled on the main menu; copied into eraFilter by startGame()
 var empiresShownTutorial = false;
 
 var deck = [];

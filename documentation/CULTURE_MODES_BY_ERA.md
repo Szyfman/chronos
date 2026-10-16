@@ -1,14 +1,14 @@
 # Cartas dos Modos Culturais por Era
 
-Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`src/game.js`). Ordenado por ano. 🏛️ = intervalo (império/era).
+Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`src/game.js`), apenas para referência: os modos culturais não usam o filtro de eras. Ordenado por ano. 🏛️ = intervalo (império/era).
 
-| Modo | Ancient | Medieval | Modern | Total |
-|---|---|---|---|---|
-| Biblical / Bíblico | 32 | 8 | 8 | 48 |
-| Greco-Roman / Greco-Romano | 92 | 19 | 0 | 111 |
-| Eastern / Oriental | 42 | 50 | 9 | 101 |
+| Modo | Ancient | Medieval | Modern | Contemporary | Total |
+|---|---|---|---|---|---|
+| Biblical / Bíblico | 32 | 9 | 5 | 3 | 49 |
+| Greco-Roman / Greco-Romano | 92 | 19 | 0 | 0 | 111 |
+| Eastern / Oriental | 42 | 51 | 6 | 3 | 102 |
 
-## Biblical / Bíblico — 48 cartas
+## Biblical / Bíblico — 49 cartas
 
 ### Ancient / Antiguidade (Ancient + Classical) — 32
 
@@ -45,26 +45,30 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - 🏛️ **Bar Kokhba Revolt** / Revolta de Bar Kokhba — 132 d.C. – 136 d.C. · _Classical_
 - **Arius** / Ário — 256 d.C. · _Classical_
 
-### Medieval (Medieval + Renaissance) — 8
+### Medieval (Medieval + Renaissance) — 9
 
 - **The Talmud Completed** / O Talmude Completado — 500 d.C. · _Medieval_
 - **Muhammad** / Maomé — 570 d.C. · _Medieval_ · também: eastern
 - **The Hijra** / A Hégira — 622 d.C. · _Medieval_ · também: eastern
+- 🏛️ **Khazar Khaganate** / Canato Cazar — 650 d.C. – 969 d.C. · _Medieval_ · também: eastern
 - **Dome of the Rock** / Cupula da Rocha — 691 d.C. · _Medieval_ · também: eastern
 - 🏛️ **Papal States** / Estados Papais — 756 d.C. – 1870 d.C. · _Medieval_
 - **Edict of Expulsion** / Édito de Expulsão — 1290 d.C. · _Medieval_
 - **John Calvin** / João Calvino — 1509 d.C. · _Renaissance_
 - **Council of Trent** / Concílio de Trento — 1545 d.C. · _Renaissance_
 
-### Modern / Moderno (Early Modern + Modern + Contemporary) — 8
+### Modern / Moderna (Early Modern + Modern) — 5
 
 - **Publication of the King James Bible** / Publicação da Bíblia do Rei Jaime — 1611 d.C. · _Early Modern_
 - **Sabbatai Zevi** / Sabatai Zevi — 1626 d.C. · _Early Modern_
 - **Baruch Spinoza** / Baruch Spinoza — 1632 d.C. · _Early Modern_
 - **Baal Shem Tov** / Baal Shem Tov — 1698 d.C. · _Early Modern_
 - **Theodor Herzl** / Theodor Herzl — 1860 d.C. · _Modern_
-- **Balfour Declaration** / Declaração de Balfour — 1917 d.C. · _Modern_
-- **Vatican City** / Cidade do Vaticano — 1929 d.C. · _Modern_
+
+### Contemporary / Contemporânea (1901+) — 3
+
+- **Balfour Declaration** / Declaração de Balfour — 1917 d.C. · _Contemporary_
+- **Vatican City** / Cidade do Vaticano — 1929 d.C. · _Contemporary_
 - **Six-Day War** / Guerra dos Seis Dias — 1967 d.C. · _Contemporary_
 
 ## Greco-Roman / Greco-Romano — 111 cartas
@@ -175,7 +179,7 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - 🏛️ **Lombard Kingdom** / Reino Lombardo — 568 d.C. – 774 d.C. · _Medieval_
 - **Heraclius** / Heráclio — 575 d.C. · _Medieval_
 - 🏛️ **Byzantine–Sasanian War** / Guerra Bizantino-Sassânida — 602 d.C. – 628 d.C. · _Medieval_ · também: eastern
-- **Battle of Carthage (698)** / Batalha de Cartago (698) — 698 d.C. · _Medieval_ · também: eastern
+- **Battle of Carthage** / Batalha de Cartago — 698 d.C. · _Medieval_ · também: eastern
 - **Charlemagne** / Carlos Magno — 742 d.C. · _Medieval_
 - **Pope Leo III** / Papa Leão III — 750 d.C. · _Medieval_
 - **Irene of Athens** / Irene de Atenas — 752 d.C. · _Medieval_
@@ -186,10 +190,13 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - **Constantine XI** / Constantino XI — 1405 d.C. · _Medieval_ · também: eastern
 - **Fall of Constantinople** / Queda de Constantinopla — 1453 d.C. · _Medieval_ · também: eastern
 
-### Modern / Moderno (Early Modern + Modern + Contemporary) — 0
+### Modern / Moderna (Early Modern + Modern) — 0
 
 
-## Eastern / Oriental — 101 cartas
+### Contemporary / Contemporânea (1901+) — 0
+
+
+## Eastern / Oriental — 102 cartas
 
 ### Ancient / Antiguidade (Ancient + Classical) — 42
 
@@ -236,7 +243,7 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - 🏛️ **Sassanid Empire** / Império Sassânida — 224 d.C. – 651 d.C. · _Classical_
 - 🏛️ **Gupta Empire** / Império Gupta — 320 d.C. – 550 d.C. · _Classical_
 
-### Medieval (Medieval + Renaissance) — 50
+### Medieval (Medieval + Renaissance) — 51
 
 - **Muhammad** / Maomé — 570 d.C. · _Medieval_ · também: abrahamic
 - **Brahmagupta** / Brahmagupta — 598 d.C. · _Medieval_
@@ -246,10 +253,11 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - **The Hijra** / A Hégira — 622 d.C. · _Medieval_ · também: abrahamic
 - **Wu Zetian** / Wu Zetian — 624 d.C. · _Medieval_
 - 🏛️ **Rashidun Caliphate** / Califado Rashidun — 632 d.C. – 661 d.C. · _Medieval_
+- 🏛️ **Khazar Khaganate** / Canato Cazar — 650 d.C. – 969 d.C. · _Medieval_ · também: abrahamic
 - 🏛️ **Umayyad Caliphate** / Califado Omíada — 661 d.C. – 750 d.C. · _Medieval_
 - 🏛️ **Bulgarian Empire** / Império Búlgaro — 681 d.C. – 1018 d.C. · _Medieval_
 - **Dome of the Rock** / Cupula da Rocha — 691 d.C. · _Medieval_ · também: abrahamic
-- **Battle of Carthage (698)** / Batalha de Cartago (698) — 698 d.C. · _Medieval_ · também: roman
+- **Battle of Carthage** / Batalha de Cartago — 698 d.C. · _Medieval_ · também: roman
 - 🏛️ **Al-Andalus** / Al-Ândalus — 711 d.C. – 1492 d.C. · _Medieval_
 - **Battle of Tours** / Batalha de Tours — 732 d.C. · _Medieval_
 - 🏛️ **Abbasid Caliphate** / Califado Abássida — 750 d.C. – 1258 d.C. · _Medieval_
@@ -289,7 +297,7 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - 🏛️ **Mughal Empire** / Império Mughal — 1526 d.C. – 1857 d.C. · _Renaissance_
 - **Akbar the Great** / Akbar, o Grande — 1542 d.C. · _Renaissance_
 
-### Modern / Moderno (Early Modern + Modern + Contemporary) — 9
+### Modern / Moderna (Early Modern + Modern) — 6
 
 - **Taj Mahal** / Taj Mahal — 1653 d.C. · _Early Modern_
 - **Rosetta Stone Is Found** / Descoberta da Pedra de Roseta — 1799 d.C. · _Modern_
@@ -297,6 +305,9 @@ Gerado a partir de `src/cards.js`. Divisão de eras igual a `ERA_FILTER_MAP` (`s
 - **Meiji Restoration** / Restauração Meiji — 1868 d.C. · _Modern_
 - **Mahatma Gandhi** / Mahatma Gandhi — 1869 d.C. · _Modern_
 - **Mao Zedong** / Mao Tsé-Tung — 1893 d.C. · _Modern_
+
+### Contemporary / Contemporânea (1901+) — 3
+
 - **Indian Independence** / Independência da Índia — 1947 d.C. · _Contemporary_
 - 🏛️ **Great Leap Forward Famine** / Fome do Grande Salto Adiante — 1958 d.C. – 1962 d.C. · _Contemporary_
 - **Tiananmen Square Protests** / Protestos da Praça Tiananmen — 1989 d.C. · _Contemporary_

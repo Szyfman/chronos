@@ -17,7 +17,7 @@ en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review'
     del_confirm:'Delete',
     del_confirm_all:'Delete all',
     rules_label:'Rules',era_label:'Era',
-    era_all:'All Ages',era_ancient:'Ancient',era_medieval:'Medieval',era_modern:'Modern',hint_lbl:'Hint',skip_earned:'💡 +1 Hint — streak bonus!',
+    era_all:'All Ages',era_ancient:'Ancient',era_medieval:'Medieval',era_modern:'Modern',era_contemporary:'Contemporary',hint_lbl:'Hint',skip_earned:'💡 +1 Hint — streak bonus!',
     mc_empires_title:'Empires',mc_empires_desc:'Place empires and eras by their rise and fall.',
     empires_lbl:'Empires',drag_label_empires:'Drag to place · tap cards to review',
     span_label:'Duration',region_label:'Region',culture_label:'Culture',
@@ -46,7 +46,7 @@ pt:{subtitle:'Linha do Tempo',drag_label:'Arraste para colocar · toque nas cart
     del_confirm:'Excluir',
     del_confirm_all:'Excluir tudo',
     rules_label:'Regras',era_label:'Era',
-    era_all:'Todas as Eras',era_ancient:'Antiga',era_medieval:'Medieval',era_modern:'Moderna',hint_lbl:'Dica',skip_earned:'💡 +1 Dica — bônus de sequência!',
+    era_all:'Todas as Eras',era_ancient:'Antiga',era_medieval:'Medieval',era_modern:'Moderna',era_contemporary:'Contemporânea',hint_lbl:'Dica',skip_earned:'💡 +1 Dica — bônus de sequência!',
     mc_empires_title:'Impérios',mc_empires_desc:'Posicione impérios e eras pelo seu surgimento e queda.',
     empires_lbl:'Impérios',drag_label_empires:'Arraste para colocar · toque nas cartas para rever',
     span_label:'Duração',region_label:'Região',culture_label:'Cultura',
@@ -104,8 +104,8 @@ function _applyAllTranslations() {
     ['mc-characters-title','mc_characters_title'],['mc-characters-desc','mc_characters_desc'],
     ['mc-biblical-title','mc_biblical_title'],['mc-biblical-desc','mc_biblical_desc'],['mc-roman-desc','mc_roman_desc'],['mc-eastern-desc','mc_eastern_desc'],['mc-back-desc','mc_back_desc'],['cultures-title','cultures_title'],['cultures-i-sub','cultures_i_sub'],['cultures-i-desc','cultures_i_desc'],['mc-roman-title','mc_roman_title'],['mc-eastern-title','mc_eastern_title'],['mc-back-title','mc_back_title'],['mc-cultures-title','mc_cultures_title'],['mc-cultures-desc','mc_cultures_desc'],
     ['era-label','era_label'],
-    ['ec-all','era_all'],['ec-ancient','era_ancient'],
-    ['ec-medieval','era_medieval'],['ec-modern','era_modern'],
+    ['ec-ancient','era_ancient'],
+    ['ec-medieval','era_medieval'],['ec-modern','era_modern'],['ec-contemporary','era_contemporary'],
     ['rules-label','game_mode_lbl'],
   ];
   transIds.forEach(function(p) {

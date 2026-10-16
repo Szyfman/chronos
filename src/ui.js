@@ -20,12 +20,20 @@ function selectLives(on){
   document.getElementById('lo-lives').classList.toggle('active',on);
   document.getElementById('lo-free').classList.toggle('active',!on);
 }
-function selectEra(era,btn){
-  eraFilter=era;
-  document.querySelectorAll('.era-chip').forEach(c=>c.classList.remove('active'));
-  btn.classList.add('active');
+// Era chips are multi-select: each era toggles on/off. An empty selection
+// means every era is in the deck.
+function selectEra(era){
+  if(eraSelection.includes(era)) eraSelection=eraSelection.filter(e=>e!==era);
+  else eraSelection=eraSelection.concat(era);
+  syncEraChips();
+}
+function syncEraChips(){
+  document.querySelectorAll('#era-section .era-chip').forEach(c=>{
+    c.classList.toggle('active', eraSelection.includes(c.dataset.era));
+  });
 }
 function startGame(){ _isDailyChallenge=false; _isRecoverRun=false;
+  eraFilter=eraSelection.slice();
   var _hBtnR=document.getElementById('hint-btn');
   var _sBtnR=document.getElementById('skip-btn');
   if(_hBtnR) _hBtnR.style.display='';
@@ -950,21 +958,19 @@ function confirmDel(){
 
 // ── COMPENDIUM ────────────────────────────────────────────────────────────
 var cpFilt = 'all';
-var cpEra = 'all';
+var cpEras = [];  // selected era filter keys ([] = all eras)
 var cpFiltVisible = false;
 
 function openCompendium() {
   var el = document.getElementById('cp-q');
   if (el) el.value = '';
   cpFilt = 'all';
-  cpEra = 'all';
+  cpEras = [];
   cpFiltVisible = false;
   document.querySelectorAll('.cp-chip').forEach(function(b){
     b.classList.toggle('on', b.dataset.f === 'all');
   });
-  document.querySelectorAll('.cp-era-chip').forEach(function(b){
-    b.classList.toggle('on', b.dataset.e === 'all');
-  });
+  syncCpEraChips();
   // Reset filter panel collapsed
   var _cf = document.getElementById('cp-filt');
   var _ctb = document.getElementById('cp-filt-toggle');
@@ -992,11 +998,22 @@ function setCpFilt(btn) {
   renderCP();
 }
 
+// Multi-select, same rules as the game's era chips: each era toggles,
+// 'all' clears the selection, and an empty selection shows every era.
 function setCpEra(btn) {
-  cpEra = btn.dataset.e;
-  document.querySelectorAll('.cp-era-chip').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
+  var e = btn.dataset.e;
+  if (e === 'all') cpEras = [];
+  else if (cpEras.indexOf(e) !== -1) cpEras = cpEras.filter(function(x){ return x !== e; });
+  else cpEras = cpEras.concat(e);
+  syncCpEraChips();
   renderCP();
+}
+
+function syncCpEraChips() {
+  document.querySelectorAll('.cp-era-chip').forEach(function(b){
+    var e = b.dataset.e;
+    b.classList.toggle('on', e === 'all' ? !cpEras.length : cpEras.indexOf(e) !== -1);
+  });
 }
 
 function toggleCpFilt() {
@@ -1029,8 +1046,8 @@ function renderCP() {
 
   // Update era chip labels for language
   var eraChipLabels = lang==='pt'
-    ? {all:'Todas', ancient:'Antiguidade', medieval:'Medieval', modern:'Moderno'}
-    : {all:'All', ancient:'Ancient', medieval:'Medieval', modern:'Modern'};
+    ? {all:'Todas', ancient:'Antiguidade', medieval:'Medieval', modern:'Moderno', contemporary:'Contemporâneo'}
+    : {all:'All', ancient:'Ancient', medieval:'Medieval', modern:'Modern', contemporary:'Contemporary'};
   document.querySelectorAll('.cp-era-chip').forEach(function(b){
     if(eraChipLabels[b.dataset.e]) b.textContent = eraChipLabels[b.dataset.e];
   });
@@ -1049,12 +1066,7 @@ function renderCP() {
   if(flTypeLbl) flTypeLbl.textContent = lang==='pt' ? 'TIPO' : 'TYPE';
   if(flEraLbl) flEraLbl.textContent = lang==='pt' ? 'ERA' : 'ERA';
 
-  var CP_ERA_MAP = {
-    ancient:  ['Ancient','Classical'],
-    medieval: ['Medieval','Renaissance'],
-    modern:   ['Early Modern','Modern','Contemporary']
-  };
-  var cpEraList = (typeof cpEra !== 'undefined' && cpEra !== 'all') ? CP_ERA_MAP[cpEra] : null;
+  var cpEraList = allowedErasFor(cpEras);
 
   var filtered = all.filter(function(c) {
     var iv = c.startYear !== undefined;
@@ -1076,7 +1088,7 @@ function renderCP() {
   all.forEach(function(c){ if(discoveredCards.has(c.name)) allDiscovered++; });
   var cntEl = document.getElementById('cp-cnt');
   if(cntEl) {
-    var isFiltered = (cpFilt !== 'all' || (typeof cpEra !== 'undefined' && cpEra !== 'all') || q);
+    var isFiltered = (cpFilt !== 'all' || cpEras.length || q);
     if(isFiltered) {
       // Show filtered count + total discovered in parentheses
       cntEl.textContent = discoveredInFilter + ' / ' + filtered.length
@@ -1475,7 +1487,7 @@ function selectCultureLives(on){
 function startCultureGame(){
   gameMode = cultureMode;
   livesMode = cultureLivesMode;
-  eraFilter = 'all';
+  eraFilter = [];
   document.getElementById('lo-lives').classList.toggle('active', livesMode);
   document.getElementById('lo-free').classList.toggle('active', !livesMode);
   document.getElementById('cultures-screen').classList.remove('show');

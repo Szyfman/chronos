@@ -6,11 +6,29 @@
 // ─────────────────────────────────────────────────────────────────────────
 // Which game eras map to each filter
 const ERA_FILTER_MAP={
-  all:null, // null = no filter = all cards
   ancient:['Ancient','Classical'],
   medieval:['Medieval','Renaissance'],
-  modern:['Early Modern','Modern','Contemporary']
+  modern:['Early Modern','Modern'],
+  contemporary:['Contemporary']
 };
+const ERA_FILTER_KEYS=Object.keys(ERA_FILTER_MAP);
+
+// Normalises an era filter to an array of ERA_FILTER_MAP keys.
+// Accepts the current array form and the legacy single-string form
+// ('all' | 'ancient' | …) still stored in old history entries.
+function normalizeEraFilter(ef){
+  if(Array.isArray(ef)) return ef.filter(k=>ERA_FILTER_MAP[k]);
+  if(ef&&ERA_FILTER_MAP[ef]) return [ef];
+  return [];
+}
+
+// Game eras allowed by a filter selection, or null when nothing is selected
+// (no filter = all cards).
+function allowedErasFor(ef){
+  const keys=normalizeEraFilter(ef);
+  if(!keys.length) return null;
+  return keys.reduce((acc,k)=>acc.concat(ERA_FILTER_MAP[k]),[]);
+}
 
 // ── MODE MAPS ─────────────────────────────────────────────────────────────
 const MODE_LABEL={
@@ -88,7 +106,7 @@ function _beginDailyRun(date, attempt, isRecover){
   _lastDailyResult = null;
   _isRecoverRun    = !!isRecover;
   gameMode = 'classic';
-  eraFilter = 'all';
+  eraFilter = [];
   livesMode = true;
   _isDailyChallenge = true;
   // Close all overlays cleanly, same as startGame()
@@ -261,7 +279,7 @@ function checkStreakTrophy(){
 function buildPool(mode, eraFilter){
   let pool;
   if(mode==='empires'){
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
+    const allowedEras=allowedErasFor(eraFilter);
     pool=allowedEras?INTERVALS.filter(c=>allowedEras.includes(c.era)):INTERVALS;
     if(pool.length<4) pool=[...INTERVALS];
   } else if(mode==='abrahamic'){
@@ -274,13 +292,13 @@ function buildPool(mode, eraFilter){
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
     if(pool.length<4) pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
   } else if(mode==='characters'){
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
+    const allowedEras=allowedErasFor(eraFilter);
     const charPool=CARDS.filter(c=>c.cat==='People'||c.cat_pt==='Pessoas');
     pool=allowedEras?charPool.filter(c=>allowedEras.includes(c.era)):charPool;
     if(pool.length<4) pool=[...charPool];
   } else {
     // Classic: mixed CARDS + INTERVALS, apply era filter
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
+    const allowedEras=allowedErasFor(eraFilter);
     const allCards=[...CARDS,...INTERVALS];
     pool=allowedEras?allCards.filter(c=>allowedEras.includes(c.era)):allCards;
     if(pool.length<4) pool=[...allCards];
@@ -958,11 +976,9 @@ function dcFacts(c){
 
 // ── ERA TAG HELPER ───────────────────────────────────────────────────────
 function eraTagLabel(ef){
-  if(!ef||ef==='all')return t('era_all');
-  if(ef==='ancient')return t('era_ancient');
-  if(ef==='medieval')return t('era_medieval');
-  if(ef==='modern')return t('era_modern');
-  return t('era_all');
+  const keys=normalizeEraFilter(ef);
+  if(!keys.length||keys.length===ERA_FILTER_KEYS.length)return t('era_all');
+  return ERA_FILTER_KEYS.filter(k=>keys.includes(k)).map(k=>t('era_'+k)).join(' · ');
 }
 // history badge for mode
 function modeBadgeLabel(mode,lm){
