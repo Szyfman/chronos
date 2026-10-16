@@ -287,10 +287,8 @@ function buildPool(mode, eraFilter){
     pool=[...CARDS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('abrahamic')),...biblIntervals];
   } else if(mode==='roman'){
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('roman'));
-    if(pool.length<4) pool=[...CARDS.filter(c=>c.era==='Classical')];
   } else if(mode==='eastern'){
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
-    if(pool.length<4) pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
   } else if(mode==='characters'){
     const allowedEras=allowedErasFor(eraFilter);
     const charPool=CARDS.filter(c=>c.cat==='People'||c.cat_pt==='Pessoas');
