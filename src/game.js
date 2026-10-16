@@ -537,6 +537,7 @@ function endGame(won){
   _pendingGameRecord = buildGameRecord(won);
   _eagerSaveDiscovered();
   checkTrophies();
+  _lastXpResult = awardXp(score);
   // Restore history button
   document.getElementById('hist-btn').style.visibility='';
   document.getElementById('go-title').textContent=won?t('go_won'):t('go_lost');
@@ -552,8 +553,31 @@ function endGame(won){
   if(_saveBtn){_saveBtn.textContent=lang==='pt'?'💾 Salvar Timeline':'💾 Save Timeline';_saveBtn.disabled=false;_saveBtn.style.opacity='';}
   document.getElementById('go-again-btn').textContent=t('play_again');
   _renderDailyGameover();
+  _renderGameoverXp(true);
   // stopMusic(true);
   document.getElementById('gameover').classList.add('show');
+}
+
+// ── GAMEOVER XP ───────────────────────────────────────────────────────────
+var _lastXpResult = null;
+
+// XP gained this run + level bar. With `animate`, the bar fills from where the
+// run started (from empty if the player levelled up) to where it ends.
+function _renderGameoverXp(animate){
+  var box=document.getElementById('go-xp');
+  if(!box) return;
+  var r=_lastXpResult;
+  if(!r){ box.innerHTML=''; return; }
+  var a=r.after, leveled=a.level>r.before.level;
+  var pct=function(info){ return Math.round(100*info.xp/info.xpNeeded); };
+  var html='<div class="go-xp-gain">'+t('go_xp_gain').replace('{n}',formatXp(r.gained))+'</div>';
+  html+='<div class="pf-level-row"><span class="pf-level-lbl">'+t('pf_level').replace('{n}',a.level)+'</span>';
+  html+='<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',formatXp(a.xp)).replace('{max}',formatXp(a.xpNeeded))+'</span></div>';
+  html+='<div class="pf-xp-bar"><div class="pf-xp-fill" id="go-xp-fill" style="width:'+(animate?(leveled?0:pct(r.before)):pct(a))+'%"></div></div>';
+  if(leveled) html+='<div class="go-xp-note">'+t('go_level_up').replace('{n}',a.level)+'</div>';
+  if(r.newTitle) html+='<div class="go-xp-note">'+t('go_new_title').replace('{name}',lang==='pt'?r.newTitle.name_pt:r.newTitle.name)+'</div>';
+  box.innerHTML=html;
+  if(animate) setTimeout(function(){ var f=document.getElementById('go-xp-fill'); if(f) f.style.width=pct(a)+'%'; }, 350);
 }
 
 // ── DAILY GAMEOVER CONTROLS ───────────────────────────────────────────────

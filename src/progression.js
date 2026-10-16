@@ -1,7 +1,7 @@
 // ── progression.js ───────────────────────────────────────────────────────
 // Player profile: name, XP → level, level titles and unlockable UI
 // customizations. Data + unlock/selection logic only; rendering is in ui.js.
-// XP is not awarded by gameplay yet — playerXp stays 0 until game.js does.
+// XP = final score of each run (awarded by endGame in game.js).
 // Depends on: state.js (playerName, playerXp, playerCustom),
 //             game.js (earnedTrophies), trophies.js (TROPHY_DEFS)
 // ─────────────────────────────────────────────────────────────────────────
@@ -9,6 +9,7 @@
 const PLAYER_NAME_MAX = 20;
 
 // Highest entry whose minLevel the player has reached is the current title.
+// Provisional thresholds — the definitive list is still to come.
 const PLAYER_TITLES = [
   { minLevel: 1,  name: "Scribe's Apprentice", name_pt: 'Aprendiz de Escriba' },
   { minLevel: 5,  name: 'Scribe',              name_pt: 'Escriba' },
@@ -44,19 +45,62 @@ const CUSTOMIZATIONS = [
   { id: 'frame_ember',    cat: 'frame', style: 'ember',    name: 'Ember',    name_pt: 'Brasa',    unlock: { trophy: 'on_fire' } }
 ];
 
-// Provisional curve until the XP system is designed: going from level L to
-// L+1 costs 100×L XP (L1→2: 100, L2→3: 200, ...).
+// ── XP CURVE ──────────────────────────────────────────────────────────────
+/* XP to go from level L to L+1:
+     L < capLevel:  base + growth × (L−1)^exponent, rounded to the nearest `step`
+     L ≥ capLevel:  flat — same cost as (capLevel−1) → capLevel, forever
+   XP comes from the final score of each run, so ~400 XP ≈ one average game.
+   With the values below: L2 ≈ 4 games, L10 ≈ 44 games, L50 ≈ 1,100 games,
+   L100 ≈ 6,200 games; past 100, ~160 games per level.
+   Tuning: `base` sets how fast the first levels feel, `growth` scales the
+   whole mid/late game, `exponent` bends the curve (1 = linear, higher =
+   steeper end). Changing any of them re-levels every player, since only
+   total XP is stored. */
+const XP_CURVE = { base: 1500, growth: 40, exponent: 1.6, capLevel: 100, step: 100 };
+
 function xpToNextLevel(level) {
-  return 100 * level;
+  var L = Math.min(level, XP_CURVE.capLevel - 1);
+  var raw = XP_CURVE.base + XP_CURVE.growth * Math.pow(L - 1, XP_CURVE.exponent);
+  return Math.round(raw / XP_CURVE.step) * XP_CURVE.step;
 }
 
-function playerLevelInfo() {
-  var level = 1, xpLeft = playerXp;
-  while (xpLeft >= xpToNextLevel(level)) {
+// Total XP → level, XP into that level, and XP the level costs.
+// Spare XP carries over, so one big gain can climb several levels at once.
+function levelInfoFor(totalXp) {
+  var level = 1, xpLeft = Math.max(0, Math.floor(totalXp || 0));
+  while (level < XP_CURVE.capLevel && xpLeft >= xpToNextLevel(level)) {
     xpLeft -= xpToNextLevel(level);
     level++;
   }
-  return { level: level, xp: xpLeft, xpNeeded: xpToNextLevel(level) };
+  // Past the cap every level costs the same, so skip the loop
+  if (level === XP_CURVE.capLevel) {
+    var flat = xpToNextLevel(level);
+    level += Math.floor(xpLeft / flat);
+    xpLeft = xpLeft % flat;
+  }
+  return { level: level, xp: xpLeft, xpNeeded: xpToNextLevel(level), totalXp: Math.max(0, Math.floor(totalXp || 0)) };
+}
+
+function formatXp(n) {
+  return n.toLocaleString(lang === 'pt' ? 'pt-BR' : 'en-US');
+}
+
+function playerLevelInfo() {
+  return levelInfoFor(playerXp);
+}
+
+/* Adds XP and persists it. Returns before/after level info plus the new
+   title when a level-up crossed a title threshold (null otherwise).
+   Every XP source (final score now; trophies and daily bonuses later)
+   should come through here. */
+function awardXp(amount) {
+  var gained = Math.max(0, Math.floor(amount || 0));
+  var before = playerLevelInfo();
+  playerXp += gained;
+  try { localStorage.setItem('chronos_xp', String(playerXp)); } catch(e) {}
+  var after = playerLevelInfo();
+  var oldTitle = playerTitle(before.level), newTitle = playerTitle(after.level);
+  return { gained: gained, before: before, after: after, newTitle: newTitle !== oldTitle ? newTitle : null };
 }
 
 function playerTitle(level) {

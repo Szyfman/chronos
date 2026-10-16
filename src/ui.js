@@ -1280,8 +1280,10 @@ function renderProgress(){
 
   html += '<div class="pf-level"><div class="pf-level-row">';
   html += '<span class="pf-level-lbl">'+t('pf_level').replace('{n}',info.level)+'</span>';
-  html += '<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',info.xp).replace('{max}',info.xpNeeded)+'</span>';
-  html += '</div><div class="pf-xp-bar"><div class="pf-xp-fill" style="width:'+Math.round(100*info.xp/info.xpNeeded)+'%"></div></div></div>';
+  html += '<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',formatXp(info.xp)).replace('{max}',formatXp(info.xpNeeded))+'</span>';
+  html += '</div><div class="pf-xp-bar"><div class="pf-xp-fill" style="width:'+Math.round(100*info.xp/info.xpNeeded)+'%"></div></div>';
+  html += '<div class="pf-xp-foot"><span>'+t('pf_total_xp').replace('{n}',formatXp(info.totalXp))+'</span>';
+  html += '<span>'+t('pf_to_next').replace('{n}',formatXp(info.xpNeeded-info.xp)).replace('{lvl}',info.level+1)+'</span></div></div>';
 
   html += '<div class="dc-section-title">'+t('pf_custom')+'</div>';
   CUSTOM_CATEGORIES.forEach(function(cat){
