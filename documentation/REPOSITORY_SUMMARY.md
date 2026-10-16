@@ -238,7 +238,7 @@ function attemptPlacement(idx)
   - Card year must be ≤ next card's year
 - **On Success**:
   - Plays correct sound
-  - Calculates points: base 10 (intervals: 10-30 based on duration) + streak bonus (×2)
+  - Calculates points: base 10 (intervals: 10-30 based on duration) × streak multiplier (×2 per 5 consecutive hits, max 32×)
   - Increments streak
   - Inserts card into timeline at index
   - Updates score, streak, placed count displays
@@ -254,8 +254,9 @@ function attemptPlacement(idx)
 
 **Scoring System**:
 - Base points per card: 10 (events/people), 10-30 (empires, based on duration)
-- Streak multiplier: +2 points per streak level
-- Example: At streak 10, placing a card = 10 + (10 × 2) = 30 points
+- Streak multiplier: min(32, 2 ^ floor(streak / 5)), using the streak before the card (`streakMultiplier()` in game.js)
+- Cards 1–5 of a streak: 1× (10 pts), 6–10: 2× (20), 11–15: 4× (40), 16–20: 8× (80), 21–25: 16× (160), 26+: 32× (320)
+- A miss resets the multiplier to 1×
 - Longer empires = more points (harder to place precisely)
 
 **Hints & Skips**:

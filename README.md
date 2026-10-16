@@ -104,7 +104,7 @@ chronos/
 
 **Scoring:**
 - Base points: 10 per card (intervals: 10-30 based on duration)
-- Streak bonus: +2 points per consecutive correct placement
+- Streak multiplier: doubles every 5 consecutive correct placements (cards 1–5: 1×, 6–10: 2×, 11–15: 4×, 16–20: 8×, 21–25: 16×, 26+: 32× max); a miss resets it to 1×
 - Hint penalty: -5 points per clue revealed
 
 ---
@@ -425,7 +425,7 @@ chronos/
 
 **Pontuação:**
 - Pontos base: 10 por carta (intervalos: 10-30 baseado na duração)
-- Bônus de sequência: +2 pontos por colocação correta consecutiva
+- Multiplicador de sequência: dobra a cada 5 acertos seguidos (cartas 1–5: 1×, 6–10: 2×, 11–15: 4×, 16–20: 8×, 21–25: 16×, 26+: 32× no máximo); um erro volta para 1×
 - Penalidade de dica: -5 pontos por pista revelada
 
 ---

@@ -470,6 +470,17 @@ function useSkip(){
 }
 
 // ── GAME LOGIC ────────────────────────────────────────────────────────────
+/* Streak multiplier: grows ×STREAK_MULT_GROWTH for every full block of
+   STREAK_STEP consecutive hits, up to STREAK_MULT_MAX. `streakBefore` is the
+   streak before this card, so cards 1–5 score 1×, 6–10 2×, 11–15 4×,
+   16–20 8×, 21–25 16×, 26+ 32×. A miss resets it to 1×.
+   The cap matters because score becomes XP: uncapped, a 50-hit streak
+   would be worth ~51k points and a 100-hit one ~51M. */
+const STREAK_STEP = 5, STREAK_MULT_GROWTH = 2, STREAK_MULT_MAX = 32;
+function streakMultiplier(streakBefore){
+  return Math.min(STREAK_MULT_MAX, Math.pow(STREAK_MULT_GROWTH, Math.floor(streakBefore / STREAK_STEP)));
+}
+
 function attemptPlacement(idx){
   if(!currentCard||!gameActive)return;
   // Burn the daily attempt on the very first placement, not at endGame
@@ -482,7 +493,7 @@ function attemptPlacement(idx){
     // Interval scoring: bonus for duration (longer empires = harder to place precisely)
     SFX.play('correct');
     const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
-    timeline.splice(idx,0,card);score+=basePoints+streak*2;streak++;currentCard=null;
+    timeline.splice(idx,0,card);score+=Math.round(basePoints*streakMultiplier(streak));streak++;currentCard=null;
     if(streak>0&&streak%20===0){hints++;renderSideBtns();showStreakToast();}
     checkStreakTrophy();
     renderTimeline();

@@ -89,7 +89,7 @@ When working on this codebase, you should:
    - Keep functions focused and readable (better long than clever)
 
 5. **Don't modify scoring arbitrarily**
-   - Scoring system is balanced (10 base + streak×2, intervals 10-30)
+   - Scoring system is balanced (10 base × streak multiplier, intervals 10-30)
    - Don't change point values without justification
    - Trophy unlock conditions are carefully designed (don't make them easier/harder without reason)
 
@@ -273,7 +273,8 @@ When working on this codebase, you should:
 const basePoints = isInterval(card)
   ? Math.min(30, 10 + Math.floor((card.endYear - card.startYear) / 100))
   : 10;
-score += basePoints + streak * 2;
+// ×2 per full block of 5 consecutive hits, capped at 32×: cards 1–5 → 1×, 6–10 → 2×, 11–15 → 4×, ...
+score += Math.round(basePoints * streakMultiplier(streak));
 ```
 
 **When modifying**:
