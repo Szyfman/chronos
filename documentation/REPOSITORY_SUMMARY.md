@@ -800,6 +800,8 @@ Game ends
 - `chronos_theme`: 'light' or 'dark'
 - `chronos_history`: JSON array of game records (max 30)
 - `chronos_discovered`: JSON array of card names seen
+- `chronos_card_stats`: JSON object `{ "<card name>": { ok, miss, last } }` — per-card placement results (`last` = 'YYYY-MM-DD'). Written by `recordCardResult` on every placement except the first card of a run; skips don't count. Feeds era mastery and the Review deck
+- `chronos_tp_open`: JSON array of trophy section ids the player left open
 - `chronos_trophies`: JSON object of trophy IDs → unlock timestamps
 - `chronos_placed_trivia`: 'true' or 'false' (show fact panel on placement)
 

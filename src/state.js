@@ -47,3 +47,17 @@ try {
 function saveDiscovered() {
   try { localStorage.setItem('chronos_discovered', JSON.stringify([...discoveredCards])); } catch(e) {}
 }
+
+// Per-card placement results, keyed by the card's English name (same key as
+// discoveredCards): { ok, miss, last } — last is the 'YYYY-MM-DD' of the most
+// recent attempt. Recorded by recordCardResult (game.js); feeds era mastery
+// and the Review deck. Starts empty: past runs are not back-filled.
+var cardStats = {};
+try {
+  var _cs = JSON.parse(localStorage.getItem('chronos_card_stats') || '{}');
+  if (_cs && typeof _cs === 'object' && !Array.isArray(_cs)) cardStats = _cs;
+} catch(e) {}
+
+function saveCardStats() {
+  try { localStorage.setItem('chronos_card_stats', JSON.stringify(cardStats)); } catch(e) {}
+}

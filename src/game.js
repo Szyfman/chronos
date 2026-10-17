@@ -487,6 +487,18 @@ function streakMultiplier(streakBefore){
   return Math.min(STREAK_MULT_MAX, Math.pow(STREAK_MULT_GROWTH, Math.floor(streakBefore / STREAK_STEP)));
 }
 
+// Tallies one placement attempt in cardStats (state.js) and saves right away,
+// so a closed tab never loses it. Skipped cards are not attempts.
+function recordCardResult(card, ok){
+  var key = card && card.name;
+  if(!key) return;
+  var s = cardStats[key];
+  if(!s || typeof s !== 'object') s = cardStats[key] = { ok:0, miss:0, last:'' };
+  if(ok) s.ok = (s.ok|0) + 1; else s.miss = (s.miss|0) + 1;
+  s.last = _dayStamp(new Date());
+  saveCardStats();
+}
+
 function attemptPlacement(idx){
   if(!currentCard||!gameActive)return;
   // Burn the daily attempt on the very first placement, not at endGame
@@ -495,6 +507,9 @@ function attemptPlacement(idx){
   const cy=cardYear(card);
   const prev=timeline[idx-1],next=timeline[idx];
   const valid=(!prev||cy>=cardYear(prev))&&(!next||cy<=cardYear(next));
+  // The first card of a run lands on an empty timeline and can't be wrong,
+  // so it says nothing about the player's knowledge
+  if(timeline.length>0) recordCardResult(card, valid);
   if(valid){
     // Interval scoring: bonus for duration (longer empires = harder to place precisely)
     SFX.play('correct');
