@@ -295,7 +295,7 @@
   #hc-clue{font-size:.52rem;color:#a0c8a0;margin-top:5px;font-style:italic;font-family:'Inter',sans-serif;border-top:1px solid rgba(111,207,151,.15);padding-top:5px;display:none;line-height:1.5}
   #hc-clue.show{display:block}
   /* streak bonus toast */
-  #streak-toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-8px);background:rgba(74,140,92,.18);border:1px solid #6fcf97;border-radius:24px;padding:6px 16px;font-family:'Inter',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#6fcf97;white-space:nowrap;z-index:650;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+  #streak-toast{position:fixed;top:100px;left:50%;transform:translateX(-50%) translateY(-8px);background:rgba(74,140,92,.18);border:1px solid #6fcf97;border-radius:24px;padding:6px 16px;font-family:'Inter',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#6fcf97;white-space:nowrap;z-index:650;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
   #streak-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   /* skip btn color accent */
   #skip-btn:not(:disabled):hover{border-color:rgba(184,64,64,.5);background:rgba(184,64,64,.06)}
@@ -828,6 +828,7 @@
   #tp-toast{position:fixed;top:68px;left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(10,9,8,.96);border:1.5px solid #c9a84c;border-radius:10px;padding:9px 16px;z-index:950;display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.6)}
   body.light #tp-toast{background:#1e293b;border-color:#3b82f6;box-shadow:0 4px 20px rgba(15,23,42,.35)}
   #tp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  #tp-toast.in-game{top:100px} /* below the #feedback pill, which shows at the same moment */
   #tp-toast-icon{font-size:1.3rem;line-height:1}
   #tp-toast-txt{font-family:Inter,sans-serif;font-size:.76rem;color:#c9a84c;font-weight:700}
   body.light #tp-toast-txt{color:#93c5fd}

@@ -598,13 +598,12 @@ function checkTrophies()
 - Awards new trophies: saves timestamp, queues toast notifications
 - Toast queue: shows each trophy one at a time with 3.2s display + 0.5s gap
 
-**Streak Trophy Mid-Game**:
+**Mid-Game Check**:
 ```javascript
-function checkStreakTrophy()
+checkTrophies(true)
 ```
-- Called during gameplay when streak reaches 50
-- Awards "On Fire" trophy immediately with toast
-- Allows player to see milestone achievement in real-time
+- Called after every correct card, so run-based trophies (collections, paradoxes, score, streak tiers) unlock the moment they are won
+- Skips END_ONLY_TROPHY_SPECIALS (compendium, full deck, daily streaks), which are judged at game end
 
 **Historical Trivia**:
 - Each trophy unlock reveals a detailed historical fact
@@ -779,16 +778,15 @@ Game ends
     → Check if already earned (skip if so)
     → Evaluate condition:
       - Card combo: Check all needed cards in timeline
-      - Special: Call specific check (score ≥ 500, streak ≥ 50, etc.)
+      - Special: Call specific check (score ≥ def.goal, streak ≥ def.goal, etc.)
     → If earned:
       → Save to earnedTrophies[id] = ISO timestamp
       → Add to newlyEarned array
   → If any new trophies:
     → saveTrophies() to localStorage
-    → _showTrophyToastQueue(newlyEarned, 0)
-      → Show first trophy toast (icon + name)
-      → After 3.2s, hide and show next
-      → Repeat until all shown
+    → queueNotice({trophy: def}) for each
+      → Shown one at a time in the shared notice queue
+      → 3.2s each, then the next
 ```
 
 ---
@@ -994,22 +992,14 @@ var discoveredCards = new Set();  // Card names (English keys)
 - Progress counter: "X / Y discovered"
 - Trophy unlocked at 100% discovery
 
-### Trophy Toast Queue
+### Notice Queue (trophy + streak toasts)
 ```javascript
-function _showTrophyToastQueue(list, idx) {
-  if (idx >= list.length) return;
-  var def = list[idx];
-  // Show toast with icon + name
-  setTimeout(() => {
-    // Hide toast
-    setTimeout(() => _showTrophyToastQueue(list, idx + 1), 500);
-  }, 3200);
-}
+queueNotice({ trophy: def })   // trophy unlock
+queueNotice({ streak: true })  // streak reward (showStreakToast)
 ```
-- Recursive function with delays
-- Shows each trophy sequentially (not overlapping)
-- 3.2s display + 0.5s gap between trophies
-- Prevents notification spam when multiple trophies earned
+- One shared queue in ui.js: notices show one at a time, never overlapping
+- Trophy: 3.2s, streak reward: 2.6s, 0.45s gap for the fade-out
+- In-game the toasts sit at top:100px, just below the #feedback pill that fires on the same card; outside a run the trophy toast keeps its original position
 
 ### Calendar Picker (Month/Year Selection)
 - Drum-roll style scrolling columns

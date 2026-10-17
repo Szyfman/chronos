@@ -227,13 +227,22 @@ function saveTrophies(){
   try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
 }
 
-function checkTrophies(){
+// Specials that can only be judged once the run is over: the Compendium is
+// saved at game end, an empty deck only counts as a finished run, and the
+// daily streak only grows when a daily attempt is recorded.
+var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40'];
+
+/* Runs at game end and, with midGame=true, after every correct card — so a
+   trophy that depends only on the current run pops up the moment it is won.
+   Streaks must be caught mid-game anyway: a miss resets them before the end. */
+function checkTrophies(midGame){
   var placed = timeline.map(function(c){ return c.name; });
   var intervals_placed = timeline.filter(function(c){ return c.startYear !== undefined; }).length;
   var newlyEarned = [];
 
   TROPHY_DEFS.forEach(function(def){
     if(earnedTrophies[def.id]) return;
+    if(midGame && END_ONLY_TROPHY_SPECIALS.indexOf(def.special) >= 0) return;
     var earned = false;
     if(def.special === 'compendium_complete'){
       earned = discoveredCards.size >= (CARDS.length + INTERVALS.length);
@@ -269,20 +278,8 @@ function checkTrophies(){
 
   if(newlyEarned.length > 0){
     saveTrophies();
-    _showTrophyToastQueue(newlyEarned, 0);
+    newlyEarned.forEach(function(def){ queueNotice({ trophy: def }); });
   }
-}
-
-// Streak tiers are also checked mid-game, right after each correct card,
-// since the streak is gone by the time the run ends
-function checkStreakTrophy(){
-  var newlyEarned = TROPHY_DEFS.filter(function(def){
-    return def.special === 'streak' && !earnedTrophies[def.id] && streak >= def.goal;
-  });
-  if(!newlyEarned.length) return;
-  newlyEarned.forEach(function(def){ earnedTrophies[def.id] = new Date().toISOString(); });
-  saveTrophies();
-  _showTrophyToastQueue(newlyEarned, 0);
 }
 
 
@@ -504,7 +501,7 @@ function attemptPlacement(idx){
     const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
     timeline.splice(idx,0,card);score+=Math.round(basePoints*streakMultiplier(streak));streak++;currentCard=null;
     if(streak>0&&streak%20===0){hints++;renderSideBtns();showStreakToast();}
-    checkStreakTrophy();
+    checkTrophies(true);
     renderTimeline();
     document.getElementById('score-val').textContent=score;
     document.getElementById('streak-val').textContent=streak;

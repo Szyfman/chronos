@@ -200,14 +200,41 @@ function renderSideBtns(){
   const hl=document.getElementById('hint-lbl');if(hl)hl.textContent=lang==='pt'?'Pista':'Hint';
   const sl=document.getElementById('skip-lbl');if(sl)sl.textContent=lang==='pt'?'Pular':'Skip';
 }
-let _toastTimer=null;
-function showStreakToast(){
-  const el=document.getElementById('streak-toast');
-  el.textContent=t('skip_earned');
-  el.classList.add('show');
-  if(_toastTimer)clearTimeout(_toastTimer);
-  _toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+/* ── NOTICE QUEUE ──────────────────────────────────────────────────────────
+   Streak rewards and trophy unlocks share one queue and show one at a time,
+   so they never stack on top of each other. In-game they sit just below the
+   correct/wrong feedback pill (.in-game), which fires at the same moment.
+   queueNotice({streak:true}) | queueNotice({trophy:def}) */
+var _noticeQueue=[], _noticeBusy=false;
+function queueNotice(notice){
+  _noticeQueue.push(notice);
+  if(!_noticeBusy) _nextNotice();
 }
+function _nextNotice(){
+  var notice=_noticeQueue.shift();
+  if(!notice){ _noticeBusy=false; return; }
+  _noticeBusy=true;
+  var el, ms;
+  if(notice.trophy){
+    var def=notice.trophy, tier=def.tier&&TROPHY_TIERS[def.tier];
+    el=document.getElementById('tp-toast');
+    document.getElementById('tp-toast-icon').textContent=def.icon;
+    var nm=(lang==='pt'?def.name_pt:def.name)+(tier?' ('+(lang==='pt'?tier.name_pt:tier.name)+')':'');
+    document.getElementById('tp-toast-txt').textContent=(lang==='pt'?'Troféu: ':'Trophy: ')+nm+' 🏆';
+    el.classList.toggle('in-game', gameActive);
+    ms=3200;
+  } else {
+    el=document.getElementById('streak-toast');
+    el.textContent=t('skip_earned');
+    ms=2600;
+  }
+  el.classList.add('show');
+  setTimeout(function(){
+    el.classList.remove('show');
+    setTimeout(_nextNotice, 450); // let the fade-out finish before the next one
+  }, ms);
+}
+function showStreakToast(){ queueNotice({ streak:true }); }
 
 // ── DRAG ──────────────────────────────────────────────────────────────────
 var ghost; // assigned in DOMContentLoaded below
@@ -1192,20 +1219,7 @@ function toggleTheme(){
   if(typeof updateSettingsUI==='function')updateSettingsUI();
 }
 // ── TROPHY SYSTEM ─────────────────────────────────────────────────────────
-
-function _showTrophyToastQueue(list, idx){
-  if(idx >= list.length) return;
-  var def = list[idx];
-  var toast = document.getElementById('tp-toast');
-  document.getElementById('tp-toast-icon').textContent = def.icon;
-  var nm = lang === 'pt' ? def.name_pt : def.name;
-  document.getElementById('tp-toast-txt').textContent = (lang==='pt' ? 'Troféu: ' : 'Trophy: ') + nm + ' 🏆';
-  toast.classList.add('show');
-  setTimeout(function(){
-    toast.classList.remove('show');
-    setTimeout(function(){ _showTrophyToastQueue(list, idx+1); }, 500);
-  }, 3200);
-}
+// Unlock toasts go through queueNotice (see NOTICE QUEUE above)
 
 function openTrophies(tab){
   document.getElementById('tp-title-txt').textContent = lang==='pt' ? '🏆 Troféus' : '🏆 Trophies';
