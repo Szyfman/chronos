@@ -243,6 +243,7 @@ function checkTrophies(midGame){
 
   TROPHY_DEFS.forEach(function(def){
     if(earnedTrophies[def.id]) return;
+    if(!trophyAllowedInMode(def)) return;
     if(midGame && END_ONLY_TROPHY_SPECIALS.indexOf(def.special) >= 0) return;
     var earned = false;
     if(def.special === 'compendium_complete'){
@@ -311,6 +312,167 @@ function buildPool(mode, eraFilter){
     if(pool.length<4) pool=[...allCards];
   }
   return pool;
+}
+
+// ── REVIEW DECK ───────────────────────────────────────────────────────────
+/* Builds the Review deck from cardStats. Full design and the reasons behind
+   each rule: documentation/REVIEW_MODE.md. In short: weak cards become
+   targets, grouped into up to 4 "regions" (contiguous stretches of the mode's
+   timeline) that prefer the first region's era band; every target keeps the
+   cards right before and after it; the rest of each region is drawn at random. */
+const REVIEW_MIN_LEVEL=5;
+const REVIEW_MODES=['classic','empires','characters'];
+const REVIEW_DECK={
+  min:18, max:30,            // deck size
+  regionMin:6, regionMax:12, // drawn size of each region (may grow past max to reach `min`)
+  regionsMax:4,
+  join:5,                    // a weak card this many positions from a region joins it
+  apart:3,                   // a new region starts at least this far from the others
+  cooldown:[0.5,0.75]        // weight of targets from the last / second-to-last review
+};
+// Era band (index into ERA_FILTER_KEYS) of each game era
+const ERA_BAND={};
+ERA_FILTER_KEYS.forEach(function(k,i){ ERA_FILTER_MAP[k].forEach(function(e){ ERA_BAND[e]=i; }); });
+
+// Weak = missed at least once and not mastered yet (same rule as era mastery)
+function _isWeakCard(c){
+  var s=cardStats[c.name];
+  return !!s&&(s.miss|0)>0&&!isCardMastered(s);
+}
+function reviewWeakCards(mode, ef){
+  var allowed=allowedErasFor(ef);
+  return buildPool(mode,[]).filter(function(c){ return (!allowed||allowed.indexOf(c.era)>=0)&&_isWeakCard(c); });
+}
+// { ok } or { ok:false, reason:'level'|'mode'|'empty' } — checked when the
+// player picks Review and again when the run starts (mode/filter may change)
+function reviewAvailability(mode, ef){
+  if(playerLevelInfo().level<REVIEW_MIN_LEVEL) return { ok:false, reason:'level' };
+  if(REVIEW_MODES.indexOf(mode)<0) return { ok:false, reason:'mode' };
+  if(!reviewWeakCards(mode, ef).length) return { ok:false, reason:'empty' };
+  return { ok:true };
+}
+
+// Returns { deck, targets } (targets = card names), or null when there is no
+// weak card. `rand` is injectable for tests.
+function buildReviewDeck(mode, ef, rand){
+  rand=rand||Math.random;
+  var R=REVIEW_DECK;
+  var allowed=allowedErasFor(ef);
+  var inF=function(c){ return !allowed||allowed.indexOf(c.era)>=0; };
+  // The mode's whole timeline: neighbours may come from outside the filter
+  var S=buildPool(mode,[]).slice().sort(function(a,b){ return cardYear(a)-cardYear(b)||(a.name<b.name?-1:a.name>b.name?1:0); });
+  var pos={}; S.forEach(function(c,i){ pos[c.name]=i; });
+  var weak=S.filter(function(c){ return inF(c)&&_isWeakCard(c); });
+  if(!weak.length) return null;
+  var recent=reviewHistory.map(function(list){ return list||[]; });
+  var weight=function(c){
+    var s=cardStats[c.name], w=Math.max(1,(s.miss|0)-(s.ok|0)+1);
+    R.cooldown.forEach(function(f,k){ if(recent[k]&&recent[k].indexOf(c.name)>=0) w*=f; });
+    return w;
+  };
+  var pick=function(list){
+    var tot=list.reduce(function(n,c){ return n+weight(c); },0), r=rand()*tot;
+    for(var i=0;i<list.length;i++){ r-=weight(list[i]); if(r<=0) return list[i]; }
+    return list[list.length-1];
+  };
+
+  var taken=[], count=0, regions=[], isTarget={};
+  // Nearest free card beyond a region's edge on side d (−1 / +1): skips cards
+  // outside the filter unless `pierce`; −1 if the timeline ends there or
+  // another region is in the way
+  var nextIdx=function(r,d,pierce){
+    for(var i=(d<0?r.lo:r.hi)+d; i>=0&&i<S.length; i+=d){
+      if(taken[i]) return -1;
+      if(pierce||inF(S[i])) return i;
+    }
+    return -1;
+  };
+  var take=function(r,i){ taken[i]=true; count++; r.n++; if(i<r.lo) r.lo=i; if(i>r.hi) r.hi=i; };
+  // One growth step: the preferred side, else the opposite one — a region
+  // never shrinks and never asks for a card that doesn't exist. When piercing,
+  // the nearer side wins.
+  var grow=function(r,side,pierce){
+    var a=nextIdx(r,side,pierce), b=nextIdx(r,-side,pierce);
+    if(pierce&&a>=0&&b>=0&&Math.abs(b-(side<0?r.hi:r.lo))<Math.abs(a-(side<0?r.lo:r.hi))) a=b;
+    var i=a>=0?a:b;
+    if(i<0) return false;
+    take(r,i); return true;
+  };
+  var randSide=function(){ return rand()<0.5?-1:1; };
+  var bandOf=function(c){ return ERA_BAND[c.era]; };
+  var distTo=function(i){ return regions.reduce(function(d,r){ return Math.min(d, i<r.lo?r.lo-i:(i>r.hi?i-r.hi:0)); },Infinity); };
+
+  while(regions.length<R.regionsMax&&count+R.regionMin<=R.max){
+    var cand=weak.filter(function(c){ var i=pos[c.name]; return !taken[i]&&distTo(i)>=R.apart; });
+    if(!cand.length) break;
+    // Strong preference: same era band as the first region, then the adjacent ones
+    if(regions.length){
+      var b0=bandOf(regions[0].seed);
+      var same=cand.filter(function(c){ return bandOf(c)===b0; });
+      var near=cand.filter(function(c){ return Math.abs(bandOf(c)-b0)===1; });
+      cand=same.length?same:(near.length?near:cand);
+    }
+    var seed=pick(cand), p=pos[seed.name];
+    var room=R.max-count;
+    var r={ seed:seed, lo:p, hi:p, n:0, goal:Math.min(room, R.regionMin+Math.floor(rand()*(R.regionMax-R.regionMin+1))) };
+    regions.push(r);
+    take(r,p); isTarget[seed.name]=true;
+    // Fixed: the target's own boundary cards
+    grow(r,-1,false); grow(r,1,false);
+    // Weak cards nearby join as extra targets (nearest first), with their
+    // boundary cards, while the region stays within its goal
+    for(;;){
+      var best=null, bestD=Infinity;
+      weak.forEach(function(c){
+        var i=pos[c.name];
+        if(isTarget[c.name]||(taken[i]&&(i<r.lo||i>r.hi))) return;
+        var d=i<r.lo?r.lo-i:(i>r.hi?i-r.hi:0);
+        if(d<=R.join&&d<bestD){ best=c; bestD=d; }
+      });
+      if(!best) break;
+      var bi=pos[best.name], lo=r.lo, hi=r.hi;
+      var prevIn=bi-1; while(prevIn>=0&&!inF(S[prevIn])) prevIn--;
+      var nextIn=bi+1; while(nextIn<S.length&&!inF(S[nextIn])) nextIn++;
+      lo=Math.min(lo, prevIn>=0?prevIn:bi); hi=Math.max(hi, nextIn<S.length?nextIn:bi);
+      var add=[], blocked=false;
+      for(var k=lo;k<=hi;k++){
+        if(k>=r.lo&&k<=r.hi) continue;
+        if(taken[k]){ blocked=true; break; }
+        if(inF(S[k])) add.push(k);
+      }
+      if(blocked||r.n+add.length>Math.max(r.goal, r.n)) break;   // stop at the first one that doesn't fit
+      add.forEach(function(k){ take(r,k); });
+      isTarget[best.name]=true;
+    }
+    // Variable part: pad to the drawn size, growing towards random sides
+    while(r.n<r.goal&&grow(r,randSide(),false)){}
+  }
+  // Below the minimum (few weak cards): widen every region round-robin, past
+  // regionMax if needed; pierce the filter silently only as a last resort
+  [false,true].forEach(function(pierce){
+    var grew=true;
+    while(count<R.min&&grew){
+      grew=false;
+      regions.forEach(function(r){ if(count<R.min&&grow(r,randSide(),pierce)) grew=true; });
+    }
+  });
+
+  var deck=[], targets=[];
+  for(var i=0;i<S.length;i++) if(taken[i]){ deck.push(S[i]); if(isTarget[S[i].name]) targets.push(S[i].name); }
+  shuffle(deck);
+  // drawCard() pops from the end: the first card lands on an empty timeline
+  // and can't be missed, so it must never be a target
+  var last=deck.length-1;
+  if(last>0&&isTarget[deck[last].name]){
+    for(var j=last-1;j>=0;j--) if(!isTarget[deck[j].name]){ var tmp=deck[j]; deck[j]=deck[last]; deck[last]=tmp; break; }
+  }
+  return { deck:deck, targets:targets };
+}
+
+// Remembers this review's targets for the cooldown (newest first, last two)
+function _rememberReviewTargets(targets){
+  reviewHistory=[targets.slice()].concat(reviewHistory.slice(0,1));
+  saveReviewHistory();
 }
 
 function initGame(){
@@ -386,6 +548,13 @@ function initGame(){
   // ─────────────────────────────────────────────────────────────────────
 
   deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
+  // Review swaps in its own deck. startGame() already checked it can be built;
+  // if it somehow can't, the run falls back to Lives rather than a full deck.
+  if(playMode==='review'){
+    var _rd=buildReviewDeck(gameMode,eraFilter);
+    if(_rd){ deck=_rd.deck; _rememberReviewTargets(_rd.targets); }
+    else setPlayMode('lives');
+  }
   var _rules=playModeRules();
   lives=_rules.lives;hints=_rules.hints;skip=_rules.skip;
   // Daily challenge overrides
@@ -481,13 +650,22 @@ function useSkip(){
 // ── PLAY MODE RULES ───────────────────────────────────────────────────────
 /* Per play mode (playMode in state.js): starting lives / hints / skips, the
    share of the final score that becomes XP, and which trophies can unlock
-   ('all' | 'none'). Infinity = unlimited; a card still has only 3 clues.
+   ('all' | 'none' | 'skill' = Skill section only, minus `excludeTrophies`).
+   Infinity = unlimited; a card still has only 3 clues.
    The daily challenge overrides hints/skips to 0 in initGame. */
 const PLAY_MODE_RULES={
-  lives:{ lives:3, hints:3,        skip:1,        xp:1, trophies:'all'  },
-  free: { lives:3, hints:Infinity, skip:Infinity, xp:0, trophies:'none' }
+  lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all'  },
+  // A ~18–30 card deck would make emptying it (The End of History) trivial
+  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'skill', excludeTrophies:['time_lord'] },
+  free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none' }
 };
 function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }
+function trophyAllowedInMode(def){
+  var r=playModeRules();
+  if(r.trophies==='none') return false;
+  if(r.trophies==='skill') return def.section==='skill'&&(r.excludeTrophies||[]).indexOf(def.id)<0;
+  return true;
+}
 
 // ── GAME LOGIC ────────────────────────────────────────────────────────────
 /* Streak multiplier: grows ×STREAK_MULT_GROWTH for every full block of
@@ -581,7 +759,7 @@ function endGame(won){
   }
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
-  var _newRecord=recordModeResult(_recordMode, score, timeline.length, livesMode);
+  var _newRecord=recordModeResult(_recordMode, score, timeline.length, playMode==='lives');
   // Record the daily attempt (win or loss) — also clears _isDailyChallenge
   if(_isDailyChallenge){ _saveDailyResult(won); }
   _pendingGameRecord = buildGameRecord(won);
@@ -626,6 +804,7 @@ function _renderGameoverXp(animate){
   var html=playModeRules().xp>0
     ?'<div class="go-xp-gain">'+t('go_xp_gain').replace('{n}',formatXp(r.gained))+'</div>'
     :'<div class="go-xp-note">'+t('go_xp_free')+'</div>';
+  if(playModeRules().xp>0&&playModeRules().xp<1) html+='<div class="go-xp-note">'+t('go_xp_review')+'</div>';
   html+='<div class="pf-level-row"><span class="pf-level-lbl">'+t('pf_level').replace('{n}',a.level)+'</span>';
   html+='<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',formatXp(a.xp)).replace('{max}',formatXp(a.xpNeeded))+'</span></div>';
   html+='<div class="pf-xp-bar"><div class="pf-xp-fill" id="go-xp-fill" style="width:'+(animate?(leveled?0:pct(r.before)):pct(a))+'%"></div></div>';
@@ -1067,7 +1246,7 @@ function entryPlayMode(entry){
   return (entry&&entry.livesMode===false)?'free':'lives';
 }
 function modeBadgeLabel(mode,pm){
-  const lives=(pm==='free')?(' · '+t('free_lbl')):'';
+  const lives=(pm==='free')?(' · '+t('free_lbl')):(pm==='review'?(' · '+t('lo_review')):'');
   if(mode==='empires')return t('empires_lbl')+lives;
   if(mode==='abrahamic')return t('biblical_lbl')+lives;
   if(mode==='roman')return t('mc_roman_title')+lives;

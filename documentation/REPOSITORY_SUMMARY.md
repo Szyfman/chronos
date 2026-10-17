@@ -805,6 +805,7 @@ Game ends
 - `chronos_discovered`: JSON array of card names seen
 - `chronos_card_stats`: JSON object `{ "<card name>": { ok, miss, last } }` — per-card placement results (`last` = 'YYYY-MM-DD'). Written by `recordCardResult` on every placement except the first card of a run; skips don't count. Feeds era mastery and the Review deck
 - `chronos_tp_open`: JSON array of trophy section ids the player left open
+- `chronos_review_history`: JSON `[[names], [names]]` — target cards of the last two Review decks, newest first (cooldown, see REVIEW_MODE.md)
 - `chronos_mode_records`: JSON object `{ "<mode>": { best, bestDate, mostPlaced, runs } }` — personal bests per mode (`daily` kept apart from `classic`). Written by `recordModeResult` at game end, lives runs only; independent of `chronos_history`, which only holds saved runs
 - `chronos_trophies`: JSON object of trophy IDs → unlock timestamps
 - `chronos_placed_trivia`: 'true' or 'false' (show fact panel on placement)

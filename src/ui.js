@@ -19,10 +19,23 @@ function selectLives(on){
   menuPlayMode=on?'lives':'free';
   syncPlayModeButtons();
 }
-// Main-menu play mode buttons follow menuPlayMode
+// Review is picked only when a deck can be built for the current mode/filter;
+// otherwise a brief notice says why and the choice stays as it was
+function selectReview(){
+  var av=reviewAvailability(gameMode, eraSelection);
+  if(!av.ok){ _reviewBlockedNotice(av.reason); return; }
+  menuPlayMode='review';
+  syncPlayModeButtons();
+}
+function _reviewBlockedNotice(reason){
+  queueNotice({ text: reason==='level' ? t('review_locked').replace('{n}',REVIEW_MIN_LEVEL) : t('review_empty') });
+}
+// Main-menu play mode buttons follow menuPlayMode; Review shows a lock below its level
 function syncPlayModeButtons(){
-  document.getElementById('lo-lives').classList.toggle('active',menuPlayMode!=='free');
+  document.getElementById('lo-lives').classList.toggle('active',menuPlayMode==='lives');
+  document.getElementById('lo-review').classList.toggle('active',menuPlayMode==='review');
   document.getElementById('lo-free').classList.toggle('active',menuPlayMode==='free');
+  document.getElementById('lo-review').classList.toggle('locked',playerLevelInfo().level<REVIEW_MIN_LEVEL);
 }
 // Era chips are multi-select: each era toggles on/off. An empty selection
 // means every era is in the deck.
@@ -36,7 +49,13 @@ function syncEraChips(){
     c.classList.toggle('active', eraSelection.includes(c.dataset.era));
   });
 }
-function startGame(){ _isDailyChallenge=false; _isRecoverRun=false;
+function startGame(){
+  // Mode or era filter may have changed since Review was picked
+  if(menuPlayMode==='review'){
+    var av=reviewAvailability(gameMode, eraSelection);
+    if(!av.ok){ _reviewBlockedNotice(av.reason); return; }
+  }
+  _isDailyChallenge=false; _isRecoverRun=false;
   setPlayMode(menuPlayMode);
   eraFilter=eraSelection.slice();
   var _hBtnR=document.getElementById('hint-btn');
@@ -61,6 +80,7 @@ function showIntro(){
   document.getElementById('intro').classList.add('show');
   _lastDailyResult=null; _hideDailyGameoverBtns();
   updateIntroHistBtn();
+  syncPlayModeButtons();   // the level may have unlocked Review since last time
 }
 function restartGame(){
   _voluntaryEnd=false; _pendingGameRecord=null;
@@ -106,7 +126,7 @@ function drawCard(){
   document.getElementById('hc-era').textContent='';
   document.getElementById('hc-hint').textContent=cHint(c);
   document.getElementById('hc-bar').style.background='rgba(201,168,76,0.25)';
-  document.getElementById('hand-card').className=gameMode==='empires'?'empires-border':(!livesMode?'free-border':'');
+  document.getElementById('hand-card').className=gameMode==='empires'?'empires-border':(playMode==='free'?'free-border':(playMode==='review'?'review-border':''));
   // Interval-specific fields
   const spanEl=document.getElementById('hc-span');
   const regionEl=document.getElementById('hc-region');
@@ -209,14 +229,18 @@ function renderSideBtns(){
    Streak rewards and trophy unlocks share one queue and show one at a time,
    so they never stack on top of each other. In-game they sit just below the
    correct/wrong feedback pill (.in-game), which fires at the same moment.
-   queueNotice({streak:true}) | queueNotice({trophy:def}) */
-var _noticeQueue=[], _noticeBusy=false;
+   queueNotice({streak:true}) | queueNotice({trophy:def}) | queueNotice({text:'…'})
+   A text notice uses the streak pill and lasts as long; repeated taps don't
+   pile up copies of the same text. */
+var _noticeQueue=[], _noticeBusy=false, _noticeShowing=null;
 function queueNotice(notice){
+  if(notice.text&&((_noticeShowing&&_noticeShowing.text===notice.text)||_noticeQueue.some(function(n){ return n.text===notice.text; }))) return;
   _noticeQueue.push(notice);
   if(!_noticeBusy) _nextNotice();
 }
 function _nextNotice(){
   var notice=_noticeQueue.shift();
+  _noticeShowing=notice||null;
   if(!notice){ _noticeBusy=false; return; }
   _noticeBusy=true;
   var el, ms;
@@ -230,7 +254,7 @@ function _nextNotice(){
     ms=3200;
   } else {
     el=document.getElementById('streak-toast');
-    el.textContent=t('skip_earned');
+    el.textContent=notice.text||t('skip_earned');
     ms=2600;
   }
   el.classList.add('show');

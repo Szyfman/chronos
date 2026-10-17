@@ -53,5 +53,10 @@ Each growth step, in order of preference:
 - Repeating a weak card is intended until it is mastered: the cooldown only stops the same review from repeating.
 - Card order inside the deck is shuffled as in any run.
 
+### Implementation
+- `buildReviewDeck(mode, eraFilter, rand?)` in game.js (section REVIEW DECK) returns `{ deck, targets }` or `null`; its numbers are in `REVIEW_DECK`. `reviewAvailability(mode, eraFilter)` gives the reason a Review can't start (`level` / `mode` / `empty`) and is checked both when Review is picked (`selectReview`) and when the run starts (`startGame`), since the mode or filter may change in between.
+- Targets of the last two reviews are kept in `chronos_review_history` (`reviewHistory` in state.js) for the cooldown.
+- Trophy filtering per mode: `trophyAllowedInMode(def)`; mode records only count `playMode === 'lives'`.
+
 ### First card
 The first card of a run lands on an empty timeline and can't be wrong (it isn't recorded in card stats), so it is **never a target**: the deck is arranged so the first card drawn is a boundary or context card.

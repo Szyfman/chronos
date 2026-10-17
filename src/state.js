@@ -85,3 +85,15 @@ try {
 function saveModeRecords() {
   try { localStorage.setItem('chronos_mode_records', JSON.stringify(modeRecords)); } catch(e) {}
 }
+
+// Target cards of the last two Review decks, newest first: [[names], [names]].
+// Lowers their weight next time so reviews don't repeat (game.js, REVIEW DECK).
+var reviewHistory = [];
+try {
+  var _rh = JSON.parse(localStorage.getItem('chronos_review_history') || '[]');
+  if (Array.isArray(_rh)) reviewHistory = _rh.filter(Array.isArray).slice(0, 2);
+} catch(e) {}
+
+function saveReviewHistory() {
+  try { localStorage.setItem('chronos_review_history', JSON.stringify(reviewHistory)); } catch(e) {}
+}
