@@ -214,6 +214,14 @@ function _saveDailyResult(won){
 
 var earnedTrophies = {};
 try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=JSON.parse(_et); } catch(e) {}
+// On Fire (streak 50) became the gold tier of streak 15/30/50: whoever already
+// has it gets the two lower tiers silently, dated the same day.
+if(earnedTrophies['on_fire']){
+  ['streak_15','streak_30'].forEach(function(id){
+    if(!earnedTrophies[id]) earnedTrophies[id] = earnedTrophies['on_fire'];
+  });
+  try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
+}
 
 function saveTrophies(){
   try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
@@ -242,10 +250,10 @@ function checkTrophies(){
       earned = intervals_placed >= 10;
     } else if(def.special === 'full_deck'){
       earned = deck.length === 0 && gameActive === false && placed.length > 0;
-    } else if(def.special === 'score_500'){
-      earned = score >= 500;
-    } else if(def.special === 'streak_50'){
-      earned = streak >= 50;
+    } else if(def.special === 'score'){
+      earned = score >= def.goal;
+    } else if(def.special === 'streak'){
+      earned = streak >= def.goal;
     } else if(def.special === 'daily_streak_7'){
       earned = _calcStreak().longest >= 7;
     } else if(def.special === 'daily_streak_40'){
@@ -265,13 +273,16 @@ function checkTrophies(){
   }
 }
 
-// Also check streak trophy mid-game when streak hits 10
+// Streak tiers are also checked mid-game, right after each correct card,
+// since the streak is gone by the time the run ends
 function checkStreakTrophy(){
-  if(streak >= 50 && !earnedTrophies['on_fire']){
-    earnedTrophies['on_fire'] = new Date().toISOString();
-    saveTrophies();
-    _showTrophyToastQueue([TROPHY_DEFS.find(function(d){ return d.id==='on_fire'; })], 0);
-  }
+  var newlyEarned = TROPHY_DEFS.filter(function(def){
+    return def.special === 'streak' && !earnedTrophies[def.id] && streak >= def.goal;
+  });
+  if(!newlyEarned.length) return;
+  newlyEarned.forEach(function(def){ earnedTrophies[def.id] = new Date().toISOString(); });
+  saveTrophies();
+  _showTrophyToastQueue(newlyEarned, 0);
 }
 
 

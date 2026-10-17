@@ -729,7 +729,7 @@
   #tp-close:hover{border-color:#c9a84c;color:#c9a84c}
   body.light #tp-close:hover{border-color:#1d4ed8;color:#1d4ed8}
   body.light #tp-close{color:#1e40af;border-color:#bfdbfe}
-  #tp-list{flex:1;overflow-y:auto;padding:12px 14px 32px;scrollbar-width:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start;grid-auto-rows:auto}
+  #tp-list{flex:1;overflow-y:auto;padding:12px 14px 32px;scrollbar-width:none;display:flex;flex-direction:column;gap:10px}
   #tp-list::-webkit-scrollbar{display:none}
   #tp-tabs{display:flex;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0}
   body.light #tp-tabs{border-bottom-color:#e2e8f0}
@@ -802,6 +802,28 @@
   body.light .tcard-date{color:#0f172a}
   .tcard-lock{position:absolute;top:7px;right:8px;font-size:.6rem;opacity:.25}
   .tc.earned .tcard-lock{display:none}
+  /* Trophy tiers (bronze/silver/gold levels of the same feat) */
+  .tcard-tier{font:700 .5rem/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:20px;border:1px solid currentColor;opacity:.45}
+  .tc.earned .tcard-tier{opacity:1}
+  .tcard-tier.tier-bronze{color:#c08457}
+  .tcard-tier.tier-silver{color:#b8c0cc}
+  .tcard-tier.tier-gold{color:#e0b84a}
+  body.light .tcard-tier.tier-bronze{color:#9a5b2e}
+  body.light .tcard-tier.tier-silver{color:#64748b}
+  body.light .tcard-tier.tier-gold{color:#a16207}
+  /* Collapsible trophy sections */
+  .tp-sec{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+  .tp-sec-hd{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.18);border-radius:10px;color:#c9a84c;font:700 .74rem/1.2 Inter,sans-serif;letter-spacing:.04em;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+  .tp-sec-hd:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.35)}
+  .tp-sec-arrow{display:inline-block;font-size:.7rem;transition:transform .2s}
+  .tp-sec.open .tp-sec-arrow{transform:rotate(90deg)}
+  .tp-sec-name{flex:1}
+  .tp-sec-cnt{font-weight:600;font-size:.66rem;color:rgba(201,168,76,.6)}
+  .tp-sec-grid{display:none;grid-template-columns:1fr 1fr;gap:10px}
+  .tp-sec.open .tp-sec-grid{display:grid}
+  body.light .tp-sec-hd{background:#ffffff;border-color:#cbd5e1;color:#1d4ed8}
+  body.light .tp-sec-hd:hover{background:#eff6ff;border-color:#1d4ed8}
+  body.light .tp-sec-cnt{color:#64748b}
   /* Trophy unlock toast */
   #tp-toast{position:fixed;top:68px;left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(10,9,8,.96);border:1.5px solid #c9a84c;border-radius:10px;padding:9px 16px;z-index:950;display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.6)}
   body.light #tp-toast{background:#1e293b;border-color:#3b82f6;box-shadow:0 4px 20px rgba(15,23,42,.35)}

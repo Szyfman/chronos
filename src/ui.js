@@ -1222,29 +1222,62 @@ function closeTrophies(){
   }
 }
 
+// Sections start closed; the ids the player opened are remembered here
+var _tpOpenSections = [];
+try { _tpOpenSections = JSON.parse(localStorage.getItem('chronos_tp_open') || '[]') || []; } catch(e) {}
+
+function toggleTpSection(id){
+  var i = _tpOpenSections.indexOf(id);
+  if(i >= 0) _tpOpenSections.splice(i, 1); else _tpOpenSections.push(id);
+  try { localStorage.setItem('chronos_tp_open', JSON.stringify(_tpOpenSections)); } catch(e) {}
+  // Toggle in place instead of re-rendering, so the list keeps its scroll position
+  var sec = document.getElementById('tp-sec-'+id);
+  if(sec) sec.classList.toggle('open', i < 0);
+}
+
 function renderTrophies(){
-  var earnedCount = Object.keys(earnedTrophies).length;
+  var earnedCount = TROPHY_DEFS.filter(function(def){ return !!earnedTrophies[def.id]; }).length;
   var cntEl = document.getElementById('tp-cnt');
   if(cntEl) cntEl.textContent = earnedCount + ' / ' + TROPHY_DEFS.length + ' ' + t('tp_earned');
 
+  // A trophy with a missing or unknown section falls into the first one,
+  // so a typo in the data never hides it
+  var sectionIds = TROPHY_SECTIONS.map(function(s){ return s.id; });
   var html = '';
-  TROPHY_DEFS.forEach(function(def, i){
-    var isEarned = !!earnedTrophies[def.id];
-    var nm = lang==='pt' ? def.name_pt : def.name;
-    var desc = lang==='pt' ? def.desc_pt : def.desc;
-    var dateStr = '';
-    if(isEarned){
-      try{
-        var d = new Date(earnedTrophies[def.id]);
-        dateStr = d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short',year:'numeric'});
-      }catch(e){}
-    }
-    html += '<div class="tc'+(isEarned?' earned':'')+'" onclick="openTrophyModal('+i+')">';
-    html += '<div class="tcard-icon">'+def.icon+'</div>';
-    html += '<div class="tcard-name">'+nm+'</div>';
-    html += '<div class="tcard-desc">'+(isEarned ? (lang==='pt'?'✦ Toque para ver detalhes':'✦ Tap to view') : (lang==='pt'?'Toque para ver os requisitos':'Tap to see requirements'))+'</div>';
-    if(isEarned && dateStr) html += '<div class="tcard-date">'+dateStr+'</div>';
-    if(!isEarned) html += '<div class="tcard-lock">🔒</div>';
+  TROPHY_SECTIONS.forEach(function(sec){
+    var cards = '', total = 0, earned = 0;
+    TROPHY_DEFS.forEach(function(def, i){
+      var defSec = sectionIds.indexOf(def.section) >= 0 ? def.section : sectionIds[0];
+      if(defSec !== sec.id) return;
+      var isEarned = !!earnedTrophies[def.id];
+      total++; if(isEarned) earned++;
+      var nm = lang==='pt' ? def.name_pt : def.name;
+      var dateStr = '';
+      if(isEarned){
+        try{
+          var d = new Date(earnedTrophies[def.id]);
+          dateStr = d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short',year:'numeric'});
+        }catch(e){}
+      }
+      var tier = def.tier && TROPHY_TIERS[def.tier];
+      cards += '<div class="tc'+(isEarned?' earned':'')+'" onclick="openTrophyModal('+i+')">';
+      cards += '<div class="tcard-icon">'+def.icon+'</div>';
+      cards += '<div class="tcard-name">'+nm+'</div>';
+      if(tier) cards += '<div class="tcard-tier tier-'+def.tier+'">'+(lang==='pt'?tier.name_pt:tier.name)+'</div>';
+      cards += '<div class="tcard-desc">'+(isEarned ? (lang==='pt'?'✦ Toque para ver detalhes':'✦ Tap to view') : (lang==='pt'?'Toque para ver os requisitos':'Tap to see requirements'))+'</div>';
+      if(isEarned && dateStr) cards += '<div class="tcard-date">'+dateStr+'</div>';
+      if(!isEarned) cards += '<div class="tcard-lock">🔒</div>';
+      cards += '</div>';
+    });
+    if(!total) return;
+    var isOpen = _tpOpenSections.indexOf(sec.id) >= 0;
+    html += '<div class="tp-sec'+(isOpen?' open':'')+'" id="tp-sec-'+sec.id+'">';
+    html += '<button class="tp-sec-hd" onclick="toggleTpSection(\''+sec.id+'\')">';
+    html += '<span class="tp-sec-arrow">▸</span>';
+    html += '<span class="tp-sec-name">'+sec.icon+' '+(lang==='pt'?sec.name_pt:sec.name)+'</span>';
+    html += '<span class="tp-sec-cnt">'+earned+' / '+total+'</span>';
+    html += '</button>';
+    html += '<div class="tp-sec-grid">'+cards+'</div>';
     html += '</div>';
   });
   document.getElementById('tp-list').innerHTML = html;

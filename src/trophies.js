@@ -1,7 +1,25 @@
 
+// Sections group the trophy tab into collapsible blocks, in this order.
+// A section with no trophies is not shown.
+var TROPHY_SECTIONS = [
+  { id:'collections', icon:'🏛️', name:'Collections', name_pt:'Coleções' },
+  { id:'paradoxes',   icon:'🔀', name:'Paradoxes',   name_pt:'Paradoxos' },
+  { id:'skill',       icon:'⚔️', name:'Skill',       name_pt:'Habilidade' },
+  { id:'longterm',    icon:'📈', name:'Long Term',   name_pt:'Longo Prazo' },
+  { id:'secret',      icon:'❓', name:'Secret',      name_pt:'Secretos' }
+];
+
+// Optional `tier` on a trophy: levels of the same feat (e.g. streak 15/30/50)
+var TROPHY_TIERS = {
+  bronze: { name:'Bronze', name_pt:'Bronze' },
+  silver: { name:'Silver', name_pt:'Prata' },
+  gold:   { name:'Gold',   name_pt:'Ouro' }
+};
+
 var TROPHY_DEFS = [
   {
     id:'end_of_era',
+    section:'collections',
     icon:'🏅',
     name:'End of an Era',
     name_pt:'Fim de uma Era',
@@ -15,6 +33,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'pax_romana',
+    section:'collections',
     icon:'🏛️',
     name:'Pax Romana',
     name_pt:'Pax Romana',
@@ -28,6 +47,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'julio_claudian',
+    section:'collections',
     icon:'⚔️',
     name:'Julio-Claudian Dynasty',
     name_pt:'Dinastia Júlio-Cláudia',
@@ -41,6 +61,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'flavian',
+    section:'collections',
     icon:'🦅',
     name:'Flavian Dynasty',
     name_pt:'Dinastia Flaviana',
@@ -54,6 +75,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'five_good',
+    section:'collections',
     icon:'⭐',
     name:'Five Good Emperors',
     name_pt:'Cinco Bons Imperadores',
@@ -67,6 +89,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'king_of_kings',
+    section:'collections',
     icon:'👑',
     name:'King of Kings',
     name_pt:'Rei dos Reis',
@@ -80,6 +103,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'crusader',
+    section:'collections',
     icon:'✝️',
     name:'Crusader',
     name_pt:'Cruzado',
@@ -93,6 +117,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'silk_trader',
+    section:'collections',
     icon:'🧵',
     name:'Silk Trader',
     name_pt:'Mercador de Seda',
@@ -106,6 +131,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'renaissancist',
+    section:'collections',
     icon:'🎨',
     name:'Renaissancist',
     name_pt:'Renascentista',
@@ -119,6 +145,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'scientist',
+    section:'collections',
     icon:'🔬',
     name:'Man of Science',
     name_pt:'Homem da Ciencia',
@@ -132,6 +159,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'warlord',
+    section:'collections',
     icon:'🗡️',
     name:'Warlord',
     name_pt:'Senhor da Guerra',
@@ -146,6 +174,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'revolution',
+    section:'collections',
     icon:'✊',
     name:'Age of Revolutions',
     name_pt:'Era das Revoluções',
@@ -159,6 +188,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'world_war',
+    section:'collections',
     icon:'💣',
     name:'The Great Wars',
     name_pt:'As Grandes Guerras',
@@ -172,6 +202,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'cold_warrior',
+    section:'collections',
     icon:'☢️',
     name:'Cold Warrior',
     name_pt:'Guerreiro Frio',
@@ -185,6 +216,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'vienna',
+    section:'paradoxes',
     icon:'🎭',
     name:'Vienna Crossover',
     name_pt:'Cruzamento de Viena',
@@ -198,6 +230,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'rocket_man',
+    section:'collections',
     icon:'🚀',
     name:'Rocket Man',
     name_pt:'Homem Foguete',
@@ -211,6 +244,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'empire_builder',
+    section:'collections',
     icon:'🌍',
     name:'Empire Builder',
     name_pt:'Construtor de Impérios',
@@ -224,7 +258,106 @@ var TROPHY_DEFS = [
     special:'ten_intervals'
   },
   {
+    id:'school_of_athens',
+    section:'collections',
+    icon:'🦉',
+    name:'School of Athens',
+    name_pt:'Escola de Atenas',
+    desc:'Place Socrates, Plato, Aristotle & Alexander the Great in one run',
+    desc_pt:'Coloque Sócrates, Platão, Aristóteles e Alexandre, o Grande em uma única partida',
+    hint:'Place Socrates, Plato, Aristotle and Alexander the Great correctly in a single run — four generations of master and pupil.',
+    hint_pt:'Coloque Sócrates, Platão, Aristóteles e Alexandre, o Grande corretamente em uma única partida — quatro gerações de mestre e discípulo.',
+    trivia:'These four form an unbroken chain of teacher and student: Socrates taught Plato, Plato taught Aristotle at the Academy for some twenty years, and Aristotle tutored the young Alexander from the age of 13. "The School of Athens" is also the name of Raphael\'s great fresco in the Vatican, painted between 1509 and 1511. At its centre Plato points up towards the heavens while Aristotle holds his hand flat towards the earth — their two philosophies summed up in a single gesture. Many art historians believe Raphael gave Plato the face of Leonardo da Vinci.',
+    trivia_pt:'Os quatro formam uma corrente ininterrupta de mestre e discípulo: Sócrates ensinou Platão, Platão ensinou Aristóteles na Academia por cerca de vinte anos, e Aristóteles foi tutor do jovem Alexandre a partir dos 13 anos. "A Escola de Atenas" é também o nome do grande afresco de Rafael no Vaticano, pintado entre 1509 e 1511. No centro, Platão aponta para o céu enquanto Aristóteles estende a mão espalmada em direção à terra — suas duas filosofias resumidas em um único gesto. Muitos historiadores da arte acreditam que Rafael deu a Platão o rosto de Leonardo da Vinci.',
+    needed:['Socrates','Plato','Aristotle','Alexander the Great']
+  },
+  {
+    id:'terra_brasilis',
+    section:'collections',
+    icon:'🦜',
+    name:'Terra Brasilis',
+    name_pt:'Terra Brasilis',
+    desc:'Place 8 milestones of Brazilian history in one run — from Cabral to the Lei Áurea',
+    desc_pt:'Coloque 8 marcos da história do Brasil em uma única partida — de Cabral à Lei Áurea',
+    hint:'Place Pedro Álvares Cabral, Founding of Rio de Janeiro, Dutch Brazil, Tiradentes, Independence of Brazil, Empire of Brazil, Pedro II of Brazil and Abolition of Slavery in Brazil correctly in a single run.',
+    hint_pt:'Coloque Pedro Álvares Cabral, Fundação do Rio de Janeiro, Brasil Holandês, Tiradentes, Independência do Brasil, Império do Brasil, Dom Pedro II e Abolição da Escravidão no Brasil corretamente em uma única partida.',
+    trivia:'Brazil is one of the few countries named after a tree. Cabral claimed the land as the "Island of Vera Cruz", and it soon became the "Land of Santa Cruz" — but merchants preferred the name of its first great export: pau-brasil, a tree whose red heartwood yielded a prized dye, its name coming from brasa, "ember". The Latin "Terra Brasilis" already appears on a Portuguese map of the coast in the Miller Atlas of around 1519. Centuries of logging left the tree endangered, and its dense wood is still considered the finest material for violin bows.',
+    trivia_pt:'O Brasil é um dos poucos países batizados com o nome de uma árvore. Cabral tomou posse da terra como "Ilha de Vera Cruz", que logo virou "Terra de Santa Cruz" — mas os mercadores preferiram o nome de sua primeira grande exportação: o pau-brasil, árvore de cerne vermelho que fornecia uma tinta valiosa, cujo nome vem de "brasa". O latim "Terra Brasilis" já aparece em um mapa português da costa no Atlas Miller, de cerca de 1519. Séculos de exploração deixaram a árvore ameaçada de extinção, e sua madeira densa ainda é considerada o melhor material para arcos de violino.',
+    needed:['Pedro Álvares Cabral','Founding of Rio de Janeiro','Dutch Brazil','Tiradentes','Independence of Brazil','Empire of Brazil','Pedro II of Brazil','Abolition of Slavery in Brazil']
+  },
+  {
+    id:'pharaoh',
+    section:'collections',
+    icon:'⚱️',
+    name:'Pharaoh',
+    name_pt:'Faraó',
+    desc:'Place the Great Pyramid of Giza, Tutankhamun, Ramesses II & Cleopatra in one run',
+    desc_pt:'Coloque a Pirâmide de Gizé, Tutancâmon, Ramsés II e Cleópatra em uma única partida',
+    hint:'Place Great Pyramid of Giza Built, Tutankhamun, Ramesses II and Cleopatra VII correctly in a single run — some 2,500 years of pharaohs.',
+    hint_pt:'Coloque Pirâmide de Gizé Construída, Tutancâmon, Ramsés II e Cleópatra VII corretamente em uma única partida — cerca de 2.500 anos de faraós.',
+    trivia:'The Egyptians did not originally call their king "pharaoh". The word comes from per-aa, "great house" — the royal palace — and was only applied to the ruler himself from the New Kingdom, more than a thousand years after Khufu built the Great Pyramid. Fame among the pharaohs is full of ironies: Tutankhamun was left off the official king list carved at Abydos under Seti I, father of Ramesses II, because he was tied to the discredited Amarna period. Yet his tomb survived almost intact precisely because it was forgotten — its entrance lay buried under debris and workmen\'s huts from the later tomb of Ramesses VI.',
+    trivia_pt:'Os egípcios não chamavam originalmente seu rei de "faraó". A palavra vem de per-aa, "casa grande" — o palácio real — e só passou a designar o próprio governante no Novo Império, mais de mil anos depois de Quéops construir a Grande Pirâmide. A fama entre os faraós é cheia de ironias: Tutancâmon foi deixado de fora da lista oficial de reis gravada em Abidos sob Seti I, pai de Ramsés II, por estar ligado ao desacreditado período de Amarna. Mas seu túmulo sobreviveu quase intacto justamente por ter sido esquecido — a entrada ficou soterrada sob entulho e cabanas de operários do túmulo posterior de Ramsés VI.',
+    needed:['Great Pyramid of Giza Built','Tutankhamun','Ramesses II','Cleopatra VII']
+  },
+  {
+    id:'reformation',
+    section:'collections',
+    icon:'📖',
+    name:'Reformation',
+    name_pt:'Reforma',
+    desc:'Place the Gutenberg Bible, Martin Luther, John Calvin & Henry VIII in one run',
+    desc_pt:'Coloque a Bíblia de Gutenberg, Martinho Lutero, João Calvino e Henrique VIII em uma única partida',
+    hint:'Place Gutenberg Bible Printed, Martin Luther, John Calvin and Henry VIII correctly in a single run — the press that spread the Reformation and the men who shaped it.',
+    hint_pt:'Coloque Bíblia de Gutenberg Impressa, Martinho Lutero, João Calvino e Henrique VIII corretamente em uma única partida — a prensa que espalhou a Reforma e os homens que a moldaram.',
+    trivia:'Henry VIII began as one of Luther\'s fiercest critics. In 1521 he published a defence of the seven sacraments against Luther, and a grateful Pope Leo X granted him the title "Defender of the Faith". After Henry broke with Rome the papacy revoked it, but Parliament granted it back — and British monarchs still hold it today: the letters FID DEF (Fidei Defensor) appear on British coins. Luther answered the king with a furious pamphlet of his own; thanks to Gutenberg\'s press, the Reformation became the first great war of words fought in print.',
+    trivia_pt:'Henrique VIII começou como um dos críticos mais ferozes de Lutero. Em 1521 publicou uma defesa dos sete sacramentos contra Lutero, e o Papa Leão X, agradecido, concedeu-lhe o título de "Defensor da Fé". Depois que Henrique rompeu com Roma, o papado revogou o título, mas o Parlamento o concedeu de volta — e os monarcas britânicos o mantêm até hoje: as letras FID DEF (Fidei Defensor) aparecem nas moedas britânicas. Lutero respondeu ao rei com um panfleto furioso; graças à prensa de Gutenberg, a Reforma se tornou a primeira grande guerra de palavras travada no papel impresso.',
+    needed:['Gutenberg Bible Printed','Martin Luther','John Calvin','Henry VIII']
+  },
+  {
+    id:'cleopatra_paradox',
+    section:'paradoxes',
+    icon:'🌙',
+    name:'Cleopatra\'s Paradox',
+    name_pt:'Paradoxo de Cleópatra',
+    desc:'Place the Great Pyramid of Giza, Cleopatra & the Moon Landing in one run',
+    desc_pt:'Coloque a Pirâmide de Gizé, Cleópatra e o Pouso na Lua em uma única partida',
+    hint:'Place Great Pyramid of Giza Built, Cleopatra VII and Moon Landing correctly in a single run. Look closely at the years — Cleopatra is not where intuition puts her.',
+    hint_pt:'Coloque Pirâmide de Gizé Construída, Cleópatra VII e Pouso na Lua corretamente em uma única partida. Repare bem nos anos — Cleópatra não está onde a intuição a coloca.',
+    trivia:'Cleopatra lived closer in time to the Moon Landing than to the building of the Great Pyramid. The pyramid was raised for Khufu around 2560 BCE; Cleopatra was born in 69 BCE, some 2,490 years later — while Apollo 11 touched down 2,038 years after her birth. To Cleopatra the pyramid was already a relic of a remote past and a sight for travellers: the Greek historian Herodotus had visited it nearly four centuries before she was born, and recorded the legends Egyptians told about its builders.',
+    trivia_pt:'Cleópatra viveu mais perto, no tempo, do Pouso na Lua do que da construção da Grande Pirâmide. A pirâmide foi erguida para Quéops por volta de 2560 AEC; Cleópatra nasceu em 69 AEC, cerca de 2.490 anos depois — enquanto a Apollo 11 pousou 2.038 anos após o seu nascimento. Para Cleópatra, a pirâmide já era uma relíquia de um passado remoto e uma atração para viajantes: o historiador grego Heródoto a visitou quase quatro séculos antes de ela nascer e registrou as lendas que os egípcios contavam sobre seus construtores.',
+    needed:['Great Pyramid of Giza Built','Cleopatra VII','Moon Landing']
+  },
+  {
+    id:'older_than_aztecs',
+    section:'paradoxes',
+    icon:'🎓',
+    name:'Older than the Aztecs',
+    name_pt:'Mais Velha que os Astecas',
+    desc:'Place Oxford University Founded & the Aztec Empire in one run',
+    desc_pt:'Coloque a Fundação da Universidade de Oxford e o Império Asteca em uma única partida',
+    hint:'Place Oxford University Founded and Aztec Empire correctly in a single run.',
+    hint_pt:'Coloque Fundação da Universidade de Oxford e Império Asteca corretamente em uma única partida.',
+    trivia:'Oxford University is older than the Aztec Empire. Teaching was under way at Oxford somewhere between 1096 and 1167, while the Mexica founded Tenochtitlan in 1325 and the Triple Alliance that became the Aztec Empire was only formed in 1428 — by then Oxford had been teaching students for more than two and a half centuries. The empire fell to the Spanish in 1521; the university still enrols students today. Even Cambridge, founded in 1209 by scholars fleeing Oxford, is more than a century older than Tenochtitlan.',
+    trivia_pt:'A Universidade de Oxford é mais velha que o Império Asteca. Já se ensinava em Oxford em algum momento entre 1096 e 1167, enquanto os mexicas fundaram Tenochtitlán em 1325 e a Tríplice Aliança que se tornou o Império Asteca só se formou em 1428 — quando Oxford já ensinava havia mais de dois séculos e meio. O império caiu diante dos espanhóis em 1521; a universidade continua recebendo alunos até hoje. Até Cambridge, fundada em 1209 por estudiosos que fugiram de Oxford, é mais de um século mais velha que Tenochtitlán.',
+    needed:['Oxford University Founded','Aztec Empire']
+  },
+  {
+    id:'same_birthday',
+    section:'paradoxes',
+    icon:'🎂',
+    name:'Born on the Same Day',
+    name_pt:'Nascidos no Mesmo Dia',
+    desc:'Place Charles Darwin & Abraham Lincoln in one run',
+    desc_pt:'Coloque Charles Darwin e Abraham Lincoln em uma única partida',
+    hint:'Place Charles Darwin and Abraham Lincoln correctly in a single run.',
+    hint_pt:'Coloque Charles Darwin e Abraham Lincoln corretamente em uma única partida.',
+    trivia:'On 12 February 1809 two boys were born an ocean apart: Charles Darwin in a comfortable house in Shrewsbury, England, and Abraham Lincoln in a one-room log cabin in Kentucky. Both changed the world in the same years — On the Origin of Species was published in 1859, and Lincoln was elected president in 1860. They also shared a cause: Darwin came from a family of committed abolitionists — his grandfather Josiah Wedgwood produced the famous anti-slavery medallion "Am I Not a Man and a Brother?" — and was horrified by the slavery he witnessed in Brazil during the voyage of the Beagle.',
+    trivia_pt:'Em 12 de fevereiro de 1809, dois meninos nasceram separados por um oceano: Charles Darwin, em uma casa confortável em Shrewsbury, na Inglaterra, e Abraham Lincoln, em uma cabana de troncos de um só cômodo no Kentucky. Os dois mudaram o mundo nos mesmos anos — A Origem das Espécies foi publicada em 1859, e Lincoln foi eleito presidente em 1860. Também tinham uma causa em comum: Darwin vinha de uma família de abolicionistas convictos — seu avô Josiah Wedgwood produziu o famoso medalhão antiescravista "Não sou eu um homem e um irmão?" — e ficou horrorizado com a escravidão que presenciou no Brasil durante a viagem do Beagle.',
+    needed:['Charles Darwin','Abraham Lincoln']
+  },
+  {
     id:'centurion',
+    section:'skill',
     icon:'🛡️',
     name:'Centurion',
     name_pt:'Centurião',
@@ -239,6 +372,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'librarian',
+    section:'longterm',
     icon:'📚',
     name:'Librarian of Alexandria',
     name_pt:'Bibliotecário de Alexandria',
@@ -253,34 +387,74 @@ var TROPHY_DEFS = [
   },
   {
     id:'iron_mind',
+    section:'skill',
     icon:'🧠',
     name:'Iron Mind',
     name_pt:'Mente de Ferro',
-    desc:'Score 500 points or more in a single run',
-    desc_pt:'Pontue 500 pontos ou mais em uma única partida',
-    hint:'Accumulate 500+ points in one run. Build long streaks (bonus points per card × streak multiplier) and place empire cards (worth up to 30 points each).',
-    hint_pt:'Acumule 500+ pontos em uma partida. Construa longas sequências (pontos bônus por carta × multiplicador de sequência) e coloque cartas de impérios (valendo até 30 pontos cada).',
+    desc:'Score 5,000 points or more in a single run',
+    desc_pt:'Faça 5.000 pontos ou mais em uma única partida',
+    hint:'Score 5,000+ points in one run. Every 5 correct cards in a row doubles the points per card, up to ×32 — but a single mistake sends the multiplier back to ×1, so long streaks are everything. Empire cards are worth up to 30 base points each.',
+    hint_pt:'Faça 5.000+ pontos em uma partida. A cada 5 cartas certas seguidas, os pontos por carta dobram, até ×32 — mas um único erro devolve o multiplicador a ×1, então longas sequências são tudo. Cartas de impérios valem até 30 pontos base cada.',
     trivia:'The human brain\'s ability to store and retrieve historical information is far stranger than it seems. The "spacing effect" — discovered by Hermann Ebbinghaus in 1885 — shows that memories decay exponentially after learning but can be made permanent with spaced repetition. Ebbinghaus memorized thousands of nonsense syllables to chart his own forgetting curve. Modern spaced repetition software (like Anki) uses his mathematics to optimize when to review each fact. Reviewing at the right moment can make a memory last a lifetime from just a few exposures.',
     trivia_pt:'A capacidade do cérebro humano de armazenar e recuperar informações históricas é muito mais estranha do que parece. O "efeito de espaçamento" — descoberto por Hermann Ebbinghaus em 1885 — mostra que as memórias decaem exponencialmente após o aprendizado, mas podem ser tornadas permanentes com repetição espaçada. O software moderno de repetição espaçada (como o Anki) usa sua matemática para otimizar quando revisar cada fato.',
     needed:null,
-    special:'score_500'
+    special:'score',
+    goal:5000
+  },
+  {
+    id:'streak_15',
+    section:'skill',
+    tier:'bronze',
+    icon:'🔥',
+    name:'Spark',
+    name_pt:'Faísca',
+    desc:'Reach a streak of 15 or more in a single run',
+    desc_pt:'Alcance uma sequência de 15 ou mais em uma única partida',
+    hint:'Place 15 cards correctly in a row without a single mistake. The first level of On Fire.',
+    hint_pt:'Coloque 15 cartas corretamente em sequência sem um único erro. O primeiro nível de Em Chamas.',
+    trivia:'One of the first great streaks in human history was keeping a fire alive. The oldest widely accepted evidence of controlled fire — burnt bone and plant ash — comes from Wonderwerk Cave in South Africa and is about one million years old. For most of prehistory, starting a fire from nothing was slow and uncertain, so groups carried embers with them and tended the flame day and night: letting it die could mean a cold, dark and dangerous night.',
+    trivia_pt:'Uma das primeiras grandes sequências da história humana foi manter uma fogueira acesa. A evidência mais antiga amplamente aceita de fogo controlado — ossos queimados e cinzas de plantas — vem da Caverna Wonderwerk, na África do Sul, e tem cerca de um milhão de anos. Durante a maior parte da pré-história, acender um fogo do zero era lento e incerto, então os grupos levavam brasas consigo e cuidavam da chama dia e noite: deixá-la apagar podia significar uma noite fria, escura e perigosa.',
+    needed:null,
+    special:'streak',
+    goal:15
+  },
+  {
+    id:'streak_30',
+    section:'skill',
+    tier:'silver',
+    icon:'🔥',
+    name:'Blaze',
+    name_pt:'Labareda',
+    desc:'Reach a streak of 30 or more in a single run',
+    desc_pt:'Alcance uma sequência de 30 ou mais em uma única partida',
+    hint:'Place 30 cards correctly in a row without a single mistake. The second level of On Fire.',
+    hint_pt:'Coloque 30 cartas corretamente em sequência sem um único erro. O segundo nível de Em Chamas.',
+    trivia:'The Olympic torch relay looks ancient but is a modern invention. The ancient Greeks kept a sacred flame burning at Olympia during the Games, but the relay was created for the 1936 Berlin Olympics by organiser Carl Diem, with more than 3,000 runners carrying the flame from Olympia to Berlin. Ever since, the flame has been lit at Olympia by focusing the sun\'s rays with a curved mirror, and it has travelled by boat, by plane, underwater — and even into space.',
+    trivia_pt:'O revezamento da tocha olímpica parece antigo, mas é uma invenção moderna. Os gregos antigos mantinham uma chama sagrada acesa em Olímpia durante os Jogos, mas o revezamento foi criado para as Olimpíadas de Berlim de 1936 pelo organizador Carl Diem, com mais de 3.000 corredores levando a chama de Olímpia até Berlim. Desde então, a chama é acesa em Olímpia concentrando os raios do sol com um espelho curvo, e já viajou de barco, de avião, debaixo d\'água — e até para o espaço.',
+    needed:null,
+    special:'streak',
+    goal:30
   },
   {
     id:'on_fire',
+    section:'skill',
+    tier:'gold',
     icon:'🔥',
     name:'On Fire',
     name_pt:'Em Chamas',
     desc:'Reach a streak of 50 or more in a single run',
     desc_pt:'Alcance uma sequência de 50 ou mais em uma única partida',
-    hint:'Place 50 cards correctly in a row without a single mistake. Try Free Play mode (no lives) so mistakes don\'t end the game.',
-    hint_pt:'Coloque 50 cartas corretamente em sequência sem um único erro. Tente o modo Jogo Livre (sem vidas) para que os erros não encerrem o jogo.',
+    hint:'Place 50 cards correctly in a row without a single mistake — the final level of On Fire. Try Free Play mode (no lives) so mistakes don\'t end the game.',
+    hint_pt:'Coloque 50 cartas corretamente em sequência sem um único erro — o nível final de Em Chamas. Tente o modo Jogo Livre (sem vidas) para que os erros não encerrem o jogo.',
     trivia:'The psychological phenomenon of being "in the zone" or "in flow" was first scientifically described by psychologist Mihaly Csikszentmihalyi in his 1990 book "Flow." He found that the optimal experience occurs when challenge and skill are perfectly balanced — too easy and you\'re bored, too hard and you\'re anxious. Csikszentmihalyi interviewed thousands of people across cultures and found the same state described identically by chess grandmasters, surgeons, rock climbers, and factory workers: time distorts, self-consciousness vanishes, and the activity becomes effortless.',
     trivia_pt:'O fenômeno psicológico de estar "na zona" ou "em fluxo" foi descrito cientificamente pela primeira vez pelo psicólogo Mihaly Csikszentmihalyi em seu livro "Flow" de 1990. Ele descobriu que a experiência ótima ocorre quando desafio e habilidade estão perfeitamente equilibrados. Csikszentmihalyi entrevistou milhares de pessoas e encontrou o mesmo estado descrito identicamente por grandes mestres de xadrez, cirurgiões, alpinistas e operários de fábrica: o tempo se distorce, a autoconsciência desaparece e a atividade se torna sem esforço.',
     needed:null,
-    special:'streak_50'
+    special:'streak',
+    goal:50
   },
   {
     id:'time_lord',
+    section:'skill',
     icon:'⏳',
     name:'Time Lord',
     name_pt:'Senhor do Tempo',
@@ -295,6 +469,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'daily_week',
+    section:'longterm',
     icon:'📝',
     name:'Creature of Habit',
     name_pt:'Criatura do Hábito',
@@ -309,6 +484,7 @@ var TROPHY_DEFS = [
   },
   {
     id:'daily_forty',
+    section:'longterm',
     icon:'🗓️',
     name:'The Long Count',
     name_pt:'A Grande Contagem',

@@ -296,6 +296,8 @@ score += Math.round(basePoints * streakMultiplier(streak));
 ```javascript
 {
   id: 'unique_trophy_id',
+  section: 'collections',  // a TROPHY_SECTIONS id: collections | paradoxes | skill | longterm | secret
+  tier: 'bronze',          // optional: bronze | silver | gold (levels of the same feat)
   icon: '🏆',
   name: 'Trophy Name',
   name_pt: 'Nome do Troféu',
@@ -311,9 +313,12 @@ score += Math.round(basePoints * streakMultiplier(streak));
   
   // Option 2: Special condition trophy
   needed: null,
-  special: 'special_condition_name'
+  special: 'special_condition_name',
+  goal: 5000               // threshold for the 'score' and 'streak' specials
 }
 ```
+
+**Sections**: the trophy tab groups trophies by `section`, in `TROPHY_SECTIONS` order. Sections start closed, show "earned / total", and remember which ones the player opened (`chronos_tp_open`). A missing or unknown `section` falls into the first section; an empty section is hidden.
 
 **For card-based trophies**:
 - Use exact card names (as they appear in `card.name`, not `card.name_pt`)
@@ -325,7 +330,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
   ```javascript
   } else if (def.special === 'your_condition') {
     earned = /* your check logic */;
-  } else if (def.special === 'score_500') {
+  } else if (def.special === 'score') {
   ```
 - Examples: score thresholds, streak milestones, compendium completion, etc.
 
