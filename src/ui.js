@@ -16,9 +16,13 @@ function selectMode(m){
   document.getElementById('era-section').style.display=showEra?'':'none';
 }
 function selectLives(on){
-  livesMode=on;
-  document.getElementById('lo-lives').classList.toggle('active',on);
-  document.getElementById('lo-free').classList.toggle('active',!on);
+  menuPlayMode=on?'lives':'free';
+  syncPlayModeButtons();
+}
+// Main-menu play mode buttons follow menuPlayMode
+function syncPlayModeButtons(){
+  document.getElementById('lo-lives').classList.toggle('active',menuPlayMode!=='free');
+  document.getElementById('lo-free').classList.toggle('active',menuPlayMode==='free');
 }
 // Era chips are multi-select: each era toggles on/off. An empty selection
 // means every era is in the deck.
@@ -33,6 +37,7 @@ function syncEraChips(){
   });
 }
 function startGame(){ _isDailyChallenge=false; _isRecoverRun=false;
+  setPlayMode(menuPlayMode);
   eraFilter=eraSelection.slice();
   var _hBtnR=document.getElementById('hint-btn');
   var _sBtnR=document.getElementById('skip-btn');
@@ -68,7 +73,7 @@ function restartGame(){
   // If last game was a culture mode, go back to cultures hub
   if(gameMode==='abrahamic'||gameMode==='roman'||gameMode==='eastern'){
     selectCultureMode(gameMode);
-    cultureLivesMode=livesMode;
+    cultureLivesMode=playMode!=='free';
     document.getElementById('clo-lives').classList.toggle('active', cultureLivesMode);
     document.getElementById('clo-free').classList.toggle('active', !cultureLivesMode);
     openCultures();
@@ -410,7 +415,7 @@ function renderHistoryPanel(){
     const d=new Date(entry.date);
     const loc=entry.lang==='pt'?'pt-BR':'en-US';
     const dateStr=d.toLocaleDateString(loc,{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString(loc,{hour:'2-digit',minute:'2-digit'});
-    const modeLbl=modeBadgeLabel(entry.mode,entry.livesMode);
+    const modeLbl=modeBadgeLabel(entry.mode,entryPlayMode(entry));
     const div=document.createElement('div');div.className='history-entry';
     div.innerHTML=`
       <div class="he-header" onclick="toggleEntry(${i})">
@@ -1620,7 +1625,8 @@ let cultureMode='abrahamic', cultureLivesMode=true, _fromCultures=false;
 function openCultures(){
   document.getElementById('intro').classList.remove('show');
   document.getElementById('cultures-screen').classList.add('show');
-  cultureLivesMode = livesMode;
+  // Cultures only offer Lives / Free: a Review choice on the menu shows as Lives
+  cultureLivesMode = menuPlayMode !== 'free';
   document.getElementById('clo-lives').classList.toggle('active', cultureLivesMode);
   document.getElementById('clo-free').classList.toggle('active', !cultureLivesMode);
   _pushNavState('cultures');
@@ -1647,10 +1653,11 @@ function selectCultureLives(on){
 
 function startCultureGame(){
   gameMode = cultureMode;
-  livesMode = cultureLivesMode;
+  // The cultures choice also becomes the main menu choice, as before
+  menuPlayMode = cultureLivesMode ? 'lives' : 'free';
+  setPlayMode(menuPlayMode);
   eraFilter = [];
-  document.getElementById('lo-lives').classList.toggle('active', livesMode);
-  document.getElementById('lo-free').classList.toggle('active', !livesMode);
+  syncPlayModeButtons();
   document.getElementById('cultures-screen').classList.remove('show');
   document.getElementById('intro').classList.remove('show');
   initGame();

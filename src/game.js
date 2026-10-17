@@ -107,7 +107,7 @@ function _beginDailyRun(date, attempt, isRecover){
   _isRecoverRun    = !!isRecover;
   gameMode = 'classic';
   eraFilter = [];
-  livesMode = true;
+  setPlayMode('lives');   // the daily always has lives; the menu choice is left alone
   _isDailyChallenge = true;
   // Close all overlays cleanly, same as startGame()
   document.getElementById('history-panel').classList.remove('open');
@@ -679,7 +679,7 @@ function _renderDailyGameover(){
 function buildGameRecord(won) {
   return {
     date: new Date().toISOString(),
-    mode: gameMode, livesMode: livesMode, eraFilter: eraFilter,
+    mode: gameMode, playMode: playMode, livesMode: livesMode, eraFilter: eraFilter,
     lang: lang, score: score, placed: timeline.length, won: won,
     timeline: timeline.map(function(c) {
       return {
@@ -1042,8 +1042,14 @@ function eraTagLabel(ef){
   return ERA_FILTER_KEYS.filter(k=>keys.includes(k)).map(k=>t('era_'+k)).join(' · ');
 }
 // history badge for mode
-function modeBadgeLabel(mode,lm){
-  const lives=(lm===false)?(' · '+t('free_lbl')):'';
+// Play mode of a saved history entry. Entries from before playMode existed
+// only carry the livesMode boolean.
+function entryPlayMode(entry){
+  if(entry&&(entry.playMode==='lives'||entry.playMode==='review'||entry.playMode==='free'))return entry.playMode;
+  return (entry&&entry.livesMode===false)?'free':'lives';
+}
+function modeBadgeLabel(mode,pm){
+  const lives=(pm==='free')?(' · '+t('free_lbl')):'';
   if(mode==='empires')return t('empires_lbl')+lives;
   if(mode==='abrahamic')return t('biblical_lbl')+lives;
   if(mode==='roman')return t('mc_roman_title')+lives;

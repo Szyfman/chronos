@@ -78,7 +78,10 @@ var lang = 'en';  // 'en' or 'pt'
 
 // Game configuration
 var gameMode = 'classic';      // 'classic', 'empires', 'characters', 'abrahamic', 'roman', 'eastern'
-var livesMode = true;          // true = 3 lives, false = free play
+var playMode = 'lives';        // running game: 'lives' | 'review' | 'free' — set only via setPlayMode()
+var livesMode = true;          // derived: playMode !== 'free' (most of the game reads this)
+var menuPlayMode = 'lives';    // main-menu choice, copied into playMode by startGame(); the daily
+                               // forces 'lives' for its run without touching it (see REVIEW_MODE.md)
 var eraFilter = [];            // running game's eras: any of 'ancient','medieval','modern','contemporary' ([] = all)
 var eraSelection = [];         // eras toggled on the main menu, copied into eraFilter by startGame()
 var empiresShownTutorial = false;
@@ -579,7 +582,7 @@ function setLang(l, btn)
    - Centurion: 100+ cards in one game
    - Iron Mind: 500+ points in one game
    - On Fire: 50+ streak in one game
-   - Time Lord: Empty entire deck (win by completion)
+   - The End of History (id time_lord): Empty entire deck (win by completion)
    - Librarian of Alexandria: Discover all cards in compendium
 
 4. **Daily Challenge Trophies**:

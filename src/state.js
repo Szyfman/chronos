@@ -2,7 +2,18 @@
 var lang = 'en'; // move this from i18n.js if you already put it there
 
 var gameMode = 'classic';
+// Play mode of the running game: 'lives' | 'review' | 'free' — set only via
+// setPlayMode(). livesMode is derived from it ("does this run have lives?")
+// and is what most of the game reads.
+var playMode = 'lives';
 var livesMode = true;
+// Choice on the main menu, copied into playMode by startGame(). Kept apart so
+// a run that forces its own mode (the daily) never changes the menu choice.
+var menuPlayMode = 'lives';
+function setPlayMode(mode) {
+  playMode = (mode === 'review' || mode === 'free') ? mode : 'lives';
+  livesMode = playMode !== 'free';
+}
 var eraFilter = [];     // era filter of the running game ([] = all eras)
 var eraSelection = [];  // eras toggled on the main menu; copied into eraFilter by startGame()
 var empiresShownTutorial = false;
