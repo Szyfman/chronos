@@ -13,6 +13,7 @@ Agreed design for the Review play mode (phase 6). Lives / **Review** / Free are 
 | Mode records | yes | no | no |
 | Card stats, era mastery, Compendium | yes | yes | yes |
 
+- The numbers above live in `PLAY_MODE_RULES` (game.js), read through `playModeRules()`. `Infinity` means unlimited (shown as ∞); a card still has only 3 clues. The +1 hint streak reward is skipped when hints are unlimited.
 - Review is offered only on the main menu (Classic, Empires, Characters). The Cultures screen keeps Lives / Free, and Free there follows the same rules as the main Free.
 - The daily challenge always forces Lives, whatever the menu selection.
 - Review unlocks at **level 5**. Below it the button shows as locked; tapping it shows "Available from level 5".

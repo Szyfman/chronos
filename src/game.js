@@ -236,6 +236,7 @@ var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_
    trophy that depends only on the current run pops up the moment it is won.
    Streaks must be caught mid-game anyway: a miss resets them before the end. */
 function checkTrophies(midGame){
+  if(playModeRules().trophies==='none') return;   // Free play never unlocks trophies
   var placed = timeline.map(function(c){ return c.name; });
   var intervals_placed = timeline.filter(function(c){ return c.startYear !== undefined; }).length;
   var newlyEarned = [];
@@ -384,7 +385,9 @@ function initGame(){
   _fromGameover = false;
   // ─────────────────────────────────────────────────────────────────────
 
-  deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;lives=3;hints=3;skip=1;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
+  deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
+  var _rules=playModeRules();
+  lives=_rules.lives;hints=_rules.hints;skip=_rules.skip;
   // Daily challenge overrides
   if(_isDailyChallenge){
     // Two-stage seeding: WHICH 18 cards comes from the plain day seed, so every
@@ -475,6 +478,17 @@ function useSkip(){
   drawCard();
 }
 
+// ── PLAY MODE RULES ───────────────────────────────────────────────────────
+/* Per play mode (playMode in state.js): starting lives / hints / skips, the
+   share of the final score that becomes XP, and which trophies can unlock
+   ('all' | 'none'). Infinity = unlimited; a card still has only 3 clues.
+   The daily challenge overrides hints/skips to 0 in initGame. */
+const PLAY_MODE_RULES={
+  lives:{ lives:3, hints:3,        skip:1,        xp:1, trophies:'all'  },
+  free: { lives:3, hints:Infinity, skip:Infinity, xp:0, trophies:'none' }
+};
+function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }
+
 // ── GAME LOGIC ────────────────────────────────────────────────────────────
 /* Streak multiplier: grows ×STREAK_MULT_GROWTH for every full block of
    STREAK_STEP consecutive hits, up to STREAK_MULT_MAX. `streakBefore` is the
@@ -515,7 +529,8 @@ function attemptPlacement(idx){
     SFX.play('correct');
     const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
     timeline.splice(idx,0,card);score+=Math.round(basePoints*streakMultiplier(streak));streak++;currentCard=null;
-    if(streak>0&&streak%20===0){hints++;renderSideBtns();showStreakToast();}
+    // Streak reward: +1 hint every 20 in a row (pointless when hints are unlimited)
+    if(streak>0&&streak%20===0&&isFinite(hints)){hints++;renderSideBtns();showStreakToast();}
     checkTrophies(true);
     renderTimeline();
     document.getElementById('score-val').textContent=score;
@@ -572,7 +587,7 @@ function endGame(won){
   _pendingGameRecord = buildGameRecord(won);
   _eagerSaveDiscovered();
   checkTrophies();
-  _lastXpResult = awardXp(score);
+  _lastXpResult = awardXp(Math.floor(score*playModeRules().xp));
   // Restore history button
   document.getElementById('hist-btn').style.visibility='';
   document.getElementById('go-title').textContent=won?t('go_won'):t('go_lost');
@@ -607,7 +622,10 @@ function _renderGameoverXp(animate){
   if(!r){ box.innerHTML=''; return; }
   var a=r.after, leveled=a.level>r.before.level;
   var pct=function(info){ return Math.round(100*info.xp/info.xpNeeded); };
-  var html='<div class="go-xp-gain">'+t('go_xp_gain').replace('{n}',formatXp(r.gained))+'</div>';
+  // A mode that gives no XP says so instead of showing "+0 XP"
+  var html=playModeRules().xp>0
+    ?'<div class="go-xp-gain">'+t('go_xp_gain').replace('{n}',formatXp(r.gained))+'</div>'
+    :'<div class="go-xp-note">'+t('go_xp_free')+'</div>';
   html+='<div class="pf-level-row"><span class="pf-level-lbl">'+t('pf_level').replace('{n}',a.level)+'</span>';
   html+='<span class="pf-xp-txt">'+t('pf_xp').replace('{xp}',formatXp(a.xp)).replace('{max}',formatXp(a.xpNeeded))+'</span></div>';
   html+='<div class="pf-xp-bar"><div class="pf-xp-fill" id="go-xp-fill" style="width:'+(animate?(leveled?0:pct(r.before)):pct(a))+'%"></div></div>';

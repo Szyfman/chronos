@@ -191,7 +191,7 @@ function renderSideBtns(){
   const hBtn=document.getElementById('hint-btn');
   hBtn.classList.toggle('visible',visible);
   hBtn.disabled=(!currentCard||!gameActive||hints<=0||cardCluesUsed>=3);
-  document.getElementById('hint-count').textContent=hints;
+  document.getElementById('hint-count').textContent=isFinite(hints)?hints:'∞';
   // Dots show hints remaining in pool (up to 3 dots max for visual)
   for(let i=0;i<3;i++){
     const dot=document.getElementById('hd'+i);
@@ -201,7 +201,7 @@ function renderSideBtns(){
   const sBtn=document.getElementById('skip-btn');
   sBtn.classList.toggle('visible',visible);
   sBtn.disabled=(!currentCard||!gameActive||skip<=0);
-  document.getElementById('skip-count').textContent=skip;
+  document.getElementById('skip-count').textContent=isFinite(skip)?skip:'∞';
   const hl=document.getElementById('hint-lbl');if(hl)hl.textContent=lang==='pt'?'Pista':'Hint';
   const sl=document.getElementById('skip-lbl');if(sl)sl.textContent=lang==='pt'?'Pular':'Skip';
 }
