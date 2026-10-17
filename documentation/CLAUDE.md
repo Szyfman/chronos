@@ -320,6 +320,10 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Long-term progress**: specials listed in `PROGRESS_TROPHY_SPECIALS` (game.js) are judged from saved progress by `trophyProgress(def)`, which returns `{ n, goal, bar }`. The same numbers unlock the trophy at game end and draw the progress bar on a locked card (and "Progress: n / goal" in its modal), so they never disagree. Thresholds stay on the trophy (`goal`, plus `modes`/`score` for `mode_records`) so they can be tuned in one place.
 
+**Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`ides`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy.
+
+**Secret trophies** (`section: 'secret'`): while locked, the card shows ❓ / ??? / "Secret trophy" and the modal only says to keep playing; the real name, hint and trivia appear once earned.
+
 **Sections**: the trophy tab groups trophies by `section`, in `TROPHY_SECTIONS` order. Sections start closed, show "earned / total", and remember which ones the player opened (`chronos_tp_open`). A missing or unknown `section` falls into the first section; an empty section is hidden.
 
 **For card-based trophies**:

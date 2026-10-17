@@ -285,10 +285,25 @@ function trophyProgress(def){
   return null;
 }
 
+// Events of the running game that skill/secret trophies look back on.
+// Reset by initGame; thresholds stay on each trophy (goal, card, month...).
+var runFlags = {};
+function _resetRunFlags(){
+  runFlags = {
+    aidsUsed: false,       // any hint or skip used (Pure Memory)
+    minGap: Infinity,      // tightest year gap a correct card was placed into (Scalpel)
+    maxMissDelta: 0,       // biggest miss, in years (Anachronism)
+    lastLifeHits: 0,       // correct cards placed while on the last life (Phoenix)
+    dailyFinished: false   // the run was a live daily (Carpe Diem, Midnight Bells)
+  };
+}
+_resetRunFlags();
+
 // Specials that can only be judged once the run is over: the Compendium is
 // saved at game end, an empty deck only counts as a finished run, and the
 // daily streak only grows when a daily attempt is recorded.
-var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40'].concat(PROGRESS_TROPHY_SPECIALS);
+var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40',
+  'daily_on_date','daily_at_hour','friday_13'].concat(PROGRESS_TROPHY_SPECIALS);
 
 /* Runs at game end and, with midGame=true, after every correct card — so a
    trophy that depends only on the current run pops up the moment it is won.
@@ -326,6 +341,27 @@ function checkTrophies(midGame){
       earned = score >= def.goal;
     } else if(def.special === 'streak'){
       earned = streak >= def.goal;
+    } else if(def.special === 'no_aids'){
+      earned = !runFlags.aidsUsed && placed.length >= def.goal;
+    } else if(def.special === 'scalpel'){
+      earned = runFlags.minGap <= def.goal;
+    } else if(def.special === 'specialist'){
+      earned = normalizeEraFilter(eraFilter).length === 1 && score >= def.goal;
+    } else if(def.special === 'phoenix'){
+      earned = runFlags.lastLifeHits >= def.goal;
+    } else if(def.special === 'anachronism'){
+      earned = runFlags.maxMissDelta > def.goal;
+    } else if(def.special === 'ides'){
+      var _now = new Date();
+      earned = _now.getMonth()+1 === def.month && _now.getDate() === def.day && placed.indexOf(def.card) >= 0;
+    } else if(def.special === 'daily_on_date'){
+      var _d = new Date();
+      earned = runFlags.dailyFinished && _d.getMonth()+1 === def.month && _d.getDate() === def.day;
+    } else if(def.special === 'daily_at_hour'){
+      earned = runFlags.dailyFinished && new Date().getHours() === def.hour;
+    } else if(def.special === 'friday_13'){
+      var _f = new Date();
+      earned = _f.getDay() === 5 && _f.getDate() === 13 && placed.length > 0;
     } else if(def.special === 'daily_streak_7'){
       earned = _calcStreak().longest >= 7;
     } else if(def.special === 'daily_streak_40'){
@@ -609,6 +645,7 @@ function initGame(){
   // ─────────────────────────────────────────────────────────────────────
 
   deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
+  _resetRunFlags();
   // Review swaps in its own deck. startGame() already checked it can be built;
   // if it somehow can't, the run falls back to Lives rather than a full deck.
   if(playMode==='review'){
@@ -691,6 +728,7 @@ function useHint(){
   const pool=lang==='pt'?currentCard.clues_pt:currentCard.clues;
   if(!pool||!pool[cardCluesUsed])return;
   hints--;
+  runFlags.aidsUsed=true;
   const clueEl=document.getElementById('hc-clue');
   clueEl.textContent='💡 '+pool[cardCluesUsed];
   clueEl.classList.add('show');
@@ -700,6 +738,7 @@ function useHint(){
 function useSkip(){
   if(!currentCard||!gameActive||skip<=0)return;
   skip--;
+  runFlags.aidsUsed=true;
   // Put current card back at a random position in remaining deck (not at top)
   const card=currentCard;currentCard=null;
   const insertAt=Math.max(0,Math.floor(Math.random()*(deck.length-1)));
@@ -765,6 +804,10 @@ function attemptPlacement(idx){
   // so it says nothing about the player's knowledge
   if(timeline.length>0) recordCardResult(card, valid);
   if(valid){
+    // Run events for skill/secret trophies: the tightest gap filled (Scalpel)
+    // and hits made while on the last life (Phoenix)
+    if(prev&&next){ var _gap=cardYear(next)-cardYear(prev); if(_gap>0&&_gap<runFlags.minGap) runFlags.minGap=_gap; }
+    if(livesMode&&lives===1) runFlags.lastLifeHits++;
     // Interval scoring: bonus for duration (longer empires = harder to place precisely)
     SFX.play('correct');
     const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
@@ -801,6 +844,9 @@ function attemptPlacement(idx){
       }
     }
     showFeedback(false,hint,yearDelta);
+    // Biggest miss of the run (Anachronism) — checked right away, as misses
+    // otherwise only reach checkTrophies on the next correct card
+    if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta){ runFlags.maxMissDelta=yearDelta; checkTrophies(true); }
     if(livesMode){
       lives--;renderLives();
       if(lives<=0)setTimeout(()=>endGame(false),700);
@@ -820,6 +866,8 @@ function endGame(won){
     showIntro(); return;
   }
   runsPlayed++; saveRunsPlayed();   // every finished run, any mode (Veteran trophy)
+  // A live daily (not a past-day recovery) — read by the date/hour secret trophies
+  if(_isDailyChallenge&&!_isRecoverRun) runFlags.dailyFinished=true;
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
   var _newRecord=recordModeResult(_recordMode, score, timeline.length, playMode==='lives');

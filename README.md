@@ -16,7 +16,7 @@ Chronos is an educational timeline game where you place historical events and fi
 
 - **1200+ historical cards** spanning 9 eras
 - **6 game modes**: Classic, Empires, Characters, Biblical, Greco-Roman, Eastern
-- **33 unlockable trophies** with historical trivia
+- **52 unlockable trophies** with historical trivia
 - **Fully bilingual**: English and Portuguese
 - **Offline-first PWA**: Install and play without internet
 - **Zero build tools**: Pure vanilla JavaScript
@@ -142,7 +142,7 @@ This project intentionally avoids frameworks, bundlers, and npm dependencies to:
 - **1200+ historical cards** (events and people)
 - **9 historical eras**: Ancient, Classical, Medieval, Renaissance, Enlightenment, Industrial, Modern, Contemporary, Biblical
 - **6 game modes** with unique focuses
-- **33 unlockable trophies**: Each reveals unique historical trivia
+- **52 unlockable trophies**: Each reveals unique historical trivia
 - **2 languages**: English and Portuguese (equal treatment, full translation)
 - **Daily challenges**: Seeded puzzles for consistent experience across players
 
@@ -337,7 +337,7 @@ Chronos é um jogo educativo de linha do tempo onde você coloca eventos e figur
 
 - **1200+ cartas históricas** abrangendo 9 eras
 - **6 modos de jogo**: Clássico, Impérios, Personagens, Bíblico, Greco-Romano, Oriental
-- **33 troféus desbloqueáveis** com curiosidades históricas
+- **52 troféus desbloqueáveis** com curiosidades históricas
 - **Totalmente bilíngue**: Inglês e Português
 - **PWA offline-first**: Instale e jogue sem internet
 - **Zero ferramentas de build**: JavaScript vanilla puro
@@ -463,7 +463,7 @@ Este projeto intencionalmente evita frameworks, bundlers e dependências npm par
 - **1200+ cartas históricas** (eventos e pessoas)
 - **9 eras históricas**: Antiga, Clássica, Medieval, Renascimento, Iluminismo, Industrial, Moderna, Contemporânea, Bíblica
 - **6 modos de jogo** com focos únicos
-- **33 troféus desbloqueáveis**: Cada um revela curiosidades históricas únicas
+- **52 troféus desbloqueáveis**: Cada um revela curiosidades históricas únicas
 - **2 idiomas**: Inglês e Português (tratamento igual, tradução completa)
 - **Desafios diários**: Quebra-cabeças com seed para experiência consistente entre jogadores
 
