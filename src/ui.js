@@ -1309,6 +1309,7 @@ function renderTrophies(){
       if(tier) cards += '<div class="tcard-tier tier-'+def.tier+'">'+(lang==='pt'?tier.name_pt:tier.name)+'</div>';
       cards += '<div class="tcard-desc">'+(isEarned ? (lang==='pt'?'✦ Toque para ver detalhes':'✦ Tap to view') : (lang==='pt'?'Toque para ver os requisitos':'Tap to see requirements'))+'</div>';
       if(isEarned && dateStr) cards += '<div class="tcard-date">'+dateStr+'</div>';
+      if(!isEarned) cards += _trophyProgressBar(def);
       if(!isEarned) cards += '<div class="tcard-lock">🔒</div>';
       cards += '</div>';
     });
@@ -1502,15 +1503,27 @@ function openEmblemModal(id){
   });
 }
 
+// Progress bar under a locked long-term trophy (nothing for yes/no goals)
+function _trophyProgressBar(def){
+  var pr = trophyProgress(def);
+  if(!pr || !pr.bar) return '';
+  var n = Math.min(pr.n, pr.goal);
+  var pct = pr.goal ? Math.round(100*n/pr.goal) : 0;
+  return '<div class="tcard-prog"><div class="tcard-prog-bar"><div class="tcard-prog-fill" style="width:'+pct+'%"></div></div>'
+    + '<div class="tcard-prog-txt">'+formatXp(n)+' / '+formatXp(pr.goal)+'</div></div>';
+}
+
 function openTrophyModal(idx){
   var def = TROPHY_DEFS[idx];
+  var pr = earnedTrophies[def.id] ? null : trophyProgress(def);
   _showTpModal({
     icon: def.icon,
     earned: !!earnedTrophies[def.id],
     name: lang==='pt' ? def.name_pt : def.name,
     date: earnedTrophies[def.id] || '',
     trivia: lang==='pt' ? (def.trivia_pt || def.trivia || '') : (def.trivia || ''),
-    how: lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || '')
+    how: (lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || ''))
+      + (pr && pr.bar ? ' ' + t('tp_progress').replace('{n}', formatXp(Math.min(pr.n, pr.goal))).replace('{goal}', formatXp(pr.goal)) : '')
   });
 }
 

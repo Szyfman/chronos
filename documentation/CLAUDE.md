@@ -314,9 +314,11 @@ score += Math.round(basePoints * streakMultiplier(streak));
   // Option 2: Special condition trophy
   needed: null,
   special: 'special_condition_name',
-  goal: 5000               // threshold for the 'score' and 'streak' specials
+  goal: 5000               // threshold of the special (score, streak, cards, runs, months, share of the Compendium...)
 }
 ```
+
+**Long-term progress**: specials listed in `PROGRESS_TROPHY_SPECIALS` (game.js) are judged from saved progress by `trophyProgress(def)`, which returns `{ n, goal, bar }`. The same numbers unlock the trophy at game end and draw the progress bar on a locked card (and "Progress: n / goal" in its modal), so they never disagree. Thresholds stay on the trophy (`goal`, plus `modes`/`score` for `mode_records`) so they can be tuned in one place.
 
 **Sections**: the trophy tab groups trophies by `section`, in `TROPHY_SECTIONS` order. Sections start closed, show "earned / total", and remember which ones the player opened (`chronos_tp_open`). A missing or unknown `section` falls into the first section; an empty section is hidden.
 

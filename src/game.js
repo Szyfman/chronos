@@ -227,10 +227,68 @@ function saveTrophies(){
   try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
 }
 
+// ── LONG-TERM PROGRESS ────────────────────────────────────────────────────
+// Specials judged from saved progress (not the current run): checkTrophies
+// unlocks them when trophyProgress reaches its goal, and the trophy tab draws
+// the same numbers as a bar, so the two can never disagree. Thresholds live
+// on each trophy (goal, score, modes) in trophies.js.
+var PROGRESS_TROPHY_SPECIALS = ['compendium_share','total_correct','runs_played','era_gold','mode_records','daily_months','weak_overcome'];
+
+// Distinct calendar months (1-12) with a recorded daily challenge
+function _dailyMonthsPlayed(){
+  var months = {};
+  try{
+    for(var i=0;i<localStorage.length;i++){
+      var m = /^chronos_daily_\d{4}-(\d{2})-\d{2}$/.exec(localStorage.key(i)||'');
+      if(m) months[m[1]] = true;
+    }
+  }catch(e){}
+  return Object.keys(months).length;
+}
+
+/* { n, goal, bar } for trophies with measurable progress, else null.
+   bar:false means the goal is a yes/no condition (no bar is drawn). */
+function trophyProgress(def){
+  var all = CARDS.length + INTERVALS.length;
+  switch(def.special){
+    case 'compendium_share':
+    case 'compendium_complete': {
+      var found = CARDS.concat(INTERVALS).filter(function(c){ return discoveredCards.has(c.name); }).length;
+      return { n: found, goal: def.special==='compendium_share' ? Math.ceil(all*def.goal) : all, bar: true };
+    }
+    case 'total_correct': {
+      var ok = 0; for(var k in cardStats) ok += (cardStats[k] && cardStats[k].ok) | 0;
+      return { n: ok, goal: def.goal, bar: true };
+    }
+    case 'runs_played':
+      return { n: runsPlayed, goal: def.goal, bar: true };
+    case 'era_gold': {
+      var em = eraMastery();
+      var gold = em.filter(function(m){ return m.seal && m.seal.id === 'gold'; }).length;
+      return { n: gold, goal: def.goal === 'all' ? em.length : def.goal, bar: true };
+    }
+    case 'mode_records': {
+      var modes = def.modes || [];
+      var done = modes.filter(function(m){ return modeRecords[m] && (modeRecords[m].best|0) >= def.score; }).length;
+      return { n: done, goal: modes.length, bar: true };
+    }
+    case 'daily_months':
+      return { n: _dailyMonthsPlayed(), goal: def.goal, bar: true };
+    case 'daily_streak_7':
+    case 'daily_streak_40':
+      return { n: _calcStreak().longest, goal: def.special==='daily_streak_7' ? 7 : 40, bar: true };
+    case 'weak_overcome': {
+      var hit = Object.keys(cardStats).some(function(k){ var s=cardStats[k]; return s && (s.miss|0) >= def.goal && isCardMastered(s); });
+      return { n: hit ? 1 : 0, goal: 1, bar: false };
+    }
+  }
+  return null;
+}
+
 // Specials that can only be judged once the run is over: the Compendium is
 // saved at game end, an empty deck only counts as a finished run, and the
 // daily streak only grows when a daily attempt is recorded.
-var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40'];
+var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40'].concat(PROGRESS_TROPHY_SPECIALS);
 
 /* Runs at game end and, with midGame=true, after every correct card — so a
    trophy that depends only on the current run pops up the moment it is won.
@@ -246,7 +304,10 @@ function checkTrophies(midGame){
     if(!trophyAllowedInMode(def)) return;
     if(midGame && END_ONLY_TROPHY_SPECIALS.indexOf(def.special) >= 0) return;
     var earned = false;
-    if(def.special === 'compendium_complete'){
+    if(PROGRESS_TROPHY_SPECIALS.indexOf(def.special) >= 0){
+      var prog = trophyProgress(def);
+      earned = !!prog && prog.n >= prog.goal;
+    } else if(def.special === 'compendium_complete'){
       earned = discoveredCards.size >= (CARDS.length + INTERVALS.length);
     } else if(def.special === 'hundred_cards'){
       earned = placed.length >= 100;
@@ -650,20 +711,21 @@ function useSkip(){
 // ── PLAY MODE RULES ───────────────────────────────────────────────────────
 /* Per play mode (playMode in state.js): starting lives / hints / skips, the
    share of the final score that becomes XP, and which trophies can unlock
-   ('all' | 'none' | 'skill' = Skill section only, minus `excludeTrophies`).
+   ('all' | 'none' | 'sections' = only the TROPHY_SECTIONS ids in `sections`,
+   minus `excludeTrophies`).
    Infinity = unlimited; a card still has only 3 clues.
    The daily challenge overrides hints/skips to 0 in initGame. */
 const PLAY_MODE_RULES={
   lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all'  },
   // A ~18–30 card deck would make emptying it (The End of History) trivial
-  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'skill', excludeTrophies:['time_lord'] },
+  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','secret'], excludeTrophies:['time_lord'] },
   free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none' }
 };
 function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }
 function trophyAllowedInMode(def){
   var r=playModeRules();
   if(r.trophies==='none') return false;
-  if(r.trophies==='skill') return def.section==='skill'&&(r.excludeTrophies||[]).indexOf(def.id)<0;
+  if(r.trophies==='sections') return (r.sections||[]).indexOf(def.section)>=0&&(r.excludeTrophies||[]).indexOf(def.id)<0;
   return true;
 }
 
@@ -757,6 +819,7 @@ function endGame(won){
     _isDailyChallenge=false; _dailyCommitted=false; _isRecoverRun=false; _lastDailyResult=null;
     showIntro(); return;
   }
+  runsPlayed++; saveRunsPlayed();   // every finished run, any mode (Veteran trophy)
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
   var _newRecord=recordModeResult(_recordMode, score, timeline.length, playMode==='lives');

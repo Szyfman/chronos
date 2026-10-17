@@ -97,3 +97,12 @@ try {
 function saveReviewHistory() {
   try { localStorage.setItem('chronos_review_history', JSON.stringify(reviewHistory)); } catch(e) {}
 }
+
+// Runs finished with at least one card placed, in any mode (Veteran trophy).
+// Counted from the version that introduced it: past runs aren't back-filled.
+var runsPlayed = 0;
+try { runsPlayed = parseInt(localStorage.getItem('chronos_runs_played'), 10) || 0; } catch(e) {}
+
+function saveRunsPlayed() {
+  try { localStorage.setItem('chronos_runs_played', String(runsPlayed)); } catch(e) {}
+}
