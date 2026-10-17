@@ -320,6 +320,8 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Long-term progress**: specials listed in `PROGRESS_TROPHY_SPECIALS` (game.js) are judged from saved progress by `trophyProgress(def)`, which returns `{ n, goal, bar }`. The same numbers unlock the trophy at game end and draw the progress bar on a locked card (and "Progress: n / goal" in its modal), so they never disagree. Thresholds stay on the trophy (`goal`, plus `modes`/`score` for `mode_records`) so they can be tuned in one place.
 
+**Families** (`family` on a trophy): levels of the same feat — Compendium 25/50/75/100%, streak 15/30/50, daily 7/40 days, era mastery 1/all eras. Each level keeps its own id, unlock and trivia, and counts in the totals, but the trophy tab draws the family as ONE card: the highest level earned, "Level n/total" and the bar towards the next level (`_familyCard` / `openTrophyFamily` in ui.js). Its modal shows the trivia of every level earned so far and the ladder of levels. Members must be listed together, in level order, in the same section. On load, holding a higher level grants the lower ones silently (same date).
+
 **Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`ides`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy.
 
 **Secret trophies** (`section: 'secret'`): while locked, the card shows ❓ / ??? / "Secret trophy" and the modal only says to keep playing; the real name, hint and trivia appear once earned.

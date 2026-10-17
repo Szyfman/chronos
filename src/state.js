@@ -106,3 +106,13 @@ try { runsPlayed = parseInt(localStorage.getItem('chronos_runs_played'), 10) || 
 function saveRunsPlayed() {
   try { localStorage.setItem('chronos_runs_played', String(runsPlayed)); } catch(e) {}
 }
+
+// Longest streak ever reached in a mode that can unlock streak trophies —
+// the progress bar of the Spark / Blaze / On Fire family. Seeded in game.js
+// from the streak levels already earned.
+var bestStreak = 0;
+try { bestStreak = parseInt(localStorage.getItem('chronos_best_streak'), 10) || 0; } catch(e) {}
+
+function saveBestStreak() {
+  try { localStorage.setItem('chronos_best_streak', String(bestStreak)); } catch(e) {}
+}

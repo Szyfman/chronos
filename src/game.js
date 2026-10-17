@@ -214,14 +214,26 @@ function _saveDailyResult(won){
 
 var earnedTrophies = {};
 try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=JSON.parse(_et); } catch(e) {}
-// On Fire (streak 50) became the gold tier of streak 15/30/50: whoever already
-// has it gets the two lower tiers silently, dated the same day.
-if(earnedTrophies['on_fire']){
-  ['streak_15','streak_30'].forEach(function(id){
-    if(!earnedTrophies[id]) earnedTrophies[id] = earnedTrophies['on_fire'];
+// Trophy families (same `family`, listed in level order) are climbed level by
+// level. Whoever already holds a higher level — On Fire from before the streak
+// tiers existed, or the old Librarian, now the top Compendium level — gets the
+// lower levels silently, dated the same day, so a card never reads "1 of 4".
+(function(){
+  var changed = false, fams = {};
+  TROPHY_DEFS.forEach(function(d){ if(d.family) (fams[d.family] = fams[d.family] || []).push(d.id); });
+  Object.keys(fams).forEach(function(f){
+    var ids = fams[f], date = null;
+    for(var i = ids.length - 1; i >= 0; i--){
+      if(earnedTrophies[ids[i]]){ if(!date) date = earnedTrophies[ids[i]]; }
+      else if(date){ earnedTrophies[ids[i]] = date; changed = true; }
+    }
   });
-  try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
-}
+  if(changed){ try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {} }
+  // The best-streak record starts at the highest streak level already earned
+  TROPHY_DEFS.forEach(function(d){
+    if(d.special === 'streak' && earnedTrophies[d.id] && d.goal > bestStreak){ bestStreak = d.goal; saveBestStreak(); }
+  });
+})();
 
 function saveTrophies(){
   try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
@@ -260,6 +272,8 @@ function trophyProgress(def){
       var ok = 0; for(var k in cardStats) ok += (cardStats[k] && cardStats[k].ok) | 0;
       return { n: ok, goal: def.goal, bar: true };
     }
+    case 'streak':
+      return { n: bestStreak, goal: def.goal, bar: true };
     case 'runs_played':
       return { n: runsPlayed, goal: def.goal, bar: true };
     case 'era_gold': {
@@ -812,6 +826,8 @@ function attemptPlacement(idx){
     SFX.play('correct');
     const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
     timeline.splice(idx,0,card);score+=Math.round(basePoints*streakMultiplier(streak));streak++;currentCard=null;
+    // Best streak only where streak trophies can unlock, so its bar never runs ahead of them
+    if(streak>bestStreak&&playModeRules().trophies!=='none'){ bestStreak=streak; saveBestStreak(); }
     // Streak reward: +1 hint every 20 in a row (pointless when hints are unlimited)
     if(streak>0&&streak%20===0&&isFinite(hints)){hints++;renderSideBtns();showStreakToast();}
     checkTrophies(true);

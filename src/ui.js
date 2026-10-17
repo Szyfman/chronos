@@ -1293,7 +1293,12 @@ function renderTrophies(){
       var defSec = sectionIds.indexOf(def.section) >= 0 ? def.section : sectionIds[0];
       if(defSec !== sec.id) return;
       var isEarned = !!earnedTrophies[def.id];
-      total++; if(isEarned) earned++;
+      total++; if(isEarned) earned++;   // every level counts in the section total
+      // A family is drawn once, as a single card, where its first level sits
+      if(def.family){
+        if(TROPHY_DEFS.findIndex(function(d){ return d.family === def.family; }) === i) cards += _familyCard(def.family);
+        return;
+      }
       var nm = lang==='pt' ? def.name_pt : def.name;
       var dateStr = '';
       if(isEarned){
@@ -1516,6 +1521,60 @@ function _trophyProgressBar(def){
 }
 
 function _isHiddenTrophy(def){ return def.section === 'secret' && !earnedTrophies[def.id]; }
+
+// ── TROPHY FAMILIES ───────────────────────────────────────────────────────
+// Levels of the same feat (`family` in trophies.js) share one card: it shows
+// the highest level earned, "Level n/total", and the bar towards the next one.
+function _familyState(fid){
+  var levels = TROPHY_DEFS.filter(function(d){ return d.family === fid; });
+  var done = levels.filter(function(d){ return !!earnedTrophies[d.id]; });
+  return { levels: levels, done: done, top: done[done.length-1] || null,
+           next: levels.find(function(d){ return !earnedTrophies[d.id]; }) || null };
+}
+function _fmtTrophyDate(iso, month){
+  try{ var d = new Date(iso); if(!isNaN(d)) return d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:month||'short',year:'numeric'}); }catch(e){}
+  return '';
+}
+function _familyCard(fid){
+  var f = _familyState(fid), shown = f.top || f.levels[0];
+  var tier = shown.tier && TROPHY_TIERS[shown.tier];
+  var html = '<div class="tc'+(f.top?' earned':'')+'" onclick="openTrophyFamily(\''+fid+'\')">';
+  html += '<div class="tcard-icon">'+shown.icon+'</div>';
+  html += '<div class="tcard-name">'+_nm(shown)+'</div>';
+  if(tier) html += '<div class="tcard-tier tier-'+shown.tier+'">'+_nm(tier)+'</div>';
+  html += '<div class="tcard-level">'+t('tp_level').replace('{n}', f.done.length).replace('{total}', f.levels.length)+'</div>';
+  html += '<div class="tcard-desc">'+(f.top ? (lang==='pt'?'✦ Toque para ver detalhes':'✦ Tap to view') : (lang==='pt'?'Toque para ver os requisitos':'Tap to see requirements'))+'</div>';
+  if(f.top){ var ds = _fmtTrophyDate(earnedTrophies[f.top.id]); if(ds) html += '<div class="tcard-date">'+ds+'</div>'; }
+  if(f.next){
+    html += _trophyProgressBar(f.next);
+    if(f.top) html += '<div class="tcard-next">'+t('tp_next').replace('{name}', _nm(f.next))+'</div>';
+  }
+  if(!f.top) html += '<div class="tcard-lock">🔒</div>';
+  return html + '</div>';
+}
+// Family modal: the trivia of every level earned so far (a new level reveals a
+// new one), then the ladder of levels with the progress towards the next
+function openTrophyFamily(fid){
+  var f = _familyState(fid), shown = f.top || f.levels[0];
+  var trivia = f.done.map(function(d){
+    return '✦ '+_nm(d)+'\n'+(lang==='pt' ? (d.trivia_pt || d.trivia || '') : (d.trivia || ''));
+  }).join('\n\n');
+  var ladder = f.levels.map(function(d){
+    var tier = d.tier && TROPHY_TIERS[d.tier];
+    return (earnedTrophies[d.id] ? '✓ ' : '○ ')+_nm(d)+(tier ? ' ('+_nm(tier)+')' : '')+' — '+(lang==='pt' ? d.desc_pt : d.desc);
+  }).join('\n');
+  var pr = f.next ? trophyProgress(f.next) : null;
+  if(pr && pr.bar) ladder += '\n\n'+t('tp_next').replace('{name}', _nm(f.next))+' · '+t('tp_progress').replace('{n}', formatXp(Math.min(pr.n, pr.goal))).replace('{goal}', formatXp(pr.goal));
+  else if(!f.next) ladder += '\n\n'+t('tp_all_levels');
+  _showTpModal({
+    icon: shown.icon,
+    earned: !!f.top,
+    name: _nm(shown)+' · '+t('tp_level').replace('{n}', f.done.length).replace('{total}', f.levels.length),
+    date: f.top ? earnedTrophies[f.top.id] : '',
+    trivia: trivia,
+    how: ladder
+  });
+}
 
 function openTrophyModal(idx){
   var def = TROPHY_DEFS[idx];

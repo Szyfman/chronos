@@ -9,11 +9,16 @@ var TROPHY_SECTIONS = [
   { id:'secret',      icon:'❓', name:'Secret',      name_pt:'Secretos' }
 ];
 
-// Optional `tier` on a trophy: levels of the same feat (e.g. streak 15/30/50)
+// Optional `tier` on a trophy: its level's medal. Trophies sharing a `family`
+// are levels of the same feat (e.g. streak 15/30/50): each level keeps its own
+// id and unlock, but the trophy tab shows the family as a single card that
+// climbs level by level. Members of a family must be listed together, in
+// level order, in the same section.
 var TROPHY_TIERS = {
   bronze: { name:'Bronze', name_pt:'Bronze' },
   silver: { name:'Silver', name_pt:'Prata' },
-  gold:   { name:'Gold',   name_pt:'Ouro' }
+  gold:   { name:'Gold',   name_pt:'Ouro' },
+  diamond:{ name:'Diamond',name_pt:'Diamante' }
 };
 
 var TROPHY_DEFS = [
@@ -373,6 +378,7 @@ var TROPHY_DEFS = [
   {
     id:'compendium_25',
     section:'longterm',
+    family:'compendium',
     tier:'bronze',
     icon:'🔍',
     name:'Curious Reader',
@@ -390,6 +396,7 @@ var TROPHY_DEFS = [
   {
     id:'compendium_50',
     section:'longterm',
+    family:'compendium',
     tier:'silver',
     icon:'🔍',
     name:'Scholar',
@@ -407,6 +414,7 @@ var TROPHY_DEFS = [
   {
     id:'compendium_75',
     section:'longterm',
+    family:'compendium',
     tier:'gold',
     icon:'🔍',
     name:'Sage',
@@ -424,15 +432,17 @@ var TROPHY_DEFS = [
   {
     id:'librarian',
     section:'longterm',
+    family:'compendium',
+    tier:'diamond',
     icon:'📚',
-    name:'Librarian of Alexandria',
-    name_pt:'Bibliotecário de Alexandria',
+    name:'Omniscient',
+    name_pt:'Onisciente',
     desc:'Discover every single card in the Compendium',
     desc_pt:'Descubra todas as cartas do Compêndio',
     hint:'Keep playing across all game modes until you have encountered every card at least once. Cards are added to the Compendium when you see or place them in a game.',
     hint_pt:'Continue jogando em todos os modos até encontrar todas as cartas pelo menos uma vez. As cartas são adicionadas ao Compêndio quando você as vê ou coloca em um jogo.',
     trivia:'The Library of Alexandria, founded around 300 BCE under Ptolemy I, is estimated to have held 400,000–700,000 scrolls — the largest collection of knowledge in the ancient world. It was not burned in a single dramatic fire (a popular myth), but gradually declined through funding cuts and political neglect over centuries. Julius Caesar accidentally burned some scrolls during the siege of 48 BCE. It likely ceased to function as a major institution around the 3rd century CE. A new Bibliotheca Alexandrina opened in Egypt in 2002.',
-    trivia_pt:'A Biblioteca de Alexandria, fundada por volta de 300 AEC sob Ptolomeu I, estima-se ter guardado 400.000–700.000 pergaminhos — a maior coleção de conhecimento do mundo antigo. Ela não foi queimada em um único incêndio dramático (um mito popular), mas gradualmente declinou ao longo de séculos. O Júlio César acidentalmente queimou alguns pergaminhos durante o cerco de 48 AEC Uma nova Bibliotheca Alexandrina foi inaugurada no Egito em 2002.',
+    trivia_pt:'A Biblioteca de Alexandria, fundada por volta de 300 AEC sob Ptolomeu I, estima-se ter guardado 400.000–700.000 pergaminhos — a maior coleção de conhecimento do mundo antigo. Ela não foi queimada em um único incêndio dramático (um mito popular), mas gradualmente declinou ao longo de séculos. Júlio César queimou acidentalmente alguns pergaminhos durante o cerco de 48 AEC. Uma nova Bibliotheca Alexandrina foi inaugurada no Egito em 2002.',
     needed:null,
     special:'compendium_complete'
   },
@@ -455,6 +465,7 @@ var TROPHY_DEFS = [
   {
     id:'streak_15',
     section:'skill',
+    family:'streak',
     tier:'bronze',
     icon:'🔥',
     name:'Spark',
@@ -472,6 +483,7 @@ var TROPHY_DEFS = [
   {
     id:'streak_30',
     section:'skill',
+    family:'streak',
     tier:'silver',
     icon:'🔥',
     name:'Blaze',
@@ -489,6 +501,7 @@ var TROPHY_DEFS = [
   {
     id:'on_fire',
     section:'skill',
+    family:'streak',
     tier:'gold',
     icon:'🔥',
     name:'On Fire',
@@ -521,6 +534,8 @@ var TROPHY_DEFS = [
   {
     id:'daily_week',
     section:'longterm',
+    family:'daily',
+    tier:'silver',
     icon:'📝',
     name:'Creature of Habit',
     name_pt:'Criatura do Hábito',
@@ -536,6 +551,8 @@ var TROPHY_DEFS = [
   {
     id:'daily_forty',
     section:'longterm',
+    family:'daily',
+    tier:'gold',
     icon:'🗓️',
     name:'The Long Count',
     name_pt:'A Grande Contagem',
@@ -583,6 +600,8 @@ var TROPHY_DEFS = [
   {
     id:'era_master',
     section:'longterm',
+    family:'era',
+    tier:'silver',
     icon:'🏺',
     name:'Master of an Era',
     name_pt:'Mestre de uma Era',
@@ -599,6 +618,8 @@ var TROPHY_DEFS = [
   {
     id:'eras_master',
     section:'longterm',
+    family:'era',
+    tier:'gold',
     icon:'🌐',
     name:'Master of the Ages',
     name_pt:'Mestre das Eras',
