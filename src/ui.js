@@ -126,7 +126,8 @@ function drawCard(){
   document.getElementById('hc-era').textContent='';
   document.getElementById('hc-hint').textContent=cHint(c);
   document.getElementById('hc-bar').style.background='rgba(201,168,76,0.25)';
-  document.getElementById('hand-card').className=gameMode==='empires'?'empires-border':(playMode==='free'?'free-border':(playMode==='review'?'review-border':''));
+  document.getElementById('hand-card').className=gameMode==='empires'?'empires-border':(playMode==='free'?'free-border':(playMode==='review'?'review-border':cardFrameClass()));
+  document.getElementById('ghost').className=cardFrameClass();
   // Interval-specific fields
   const spanEl=document.getElementById('hc-span');
   const regionEl=document.getElementById('hc-region');
@@ -164,6 +165,14 @@ function renderTimeline(){
     el.appendChild(hint);
   }
 }
+// Classic runs with lives (daily included) dress the cards in the player's
+// profile frame (.cf-<style> in CSS). The default Classic frame is the base
+// card look, and other modes keep their own border colours.
+function cardFrameClass(){
+  if(gameMode!=='classic'||playMode!=='lives')return '';
+  const f=selectedCustom('frame');
+  return f.style==='classic'?'':'cf-'+f.style;
+}
 function makeTCard(card,idx){
   const d=document.createElement('div');
   const iv=isInterval(card);
@@ -175,7 +184,8 @@ function makeTCard(card,idx){
     d.className='timeline-card interval-card';
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}${cultureBadge}</div><div class="tc-meta tc-region">${cRegion(card)||card.era}</div></div><div class="tc-span">${formatYear(card.startYear)} – ${formatYear(card.endYear)}</div><div class="tc-peek">ℹ</div>`;
   } else {
-    d.className='timeline-card';
+    const fc=cardFrameClass();
+    d.className='timeline-card'+(fc?' '+fc:'');
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}</div><div class="tc-meta">${card.era} · ${cCat(card)}</div></div><div class="tc-year">${formatYear(card.year)}</div><div class="tc-peek">ℹ</div>`;
   }
   d.addEventListener('click',()=>{

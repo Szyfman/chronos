@@ -76,7 +76,7 @@
   body.light .drop-zone.active{background:#eff6ff;border-radius:8px}
   body.light .drop-zone.active .dz-line{background:#1d4ed8}
   body.light .drop-zone.active::after{color:#1e40af}
-  body.light .timeline-card{background:#ffffff;border:1.5px solid #94a3b8;box-shadow:0 1px 6px rgba(15,23,42,.1)}
+  body.light .timeline-card{background:#ffffff;border:1.5px solid var(--cf-line,#94a3b8);box-shadow:0 1px 6px rgba(15,23,42,.1)}
   body.light .timeline-card:hover{border-color:#1d4ed8;background:#eff6ff;box-shadow:0 2px 8px rgba(29,78,216,.14)}
   body.light .timeline-card:active{background:#dbeafe}
   body.light .tcard-name,.tc-name{color:#0f172a;font-weight:700}
@@ -91,8 +91,8 @@
   /* ── Bottom / hand card ── */
   body.light #bottom-area{background:#f1f5f9;border-top:1.5px solid #94a3b8}
   body.light #bottom-label{color:#334155;font-weight:600}
-  body.light #hand-card{background:#ffffff;border:2px solid #1d4ed8;box-shadow:0 4px 20px rgba(29,78,216,.18)}
-  body.light #hand-card.lifting{box-shadow:0 16px 40px rgba(29,78,216,.22),0 0 0 2px #1d4ed8}
+  body.light #hand-card{background:#ffffff;border:2px solid var(--cf-color,#1d4ed8);box-shadow:0 4px 20px rgba(29,78,216,.18),var(--cf-glow,0 0 transparent)}
+  body.light #hand-card.lifting{box-shadow:0 16px 40px rgba(29,78,216,.22),0 0 0 2px var(--cf-color,#1d4ed8),var(--cf-glow,0 0 transparent)}
   body.light #hand-card.free-border{border-color:#059669}
   body.light #hand-card.review-border{border-color:#65a30d}
   body.light #hand-card.empires-border{border-color:#7c3aed}
@@ -115,7 +115,7 @@
   body.light #hc-clue{color:#166534;border-top-color:#bbf7d0}
 
   /* ── Ghost drag ── */
-  body.light #ghost{background:#ffffff;border-color:#1d4ed8;box-shadow:0 12px 40px rgba(29,78,216,.2)}
+  body.light #ghost{background:#ffffff;border-color:var(--cf-color,#1d4ed8);box-shadow:0 12px 40px rgba(29,78,216,.2)}
   body.light #ghost .g-name{color:#0f172a}
   body.light #ghost .g-cat{color:#1d4ed8}
 
@@ -257,7 +257,7 @@
   .drop-zone.active{height:56px;background:rgba(201,168,76,.04);border-radius:4px}
   .drop-zone.active::after{color:var(--gold-dim)}
   .drop-zone.active .dz-line{width:80%;background:rgba(201,168,76,.3)}
-  .timeline-card{width:calc(100% - 24px);margin:0 12px;background:var(--bg3);border:1px solid rgba(201,168,76,.18);border-radius:6px;padding:8px 11px;display:flex;align-items:center;gap:8px;animation:cardIn .35s cubic-bezier(.22,1,.36,1) forwards;cursor:pointer;transition:border-color .2s,background .15s}
+  .timeline-card{width:calc(100% - 24px);margin:0 12px;background:var(--bg3);border:1px solid var(--cf-line,rgba(201,168,76,.18));border-radius:6px;padding:8px 11px;display:flex;align-items:center;gap:8px;animation:cardIn .35s cubic-bezier(.22,1,.36,1) forwards;cursor:pointer;transition:border-color .2s,background .15s}
   .timeline-card:hover{border-color:rgba(201,168,76,.45);background:#221f19}
   .timeline-card:active{background:#2a261f}
   @keyframes cardIn{from{opacity:0;transform:scale(.94) translateY(-6px)}to{opacity:1;transform:scale(1) translateY(0)}}
@@ -271,12 +271,21 @@
   /* BOTTOM */
   #bottom-area{width:100%;max-width:420px;flex-shrink:0;padding:8px 16px 18px;border-top:1px solid rgba(201,168,76,.12);background:linear-gradient(to bottom,transparent,var(--bg) 25%);position:relative;z-index:10}
   #bottom-label{font-size:.46rem;color:var(--cream-dim);letter-spacing:.22em;text-transform:uppercase;text-align:center;margin-bottom:6px}
-  #hand-card{width:100%;background:var(--bg2);border:1px solid var(--gold-dim);border-radius:8px;padding:12px 14px;cursor:grab;user-select:none;transition:box-shadow .2s,transform .2s;box-shadow:0 4px 24px rgba(0,0,0,.4);touch-action:none}
+  #hand-card{width:100%;background:var(--bg2);border:1px solid var(--cf-color,var(--gold-dim));border-radius:8px;padding:12px 14px;cursor:grab;user-select:none;transition:box-shadow .2s,transform .2s;box-shadow:0 4px 24px rgba(0,0,0,.4),var(--cf-glow,0 0 transparent);touch-action:none}
   #hand-card.free-border{border-color:var(--blue)}
   #hand-card.review-border{border-color:#4a8c5c}
   #hand-card.empires-border{border-color:rgba(154,106,191,.6)}
   #hand-card:active{cursor:grabbing}
-  #hand-card.lifting{box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 0 1px var(--gold);transform:scale(1.02)}
+  #hand-card.lifting{box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 0 1px var(--cf-color,var(--gold)),var(--cf-glow,0 0 transparent);transform:scale(1.02)}
+  /* Profile frame worn by classic-mode cards (cardFrameClass in ui.js), mirroring
+     .pf-frame-<style>. The default Classic frame sets no class, so the base look
+     stays. --cf-color: hand card/ghost border; --cf-glow: hand card rings;
+     --cf-line: softer border of placed timeline cards. */
+  .cf-bronze{--cf-color:#b0703a;--cf-line:rgba(176,112,58,.5)}
+  .cf-silver{--cf-color:#c0c7d0;--cf-line:rgba(192,199,208,.45);--cf-glow:0 0 0 2px rgba(192,199,208,.25)}
+  .cf-imperial{--cf-color:#8a4ab8;--cf-line:rgba(138,74,184,.55);--cf-glow:0 0 0 3px rgba(138,74,184,.3),0 0 14px rgba(138,74,184,.35)}
+  .cf-ember{--cf-color:#e2582b;--cf-line:rgba(226,88,43,.55);--cf-glow:0 0 0 3px rgba(226,88,43,.25),0 0 16px rgba(226,88,43,.45)}
+  body.light .cf-silver{--cf-color:#94a3b8;--cf-line:#64748b}
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
   #hc-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1rem;color:var(--cream);line-height:1.2;flex:1;padding-right:10px;font-style:italic}
   #hc-cat{font-size:.45rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:3px;padding:2px 5px;white-space:nowrap;flex-shrink:0}
@@ -306,7 +315,7 @@
   #skip-btn .side-btn-icon{opacity:.8}
 
   /* GHOST */
-  #ghost{position:fixed;pointer-events:none;z-index:999;width:255px;background:var(--bg2);border:1px solid var(--gold);border-radius:8px;padding:10px 12px;box-shadow:0 20px 60px rgba(0,0,0,.8);opacity:0;transform:rotate(-1.5deg) scale(1.05);transition:opacity .1s}
+  #ghost{position:fixed;pointer-events:none;z-index:999;width:255px;background:var(--bg2);border:1px solid var(--cf-color,var(--gold));border-radius:8px;padding:10px 12px;box-shadow:0 20px 60px rgba(0,0,0,.8);opacity:0;transform:rotate(-1.5deg) scale(1.05);transition:opacity .1s}
   #ghost.visible{opacity:1}
   #ghost .g-name{font-family:'Inter',sans-serif;font-size:.88rem;color:var(--cream);font-style:italic}
   #ghost .g-cat{font-size:.46rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
