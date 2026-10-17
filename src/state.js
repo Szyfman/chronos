@@ -61,3 +61,16 @@ try {
 function saveCardStats() {
   try { localStorage.setItem('chronos_card_stats', JSON.stringify(cardStats)); } catch(e) {}
 }
+
+// Personal bests per game mode (see recordModeResult in progression.js):
+// { classic: { best, bestDate, mostPlaced, runs }, …, daily: {…} }.
+// Kept apart from chronos_history, which only holds saved runs (max 30).
+var modeRecords = {};
+try {
+  var _mr = JSON.parse(localStorage.getItem('chronos_mode_records') || '{}');
+  if (_mr && typeof _mr === 'object' && !Array.isArray(_mr)) modeRecords = _mr;
+} catch(e) {}
+
+function saveModeRecords() {
+  try { localStorage.setItem('chronos_mode_records', JSON.stringify(modeRecords)); } catch(e) {}
+}

@@ -1,8 +1,10 @@
 // ── progression.js ───────────────────────────────────────────────────────
-// Player profile: name, XP → level, level titles and unlockable UI
-// customizations. Data + unlock/selection logic only; rendering is in ui.js.
+// Player profile: name, XP → level, level titles, unlockable UI
+// customizations, per-mode records and era mastery. Data + logic only;
+// rendering is in ui.js.
 // XP = final score of each run (awarded by endGame in game.js).
-// Depends on: state.js (playerName, playerXp, playerCustom),
+// Depends on: state.js (playerName, playerXp, playerCustom, cardStats,
+//             modeRecords), cards.js (CARDS, INTERVALS),
 //             game.js (earnedTrophies), trophies.js (TROPHY_DEFS)
 // ─────────────────────────────────────────────────────────────────────────
 
@@ -136,4 +138,82 @@ function selectCustomization(id) {
 function setPlayerName(name) {
   playerName = String(name || '').trim().slice(0, PLAYER_NAME_MAX);
   try { localStorage.setItem('chronos_player_name', playerName); } catch(e) {}
+}
+
+// ── MODE RECORDS ──────────────────────────────────────────────────────────
+// Shown in this order. `label` is an i18n key. The daily challenge runs as
+// classic but keeps its own record, since its 18-card deck isn't comparable.
+const RECORD_MODES = [
+  { id: 'classic',    icon: '📜', label: 'classic_lbl' },
+  { id: 'empires',    icon: '🏛️', label: 'empires_lbl' },
+  { id: 'characters', icon: '👤', label: 'characters_lbl' },
+  { id: 'abrahamic',  icon: '✡️', label: 'biblical_lbl' },
+  { id: 'roman',      icon: '🏛️', label: 'mc_roman_title' },
+  { id: 'eastern',    icon: '☯️', label: 'mc_eastern_title' },
+  { id: 'daily',      icon: '📅', label: 'daily_title' }
+];
+
+/* Called by endGame for every run with at least one card placed. Only runs
+   with lives count: Free play has no stakes, so its scores aren't records.
+   Returns true when the run beat an earlier record of its mode — the very
+   first run of a mode sets the record but isn't announced as a new one. */
+function recordModeResult(modeId, finalScore, placedCount, withLives) {
+  if (!withLives || !modeId) return false;
+  var r = modeRecords[modeId];
+  if (!r || typeof r !== 'object') r = modeRecords[modeId] = { best: 0, bestDate: '', mostPlaced: 0, runs: 0 };
+  var hadRuns = (r.runs | 0) > 0;
+  r.runs = (r.runs | 0) + 1;
+  r.mostPlaced = Math.max(r.mostPlaced | 0, placedCount | 0);
+  var isBest = finalScore > (r.best | 0);
+  if (isBest) { r.best = finalScore; r.bestDate = new Date().toISOString(); }
+  saveModeRecords();
+  return isBest && hadRuns;
+}
+
+// ── ERA MASTERY ───────────────────────────────────────────────────────────
+// Eras in chronological order; `id` matches card.era.
+const MASTERY_ERAS = [
+  { id: 'Ancient',      name: 'Ancient',      name_pt: 'Antiguidade' },
+  { id: 'Classical',    name: 'Classical',    name_pt: 'Antiguidade Clássica' },
+  { id: 'Medieval',     name: 'Medieval',     name_pt: 'Idade Média' },
+  { id: 'Renaissance',  name: 'Renaissance',  name_pt: 'Renascimento' },
+  { id: 'Early Modern', name: 'Early Modern', name_pt: 'Início da Idade Moderna' },
+  { id: 'Modern',       name: 'Modern',       name_pt: 'Era Moderna' },
+  { id: 'Contemporary', name: 'Contemporary', name_pt: 'Contemporânea' }
+];
+
+/* Seals, lowest first. A card is "hit" once placed correctly at least once,
+   and "mastered" once it has 2+ correct placements and more hits than misses.
+   `share` is the fraction of the era's cards that must meet `need`. */
+const MASTERY_SEALS = [
+  { id: 'bronze', icon: '🥉', need: 'hit',      share: 0.25, name: 'Bronze', name_pt: 'Bronze' },
+  { id: 'silver', icon: '🥈', need: 'hit',      share: 0.60, name: 'Silver', name_pt: 'Prata' },
+  { id: 'gold',   icon: '🥇', need: 'mastered', share: 0.90, name: 'Gold',   name_pt: 'Ouro' }
+];
+
+function isCardHit(s)      { return !!s && (s.ok | 0) >= 1; }
+function isCardMastered(s) { return !!s && (s.ok | 0) >= 2 && (s.ok | 0) > (s.miss | 0); }
+
+/* Per-era summary from cardStats (state.js):
+   { era, total, hit, mastered, seal (highest earned or null),
+     next ({ seal, count, goal }, or null once gold) } */
+function eraMastery() {
+  var all = CARDS.concat(INTERVALS);
+  return MASTERY_ERAS.map(function(era) {
+    var cards = all.filter(function(c) { return c.era === era.id; });
+    var hit = 0, mastered = 0;
+    cards.forEach(function(c) {
+      var s = cardStats[c.name];
+      if (isCardHit(s)) hit++;
+      if (isCardMastered(s)) mastered++;
+    });
+    var total = cards.length, seal = null, next = null;
+    MASTERY_SEALS.forEach(function(m) {
+      var count = m.need === 'mastered' ? mastered : hit;
+      var goal = Math.ceil(total * m.share);
+      if (total && count >= goal) seal = m;
+      else if (!next) next = { seal: m, count: count, goal: goal };
+    });
+    return { era: era, total: total, hit: hit, mastered: mastered, seal: seal, next: next };
+  });
 }

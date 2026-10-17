@@ -1332,6 +1332,9 @@ function renderProgress(){
   html += '<div class="pf-xp-foot"><span>'+t('pf_total_xp').replace('{n}',formatXp(info.totalXp))+'</span>';
   html += '<span>'+t('pf_to_next').replace('{n}',formatXp(info.xpNeeded-info.xp)).replace('{lvl}',info.level+1)+'</span></div></div>';
 
+  html += _renderEraMastery();
+  html += _renderModeRecords();
+
   html += '<div class="dc-section-title">'+t('pf_custom')+'</div>';
   CUSTOM_CATEGORIES.forEach(function(cat){
     var selected = selectedCustom(cat.id);
@@ -1366,6 +1369,54 @@ function renderProgress(){
   nameInput.placeholder = t('pf_name_ph');
   nameInput.addEventListener('change', function(){ setPlayerName(this.value); this.value = playerName; });
   nameInput.addEventListener('keydown', function(e){ if(e.key==='Enter') this.blur(); });
+}
+
+// Era mastery block of the progress tab. The bar tracks the next seal; once
+// gold is earned it stays full and shows how many cards are mastered.
+function _renderEraMastery(){
+  var html = '<div class="pf-block"><div class="dc-section-title">'+t('pf_mastery')+'</div>';
+  html += '<div class="pf-help">'+t('pf_mastery_help')+'</div>';
+  html += '<div class="pf-mastery">';
+  eraMastery().forEach(function(m){
+    var color = ERA_COLORS[m.era.id] || 'var(--gold)';
+    var sealName = function(s){ return s.icon+' '+(lang==='pt'?s.name_pt:s.name); };
+    var pct, caption;
+    if(m.next){
+      pct = m.next.goal ? Math.min(100, Math.round(100*m.next.count/m.next.goal)) : 0;
+      caption = t('pf_mastery_next').replace('{seal}', sealName(m.next.seal))
+        .replace('{n}', m.next.count).replace('{goal}', m.next.goal)
+        .replace('{what}', t(m.next.seal.need==='mastered' ? 'pf_mastery_mastered' : 'pf_mastery_hit'));
+    } else {
+      pct = 100;
+      caption = t('pf_mastery_done').replace('{seal}', sealName(m.seal)).replace('{n}', m.mastered).replace('{total}', m.total);
+    }
+    html += '<div class="pf-era'+(m.seal?' sealed':'')+'">';
+    html += '<div class="pf-era-row"><span class="pf-era-name">'+(lang==='pt'?m.era.name_pt:m.era.name)+'</span>';
+    html += '<span class="pf-era-seal"'+(m.seal?' title="'+(lang==='pt'?m.seal.name_pt:m.seal.name)+'"':'')+'>'+(m.seal?m.seal.icon:'·')+'</span></div>';
+    html += '<div class="pf-xp-bar"><div class="pf-xp-fill" style="width:'+pct+'%;background:'+color+'"></div></div>';
+    html += '<div class="pf-era-cap">'+caption+'</div>';
+    html += '</div>';
+  });
+  return html + '</div></div>';
+}
+
+// Per-mode personal bests (lives runs only — see recordModeResult)
+function _renderModeRecords(){
+  var html = '<div class="pf-block"><div class="dc-section-title">'+t('pf_records')+'</div>';
+  html += '<div class="pf-records">';
+  html += '<div class="pf-rec-row pf-rec-head"><span>'+t('pf_rec_mode')+'</span><span>'+t('pf_rec_best')+'</span><span>'+t('pf_rec_cards')+'</span><span>'+t('pf_rec_runs')+'</span></div>';
+  RECORD_MODES.forEach(function(mode){
+    var r = modeRecords[mode.id];
+    var played = r && (r.runs|0) > 0;
+    html += '<div class="pf-rec-row'+(played?'':' empty')+'">';
+    html += '<span class="pf-rec-mode">'+mode.icon+' '+t(mode.label)+'</span>';
+    html += '<span class="pf-rec-best">'+(played ? formatXp(r.best|0) : '—')+'</span>';
+    html += '<span>'+(played ? (r.mostPlaced|0) : '—')+'</span>';
+    html += '<span>'+(played ? (r.runs|0) : '—')+'</span>';
+    html += '</div>';
+  });
+  html += '</div><div class="pf-help">'+t('pf_records_note')+'</div></div>';
+  return html;
 }
 
 function pickCustomization(id){

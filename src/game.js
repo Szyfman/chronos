@@ -564,6 +564,9 @@ function endGame(won){
     _isDailyChallenge=false; _dailyCommitted=false; _isRecoverRun=false; _lastDailyResult=null;
     showIntro(); return;
   }
+  // Personal best for the mode — must run before _saveDailyResult clears the daily flag
+  var _recordMode=_isDailyChallenge?'daily':gameMode;
+  var _newRecord=recordModeResult(_recordMode, score, timeline.length, livesMode);
   // Record the daily attempt (win or loss) — also clears _isDailyChallenge
   if(_isDailyChallenge){ _saveDailyResult(won); }
   _pendingGameRecord = buildGameRecord(won);
@@ -581,6 +584,8 @@ function endGame(won){
   document.getElementById('go-sub').textContent=goSub;
   document.getElementById('go-score').textContent=score;
   document.getElementById('go-score-lbl').textContent=t('final_score');
+  var _recMode=_newRecord&&RECORD_MODES.find(function(m){ return m.id===_recordMode; });
+  document.getElementById('go-record').textContent=_recMode?t('go_new_record').replace('{mode}',t(_recMode.label)):'';
   var _saveBtn=document.getElementById('go-save-btn');
   if(_saveBtn){_saveBtn.textContent=lang==='pt'?'💾 Salvar Timeline':'💾 Save Timeline';_saveBtn.disabled=false;_saveBtn.style.opacity='';}
   document.getElementById('go-again-btn').textContent=t('play_again');
