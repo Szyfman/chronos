@@ -1346,13 +1346,10 @@ function renderProgress(){
       var preview = cat.id==='frame'
         ? '<div class="pf-avatar sm pf-frame-'+item.style+'">'+emblem.icon+'</div>'
         : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+item.icon+'</div>';
-      var req = '';
-      if(!unlocked && item.unlock.level) req = t('pf_req_level').replace('{n}',item.unlock.level);
-      if(!unlocked && item.unlock.trophy){
-        var tdef = TROPHY_DEFS.find(function(d){ return d.id===item.unlock.trophy; });
-        req = t('pf_req_trophy').replace('{name}', tdef ? (lang==='pt'?tdef.name_pt:tdef.name) : item.unlock.trophy);
-      }
-      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(unlocked?'':' locked')+'"'+(unlocked?' onclick="pickCustomization(\''+item.id+'\')"':'')+'>';
+      var req = unlocked ? '' : _customReqLabel(item);
+      // Locked emblems open their detail modal (with the requirement); locked frames do nothing
+      var click = unlocked ? 'pickCustomization' : (cat.id==='emblem' ? 'openEmblemModal' : '');
+      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(unlocked?'':' locked')+'"'+(click?' onclick="'+click+'(\''+item.id+'\')"':'')+'>';
       html += preview;
       html += '<div class="pf-opt-name">'+(lang==='pt'?item.name_pt:item.name)+'</div>';
       if(req) html += '<div class="pf-opt-req">'+req+'</div>';
@@ -1419,20 +1416,85 @@ function _renderModeRecords(){
   return html;
 }
 
+// First tap selects; tapping the emblem that is already selected opens its
+// detail modal instead
 function pickCustomization(id){
+  var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
+  if(item && item.cat === 'emblem' && selectedCustom('emblem').id === id){ openEmblemModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
   renderProgress();
 }
 
+function _unlockTitle(item){
+  return PLAYER_TITLES.find(function(tt){ return tt.id === item.unlock.title; });
+}
+function _unlockTrophy(item){
+  return TROPHY_DEFS.find(function(d){ return d.id === item.unlock.trophy; });
+}
+function _nm(o){ return o ? (lang==='pt' ? o.name_pt : o.name) : ''; }
+
+// Short requirement shown under a locked tile
+function _customReqLabel(item){
+  var u = item.unlock || {};
+  if(u.title)  return t('pf_req_title').replace('{name}', _nm(_unlockTitle(item)) || u.title);
+  if(u.level)  return t('pf_req_level').replace('{n}', u.level);
+  if(u.trophy) return t('pf_req_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
+  return '';
+}
+// Full sentence for the detail modal
+function _customHowText(item){
+  var u = item.unlock || {};
+  if(u.title){
+    var title = _unlockTitle(item);
+    if(title && title.minLevel <= 1) return t('em_how_start').replace('{title}', _nm(title));
+    return t('em_how_title').replace('{title}', _nm(title) || u.title).replace('{n}', title ? title.minLevel : '?');
+  }
+  if(u.level)  return t('em_how_level').replace('{n}', u.level);
+  if(u.trophy) return t('em_how_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
+  return t('em_how_free');
+}
+
+// Emblem detail — same modal as trophies. Unlocked: trivia + how it was won;
+// locked: only how to unlock it (the trivia stays a reward, as with trophies).
+function openEmblemModal(id){
+  var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
+  if(!item) return;
+  var unlocked = isCustomUnlocked(item);
+  var date = '';
+  if(unlocked && item.unlock && item.unlock.trophy) date = earnedTrophies[item.unlock.trophy] || '';
+  _showTpModal({
+    icon: item.icon,
+    earned: unlocked,
+    name: (lang==='pt' ? 'Emblema: ' : 'Emblem: ') + _nm(item),
+    date: date,
+    trivia: lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || ''),
+    how: _customHowText(item)
+  });
+}
+
 function openTrophyModal(idx){
   var def = TROPHY_DEFS[idx];
-  var isEarned = !!earnedTrophies[def.id];
+  _showTpModal({
+    icon: def.icon,
+    earned: !!earnedTrophies[def.id],
+    name: lang==='pt' ? def.name_pt : def.name,
+    date: earnedTrophies[def.id] || '',
+    trivia: lang==='pt' ? (def.trivia_pt || def.trivia || '') : (def.trivia || ''),
+    how: lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || '')
+  });
+}
+
+/* Fills and opens the trophy/emblem detail modal.
+   o: { icon, earned, name, date (ISO or ''), trivia, how }
+   Earned: trivia first, then how it was unlocked. Locked: only how to unlock. */
+function _showTpModal(o){
+  var isEarned = !!o.earned;
   var modal = document.getElementById('tp-modal');
   var bg = document.getElementById('tp-modal-bg');
 
   // Icon
-  document.getElementById('tp-modal-icon').textContent = def.icon;
+  document.getElementById('tp-modal-icon').textContent = o.icon;
 
   // Badge
   var badge = document.getElementById('tp-modal-badge');
@@ -1445,18 +1507,17 @@ function openTrophyModal(idx){
   }
 
   // Name
-  document.getElementById('tp-modal-name').textContent = lang==='pt' ? def.name_pt : def.name;
+  document.getElementById('tp-modal-name').textContent = o.name;
 
-  // Date
+  // Date (emblems won through a title have none)
   var dateEl = document.getElementById('tp-modal-date');
-  if(isEarned){
-    try{
-      var d = new Date(earnedTrophies[def.id]);
+  dateEl.textContent = '';
+  if(isEarned && o.date){
+    var d = new Date(o.date);
+    if(!isNaN(d)){
       var ds = d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'long',year:'numeric'});
       dateEl.textContent = (lang==='pt'?'Conquistado em ':'Earned on ') + ds;
-    }catch(e){ dateEl.textContent = ''; }
-  } else {
-    dateEl.textContent = '';
+    }
   }
 
   // Section label and body
@@ -1469,7 +1530,7 @@ function openTrophyModal(idx){
   if(isEarned){
     // Primary: trivia
     lbl.textContent = lang==='pt' ? '✦ Curiosidade histórica' : '✦ Historical Trivia';
-    body.textContent = lang==='pt' ? (def.trivia_pt || def.trivia || '') : (def.trivia || '');
+    body.textContent = o.trivia || '';
     // Secondary: show requirements
     divider.style.display = 'block';
     reqLbl.style.display = 'block';
@@ -1477,7 +1538,7 @@ function openTrophyModal(idx){
     reqLbl.style.color = 'rgba(201,168,76,.35)';
     reqBody.style.color = 'rgba(201,168,76,.55)';
     reqLbl.textContent = lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked';
-    reqBody.textContent = lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || '');
+    reqBody.textContent = o.how || '';
     // Light mode colors
     if(document.body.classList.contains('light')){
       reqLbl.style.color = '#64748b';
@@ -1485,7 +1546,7 @@ function openTrophyModal(idx){
     }
   } else {
     lbl.textContent = lang==='pt' ? '— Como desbloquear' : '— How to unlock';
-    body.textContent = lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || '');
+    body.textContent = o.how || '';
     divider.style.display = 'none';
     reqLbl.style.display = 'none';
     reqBody.style.display = 'none';
