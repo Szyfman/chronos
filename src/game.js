@@ -392,7 +392,15 @@ function checkTrophies(midGame){
   if(newlyEarned.length > 0){
     saveTrophies();
     newlyEarned.forEach(function(def){ queueNotice({ trophy: def }); });
+    announceCustomUnlocks();   // a trophy may unlock an emblem or frame
   }
+}
+
+// Customizations unlocked since the last check, each as a notice after the
+// trophies that unlocked them. Runs mid-game (trophies) and at game end
+// (XP levels, mastery seals).
+function announceCustomUnlocks(){
+  checkCustomUnlocks().forEach(function(item){ queueNotice({ custom: item }); });
 }
 
 
@@ -893,6 +901,7 @@ function endGame(won){
   _eagerSaveDiscovered();
   checkTrophies();
   _lastXpResult = awardXp(Math.floor(score*playModeRules().xp));
+  announceCustomUnlocks();
   // Restore history button
   document.getElementById('hist-btn').style.visibility='';
   document.getElementById('go-title').textContent=won?t('go_won'):t('go_lost');

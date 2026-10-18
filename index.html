@@ -818,9 +818,13 @@
   .pf-opt:hover{border-color:rgba(201,168,76,.4)}
   .pf-opt.on{border-color:var(--gold);background:rgba(201,168,76,.1)}
   .pf-opt.locked{cursor:default;opacity:.55}
-  .pf-opt.locked[onclick]{cursor:pointer} /* locked emblems open their detail modal */
+  .pf-opt.locked[onclick]{cursor:pointer} /* locked items open their detail modal */
   .pf-opt.locked:hover{border-color:rgba(201,168,76,.12)}
   .pf-opt.locked .pf-avatar{filter:grayscale(1)}
+  .pf-opt.pv{border-style:dashed} /* preview mode: selectable, but not really unlocked */
+  #tp-modal-icon .pf-avatar{margin:0 auto}
+  /* Test mode flag (?preview) — always visible, never blocks a tap */
+  #preview-banner{position:fixed;left:6px;bottom:6px;z-index:2000;pointer-events:none;background:#b91c1c;color:#fff;font:800 .52rem/1 Inter,sans-serif;letter-spacing:.08em;padding:4px 7px;border-radius:10px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4);opacity:.9}
   body.light .pf-opt{background:#ffffff;border-color:#cbd5e1}
   body.light .pf-opt.on{border-color:#1d4ed8;background:#eff6ff}
   .pf-opt-name{font-size:.62rem;font-weight:700;line-height:1.2}

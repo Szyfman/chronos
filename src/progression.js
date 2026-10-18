@@ -3,8 +3,8 @@
 // customizations, per-mode records and era mastery. Data + logic only;
 // rendering is in ui.js.
 // XP = final score of each run (awarded by endGame in game.js).
-// Depends on: state.js (playerName, playerXp, playerCustom, cardStats,
-//             modeRecords), cards.js (CARDS, INTERVALS),
+// Depends on: state.js (playerName, playerXp, playerCustom, customKnown,
+//             cardStats, modeRecords), cards.js (CARDS, INTERVALS),
 //             game.js (earnedTrophies), trophies.js (TROPHY_DEFS)
 // ─────────────────────────────────────────────────────────────────────────
 
@@ -32,6 +32,11 @@ const CUSTOM_CATEGORIES = [
            { title: id }   → reach that title (PLAYER_TITLES id)
            { level: n }    → reach player level n
            { trophy: id }  → earn that trophy (TROPHY_DEFS id)
+           { mastery: { era, seal } } → earn that Era Mastery seal (or a
+                             higher one) in that era (MASTERY_ERAS /
+                             MASTERY_SEALS ids)
+   secret: true → while locked, the item shows as ❓ / ??? and its modal
+   only says to keep playing (like a secret trophy).
    The first item of each category must always be unlocked: it is the
    fallback when a saved choice is missing or locked.
    Emblems: one per title, in title order, then the trophy ones. Each carries
@@ -146,23 +151,68 @@ function isCustomUnlocked(item) {
   }
   if (item.unlock.level) return playerLevelInfo().level >= item.unlock.level;
   if (item.unlock.trophy) return !!earnedTrophies[item.unlock.trophy];
+  if (item.unlock.mastery) return eraSealReached(item.unlock.mastery.era, item.unlock.mastery.seal);
   return false;
 }
 
+// Unlocked, or anything at all in preview mode
+function isCustomSelectable(item) {
+  return customPreview || isCustomUnlocked(item);
+}
+
 // Falls back to the category's first item if the saved one is missing or
-// no longer unlocked (e.g. definitions changed between versions).
+// no longer unlocked (e.g. definitions changed between versions, or the
+// game was reopened without ?preview).
 function selectedCustom(catId) {
-  var item = CUSTOMIZATIONS.find(function(c) { return c.id === playerCustom[catId]; });
-  if (item && item.cat === catId && isCustomUnlocked(item)) return item;
+  var id = customPreview && _previewCustom[catId] ? _previewCustom[catId] : playerCustom[catId];
+  var item = CUSTOMIZATIONS.find(function(c) { return c.id === id; });
+  if (item && item.cat === catId && isCustomSelectable(item)) return item;
   return CUSTOMIZATIONS.find(function(c) { return c.cat === catId; });
 }
 
 function selectCustomization(id) {
   var item = CUSTOMIZATIONS.find(function(c) { return c.id === id; });
-  if (!item || !isCustomUnlocked(item)) return false;
+  if (!item || !isCustomSelectable(item)) return false;
+  if (customPreview) { _previewCustom[item.cat] = id; return true; }   // never saved
   playerCustom[item.cat] = id;
   try { localStorage.setItem('chronos_custom', JSON.stringify(playerCustom)); } catch(e) {}
   return true;
+}
+
+// ── PREVIEW (TEST) MODE ───────────────────────────────────────────────────
+/* Opening the game with ?preview makes every customization selectable and
+   shows the trivia of locked and secret items, so new visuals can be checked
+   without earning them. Choices made in preview live only in memory: the
+   saved profile and the real unlock state are never touched, so reopening
+   without ?preview brings the real profile back.
+   PREVIEW_ENABLED must be false on main — switch it off before merging. */
+const PREVIEW_ENABLED = true;
+var customPreview = false;
+var _previewCustom = {};
+try { customPreview = PREVIEW_ENABLED && new URLSearchParams(location.search).has('preview'); } catch(e) {}
+
+// ── UNLOCK NOTICES ────────────────────────────────────────────────────────
+/* customKnown (state.js) holds the ids the player was already told about.
+   checkCustomUnlocks() returns the items unlocked since the last call and
+   records them; game.js turns them into notices. Items available from the
+   start are never announced. On the very first call (no saved list yet),
+   the items that existed before unlock notices are recorded silently —
+   newer ones the player already qualifies for are still announced. */
+const _CUSTOM_PRE_NOTICE = ['emblem_hourglass', 'emblem_scroll', 'emblem_owl', 'emblem_dragon',
+  'emblem_key', 'emblem_clock', 'emblem_crown', 'emblem_column', 'emblem_rocket',
+  'frame_classic', 'frame_bronze', 'frame_silver', 'frame_imperial', 'frame_ember'];
+
+function checkCustomUnlocks() {
+  var first = !customKnown;
+  if (first) customKnown = [];
+  var fresh = [];
+  CUSTOMIZATIONS.forEach(function(item) {
+    if (customKnown.indexOf(item.id) >= 0 || !isCustomUnlocked(item)) return;
+    customKnown.push(item.id);
+    if (item.unlock && !(first && _CUSTOM_PRE_NOTICE.indexOf(item.id) >= 0)) fresh.push(item);
+  });
+  if (first || fresh.length) saveCustomKnown();
+  return fresh;
 }
 
 function setPlayerName(name) {
@@ -246,4 +296,11 @@ function eraMastery() {
     });
     return { era: era, total: total, hit: hit, mastered: mastered, seal: seal, next: next };
   });
+}
+
+// True once the era's highest seal is sealId or above it
+function eraSealReached(eraId, sealId) {
+  var need = MASTERY_SEALS.findIndex(function(s) { return s.id === sealId; });
+  var m = eraMastery().find(function(x) { return x.era.id === eraId; });
+  return need >= 0 && !!m && !!m.seal && MASTERY_SEALS.indexOf(m.seal) >= need;
 }

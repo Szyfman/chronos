@@ -55,6 +55,18 @@ try {
   playerCustom = JSON.parse(localStorage.getItem('chronos_custom') || '{}') || {};
 } catch(e) {}
 
+// Customization ids already announced as unlocked (checkCustomUnlocks in
+// progression.js). null = never saved: the first check seeds it.
+var customKnown = null;
+try {
+  var _ck = JSON.parse(localStorage.getItem('chronos_custom_known') || 'null');
+  if (Array.isArray(_ck)) customKnown = _ck;
+} catch(e) {}
+
+function saveCustomKnown() {
+  try { localStorage.setItem('chronos_custom_known', JSON.stringify(customKnown)); } catch(e) {}
+}
+
 function saveDiscovered() {
   try { localStorage.setItem('chronos_discovered', JSON.stringify([...discoveredCards])); } catch(e) {}
 }

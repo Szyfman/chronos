@@ -239,7 +239,9 @@ function renderSideBtns(){
    Streak rewards and trophy unlocks share one queue and show one at a time,
    so they never stack on top of each other. In-game they sit just below the
    correct/wrong feedback pill (.in-game), which fires at the same moment.
-   queueNotice({streak:true}) | queueNotice({trophy:def}) | queueNotice({text:'…'})
+   queueNotice({streak:true}) | queueNotice({trophy:def}) | queueNotice({custom:item})
+   | queueNotice({text:'…'}) — a custom notice (customization unlocked)
+   uses the trophy toast.
    A text notice uses the streak pill and lasts as long; repeated taps don't
    pile up copies of the same text. */
 var _noticeQueue=[], _noticeBusy=false, _noticeShowing=null;
@@ -260,6 +262,13 @@ function _nextNotice(){
     document.getElementById('tp-toast-icon').textContent=def.icon;
     var nm=(lang==='pt'?def.name_pt:def.name)+(tier?' ('+(lang==='pt'?tier.name_pt:tier.name)+')':'');
     document.getElementById('tp-toast-txt').textContent=(lang==='pt'?'Troféu: ':'Trophy: ')+nm+' 🏆';
+    el.classList.toggle('in-game', gameActive);
+    ms=3200;
+  } else if(notice.custom){
+    var item=notice.custom;
+    el=document.getElementById('tp-toast');
+    document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':item.icon;
+    document.getElementById('tp-toast-txt').textContent=t(item.cat==='frame'?'cu_new_frame':'cu_new_emblem').replace('{name}',_nm(item));
     el.classList.toggle('in-game', gameActive);
     ms=3200;
   } else {
@@ -1389,16 +1398,18 @@ function renderProgress(){
     CUSTOMIZATIONS.forEach(function(item){
       if(item.cat !== cat.id) return;
       var unlocked = isCustomUnlocked(item);
+      var selectable = isCustomSelectable(item);   // differs only in preview mode
+      var hidden = _customHidden(item);
       // Previews combine with the other current choice, so each tile shows the real result
       var preview = cat.id==='frame'
-        ? '<div class="pf-avatar sm pf-frame-'+item.style+'">'+emblem.icon+'</div>'
-        : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+item.icon+'</div>';
-      var req = unlocked ? '' : _customReqLabel(item);
-      // Locked emblems open their detail modal (with the requirement); locked frames do nothing
-      var click = unlocked ? 'pickCustomization' : (cat.id==='emblem' ? 'openEmblemModal' : '');
-      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(unlocked?'':' locked')+'"'+(click?' onclick="'+click+'(\''+item.id+'\')"':'')+'>';
+        ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
+        : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
+      var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
+      // Selectable items are picked; locked ones open their detail modal (with the requirement)
+      var click = selectable ? 'pickCustomization' : 'openCustomModal';
+      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
       html += preview;
-      html += '<div class="pf-opt-name">'+(lang==='pt'?item.name_pt:item.name)+'</div>';
+      html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
       if(req) html += '<div class="pf-opt-req">'+req+'</div>';
       html += '</div>';
     });
@@ -1463,11 +1474,11 @@ function _renderModeRecords(){
   return html;
 }
 
-// First tap selects; tapping the emblem that is already selected opens its
+// First tap selects; tapping the item that is already selected opens its
 // detail modal instead
 function pickCustomization(id){
   var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
-  if(item && item.cat === 'emblem' && selectedCustom('emblem').id === id){ openEmblemModal(id); return; }
+  if(item && selectedCustom(item.cat).id === id){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
   renderProgress();
@@ -1480,6 +1491,17 @@ function _unlockTrophy(item){
   return TROPHY_DEFS.find(function(d){ return d.id === item.unlock.trophy; });
 }
 function _nm(o){ return o ? (lang==='pt' ? o.name_pt : o.name) : ''; }
+// Era and seal of a { mastery } unlock, as display names
+function _unlockMastery(item){
+  var u = item.unlock.mastery;
+  var era = MASTERY_ERAS.find(function(e){ return e.id === u.era; });
+  var seal = MASTERY_SEALS.find(function(s){ return s.id === u.seal; });
+  return { era: _nm(era) || u.era, seal: seal ? seal.icon+' '+_nm(seal) : u.seal };
+}
+// A locked secret item hides its look, name and requirement (preview shows all)
+function _customHidden(item){
+  return !!item.secret && !customPreview && !isCustomUnlocked(item);
+}
 
 // Short requirement shown under a locked tile
 function _customReqLabel(item){
@@ -1487,6 +1509,7 @@ function _customReqLabel(item){
   if(u.title)  return t('pf_req_title').replace('{name}', _nm(_unlockTitle(item)) || u.title);
   if(u.level)  return t('pf_req_level').replace('{n}', u.level);
   if(u.trophy) return t('pf_req_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
+  if(u.mastery){ var m = _unlockMastery(item); return t('pf_req_mastery').replace('{seal}', m.seal).replace('{era}', m.era); }
   return '';
 }
 // Full sentence for the detail modal
@@ -1499,21 +1522,32 @@ function _customHowText(item){
   }
   if(u.level)  return t('em_how_level').replace('{n}', u.level);
   if(u.trophy) return t('em_how_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
+  if(u.mastery){ var m = _unlockMastery(item); return t('em_how_mastery').replace('{seal}', m.seal).replace('{era}', m.era); }
   return t('em_how_free');
 }
 
-// Emblem detail — same modal as trophies. Unlocked: trivia + how it was won;
-// locked: only how to unlock it (the trivia stays a reward, as with trophies).
-function openEmblemModal(id){
+// Emblem / frame detail — same modal as trophies. Unlocked: trivia + how it
+// was won; locked: only how to unlock it (the trivia stays a reward, as with
+// trophies). A locked secret item only says to keep playing. Preview mode
+// shows everything, marked as a preview.
+function openCustomModal(id){
   var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
   if(!item) return;
+  if(_customHidden(item)){
+    _showTpModal({ icon: '❓', earned: false, name: '???', date: '', trivia: '', how: t('secret_hint') });
+    return;
+  }
   var unlocked = isCustomUnlocked(item);
   var date = '';
   if(unlocked && item.unlock && item.unlock.trophy) date = earnedTrophies[item.unlock.trophy] || '';
+  var cat = CUSTOM_CATEGORIES.find(function(c){ return c.id === item.cat; });
   _showTpModal({
     icon: item.icon,
-    earned: unlocked,
-    name: (lang==='pt' ? 'Emblema: ' : 'Emblem: ') + _nm(item),
+    // Frames show the current emblem wearing them
+    iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
+    earned: unlocked || customPreview,
+    badge: !unlocked && customPreview ? t('pf_preview_badge') : '',
+    name: _nm(cat) + ': ' + _nm(item),
     date: date,
     trivia: lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || ''),
     how: _customHowText(item)
@@ -1604,21 +1638,26 @@ function openTrophyModal(idx){
   });
 }
 
-/* Fills and opens the trophy/emblem detail modal.
-   o: { icon, earned, name, date (ISO or ''), trivia, how }
-   Earned: trivia first, then how it was unlocked. Locked: only how to unlock. */
+/* Fills and opens the trophy/customization detail modal.
+   o: { icon, iconHtml?, earned, badge?, name, date (ISO or ''), trivia, how }
+   iconHtml (our own markup, e.g. a framed avatar) replaces the icon text;
+   badge overrides the earned badge text (preview mode).
+   Earned: trivia first, then how it was unlocked (only the latter if there is
+   no trivia). Locked: only how to unlock. */
 function _showTpModal(o){
   var isEarned = !!o.earned;
   var modal = document.getElementById('tp-modal');
   var bg = document.getElementById('tp-modal-bg');
 
   // Icon
-  document.getElementById('tp-modal-icon').textContent = o.icon;
+  var iconEl = document.getElementById('tp-modal-icon');
+  if(o.iconHtml) iconEl.innerHTML = o.iconHtml;
+  else iconEl.textContent = o.icon;
 
   // Badge
   var badge = document.getElementById('tp-modal-badge');
   if(isEarned){
-    badge.textContent = lang==='pt' ? '✦ Desbloqueado' : '✦ Unlocked';
+    badge.textContent = o.badge || (lang==='pt' ? '✦ Desbloqueado' : '✦ Unlocked');
     badge.className = 'earned-badge';
   } else {
     badge.textContent = lang==='pt' ? '🔒 Bloqueado' : '🔒 Locked';
@@ -1646,7 +1685,15 @@ function _showTpModal(o){
   var reqLbl = document.getElementById('tp-modal-req-lbl');
   var reqBody = document.getElementById('tp-modal-req-body');
 
-  if(isEarned){
+  if(isEarned && !o.trivia){
+    lbl.textContent = o.badge
+      ? (lang==='pt' ? '— Como desbloquear' : '— How to unlock')
+      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked');
+    body.textContent = o.how || '';
+    divider.style.display = 'none';
+    reqLbl.style.display = 'none';
+    reqBody.style.display = 'none';
+  } else if(isEarned){
     // Primary: trivia
     lbl.textContent = lang==='pt' ? '✦ Curiosidade histórica' : '✦ Historical Trivia';
     body.textContent = o.trivia || '';
@@ -1656,7 +1703,9 @@ function _showTpModal(o){
     reqBody.style.display = 'block';
     reqLbl.style.color = 'rgba(201,168,76,.35)';
     reqBody.style.color = 'rgba(201,168,76,.55)';
-    reqLbl.textContent = lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked';
+    reqLbl.textContent = o.badge   // preview of a locked item: it was not unlocked yet
+      ? (lang==='pt' ? '— Como desbloquear' : '— How to unlock')
+      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked');
     reqBody.textContent = o.how || '';
     // Light mode colors
     if(document.body.classList.contains('light')){
@@ -1929,6 +1978,13 @@ window.addEventListener('DOMContentLoaded', function() {
   // Set initial mode UI state
   selectMode('classic');
   updateIntroHistBtn();
+  // Test mode (?preview, see progression.js) stays flagged on screen at all times
+  if(customPreview){
+    var pv = document.createElement('div');
+    pv.id = 'preview-banner';
+    pv.textContent = t('preview_banner');
+    document.body.appendChild(pv);
+  }
 });
 
 window.addEventListener('load', function() {
