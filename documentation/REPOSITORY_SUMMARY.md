@@ -45,6 +45,7 @@ chronos/
 ├── src/                # JavaScript source files
 │   ├── state.js        # Global game state variables
 │   ├── game.js         # Core game mechanics (22KB)
+│   ├── runsave.js      # Saves / restores the run in progress (see RUN_SAVE.md)
 │   ├── ui.js           # UI rendering and interactions (63KB)
 │   ├── i18n.js         # Internationalization and translations (19KB)
 │   ├── cards.js        # Historical card data (727KB, 1200+ cards)

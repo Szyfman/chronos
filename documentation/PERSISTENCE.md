@@ -45,7 +45,7 @@ Merge rules are defined at the bottom of this file.
 
 | Key | Shape | Why it stays |
 |---|---|---|
-| `chronos_run` *(Part A, planned)* | the run in progress (`RUN_SAVE.md`) | a run belongs to the device it is played on; syncing it would allow resuming on two phones and counting it twice |
+| `chronos_run` | the run in progress (`RUN_SAVE.md`), written by `saveRun` / cleared by `clearRun` (runsave.js) | a run belongs to the device it is played on; syncing it would allow resuming on two phones and counting it twice |
 | `chronos_prune_mark` | 'YYYY-MM-DD' watermark of the timeline sweep | housekeeping of this device's storage |
 | `chronos_music_vol`, `chronos_sfx_vol` | 0–100 | device preference |
 | `chronos_music_mute`, `chronos_sfx_mute` | 'true' / 'false' | device preference |
@@ -82,7 +82,7 @@ For any new key, a new field inside an existing key, or a change of shape:
 2. **Load** in state.js (or the owning module) inside `try/catch`, checking the type and falling back to a default — old versions, other devices and hand edits all produce unexpected values.
 3. **Register** it in the tables above: shape, writer, when, sync class and merge rule. A new field in a synced key needs its own merge rule (example: `bestStreak` → max).
 4. **Prefer shapes that merge cleanly**: sets and maxima over counters, ISO dates, one key per independent piece. If a counter can be derived from data that is already stored, derive it instead.
-5. **Pick the moment** — event or end (see *When things are counted*). If it is computed during the run from in-memory state, add that state to the run save shape in `RUN_SAVE.md` (example: `runFlags.maxStreak`).
+5. **Pick the moment** — event or end (see *When things are counted*). If it is computed during the run from in-memory state, add that state to the run save: a new `runFlags` entry goes into `RUN_SAVE_FLAGS` (runsave.js); any other run variable goes into `saveRun` / `_parseRun` / `resumeSavedRun` and the shape in `RUN_SAVE.md`.
 6. **Render stored text safely**: `textContent`, `.value` or `esc()` (ui.js). Never put stored strings into `innerHTML` unescaped.
 7. **Bound the size**: caps on lists and strings (history 30, name 20). The whole store must stay well under 5 MB.
 8. **Renames and removals**: keep reading the old form (lazy migration, like v1 daily records) or delete the old key on boot (like `chronos_tp_open`), and list it under *Removed*.

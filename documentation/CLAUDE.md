@@ -40,7 +40,7 @@ When working on this codebase, you should:
 4. **Follow the persistence contract** (`documentation/PERSISTENCE.md`)
    - Any new `localStorage` key or field, or a change of shape, is registered there with its merge rule
    - Data counted by a run is written either at the event or inside `endGame`, never elsewhere
-   - New in-run state that changes the end result goes into the run save (`documentation/RUN_SAVE.md`)
+   - New in-run state that changes the end result goes into the run save (`documentation/RUN_SAVE.md`; new `runFlags` entries into `RUN_SAVE_FLAGS` in runsave.js)
 
 5. **Follow existing patterns**
    - Study similar code before adding new features
@@ -524,7 +524,7 @@ DOM updates (visible to user)
 | `src/dailycards.js` | Daily reward card content (data only) | Daily challenge rules (in game.js) |
 | `assets/bgm.mp3` | Background music | Volume controls (in ui.js) |
 | `src/sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
-| `src/runsave.js` *(planned, Part A)* | Saving and restoring the run in progress in `localStorage` (`RUN_SAVE.md`) | Game rules, the cloud |
+| `src/runsave.js` | Saving the run in progress to `localStorage` and loading it back, validated (`RUN_SAVE.md`); `resumeSavedRun` in game.js applies it | Game rules, the cloud |
 | `src/sync.js` *(planned, Part B)* | Login, session, sync with Supabase — the only file that touches the network | Game rules, rendering (login UI and sync status are in ui.js) |
 | `supabase/` *(planned, Part B)* | Database schema, RLS policies, Edge Functions — versioned so the server never holds configuration that exists only in the dashboard | — |
 | `sw.js` | Caching, offline support | Game logic, content |

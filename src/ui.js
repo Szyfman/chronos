@@ -119,6 +119,12 @@ function drawCard(){
   if(!deck.length){endGame(true);return;}
   currentCard=deck.pop();
   cardCluesUsed=0;
+  renderHandCard();
+  saveRun();
+}
+// Shows currentCard in the hand — also for a card restored by resumeSavedRun,
+// which keeps its revealed clues
+function renderHandCard(){
   const c=currentCard;
   const iv=isInterval(c);
   document.getElementById('hc-name').textContent=cName(c);
@@ -144,9 +150,11 @@ function drawCard(){
   document.getElementById('g-cat').textContent=iv?(cCulture(c)||''):cCat(c);
   document.getElementById('score-val').textContent=score;
   document.getElementById('streak-val').textContent=streak;
-  // Reset clue display
+  // Clue display: blank, or the last clue revealed
   const clueEl=document.getElementById('hc-clue');
-  clueEl.textContent='';clueEl.classList.remove('show');
+  const clues=cClues(c);
+  if(cardCluesUsed>0&&clues&&clues[cardCluesUsed-1]){clueEl.textContent='💡 '+clues[cardCluesUsed-1];clueEl.classList.add('show');}
+  else{clueEl.textContent='';clueEl.classList.remove('show');}
   renderSideBtns();
 }
 function renderLives(){
@@ -1966,6 +1974,10 @@ document.addEventListener('visibilitychange', function() {
   else { _bgm.play().catch(function(){}); }
 });
 
+// ── Run save: the OS may kill the app once it is in the background ───────
+document.addEventListener('visibilitychange', function() { if (document.hidden) saveRun(); });
+window.addEventListener('pagehide', function() { saveRun(); });
+
 // ── Consolidated init ─────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function() {
   // Theme
@@ -1997,6 +2009,8 @@ window.addEventListener('DOMContentLoaded', function() {
     pv.textContent = t('preview_banner');
     document.body.appendChild(pv);
   }
+  // A run left in progress (app closed, killed or reloaded) resumes straight away
+  resumeSavedRun();
 });
 
 window.addEventListener('load', function() {

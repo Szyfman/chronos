@@ -58,6 +58,11 @@ const MODE_LOST={
 
 var _pendingGameRecord = null;
 var _voluntaryEnd = false;
+// Run save (runsave.js, documentation/RUN_SAVE.md): the local day the run
+// began, and whether it is a daily/recovery run resumed on a later day —
+// such a run is ended on boot instead of resumed.
+var _runStartedDay = null;
+var _runExpired = false;
 
 // ── DAILY CHALLENGE STATE ─────────────────────────────────────────────────
 var DAILY_MAX_ATTEMPTS = 3;   // tries allowed per calendar day
@@ -189,7 +194,9 @@ function _saveDailyResult(won){
   var recover = _isRecoverRun;
   var rec = _runRecord(date) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
-  rec.attempts = Math.max(rec.attempts, _dailyAttempt);
+  // An expired run (resumed on a later day) spent its attempt on its own day;
+  // counting it here would stamp it on today's recovery budget
+  if(!_runExpired) rec.attempts = Math.max(rec.attempts, _dailyAttempt);
   var better = won || timeline.length > rec.placed
             || (timeline.length === rec.placed && score > rec.score);
   if(better){
@@ -202,13 +209,15 @@ function _saveDailyResult(won){
   _lastDailyResult = {
     won: rec.won,
     attempts: rec.attempts,
-    attemptsLeft: rec.won ? 0 : Math.max(0, DAILY_MAX_ATTEMPTS - rec.attempts),
+    attemptsLeft: (rec.won || _runExpired) ? 0 : Math.max(0, DAILY_MAX_ATTEMPTS - rec.attempts),
     date: date,
-    recover: recover
+    recover: recover,
+    expired: _runExpired
   };
   _isDailyChallenge = false;
   _dailyCommitted = false;
   _isRecoverRun = false;   // after the write — _writeRunRecord reads this flag
+  _runExpired = false;
 }
 
 
@@ -595,13 +604,12 @@ function _rememberReviewTargets(targets){
   saveReviewHistory();
 }
 
-function initGame(){
-  _pendingGameRecord = null;
-  _voluntaryEnd = false;
-  currentCard = null;
-  reviewMode = false;
+// ── RUN SETUP ─────────────────────────────────────────────────────────────
+// Shared by initGame (a new run) and resumeSavedRun (a run restored from
+// chronos_run, see RESUME below).
 
-  // ── FULL DOM RESET — wipe every trace of the previous run ────────────
+// Wipes every trace of the previous run from the screen
+function _resetRunDom(){
   // Hide gameover overlay immediately
   document.getElementById('gameover').classList.remove('show');
 
@@ -665,7 +673,49 @@ function initGame(){
   }
   // Reset _fromGameover flag
   _fromGameover = false;
-  // ─────────────────────────────────────────────────────────────────────
+}
+
+// Daily challenge: no hints or skips, and their buttons hidden entirely
+function _applyDailyControls(){
+  var _hcEl=document.getElementById('hint-count');
+  if(_hcEl) _hcEl.textContent='0';
+  for(var _dhi=0;_dhi<3;_dhi++){
+    var _dhd=document.getElementById('hd'+_dhi);
+    if(_dhd) _dhd.classList.add('used');
+  }
+  var _hBtn=document.getElementById('hint-btn');
+  var _sBtn=document.getElementById('skip-btn');
+  if(_hBtn) _hBtn.style.display='none';
+  if(_sBtn) _sBtn.style.display='none';
+}
+
+// Header, labels, lives, side buttons and timeline of the running game
+function _renderRunHeader(){
+  // Hide history access during play
+  document.getElementById('hist-btn').style.visibility='hidden';
+  document.getElementById('hdr-mode').textContent=_isDailyChallenge?_dailyHeaderLabel():t(MODE_LABEL[gameMode]||'subtitle');
+  document.getElementById('streak-lbl').textContent=t('streak');
+  document.getElementById('score-lbl').textContent=t('score');
+  var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
+  document.getElementById('bottom-label').textContent=t(MODE_DRAG_LABEL[gameMode]||'drag_label');
+  // Pills permanently hidden — no mode label in header
+  document.getElementById('free-pill').style.display='none';
+  document.getElementById('empires-pill').style.display='none';
+  document.getElementById('biblical-pill').style.display='none';
+  document.getElementById('characters-pill').style.display='none';
+  document.getElementById('lives-stat').style.display=livesMode?'flex':'none';
+  renderLives();renderSideBtns();renderTimeline();
+}
+
+function initGame(){
+  _pendingGameRecord = null;
+  _voluntaryEnd = false;
+  currentCard = null;
+  reviewMode = false;
+  _runStartedDay = _dayStamp(new Date());
+  _runExpired = false;
+  clearRun();   // a new run replaces any saved one
+  _resetRunDom();
 
   deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
   _resetRunFlags();
@@ -698,32 +748,9 @@ function initGame(){
       ?_seededShuffle(_base,_seededRNG(_seed+_ord*104729))
       :_base;
     hints=0; skip=0;
-    var _hcEl=document.getElementById('hint-count');
-    if(_hcEl) _hcEl.textContent='0';
-    for(var _dhi=0;_dhi<3;_dhi++){
-      var _dhd=document.getElementById('hd'+_dhi);
-      if(_dhd) _dhd.classList.add('used');
-    }
-    // Hide hint and skip buttons entirely
-    var _hBtn=document.getElementById('hint-btn');
-    var _sBtn=document.getElementById('skip-btn');
-    if(_hBtn) _hBtn.style.display='none';
-    if(_sBtn) _sBtn.style.display='none';
+    _applyDailyControls();
   }
-    // Hide history access during play
-  document.getElementById('hist-btn').style.visibility='hidden';
-  document.getElementById('hdr-mode').textContent=_isDailyChallenge?_dailyHeaderLabel():t(MODE_LABEL[gameMode]||'subtitle');
-  document.getElementById('streak-lbl').textContent=t('streak');
-  document.getElementById('score-lbl').textContent=t('score');
-  var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
-  document.getElementById('bottom-label').textContent=t(MODE_DRAG_LABEL[gameMode]||'drag_label');
-  // Pills permanently hidden — no mode label in header
-  document.getElementById('free-pill').style.display='none';
-  document.getElementById('empires-pill').style.display='none';
-  document.getElementById('biblical-pill').style.display='none';
-  document.getElementById('characters-pill').style.display='none';
-  document.getElementById('lives-stat').style.display=livesMode?'flex':'none';
-  renderLives();renderSideBtns();renderTimeline();
+  _renderRunHeader();
   // Show tutorial first time in empires mode
   if(gameMode==='empires'&&!empiresShownTutorial){
     empiresShownTutorial=true;
@@ -735,6 +762,58 @@ function initGame(){
 function closeTutorial(){
   document.getElementById('tutorial').classList.remove('show');
   drawCard();
+}
+
+// ── RESUME ────────────────────────────────────────────────────────────────
+/* Restores the run saved in chronos_run (runsave.js) when the app reopens,
+   straight into the game — design in documentation/RUN_SAVE.md. Called once
+   on boot by ui.js; returns whether a run was restored. Unlike initGame it
+   records nothing a run records when it starts (deck, review targets, daily
+   attempt), so a resumed run never counts anything twice. */
+function resumeSavedRun(){
+  var s=loadRun();
+  if(!s) return false;
+  _pendingGameRecord=null; _voluntaryEnd=false; reviewMode=false; _lastDailyResult=null;
+  gameMode=s.mode; setPlayMode(s.playMode); eraFilter=s.eraFilter.slice();
+  _isDailyChallenge=!!s.daily;
+  _isRecoverRun=!!(s.daily&&s.daily.recover);
+  _dailyRunDate=s.daily?s.daily.date:null;
+  _dailyAttempt=s.daily?s.daily.attempt:0;
+  _dailyCommitted=_isDailyChallenge;   // a run is saved only after its first placement
+  _runStartedDay=s.startedDay;
+  _runExpired=_isDailyChallenge&&s.startedDay!==_dayStamp(new Date());
+  // The menu follows the resumed run, so Play Again stays in its mode
+  if(!_isDailyChallenge){
+    menuPlayMode=playMode;
+    if(gameMode==='classic'||gameMode==='empires'||gameMode==='characters'){
+      selectMode(gameMode); eraSelection=eraFilter.slice(); syncEraChips();
+    }
+    syncPlayModeButtons();
+  }
+
+  var _rules=playModeRules();
+  deck=s.deck; timeline=s.timeline; currentCard=null; cardCluesUsed=0;
+  score=s.score; streak=s.streak; lives=s.lives;
+  hints=s.hints===null?_rules.hints:s.hints;   // null = unlimited (Free)
+  skip=s.skip===null?_rules.skip:s.skip;
+  if(_isDailyChallenge){ hints=0; skip=0; }
+  _resetRunFlags();
+  Object.keys(s.flags).forEach(function(k){ runFlags[k]=s.flags[k]; });
+  gameActive=true; _pendingDraw=false;
+
+  document.getElementById('intro').classList.remove('show');
+  _resetRunDom();
+  if(_isDailyChallenge) _applyDailyControls();
+  _renderRunHeader();
+  document.getElementById('score-val').textContent=score;
+  document.getElementById('streak-val').textContent=streak;
+  var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
+
+  if(_runExpired){ _voluntaryEnd=true; endGame(false); return true; }   // the day closed at midnight
+  if(livesMode&&lives<=0){ endGame(false); return true; }              // closed in the last 700 ms
+  if(s.current){ currentCard=s.current; cardCluesUsed=s.clues; renderHandCard(); }
+  else drawCard();   // the fact panel was open: go on to the next card
+  return true;
 }
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
@@ -756,6 +835,7 @@ function useHint(){
   clueEl.textContent='💡 '+pool[cardCluesUsed];
   clueEl.classList.add('show');
   cardCluesUsed++;
+  saveRun();
   renderSideBtns();
 }
 function useSkip(){
@@ -840,6 +920,7 @@ function attemptPlacement(idx){
     if(streak>(runFlags.maxStreak|0)) runFlags.maxStreak=streak;
     // Streak reward: +1 hint every 20 in a row (pointless when hints are unlimited)
     if(streak>0&&streak%20===0&&isFinite(hints)){hints++;renderSideBtns();showStreakToast();}
+    saveRun();   // right after the card stats, so a resumed run starts after this card
     checkTrophies(true);
     renderTimeline();
     document.getElementById('score-val').textContent=score;
@@ -873,16 +954,16 @@ function attemptPlacement(idx){
     // Biggest miss of the run (Anachronism) — checked right away, as misses
     // otherwise only reach checkTrophies on the next correct card
     if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta){ runFlags.maxMissDelta=yearDelta; checkTrophies(true); }
-    if(livesMode){
-      lives--;renderLives();
-      if(lives<=0)setTimeout(()=>endGame(false),700);
-    }
+    if(livesMode){ lives--; renderLives(); }
+    saveRun();
+    if(livesMode&&lives<=0) setTimeout(()=>endGame(false),700);
   }
 }
 
 // ── GAME OVER ─────────────────────────────────────────────────────────────
 function endGame(won){
   gameActive=false;
+  clearRun();   // first: a run that reached its end can never be resumed (RUN_SAVE.md)
   // Zero cards placed: skip gameover, return to intro.
   // No attempt was committed either, so the daily stays fully available.
   if(timeline.length===0){
@@ -893,7 +974,8 @@ function endGame(won){
   }
   runsPlayed++; saveRunsPlayed();   // every finished run, any mode (Veteran trophy)
   // A live daily (not a past-day recovery) — read by the date/hour secret trophies
-  if(_isDailyChallenge&&!_isRecoverRun) runFlags.dailyFinished=true;
+  // (not one resumed on a later day: that would game the date/hour trophies)
+  if(_isDailyChallenge&&!_isRecoverRun&&!_runExpired) runFlags.dailyFinished=true;
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
   var _newRecord=recordModeResult(_recordMode, score, timeline.length, runFlags.maxStreak|0, playMode==='lives');
@@ -980,6 +1062,12 @@ function _renderDailyGameover(){
   var again=document.getElementById('go-again-btn');
   var rc=!!res.recover;
   if(again) again.textContent=t('daily_exit');
+  // Resumed on a later day: ended on boot, nothing left to retry
+  if(res.expired){
+    var _sube=document.getElementById('go-sub');
+    if(_sube) _sube.textContent=t(rc?'daily_recover_expired_sub':'daily_expired_sub').replace('{date}',_dailyShortDate(res.date));
+    return;
+  }
   if(res.won){
     if(dcard){
       dcard.style.display='';
