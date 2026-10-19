@@ -285,6 +285,10 @@
   .cf-silver{--cf-color:#c0c7d0;--cf-line:rgba(192,199,208,.45);--cf-glow:0 0 0 2px rgba(192,199,208,.25)}
   .cf-imperial{--cf-color:#8a4ab8;--cf-line:rgba(138,74,184,.55);--cf-glow:0 0 0 3px rgba(138,74,184,.3),0 0 14px rgba(138,74,184,.35)}
   .cf-ember{--cf-color:#e2582b;--cf-line:rgba(226,88,43,.55);--cf-glow:0 0 0 3px rgba(226,88,43,.25),0 0 16px rgba(226,88,43,.45)}
+  .cf-illumination{--cf-color:#d9a93a;--cf-line:rgba(217,169,58,.55);--cf-glow:0 0 0 3px rgba(30,63,143,.6),0 0 12px rgba(217,169,58,.35)}
+  .cf-maya{--cf-color:#2e9a78;--cf-line:rgba(46,154,120,.5);--cf-glow:0 0 0 3px rgba(168,152,120,.45)}
+  .cf-zodiac{--cf-color:#7d8ef0;--cf-line:rgba(125,142,240,.5);--cf-glow:0 0 0 3px rgba(27,35,80,.85),0 0 14px rgba(125,142,240,.45)}
+  .cf-iron{--cf-color:#7d838c;--cf-line:rgba(125,131,140,.5);--cf-glow:0 0 0 2px rgba(44,47,52,.9)}
   body.light .cf-silver{--cf-color:#94a3b8;--cf-line:#64748b}
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
   #hc-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1rem;color:var(--cream);line-height:1.2;flex:1;padding-right:10px;font-style:italic}
@@ -766,8 +770,13 @@
   .pf-frame-silver{border-color:#c0c7d0;box-shadow:0 0 0 2px rgba(192,199,208,.25)}
   .pf-frame-imperial{border-color:#8a4ab8;box-shadow:0 0 0 3px rgba(138,74,184,.3),0 0 14px rgba(138,74,184,.35)}
   .pf-frame-ember{border-color:#e2582b;box-shadow:0 0 0 3px rgba(226,88,43,.25),0 0 16px rgba(226,88,43,.45)}
+  .pf-frame-illumination{border-color:#d9a93a;box-shadow:0 0 0 3px #1e3f8f,0 0 0 5px rgba(217,169,58,.55)} /* gold leaf on lapis blue */
+  .pf-frame-maya{border-color:#2e9a78;box-shadow:0 0 0 3px rgba(168,152,120,.6)} /* jade set in limestone */
+  .pf-frame-zodiac{border-color:#7d8ef0;box-shadow:0 0 0 3px #1b2350,0 0 14px rgba(125,142,240,.45)} /* starlight on night sky */
+  .pf-frame-iron{border-color:#7d838c;box-shadow:0 0 0 2px #2c2f34,inset 0 0 8px rgba(0,0,0,.55)}
   body.light .pf-frame-silver{border-color:#94a3b8}
-  .pf-avatar.sm.pf-frame-imperial,.pf-avatar.sm.pf-frame-ember{box-shadow:none}
+  .pf-avatar.sm.pf-frame-imperial,.pf-avatar.sm.pf-frame-ember,.pf-avatar.sm.pf-frame-zodiac,.pf-avatar.sm.pf-frame-maya{box-shadow:none}
+  .pf-avatar.sm.pf-frame-illumination{box-shadow:0 0 0 2px #1e3f8f}
   .pf-name-wrap{position:relative;width:100%;max-width:280px}
   .pf-name{width:100%;background:transparent;border:1px solid transparent;border-radius:8px;padding:6px 26px;font:800 1.2rem/1.2 Inter,sans-serif;color:var(--cream);text-align:center;outline:none;transition:border-color .2s,background .2s}
   .pf-name::placeholder{color:var(--cream-dim);opacity:.6}
