@@ -1,6 +1,6 @@
 # Run Save — Specification (Part A)
 
-Saving the run in progress on the device, so it survives the app being minimised, killed in the background, closed mid-run or reloaded by a service worker update. Part A of `CLOUD_SYNC.md`; the key it adds (`chronos_run`) and the "event vs end" rule it relies on are registered in `PERSISTENCE.md`. **Status: approved 2026-10-19, implemented on `feat/run-save`** (automated scenario tests passed; desktop browser and phone tests pending). Reviewed against v51.
+Saving the run in progress on the device, so it survives the app being minimised, killed in the background, closed mid-run or reloaded by a service worker update. Part A of `CLOUD_SYNC.md`; the key it adds (`chronos_run`) and the "event vs end" rule it relies on are registered in `PERSISTENCE.md`. **Status: approved 2026-10-19, implemented on `feat/run-save`** merged as v52; automated, desktop browser and phone tests passed. Reviewed against v51.
 
 ## Problem it solves
 
