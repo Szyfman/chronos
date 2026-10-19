@@ -1272,6 +1272,7 @@ function toggleTheme(){
 function openTrophies(tab){
   document.getElementById('tp-title-txt').textContent = lang==='pt' ? '🏆 Troféus' : '🏆 Trophies';
   document.getElementById('tp-close').textContent = lang==='pt' ? '✕ Fechar' : '✕ Close';
+  _tpOpenSections = [];
   switchTpTab(tab || 'progress');
   document.getElementById('tp').classList.add('open');
   _pushNavState('trophies');
@@ -1284,14 +1285,14 @@ function closeTrophies(){
   }
 }
 
-// Sections start closed; the ids the player opened are remembered here
+// Collapsible sections (trophy sections and Customization) stay open only
+// during a visit: openTrophies closes them all again
 var _tpOpenSections = [];
-try { _tpOpenSections = JSON.parse(localStorage.getItem('chronos_tp_open') || '[]') || []; } catch(e) {}
+try { localStorage.removeItem('chronos_tp_open'); } catch(e) {}   // older versions remembered them
 
 function toggleTpSection(id){
   var i = _tpOpenSections.indexOf(id);
   if(i >= 0) _tpOpenSections.splice(i, 1); else _tpOpenSections.push(id);
-  try { localStorage.setItem('chronos_tp_open', JSON.stringify(_tpOpenSections)); } catch(e) {}
   // Toggle in place instead of re-rendering, so the list keeps its scroll position
   var sec = document.getElementById('tp-sec-'+id);
   if(sec) sec.classList.toggle('open', i < 0);
@@ -1391,10 +1392,11 @@ function renderProgress(){
   html += _renderEraMastery();
   html += _renderModeRecords();
 
-  html += '<div class="dc-section-title">'+t('pf_custom')+'</div>';
+  // Customization folds like a trophy section; the count is of unlocked items
+  var customHtml = '', customUnlocked = CUSTOMIZATIONS.filter(isCustomUnlocked).length;
   CUSTOM_CATEGORIES.forEach(function(cat){
     var selected = selectedCustom(cat.id);
-    html += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts">';
+    customHtml += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts">';
     CUSTOMIZATIONS.forEach(function(item){
       if(item.cat !== cat.id) return;
       var unlocked = isCustomUnlocked(item);
@@ -1407,14 +1409,22 @@ function renderProgress(){
       var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
       // Selectable items are picked; locked ones open their detail modal (with the requirement)
       var click = selectable ? 'pickCustomization' : 'openCustomModal';
-      html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
-      html += preview;
-      html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
-      if(req) html += '<div class="pf-opt-req">'+req+'</div>';
-      html += '</div>';
+      customHtml += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
+      customHtml += preview;
+      customHtml += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
+      if(req) customHtml += '<div class="pf-opt-req">'+req+'</div>';
+      customHtml += '</div>';
     });
-    html += '</div></div>';
+    customHtml += '</div></div>';
   });
+  html += '<div class="tp-sec'+(_tpOpenSections.indexOf('custom')>=0?' open':'')+'" id="tp-sec-custom">';
+  html += '<button class="tp-sec-hd" onclick="toggleTpSection(\'custom\')">';
+  html += '<span class="tp-sec-arrow">▸</span>';
+  html += '<span class="tp-sec-name">🎨 '+t('pf_custom')+'</span>';
+  html += '<span class="tp-sec-cnt">'+customUnlocked+' / '+CUSTOMIZATIONS.length+'</span>';
+  html += '</button>';
+  html += '<div class="pf-custom-body">'+customHtml+'</div>';
+  html += '</div>';
 
   document.getElementById('tp-progress').innerHTML = html;
 
@@ -1459,7 +1469,7 @@ function _renderEraMastery(){
 function _renderModeRecords(){
   var html = '<div class="pf-block"><div class="dc-section-title">'+t('pf_records')+'</div>';
   html += '<div class="pf-records">';
-  html += '<div class="pf-rec-row pf-rec-head"><span>'+t('pf_rec_mode')+'</span><span>'+t('pf_rec_best')+'</span><span>'+t('pf_rec_cards')+'</span><span>'+t('pf_rec_runs')+'</span></div>';
+  html += '<div class="pf-rec-row pf-rec-head"><span>'+t('pf_rec_mode')+'</span><span>'+t('pf_rec_best')+'</span><span>'+t('pf_rec_cards')+'</span><span>'+t('pf_rec_streak')+'</span><span>'+t('pf_rec_runs')+'</span></div>';
   RECORD_MODES.forEach(function(mode){
     var r = modeRecords[mode.id];
     var played = r && (r.runs|0) > 0;
@@ -1467,6 +1477,8 @@ function _renderModeRecords(){
     html += '<span class="pf-rec-mode">'+mode.icon+' '+t(mode.label)+'</span>';
     html += '<span class="pf-rec-best">'+(played ? formatXp(r.best|0) : '—')+'</span>';
     html += '<span>'+(played ? (r.mostPlaced|0) : '—')+'</span>';
+    // Records saved before streaks were tracked have no bestStreak yet
+    html += '<span>'+(played && r.bestStreak != null ? (r.bestStreak|0) : '—')+'</span>';
     html += '<span>'+(played ? (r.runs|0) : '—')+'</span>';
     html += '</div>';
   });

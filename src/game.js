@@ -308,6 +308,7 @@ function _resetRunFlags(){
     minGap: Infinity,      // tightest year gap a correct card was placed into (Scalpel)
     maxMissDelta: 0,       // biggest miss, in years (Anachronism)
     lastLifeHits: 0,       // correct cards placed while on the last life (Phoenix)
+    maxStreak: 0,          // longest streak of the run (mode records)
     dailyFinished: false   // the run was a live daily (Carpe Diem, Midnight Bells)
   };
 }
@@ -836,6 +837,7 @@ function attemptPlacement(idx){
     timeline.splice(idx,0,card);score+=Math.round(basePoints*streakMultiplier(streak));streak++;currentCard=null;
     // Best streak only where streak trophies can unlock, so its bar never runs ahead of them
     if(streak>bestStreak&&playModeRules().trophies!=='none'){ bestStreak=streak; saveBestStreak(); }
+    if(streak>(runFlags.maxStreak|0)) runFlags.maxStreak=streak;
     // Streak reward: +1 hint every 20 in a row (pointless when hints are unlimited)
     if(streak>0&&streak%20===0&&isFinite(hints)){hints++;renderSideBtns();showStreakToast();}
     checkTrophies(true);
@@ -894,7 +896,7 @@ function endGame(won){
   if(_isDailyChallenge&&!_isRecoverRun) runFlags.dailyFinished=true;
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
-  var _newRecord=recordModeResult(_recordMode, score, timeline.length, playMode==='lives');
+  var _newRecord=recordModeResult(_recordMode, score, timeline.length, runFlags.maxStreak|0, playMode==='lives');
   // Record the daily attempt (win or loss) — also clears _isDailyChallenge
   if(_isDailyChallenge){ _saveDailyResult(won); }
   _pendingGameRecord = buildGameRecord(won);

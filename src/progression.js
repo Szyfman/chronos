@@ -294,13 +294,14 @@ const RECORD_MODES = [
    with lives count: Free play has no stakes, so its scores aren't records.
    Returns true when the run beat an earlier record of its mode — the very
    first run of a mode sets the record but isn't announced as a new one. */
-function recordModeResult(modeId, finalScore, placedCount, withLives) {
+function recordModeResult(modeId, finalScore, placedCount, maxStreak, withLives) {
   if (!withLives || !modeId) return false;
   var r = modeRecords[modeId];
   if (!r || typeof r !== 'object') r = modeRecords[modeId] = { best: 0, bestDate: '', mostPlaced: 0, runs: 0 };
   var hadRuns = (r.runs | 0) > 0;
   r.runs = (r.runs | 0) + 1;
   r.mostPlaced = Math.max(r.mostPlaced | 0, placedCount | 0);
+  r.bestStreak = Math.max(r.bestStreak | 0, maxStreak | 0);
   var isBest = finalScore > (r.best | 0);
   if (isBest) { r.best = finalScore; r.bestDate = new Date().toISOString(); }
   saveModeRecords();

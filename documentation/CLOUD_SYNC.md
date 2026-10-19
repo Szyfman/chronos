@@ -67,7 +67,7 @@ O trabalho fica isolado em módulos próprios, seguindo o padrão do projeto (um
 - `chronos_xp`, `chronos_trophies`, `chronos_discovered`, `chronos_card_stats`, `chronos_mode_records`, `chronos_history`, `chronos_runs_played`, `chronos_best_streak`, `chronos_custom`, `chronos_player_name`, `chronos_review_history`;
 - todas as chaves `chronos_daily_*` (são a sequência do diário) e `chronos_recover_*`.
 
-Respeite a poda feita por `chronos_prune_mark`. Preferências do aparelho (volume e mudo de música e efeitos, `chronos_tp_open`, `chronos_placed_trivia`) ficam de fora. Proponha o que fazer com `chronos_theme` e `chronos_lang`. Confira se existe alguma chave que eu não listei.
+Respeite a poda feita por `chronos_prune_mark`. Preferências do aparelho (volume e mudo de música e efeitos, `chronos_placed_trivia`) ficam de fora. Proponha o que fazer com `chronos_theme` e `chronos_lang`. Confira se existe alguma chave que eu não listei.
 
 **Mesclagem:** quando a mesma conta jogou em aparelhos diferentes (inclusive offline), os dados são **mesclados com regras por tipo de dado**, nunca "o último sobrescreve tudo". Exemplos: união de troféus, cartas descobertas e dias do diário; maior valor nos recordes. **Cuidado com contadores** (XP, `ok`/`miss` do `cardStats`, partidas jogadas): somar duplica a base comum e pegar o máximo perde progresso. Proponha uma solução correta, por exemplo contribuições por aparelho ou deltas. Cubra também:
 - primeiro login num aparelho que já tem progresso local, numa conta que também já tem progresso;

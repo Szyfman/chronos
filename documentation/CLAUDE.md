@@ -326,7 +326,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Secret trophies** (`section: 'secret'`): while locked, the card shows ❓ / ??? / "Secret trophy" and the modal only says to keep playing; the real name, hint and trivia appear once earned.
 
-**Sections**: the trophy tab groups trophies by `section`, in `TROPHY_SECTIONS` order. Sections start closed, show "earned / total", and remember which ones the player opened (`chronos_tp_open`). A missing or unknown `section` falls into the first section; an empty section is hidden.
+**Sections**: the trophy tab groups trophies by `section`, in `TROPHY_SECTIONS` order. Sections show "earned / total" and start closed every time the panel opens (nothing is remembered between visits; the Customization block of the progress tab folds the same way). A missing or unknown `section` falls into the first section; an empty section is hidden.
 
 **For card-based trophies**:
 - Use exact card names (as they appear in `card.name`, not `card.name_pt`)

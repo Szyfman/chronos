@@ -86,7 +86,7 @@ function saveCardStats() {
 }
 
 // Personal bests per game mode (see recordModeResult in progression.js):
-// { classic: { best, bestDate, mostPlaced, runs }, …, daily: {…} }.
+// { classic: { best, bestDate, mostPlaced, bestStreak, runs }, …, daily: {…} }.
 // Kept apart from chronos_history, which only holds saved runs (max 30).
 var modeRecords = {};
 try {
