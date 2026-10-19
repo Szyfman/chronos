@@ -8,7 +8,7 @@
 
 **Design Philosophy**:
 - **Simplicity over complexity**: No build tools, no frameworks, no dependencies
-- **Offline-first**: Full PWA with service worker caching
+- **Offline-first**: Full PWA with service worker caching. `localStorage` is the source of truth; the planned cloud sync (Supabase) is only a copy of it (see "Persistence, Backend & Security")
 - **Bilingual by design**: Equal treatment of English and Portuguese
 - **Educational value**: Every interaction should teach something about history
 - **Smooth UX**: Polished animations, clear feedback, intuitive interactions
@@ -34,15 +34,20 @@ When working on this codebase, you should:
 
 3. **Preserve offline functionality**
    - All assets must be embedded (base64 for audio/images) or cacheable
-   - No external API calls during gameplay
+   - Gameplay never calls or waits on the network. The only network code is `src/sync.js` (cloud sync, planned), which runs in the background and fails silently
    - Increment service worker cache version on file changes: `const CACHE = 'chronos-vX'`
 
-4. **Follow existing patterns**
+4. **Follow the persistence contract** (`documentation/PERSISTENCE.md`)
+   - Any new `localStorage` key or field, or a change of shape, is registered there with its merge rule
+   - Data counted by a run is written either at the event or inside `endGame`, never elsewhere
+   - New in-run state that changes the end result goes into the run save (`documentation/RUN_SAVE.md`)
+
+5. **Follow existing patterns**
    - Study similar code before adding new features
    - Keep separation of concerns: src/state.js (data), src/game.js (logic), src/ui.js (rendering)
    - Use consistent naming conventions (see Repository Summary)
 
-5. **Test thoroughly**
+6. **Test thoroughly**
    - Test all game modes (Classic, Empires, Characters, Biblical, Greco-Roman, Eastern, Daily)
    - Test Lives and Free modes
    - Test language switching mid-game
@@ -50,18 +55,18 @@ When working on this codebase, you should:
    - Test trophy unlocking conditions
    - Test on both desktop and mobile (touch vs mouse)
 
-6. **Write historical content carefully**
+7. **Write historical content carefully**
    - Fact-check dates and events against multiple sources
    - Keep facts interesting and educational (not dry Wikipedia summaries)
    - Include context and connections between events
    - Aim for "TIL" (Today I Learned) quality
 
-7. **Prioritize performance**
+8. **Prioritize performance**
    - Keep cards.js readable (it's large but must stay human-editable)
    - Avoid expensive operations in render loops
    - Use efficient DOM manipulation (innerHTML for full rebuilds, targeted updates for small changes)
 
-8. **Communicate clearly**
+9. **Communicate clearly**
    - Explain why changes are needed, not just what changed
    - Provide context for historical content decisions
    - Suggest alternatives when modifying core mechanics
@@ -70,12 +75,12 @@ When working on this codebase, you should:
 
 1. **Don't add build complexity**
    - No webpack, Babel, TypeScript, or bundlers
-   - No npm dependencies (not even dev dependencies)
+   - No npm dependencies (not even dev dependencies). A library the cloud sync may need (e.g. `supabase-js`, decided in Part B) is a pinned file — a local copy, or a CDN URL with a fixed version and SRI — never npm
    - Don't require compilation or transpilation
 
 2. **Don't break offline functionality**
-   - Don't add external API calls (Google Fonts, CDN libraries, etc.)
-   - Don't require server-side logic
+   - Don't add external calls outside `src/sync.js` (Google Fonts, CDN libraries, analytics, other APIs)
+   - Don't make any part of the game depend on the server: login and sync are optional extras, and the game works the same offline, logged out, or with the server paused
    - Don't use external images/audio (embed or cache them)
 
 3. **Don't sacrifice bilingual support**
@@ -465,7 +470,7 @@ const CACHE = 'chronos-v4';  // Increment on every deploy
 - ANY file in FILES array changes (HTML, JS, manifest, icons)
 - New features added
 - Bugs fixed in cached files
-- Don't increment for: localStorage data changes, server-side only changes (none in this project)
+- Don't increment for: localStorage data changes, server-side only changes (`supabase/` schema, policies, Edge Functions), documentation
 
 **Cache strategy**:
 - Install: Pre-cache all files
@@ -515,9 +520,38 @@ DOM updates (visible to user)
 | `src/game.js` | Game rules, scoring, lifecycle | DOM manipulation, translations |
 | `src/ui.js` | Rendering, animations, interactions | Game rules, content data |
 | `src/i18n.js` | Translations, language switching | Game logic, state management |
-| `src/bgm.js` | Background music data | Volume controls (in ui.js) |
+| `src/progression.js` | Player profile: name, XP → level, titles, customizations, mode records, era mastery | Rendering (in ui.js) |
+| `src/dailycards.js` | Daily reward card content (data only) | Daily challenge rules (in game.js) |
+| `assets/bgm.mp3` | Background music | Volume controls (in ui.js) |
 | `src/sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
+| `src/runsave.js` *(planned, Part A)* | Saving and restoring the run in progress in `localStorage` (`RUN_SAVE.md`) | Game rules, the cloud |
+| `src/sync.js` *(planned, Part B)* | Login, session, sync with Supabase — the only file that touches the network | Game rules, rendering (login UI and sync status are in ui.js) |
+| `supabase/` *(planned, Part B)* | Database schema, RLS policies, Edge Functions — versioned so the server never holds configuration that exists only in the dashboard | — |
 | `sw.js` | Caching, offline support | Game logic, content |
+
+### Persistence, Backend & Security
+
+Decided on 2026-10-18 (`documentation/CLOUD_SYNC.md`): the game gets run save, login and cloud sync, built in three isolated phases — A (run save, `RUN_SAVE.md`), B (Supabase login + sync), C (global ranking, future). This replaces the old "no backend, no accounts, no sync" rule. The rules below apply to every feature, not only to those phases.
+
+**Persistence** — the full contract is `documentation/PERSISTENCE.md`:
+- `localStorage` (`chronos_*` keys) is the source of truth. The cloud is a synchronised copy; the game never waits for it.
+- Every key is registered in `PERSISTENCE.md` with its shape, writer, moment (event or end of run), sync class and merge rule. Adding or changing a key without registering it is a bug.
+- Merges are per data type (union, max, counters by per-device contribution, latest choice…), never "the last device overwrites everything".
+
+**Backend (Supabase, free plan)**:
+- `src/sync.js` is the only file that touches the network and the only one that knows Supabase exists. It reads the `chronos_*` keys, merges, writes them back and tells the game to reload its in-memory state. Other files keep using `localStorage` as before.
+- Login UI and sync status live in ui.js and call functions of sync.js (as ui.js does with progression.js).
+- Schema, RLS policies and Edge Functions are versioned in the repository (`supabase/`).
+- If the server is unreachable or the project is paused, the game behaves exactly as offline; sync retries later, silently.
+- The service worker never caches Supabase API calls (it only handles same-origin GETs; keep it that way). New game files go into its `FILES` list as usual.
+
+**Security (mandatory)**:
+- **RLS on every table**, each user reading and writing only their own rows. No table without a policy.
+- **Keys**: the `anon` (public) key may be committed; the `service_role` key never goes to the client or to git.
+- **Data from storage or the cloud is data, not code**: validate type, shape and size before writing it to `localStorage`; never insert stored text with `innerHTML` unescaped (use `textContent`, `.value` or `esc()`). The player name already goes in via `.value`.
+- **Session**: the login token is kept by the browser (where exactly is documented in the Part B spec). Anything able to run script on the page could read it — which is why the game must have no path that executes HTML or script coming from outside.
+- **Third-party code**: pinned version with SRI, or a local copy.
+- **Ranking (Part C)**: scores are never accepted straight from the client; they are validated server-side (Edge Functions). Part B's schema must leave room for it.
 
 ### Naming Conventions
 
@@ -779,7 +813,8 @@ Resolves: #issue-number (if applicable)
 - [ ] Tested in multiple browsers
 - [ ] Mobile testing completed
 - [ ] Git commit created with descriptive message
-- [ ] No sensitive data in localStorage (N/A for this project)
+- [ ] No secrets in the code or in git (the Supabase `anon` key is the only key allowed)
+- [ ] Any new or changed `localStorage` key is registered in `PERSISTENCE.md`
 
 ### Post-Deployment Verification
 
@@ -799,7 +834,7 @@ Resolves: #issue-number (if applicable)
 3. Re-deploy quickly
 4. Users will auto-update on next visit (may need to clear cache if urgent)
 
-**Note**: No database or server-side state to worry about. All user data is client-side localStorage.
+**Note**: Player data lives in the device's `localStorage`; reverting game files never touches it. Once cloud sync exists (Part B), the server also holds a copy: a revert must not ship a client that writes a different shape to the cloud than the one the other devices expect, and schema changes in `supabase/` are rolled back separately (they are not covered by the service worker version).
 
 ---
 
@@ -978,10 +1013,10 @@ console.log('Has all needed:', def.needed.every(n => placed.indexOf(n) >= 0));
 **A**: Not yet. src/cards.js is large but manageable. Only split if approaching 5000+ lines or if load time becomes measurably slow.
 
 ### Q: Can I add a backend server?
-**A**: No. The game is intentionally client-side only. No servers, no APIs, no databases.
+**A**: Only Supabase, through `src/sync.js` and the versioned `supabase/` folder, following "Persistence, Backend & Security". The game itself stays client-side and must work fully without the server.
 
 ### Q: Should I add user accounts / cloud sync?
-**A**: Not without very good reason. localStorage is sufficient. Cloud sync would require backend (see previous Q).
+**A**: Yes, it is planned (Part B of `documentation/CLOUD_SYNC.md`). Don't build it outside that plan; any feature that adds saved data just registers its keys in `documentation/PERSISTENCE.md` so sync can merge them.
 
 ### Q: Can I use localStorage for large data (10+ MB)?
 **A**: No. Stay under 5 MB total. If data grows beyond that, refactor to IndexedDB.
@@ -1082,4 +1117,4 @@ Migration: None needed (pure UI enhancement)
 
 ---
 
-*This guide was written for AI assistants helping with the Chronos codebase. Last updated: 2026-04-09*
+*This guide was written for AI assistants helping with the Chronos codebase. Last updated: 2026-10-19*

@@ -63,6 +63,8 @@ O trabalho fica isolado em módulos próprios, seguindo o padrão do projeto (um
 
 **Plataforma:** Supabase, no plano grátis. Confirme na documentação atual os limites do plano grátis e **como recuperar um projeto pausado** depois de 7 dias sem uso (até quando dá para restaurar, se os dados são mantidos, se existe backup). Enquanto o projeto estiver pausado ou offline, o jogo precisa continuar funcionando normalmente; a sincronização só tenta de novo depois, em silêncio.
 
+> Lista viva das chaves, com formato e regra de mescla de cada uma: `documentation/PERSISTENCE.md`. A lista abaixo é a do briefing original (2026-10-18); desde então entrou `chronos_custom_known` (união, nunca remover), `chronos_mode_records` ganhou `bestStreak` (maior valor) e `chronos_tp_open` foi removida.
+
 **Dados a sincronizar:** todo o progresso:
 - `chronos_xp`, `chronos_trophies`, `chronos_discovered`, `chronos_card_stats`, `chronos_mode_records`, `chronos_history`, `chronos_runs_played`, `chronos_best_streak`, `chronos_custom`, `chronos_player_name`, `chronos_review_history`;
 - todas as chaves `chronos_daily_*` (são a sequência do diário) e `chronos_recover_*`.

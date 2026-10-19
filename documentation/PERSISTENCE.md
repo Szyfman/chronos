@@ -1,0 +1,94 @@
+# Persistence — Contract
+
+Every piece of data Chronos keeps between sessions, and the rules for adding more. **Any change that reads or writes `localStorage` must keep this file in sync** — it is what the run save (Part A, `RUN_SAVE.md`) and the cloud sync (Part B, `CLOUD_SYNC.md`) are built on. Last reviewed against **v51** (2026-10-19).
+
+## Principles
+
+- **The device is the source of truth.** Everything lives in `localStorage` under `chronos_*` keys and the game works fully offline. The cloud (Part B) is a synchronised copy: it reads these keys, merges, writes them back and tells the game to reload its in-memory state. No other file knows the cloud exists.
+- **Only `src/sync.js` touches the network** (Part B). Every other file keeps reading and writing `localStorage` as today.
+- **Every key has a merge rule.** Two devices on the same account may both have played offline; their data is merged per data type, never "last write wins for everything".
+- **Stored data is data, not code.** Whatever is read back — from this device or, later, from the cloud — is validated (type, shape, size) before use, and stored text is never inserted with `innerHTML` unescaped.
+
+## When things are counted
+
+A run changes saved data at two moments only. New code must pick one of them, because the run save's "never count twice" guarantee depends on it (`RUN_SAVE.md`, *No double counting*):
+
+- **At the event** — written the moment it happens (a card placed, a mid-game trophy, a customization unlocked, the daily attempt burned). Must be persisted right away, in the same function.
+- **At the end** — written only inside `endGame` (game.js), which runs once per run and, from Part A on, starts by clearing the run save.
+
+Anything else that affects the end result but lives only in memory during the run (score, lives, `runFlags`…) must be part of the run save shape.
+
+## Key registry
+
+### Synced progress (Part B)
+
+Merge rules are defined at the bottom of this file.
+
+| Key | Shape | Written by | When | Merge |
+|---|---|---|---|---|
+| `chronos_xp` | integer, total XP | `awardXp` (progression.js) | end | **counter** |
+| `chronos_runs_played` | integer — runs finished with ≥ 1 card, any mode | `endGame` (game.js) | end | **counter** |
+| `chronos_card_stats` | `{ "<card name>": { ok, miss, last } }`, `last` = 'YYYY-MM-DD'; every placement except a run's first card, skips don't count | `recordCardResult` (game.js) | event | per card: `ok`, `miss` **counter**; `last` **max** |
+| `chronos_mode_records` | `{ "<mode>": { best, bestDate, mostPlaced, bestStreak, runs } }` (modes of `RECORD_MODES`, incl. `daily`); Lives runs only | `recordModeResult` (progression.js) | end | per mode: `best` **max** (with its `bestDate`); `mostPlaced`, `bestStreak` **max**; `runs` **counter** |
+| `chronos_trophies` | `{ "<trophy id>": ISO date }` | `checkTrophies` (game.js), family back-fill on load | event + end | **union**, earliest date per id |
+| `chronos_discovered` | `["<card name>", …]` | `_eagerSaveDiscovered` (game.js) | end | **union** |
+| `chronos_custom_known` | `["<customization id>", …]` — unlocked items, also stops repeated unlock notices | `checkCustomUnlocks` (progression.js) | event + end | **union, never remove** (an unlocked item is never lost, even if its requirement changes) |
+| `chronos_best_streak` | integer — only where streak trophies can unlock; seeded on load from streak trophies earned | `attemptPlacement` (game.js) | event | **max** |
+| `chronos_custom` | `{ "<category id>": "<item id>" }` — the item chosen per category | `selectCustomization` (progression.js) | on choice | **choice**, per category |
+| `chronos_player_name` | string, ≤ `PLAYER_NAME_MAX` (20) | `setPlayerName` (progression.js) | on edit | **choice** |
+| `chronos_review_history` | `[[names], [names]]`, newest first | `_rememberReviewTargets` (game.js) | Review run start | **choice**, whole value |
+| `chronos_history` | `[record, …]`, newest first, max 30 | `saveAndOpenHistory` (game.js), `confirmDel` (ui.js) | "Save timeline" / delete | **capped list** |
+| `chronos_daily_YYYY-MM-DD` | `{ v:2, attempts, won, score, placed, timeline }` (legacy: `'1'` or v1 object) | `_commitDailyAttempt` (first placement), `_saveDailyResult` (end) | event + end | **daily record**; key presence = the streak |
+| `chronos_recover_YYYY-MM-DD` | `{ v:3, day, attempts, tries, won, score, placed, timeline }` | same functions, recovery runs | event + end | **daily record** (recovery variant) |
+
+### Device only — never synced
+
+| Key | Shape | Why it stays |
+|---|---|---|
+| `chronos_run` *(Part A, planned)* | the run in progress (`RUN_SAVE.md`) | a run belongs to the device it is played on; syncing it would allow resuming on two phones and counting it twice |
+| `chronos_prune_mark` | 'YYYY-MM-DD' watermark of the timeline sweep | housekeeping of this device's storage |
+| `chronos_music_vol`, `chronos_sfx_vol` | 0–100 | device preference |
+| `chronos_music_mute`, `chronos_sfx_mute` | 'true' / 'false' | device preference |
+| `chronos_placed_trivia` | 'true' / 'false' | device preference |
+| `chronos_theme` | 'light' / 'dark' | ❓ to decide in Part B (proposal: device only) |
+| `chronos_lang` | 'en' / 'pt' | ❓ to decide in Part B. Known issue: written by `setLang` but **never read on boot**, so the game always opens in English |
+
+### Removed — do not reuse these names
+
+| Key | Removed in | Notes |
+|---|---|---|
+| `chronos_tp_open` | v51 | trophy sections now always start closed; ui.js deletes the key on boot |
+
+### Never stored
+
+Kept in memory on purpose: `?preview` choices (`_previewCustom`, progression.js — preview never writes to `localStorage`), menu selections (`menuPlayMode`, `eraSelection`), `empiresShownTutorial`, the notice queue, the unsaved gameover record (`_pendingGameRecord`).
+
+## Merge rules
+
+Exact algorithms belong to the Part B spec; these are the categories every key must fit in.
+
+- **union** — set union; ids are never removed by a merge.
+- **max** — the larger value wins.
+- **counter** — a number that only grows by adding (XP, runs, `ok`/`miss`). Never merged by plain sum (counts the shared base twice) nor by max (loses the other device's progress). Part B stores contributions per device, or deltas, so the merged total is exact.
+- **choice** — a value the player picks. The most recent choice wins, per field; needs a change timestamp (Part B).
+- **capped list** — merged by entry identity (`date`), newest first, cut to the cap. Deletions need a record of their own (tombstone), or a merge would bring a deleted entry back.
+- **daily record** — per day: `attempts` max, `won` OR, the best run kept by the same rule as `_saveDailyResult` (won, then more cards placed, then higher score) together with its `timeline`. Recovery records also keep `tries` max and take `attempts` from the most recent `day`. After merging, timelines older than `DAILY_TIMELINE_RETENTION_DAYS` (120) are stripped again, so a merge never undoes the pruning.
+
+## Adding or changing persisted data — checklist
+
+For any new key, a new field inside an existing key, or a change of shape:
+
+1. **Name**: `chronos_` + snake_case. Never reuse a removed name.
+2. **Load** in state.js (or the owning module) inside `try/catch`, checking the type and falling back to a default — old versions, other devices and hand edits all produce unexpected values.
+3. **Register** it in the tables above: shape, writer, when, sync class and merge rule. A new field in a synced key needs its own merge rule (example: `bestStreak` → max).
+4. **Prefer shapes that merge cleanly**: sets and maxima over counters, ISO dates, one key per independent piece. If a counter can be derived from data that is already stored, derive it instead.
+5. **Pick the moment** — event or end (see *When things are counted*). If it is computed during the run from in-memory state, add that state to the run save shape in `RUN_SAVE.md` (example: `runFlags.maxStreak`).
+6. **Render stored text safely**: `textContent`, `.value` or `esc()` (ui.js). Never put stored strings into `innerHTML` unescaped.
+7. **Bound the size**: caps on lists and strings (history 30, name 20). The whole store must stay well under 5 MB.
+8. **Renames and removals**: keep reading the old form (lazy migration, like v1 daily records) or delete the old key on boot (like `chronos_tp_open`), and list it under *Removed*.
+9. **Preview mode never writes** to `localStorage`.
+10. **No secrets** in `localStorage` other than the login session Part B will document.
+
+## Known debt (fixed in Part B, before any data comes from the cloud)
+
+- `renderHistoryPanel` and the daily calendar build HTML with `innerHTML` from stored records (card names, era, score). Harmless while the data is only written by this game; it must be escaped before cloud data can reach it.

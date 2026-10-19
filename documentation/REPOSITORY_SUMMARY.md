@@ -49,17 +49,25 @@ chronos/
 │   ├── i18n.js         # Internationalization and translations (19KB)
 │   ├── cards.js        # Historical card data (727KB, 1200+ cards)
 │   ├── trophies.js     # Trophy definitions and checking logic (41KB)
-│   ├── sfx.js          # Sound effects engine (8KB)
-│   └── bgm.js          # Background music (1.3MB, base64 data)
+│   ├── progression.js  # Player profile: XP, levels, titles, customizations, records, era mastery
+│   ├── dailycards.js   # Daily reward card content
+│   └── sfx.js          # Sound effects engine (8KB)
 ├── assets/             # Static assets
+│   ├── bgm.mp3         # Background music
 │   ├── manifest.json   # PWA manifest
 │   ├── apple-touch-icon.png  # iOS home screen icon
 │   ├── icon-192.png    # PWA icon (192x192)
 │   ├── icon-512.png    # PWA icon (512x512)
 │   └── icon-1024.png   # High-res icon
-├── docs/               # Documentation
+├── CLAUDE.md           # Entry point for AI agents: points to the documents below
+├── documentation/      # Documentation
 │   ├── CLAUDE.md       # Comprehensive guide for AI agents
-│   └── REPOSITORY_SUMMARY.md  # This file
+│   ├── REPOSITORY_SUMMARY.md  # This file
+│   ├── PERSISTENCE.md  # localStorage contract: every key, its merge rule, checklist for new keys
+│   ├── RUN_SAVE.md     # Spec: saving the run in progress (cloud sync Part A)
+│   ├── CLOUD_SYNC.md   # Brief: run save, login, cloud sync, ranking (Parts A–C)
+│   ├── REVIEW_MODE.md  # Spec: Review play mode
+│   └── CULTURE_MODES_BY_ERA.md
 └── .gitignore          # Git ignore rules
 ```
 
@@ -798,29 +806,7 @@ Game ends
 
 ### localStorage Keys
 
-**Game State**:
-- `chronos_lang`: 'en' or 'pt'
-- `chronos_theme`: 'light' or 'dark'
-- `chronos_history`: JSON array of game records (max 30)
-- `chronos_discovered`: JSON array of card names seen
-- `chronos_card_stats`: JSON object `{ "<card name>": { ok, miss, last } }` — per-card placement results (`last` = 'YYYY-MM-DD'). Written by `recordCardResult` on every placement except the first card of a run; skips don't count. Feeds era mastery and the Review deck
-- `chronos_runs_played`: integer — runs finished with at least one card, any mode (Veteran trophy); counted from the version that added it
-- `chronos_best_streak`: integer — longest streak reached where streak trophies can unlock (bar of the Spark / Blaze / On Fire family); seeded from the streak levels already earned
-- `chronos_review_history`: JSON `[[names], [names]]` — target cards of the last two Review decks, newest first (cooldown, see REVIEW_MODE.md)
-- `chronos_mode_records`: JSON object `{ "<mode>": { best, bestDate, mostPlaced, bestStreak, runs } }` — personal bests per mode (`daily` kept apart from `classic`). Written by `recordModeResult` at game end, lives runs only; independent of `chronos_history`, which only holds saved runs
-- `chronos_trophies`: JSON object of trophy IDs → unlock timestamps
-- `chronos_placed_trivia`: 'true' or 'false' (show fact panel on placement)
-
-**Daily Challenge**:
-- `chronos_daily_YYYY-MM-DD`: JSON object per day
-  - `{ score: number, placed: number, timeline: [...] }`
-- Used for streak calculation and calendar display
-
-**Audio Settings**:
-- `chronos_music_vol`: 0-100 (default 40)
-- `chronos_sfx_vol`: 0-100 (default 80)
-- `chronos_music_mute`: 'true' or 'false'
-- `chronos_sfx_mute`: 'true' or 'false'
+The registry of every `chronos_*` key — shape, which function writes it, when (at the event or at the end of a run), whether it syncs to the cloud and how it merges — lives in **`documentation/PERSISTENCE.md`**, together with the checklist for adding or changing a key. It is kept there only, so the two lists cannot drift apart.
 
 **Size Estimates**:
 - Game history (30 games): ~50-100 KB

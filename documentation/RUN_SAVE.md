@@ -1,6 +1,6 @@
 # Run Save — Specification (Part A)
 
-Proposed design for saving the run in progress on the device, so it survives the app being minimised, killed in the background, closed mid-run or reloaded by a service worker update. Part A of `CLOUD_SYNC.md`. **Status: draft, awaiting approval** — decisions marked ❓ are open.
+Proposed design for saving the run in progress on the device, so it survives the app being minimised, killed in the background, closed mid-run or reloaded by a service worker update. Part A of `CLOUD_SYNC.md`; the key it adds (`chronos_run`) and the "event vs end" rule it relies on are registered in `PERSISTENCE.md`. **Status: draft, awaiting approval** — decisions marked ❓ are open. Reviewed against v51.
 
 ## Problem today
 
@@ -31,8 +31,8 @@ Everything the game counts happens either **at the event** or **at the end**:
 
 | Counted | Where | Why a resumed run can't count it twice |
 |---|---|---|
-| Card stats (`ok`/`miss`), best streak, mid-game trophies, daily attempt burned, review targets | at the event (`recordCardResult`, `attemptPlacement`, `checkTrophies(true)`, `_commitDailyAttempt`, `initGame`) | already persisted when it happens; the run save is written right after, in the same JS task, so the resumed run starts *after* the event and never replays it |
-| Runs played, mode records, XP, end trophies, Compendium, daily result, gameover history record | only in `endGame` | `endGame` runs once per run, and its first step clears `chronos_run`: a run that reached the end can never be offered again |
+| Card stats (`ok`/`miss`), best streak, mid-game trophies and the customizations they unlock, daily attempt burned, review targets | at the event (`recordCardResult`, `attemptPlacement`, `checkTrophies(true)` → `announceCustomUnlocks`, `_commitDailyAttempt`, `initGame`) | already persisted when it happens; the run save is written right after, in the same JS task, so the resumed run starts *after* the event and never replays it |
+| Runs played, mode records (incl. the run's best streak), XP, end trophies, customizations unlocked by level or mastery, Compendium, daily result, gameover history record | only in `endGame` | `endGame` runs once per run, and its first step clears `chronos_run`: a run that reached the end can never be offered again |
 
 Remaining window: the app dying *inside* the single JS task between `recordCardResult` and the run save (microseconds). Accepted.
 
@@ -50,13 +50,14 @@ Remaining window: the app dying *inside* the single JS task between `recordCardR
   clues: 1,                   // clues already revealed on the card in hand
   score: 340, streak: 4, lives: 2,
   hints: 2, skip: 1,          // null = unlimited (Free play: Infinity isn't JSON)
-  flags: { aidsUsed: true, minGap: 12, maxMissDelta: 300, lastLifeHits: 0 },  // minGap null = Infinity
+  flags: { aidsUsed: true, minGap: 12, maxMissDelta: 300, lastLifeHits: 0, maxStreak: 7 },  // runFlags minus dailyFinished (set by endGame); minGap null = Infinity
   daily: null                 // or { date: '2026-10-18', attempt: 2, recover: false }
 }
 ```
 
 - Cards are stored by **English name** (the same key as `chronos_card_stats` / `chronos_discovered`; all 505 names are unique) and looked up in `CARDS`/`INTERVALS` on resume. The full deck as names is ~10 KB.
 - The deck is stored **in order**, so the resumed run draws exactly the same cards: closing the app never re-rolls the hand or the deck.
+- `flags` mirrors `runFlags` (game.js). A new run flag — or any other in-memory value that changes the end result — must be added here too, or a resumed run silently loses it (`PERSISTENCE.md`, checklist item 5). Loading tolerates missing flags (default value), so adding one doesn't invalidate older saves.
 
 ### Validation on load
 Even local data is checked before use (the same discipline Part B will need for cloud data). The save is **discarded silently** if:
@@ -102,7 +103,8 @@ So Part A protects the daily too — it doesn't have to be left out.
 | `index.html` | `<script src="src/runsave.js">` after game.js; dialog markup (same look as the End run confirm). |
 | `src/i18n.js` | dialog strings, en + pt. |
 | `sw.js` | `src/runsave.js` in `FILES`; version bump. |
-| `documentation/CLAUDE.md` | `runsave.js` row in File Responsibilities. The backend/sync sections are rewritten in Part B. |
+| `documentation/CLAUDE.md` | `runsave.js` row in File Responsibilities moves from "planned" to current. |
+| `documentation/PERSISTENCE.md` | `chronos_run` moves from "planned" to current. |
 
 ## Testing (desktop browser, before merging)
 
