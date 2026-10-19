@@ -2569,7 +2569,231 @@ var DAILY_CARDS = {
     }
   ],
 
+  '11-01': [
+    {
+      year: 1520,
+      title: 'The Strait of All Saints',
+      title_pt: 'O Estreito de Todos os Santos',
+      era: 'Renaissance',
+      region: 'Tierra del Fuego', region_pt: 'Terra do Fogo',
+      tag: 'Navigation', tag_pt: 'Navegação',
+      text: 'On 1 November 1520, All Saints’ Day, Magellan’s ships entered the channel at the southern end of South America that joins the Atlantic to the Pacific, and he named it the Strait of All Saints. It took thirty-eight days of channels, squalls and dead ends to get through, and they came out into an ocean no European had crossed.',
+      text_pt: 'Em 1º de novembro de 1520, Dia de Todos os Santos, os navios de Magalhães entraram no canal na ponta sul da América do Sul que liga o Atlântico ao Pacífico, e ele o batizou de Estreito de Todos os Santos. Foram trinta e oito dias de canais, rajadas e becos sem saída para atravessá-lo, e saíram num oceano que nenhum europeu havia cruzado.',
+      facts: [
+        'The largest ship deserted inside the strait. The San Antonio turned around carrying a heavy share of the stores and sailed home, where her officers accused Magellan of treason. The starvation on the Pacific crossing follows directly from that.',
+        'The name Pacific came from a run of good weather. Having come out of five weeks of squalls into a calm sea, he called it the peaceful ocean, and the name stuck to the largest and frequently least peaceful body of water on earth.',
+        'Tierra del Fuego was named for fires seen burning on the shore at night. Magellan reported a land of smoke; the king is said to have renamed it the land of fire, on the grounds that there is no smoke without it.'
+      ],
+      facts_pt: [
+        'O maior navio desertou dentro do estreito. O San Antonio deu meia-volta levando boa parte dos mantimentos e navegou de volta, onde seus oficiais acusaram Magalhães de traição. A fome na travessia do Pacífico decorre diretamente disso.',
+        'O nome Pacífico veio de uma sequência de bom tempo. Tendo saído de cinco semanas de rajadas para um mar calmo, ele o chamou de oceano pacífico, e o nome grudou na maior e frequentemente menos pacífica massa de água da Terra.',
+        'A Terra do Fogo recebeu o nome de fogueiras vistas na costa durante a noite. Magalhães relatou uma terra de fumaça; conta-se que o rei a rebatizou de terra do fogo, sob o argumento de que não há fumaça sem ele.'
+      ]
+    },
+    {
+      year: 1555,
+      title: 'Rio Was Founded to Expel Them',
+      title_pt: 'O Rio Foi Fundado para Expulsá-los',
+      era: 'Renaissance',
+      region: 'Guanabara Bay', region_pt: 'Baía de Guanabara',
+      tag: 'Colony', tag_pt: 'Colônia',
+      text: 'On 1 November 1555 a French expedition under Villegaignon established a colony on an island in Guanabara Bay and called it France Antarctique. A large part of the settlers were Huguenots, Calvinists looking for somewhere to be Protestant in peace. The Portuguese destroyed it inside twelve years, and founded a city in order to do it.',
+      text_pt: 'Em 1º de novembro de 1555, uma expedição francesa sob Villegaignon estabeleceu uma colônia numa ilha da baía de Guanabara e a chamou de França Antártica. Boa parte dos colonos eram huguenotes, calvinistas em busca de um lugar onde ser protestante em paz. Os portugueses a destruíram em menos de doze anos, e fundaram uma cidade para isso.',
+      facts: [
+        'Rio de Janeiro exists because of this colony. The Portuguese founded the city in 1565 as a base for driving the French out of the bay, and finished the job in 1567.',
+        'The settlement tore itself apart over doctrine before anyone attacked it. Villegaignon fell out with the Calvinists he had invited; three of them wrote a statement of belief — the first Protestant confession of faith composed in the Americas — and were executed on his orders for it.',
+        'One survivor, Jean de Léry, wrote an account of the Tupinambá that is still read as one of the founding works of ethnography, and the reports coming out of this colony fed Montaigne’s essay on cannibals, which in turn fed The Tempest.'
+      ],
+      facts_pt: [
+        'O Rio de Janeiro existe por causa dessa colônia. Os portugueses fundaram a cidade em 1565 como base para expulsar os franceses da baía, e terminaram o serviço em 1567.',
+        'O povoado se despedaçou por doutrina antes que alguém o atacasse. Villegaignon rompeu com os calvinistas que ele mesmo convidara; três deles escreveram uma declaração de fé — a primeira confissão protestante redigida nas Américas — e foram executados por ordem dele por causa disso.',
+        'Um sobrevivente, Jean de Léry, escreveu sobre os tupinambás um relato que ainda é lido como uma das obras fundadoras da etnografia, e as notícias saídas dessa colônia alimentaram o ensaio de Montaigne sobre os canibais, que por sua vez alimentou A Tempestade.'
+      ]
+    }
+  ],
+
+  '11-02': [
+    {
+      year: 1917,
+      title: 'Sixty-Seven Words',
+      title_pt: 'Sessenta e Sete Palavras',
+      era: 'Modern',
+      region: 'London', region_pt: 'Londres',
+      tag: 'Declaration', tag_pt: 'Declaração',
+      text: 'On 2 November 1917 the British Foreign Secretary sent a letter of sixty-seven words to Lord Rothschild, stating that His Majesty’s Government viewed with favour the establishment in Palestine of a national home for the Jewish people, with nothing to be done that might prejudice the civil and religious rights of the existing non-Jewish communities there. It was published a week later and has been argued over ever since.',
+      text_pt: 'Em 2 de novembro de 1917, o chanceler britânico enviou uma carta de sessenta e sete palavras a lorde Rothschild, declarando que o Governo de Sua Majestade via com bons olhos o estabelecimento na Palestina de um lar nacional para o povo judeu, sem que nada se fizesse que pudesse prejudicar os direitos civis e religiosos das comunidades não judaicas ali existentes. Foi publicada uma semana depois e é discutida desde então.',
+      facts: [
+        'Britain did not hold the territory it was writing about. Palestine was Ottoman when the letter was sent; British troops took Jerusalem five weeks later.',
+        'The central phrase was left undefined on purpose. A national home is not a state, and nobody involved would say what it was instead. The people already living there, about nine in ten of the population, appear in the text only as the existing non-Jewish communities — named by what they were not.',
+        'Britain had already promised the same region, in different terms, to other parties: Arab independence in the wartime correspondence with Sharif Hussein, and a division of the Ottoman provinces with France under the Sykes–Picot agreement. The three undertakings could not all be kept.'
+      ],
+      facts_pt: [
+        'A Grã-Bretanha não controlava o território sobre o qual escrevia. A Palestina era otomana quando a carta foi enviada; as tropas britânicas tomariam Jerusalém cinco semanas depois.',
+        'A expressão central foi deixada indefinida de propósito. Um lar nacional não é um Estado, e ninguém envolvido dizia o que seria em vez disso. As pessoas que já viviam ali, cerca de nove em cada dez habitantes, aparecem no texto apenas como as comunidades não judaicas existentes — nomeadas pelo que não eram.',
+        'A Grã-Bretanha já havia prometido a mesma região, em termos diferentes, a outras partes: independência árabe na correspondência de guerra com o xarife Hussein, e uma divisão das províncias otomanas com a França pelo acordo Sykes-Picot. Os três compromissos não podiam ser cumpridos ao mesmo tempo.'
+      ]
+    }
+  ],
+
+  '11-03': [
+    {
+      year: 1930,
+      title: 'The Provisional Government That Lasted Fifteen Years',
+      title_pt: 'O Governo Provisório que Durou Quinze Anos',
+      era: 'Modern',
+      region: 'Rio de Janeiro', region_pt: 'Rio de Janeiro',
+      tag: 'Government', tag_pt: 'Governo',
+      text: 'On 3 November 1930 Getúlio Vargas was installed as head of the provisional government of Brazil, ten days after the junta that had removed the president. Provisional meant ruling by decree: Congress dissolved, every state legislature and municipal chamber closed, the constitution suspended, and appointed men sent out to run the states.',
+      text_pt: 'Em 3 de novembro de 1930, Getúlio Vargas foi empossado como chefe do governo provisório do Brasil, dez dias depois da junta que depusera o presidente. Provisório queria dizer governar por decreto: Congresso dissolvido, todas as assembleias estaduais e câmaras municipais fechadas, a constituição suspensa, e interventores nomeados para tocar os estados.',
+      facts: [
+        'The same government that abolished every elected body in the country also fixed the voting. The electoral code of 1932 created the secret ballot, the electoral courts and the vote for women, and it is the reason Brazilian elections stopped being openly falsified.',
+        'São Paulo rose against him in 1932 demanding a constitution, and was beaten in about three months — but it forced the constituent assembly that produced one in 1934.',
+        'In 1937 he closed Congress again and ruled under a charter drafted for him and modelled on an authoritarian European one, which required a plebiscite that was never held. He was removed by the army in 1945, elected president by popular vote in 1950, and shot himself in the presidential palace in 1954.'
+      ],
+      facts_pt: [
+        'O mesmo governo que aboliu todos os corpos eleitos do país também consertou a votação. O código eleitoral de 1932 criou o voto secreto, a Justiça Eleitoral e o voto feminino, e é a razão de as eleições brasileiras deixarem de ser abertamente falsificadas.',
+        'São Paulo se levantou contra ele em 1932 exigindo uma constituição, e foi derrotada em cerca de três meses — mas forçou a assembleia constituinte que produziu uma em 1934.',
+        'Em 1937 ele fechou o Congresso de novo e passou a governar sob uma carta redigida para ele, espelhada numa carta autoritária europeia, que previa um plebiscito jamais realizado. Foi deposto pelo Exército em 1945, eleito presidente pelo voto popular em 1950, e deu um tiro no peito no palácio presidencial em 1954.'
+      ]
+    }
+  ],
+
+  '11-04': [
+    {
+      year: 1677,
+      title: 'She Cried Through the Wedding',
+      title_pt: 'Ela Chorou o Casamento Inteiro',
+      era: 'Early Modern',
+      region: 'St James’s Palace, London', region_pt: 'Palácio de St James, Londres',
+      tag: 'Dynasty', tag_pt: 'Dinastia',
+      text: 'On 4 November 1677 Mary, the fifteen-year-old daughter of the heir to the English throne, was married to William of Orange — her first cousin, twelve years older, and a foreign head of state. The match had been arranged by her uncle the king for diplomatic reasons, and she is said to have wept for days beforehand and through the ceremony itself.',
+      text_pt: 'Em 4 de novembro de 1677, Maria, filha de quinze anos do herdeiro do trono inglês, casou-se com Guilherme de Orange — primo em primeiro grau, doze anos mais velho e chefe de Estado estrangeiro. O arranjo fora feito por seu tio, o rei, por razões diplomáticas, e conta-se que ela chorou por dias antes e durante a própria cerimônia.',
+      facts: [
+        'Eleven years later her husband invaded her father’s kingdom and took his throne, and she came with him. They were crowned together — the only time in English history that two sovereigns held equal regal power, rather than one reigning and the other serving as consort.',
+        'She governed alone whenever he was away at war, which was most summers, and contemporaries generally thought she did it better than he did.',
+        'She died of smallpox at thirty-two, childless. He outlived her by eight years and died after his horse stumbled on a molehill, which Jacobites went on toasting for decades as the little gentleman in the black velvet waistcoat.'
+      ],
+      facts_pt: [
+        'Onze anos depois, o marido dela invadiu o reino do pai dela e tomou o trono, e ela veio junto. Foram coroados juntos — a única vez na história inglesa em que dois soberanos detiveram poder régio igual, em vez de um reinar e o outro servir como consorte.',
+        'Ela governou sozinha sempre que ele estava fora na guerra, o que acontecia quase todo verão, e os contemporâneos em geral achavam que ela o fazia melhor do que ele.',
+        'Morreu de varíola aos trinta e dois anos, sem filhos. Ele a sobreviveu oito anos e morreu depois de o cavalo tropeçar num monte de terra de toupeira, coisa que os jacobitas passaram décadas brindando como o pequeno cavalheiro de colete de veludo preto.'
+      ]
+    }
+  ],
+
+  '11-05': [
+    {
+      year: 1940,
+      title: 'The Rule He Broke Became a Law',
+      title_pt: 'A Regra que Ele Quebrou Virou Lei',
+      era: 'Contemporary',
+      region: 'United States', region_pt: 'Estados Unidos',
+      tag: 'Election', tag_pt: 'Eleição',
+      text: 'On 5 November 1940 Franklin Roosevelt was elected to a third term as president of the United States, which nobody had ever held. The two-term limit was a convention and not a law: Washington had stepped down after two, and for a hundred and forty-four years nobody had tested whether it was binding.',
+      text_pt: 'Em 5 de novembro de 1940, Franklin Roosevelt foi eleito para um terceiro mandato de presidente dos Estados Unidos, coisa que ninguém jamais tivera. O limite de dois mandatos era costume e não lei: Washington se retirara depois de dois, e por cento e quarenta e quatro anos ninguém testara se aquilo obrigava alguém.',
+      facts: [
+        'He went on to win a fourth term in 1944 and died eighty-two days into it.',
+        'Because of him it became law. The Twenty-Second Amendment, ratified in 1951, wrote the two-term limit into the Constitution — so the one man who ever exceeded it is the reason nobody else can.',
+        'He campaigned on staying out of the war. France had fallen in June and Britain was fighting alone, and he told an audience in Boston that their boys were not going to be sent into any foreign wars. Pearl Harbor came thirteen months later.'
+      ],
+      facts_pt: [
+        'Ele ainda venceria um quarto mandato em 1944, e morreu oitenta e dois dias depois de iniciá-lo.',
+        'Por causa dele aquilo virou lei. A Vigésima Segunda Emenda, ratificada em 1951, escreveu o limite de dois mandatos na Constituição — de modo que o único homem que já o ultrapassou é a razão de mais ninguém poder.',
+        'Ele fez campanha prometendo ficar fora da guerra. A França caíra em junho e a Grã-Bretanha lutava sozinha, e ele disse a uma plateia em Boston que os filhos deles não seriam enviados a nenhuma guerra estrangeira. Pearl Harbor veio treze meses depois.'
+      ]
+    }
+  ],
+
+  '11-06': [
+    {
+      year: 447,
+      title: 'The Racing Gangs Rebuilt the Walls',
+      title_pt: 'As Torcidas Reconstruíram as Muralhas',
+      era: 'Classical',
+      region: 'Constantinople', region_pt: 'Constantinopla',
+      tag: 'Walls', tag_pt: 'Muralhas',
+      text: 'On 6 November 447 an earthquake brought down long stretches of the walls of Constantinople, including fifty-seven towers. Attila was in the Balkans at that moment, and those walls were the only thing standing between his army and the richest city in the world. They were back up in under two months.',
+      text_pt: 'Em 6 de novembro de 447, um terremoto derrubou longos trechos das muralhas de Constantinopla, incluindo cinquenta e sete torres. Átila estava nos Bálcãs naquele momento, e aquelas muralhas eram a única coisa entre seu exército e a cidade mais rica do mundo. Estavam de pé de novo em menos de dois meses.',
+      facts: [
+        'The work was done by the circus factions. The Blues and the Greens — the chariot-racing gangs who spent the rest of their time rioting against each other — put some sixteen thousand men on the walls, and an inscription went up recording that it had taken under sixty days.',
+        'They did not just repair what had fallen. An outer wall and a moat were added, and the result is the strongest fortification the ancient world produced.',
+        'What they built held for a thousand years. The Theodosian walls were not forced by an enemy until 1453, and what finally did it was artillery, which did not exist when they were rebuilt.'
+      ],
+      facts_pt: [
+        'O trabalho foi feito pelas facções do circo. Os Azuis e os Verdes — as torcidas das corridas de biga, que passavam o resto do tempo se enfrentando em tumultos — puseram uns dezesseis mil homens nas muralhas, e uma inscrição registrou que levara menos de sessenta dias.',
+        'Eles não se limitaram a consertar o que caíra. Acrescentaram uma muralha externa e um fosso, e o resultado é a fortificação mais forte que o mundo antigo produziu.',
+        'O que construíram aguentou mil anos. As muralhas teodosianas não foram rompidas por inimigo algum até 1453, e o que afinal as rompeu foi a artilharia, que não existia quando elas foram refeitas.'
+      ]
+    }
+  ],
+
+  '11-07': [
+    {
+      year: 1971,
+      title: 'Greenpeace Was Named After the Boat',
+      title_pt: 'O Greenpeace Tem o Nome do Barco',
+      era: 'Contemporary',
+      region: 'Amchitka, Alaska', region_pt: 'Amchitka, Alasca',
+      tag: 'Nuclear', tag_pt: 'Nuclear',
+      text: 'On 7 November 1971 the United States detonated Cannikin, a five-megaton hydrogen bomb, in a shaft nearly two kilometres deep beneath Amchitka Island in the Aleutians — the largest underground test it ever carried out. The ground lifted some six metres, and a lake formed where the island had been solid rock.',
+      text_pt: 'Em 7 de novembro de 1971, os Estados Unidos detonaram o Cannikin, uma bomba de hidrogênio de cinco megatons, num poço de quase dois quilômetros de profundidade sob a ilha de Amchitka, nas Aleutas — o maior teste subterrâneo que já realizaram. O terreno subiu uns seis metros, e formou-se um lago onde a ilha era rocha maciça.',
+      facts: [
+        'Greenpeace exists because of this test. A small committee chartered a fishing boat to sail to Amchitka and physically get in the way; they were intercepted and never arrived, the bomb went off regardless, and the organisation kept the name that had been painted on the boat.',
+        'The blast registered around seven on the Richter scale. The island sits in one of the most seismically active places on earth, which is a large part of what the protests were about, though the tsunami that was feared did not happen.',
+        'The Supreme Court was asked to stop it and declined, by four votes to three, hours before the detonation. It was the last test at Amchitka, and the site is still monitored for leakage.'
+      ],
+      facts_pt: [
+        'O Greenpeace existe por causa desse teste. Um pequeno comitê fretou um barco de pesca para navegar até Amchitka e atravancar fisicamente o caminho; foram interceptados e nunca chegaram, a bomba explodiu de todo modo, e a organização ficou com o nome que estava pintado no barco.',
+        'A explosão registrou cerca de sete na escala Richter. A ilha fica num dos pontos sismicamente mais ativos da Terra, o que era boa parte do motivo dos protestos, embora o tsunami temido não tenha acontecido.',
+        'A Suprema Corte foi chamada a interromper o teste e recusou, por quatro votos a três, horas antes da detonação. Foi o último teste em Amchitka, e o local segue monitorado por vazamentos.'
+      ]
+    }
+  ],
+
+  '11-08': [
+    {
+      year: 1519,
+      title: 'Everything He Said Passed Through Her',
+      title_pt: 'Tudo o que Ele Disse Passou por Ela',
+      era: 'Renaissance',
+      region: 'Tenochtitlan', region_pt: 'Tenochtitlán',
+      tag: 'Encounter', tag_pt: 'Encontro',
+      text: 'On 8 November 1519 Hernán Cortés entered Tenochtitlan and was received on the causeway by Moctezuma with a formal welcome and an exchange of gifts. The city on the lake held something like two hundred thousand people, more than any city in Spain, and the Spaniards had no frame of reference for it.',
+      text_pt: 'Em 8 de novembro de 1519, Hernán Cortés entrou em Tenochtitlán e foi recebido na calçada por Montezuma, com uma recepção formal e troca de presentes. A cidade sobre o lago abrigava algo como duzentas mil pessoas, mais do que qualquer cidade da Espanha, e os espanhóis não tinham parâmetro para aquilo.',
+      facts: [
+        'Nothing he said reached Moctezuma except through a woman. Malintzin, handed to him as a slave on the coast, spoke Nahuatl and Maya and translated through a Spaniard who had learned Maya in captivity. Nahua sources sometimes call Cortés himself Malinche, after her.',
+        'He did not arrive with five hundred men. He arrived with five hundred Spaniards and thousands of Indigenous allies, above all Tlaxcalteca, who had been at war with the Mexica for generations. What followed is better described as a war among Mesoamerican powers in which the Spanish took part.',
+        'Within two years the city was gone. Moctezuma was dead by the following summer, the Spanish were driven out and came back, smallpox killed a large share of the population before the siege, and the lake city was dismantled to build another one on top of it.'
+      ],
+      facts_pt: [
+        'Nada do que ele disse chegou a Montezuma senão através de uma mulher. Malintzin, entregue a ele como escrava no litoral, falava náuatle e maia e traduzia através de um espanhol que aprendera maia no cativeiro. Fontes nauas chamam o próprio Cortés de Malinche, por causa dela.',
+        'Ele não chegou com quinhentos homens. Chegou com quinhentos espanhóis e milhares de aliados indígenas, sobretudo tlaxcaltecas, que guerreavam contra os mexicas havia gerações. O que se seguiu é mais bem descrito como uma guerra entre potências mesoamericanas da qual os espanhóis participaram.',
+        'Em dois anos a cidade não existia mais. Montezuma estava morto no verão seguinte, os espanhóis foram expulsos e voltaram, a varíola matou boa parte da população antes do cerco, e a cidade sobre o lago foi desmontada para erguerem outra por cima.'
+      ]
+    }
+  ],
+
   '11-09': [
+    {
+      year: 1938,
+      title: 'They Were Billed for the Damage',
+      title_pt: 'Cobraram Deles o Prejuízo',
+      era: 'Modern',
+      region: 'Germany', region_pt: 'Alemanha',
+      tag: 'Pogrom', tag_pt: 'Pogrom',
+      text: 'On the night of 9 November 1938 the Nazi regime unleashed a coordinated pogrom across Germany and Austria. Around fourteen hundred synagogues were burned, Jewish shops and homes were wrecked, and some thirty thousand Jewish men were arrested and sent to concentration camps. The pretext was the shooting of a German diplomat in Paris two days earlier by a seventeen-year-old whose family had just been expelled from Germany.',
+      text_pt: 'Na noite de 9 de novembro de 1938, o regime nazista desencadeou um pogrom coordenado por toda a Alemanha e a Áustria. Cerca de mil e quatrocentas sinagogas foram incendiadas, lojas e casas judaicas destruídas, e uns trinta mil homens judeus presos e enviados a campos de concentração. O pretexto foi o assassinato de um diplomata alemão em Paris dois dias antes, por um rapaz de dezessete anos cuja família acabara de ser expulsa da Alemanha.',
+      facts: [
+        'The victims were then charged for it. The government imposed a collective fine of one billion Reichsmarks on German Jews for the damage done to them, and confiscated the insurance payments owed to the owners of the wrecked property.',
+        'The name counts the windows. Night of broken glass is a German phrase, and German usage now generally prefers the November pogroms, on the grounds that the glass was the smallest thing broken that week.',
+        'Germans call 9 November the day of fate. The Kaiser abdicated and a republic was proclaimed on it in 1918, Hitler attempted his putsch on it in 1923, this happened on it in 1938, and the Berlin Wall opened on it in 1989. When reunified Germany needed a national day it chose 3 October instead, because this date could not be celebrated.'
+      ],
+      facts_pt: [
+        'Em seguida, cobraram das vítimas. O governo impôs aos judeus alemães uma multa coletiva de um bilhão de Reichsmarks pelos danos causados a eles, e confiscou os pagamentos de seguro devidos aos donos das propriedades destruídas.',
+        'O nome conta as vidraças. Noite dos cristais é uma expressão alemã, e o uso alemão hoje prefere em geral pogroms de novembro, pelo entendimento de que o vidro foi a menor coisa quebrada naquela semana.',
+        'Os alemães chamam o 9 de novembro de dia do destino. Nele o Kaiser abdicou e uma república foi proclamada, em 1918; nele Hitler tentou seu putsch, em 1923; nele aconteceu isto, em 1938; e nele o Muro de Berlim se abriu, em 1989. Quando a Alemanha reunificada precisou de uma data nacional, escolheu 3 de outubro — porque esta não podia ser comemorada.'
+      ]
+    },
     {
       year: 1989,
       title: 'The Berlin Wall Opens',
