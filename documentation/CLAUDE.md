@@ -551,6 +551,7 @@ Decided on 2026-10-18 (`documentation/CLOUD_SYNC.md`): the game gets run save, l
 - **Data from storage or the cloud is data, not code**: validate type, shape and size before writing it to `localStorage`; never insert stored text with `innerHTML` unescaped (use `textContent`, `.value` or `esc()`). The player name already goes in via `.value`.
 - **Session**: the login token is kept by the browser (where exactly is documented in the Part B spec). Anything able to run script on the page could read it — which is why the game must have no path that executes HTML or script coming from outside.
 - **Third-party code**: pinned version with SRI, or a local copy.
+- **Privacy policy** (`privacy.html`, linked from Google's consent screen): it lists what the cloud stores. Any new synced or server-side data (a new key, a public name, rankings) updates it in the same change, in pt and en.
 - **Ranking (Part C)**: scores are never accepted straight from the client; they are validated server-side (Edge Functions). Part B's schema must leave room for it.
 
 ### Naming Conventions

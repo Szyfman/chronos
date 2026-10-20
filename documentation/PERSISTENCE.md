@@ -88,6 +88,7 @@ For any new key, a new field inside an existing key, or a change of shape:
 8. **Renames and removals**: keep reading the old form (lazy migration, like v1 daily records) or delete the old key on boot (like `chronos_tp_open`), and list it under *Removed*.
 9. **Preview mode never writes** to `localStorage`.
 10. **No secrets** in `localStorage` other than the login session Part B will document.
+11. **Privacy policy**: if the change adds data that leaves the device (a new synced key, anything server-side), update `privacy.html` (pt + en) in the same change.
 
 ## Known debt (fixed in Part B, before any data comes from the cloud)
 
