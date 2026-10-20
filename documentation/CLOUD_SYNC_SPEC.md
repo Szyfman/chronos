@@ -1,6 +1,6 @@
 # Cloud Sync — Specification (Part B)
 
-Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end. B1 (setup, login, security) implemented on `feat/sync-b1`; B2 (sync) next. Written against v52.
+Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end. B1 (setup, login, security) merged as v53 and tested on Android and iPhone; B2 (sync) next. Written against v52.
 
 ## Goals
 
@@ -226,6 +226,8 @@ All text in en + pt.
 - **Phone**: login inside the installed app (B1), then two devices for real (B2).
 
 ## Login on Android and iPhone
+
+**Tested 2026-10-20 (v53): login works inside the installed app on Android and on iPhone (Home Screen app) — none of the fallbacks below was needed.** Kept here in case a future iOS version changes the behaviour.
 
 Login is Google only. Inside an installed app, Google's page is outside the app's address, so the phone shows it in a browser view and then has to come back to the app with the login:
 
