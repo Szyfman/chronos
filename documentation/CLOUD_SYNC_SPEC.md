@@ -1,6 +1,6 @@
 # Cloud Sync — Specification (Part B)
 
-Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end. B1 (setup, login, security) merged as v53 and tested on Android and iPhone; B2 (sync) next. Written against v52.
+Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end. B1 (setup, login, security) merged as v53 and tested on Android and iPhone. B2 (sync) implemented on `feat/sync-b2` — see *B2 implementation notes*. Written against v52.
 
 ## Goals
 
@@ -210,8 +210,24 @@ All text in en + pt.
 | `documentation/PERSISTENCE.md`, `CLAUDE.md` | new keys, `sync.js` and `supabase/` from planned to current |
 
 ### New `localStorage` keys (device only)
-- `chronos_sync` — sync metadata: user id, device id, cursor, last sync time, `base`/`own` of every counter, other devices' latest contributions, last synced choices and history ids. Removed at logout.
+- `chronos_sync` — sync metadata (full description in `PERSISTENCE.md`). Removed at logout.
 - `sb-<project-ref>-auth-token` — the login session, written by the client library. Removed at logout.
+
+## B2 implementation notes
+
+Details settled while building B2 (`src/sync.js`), beyond the design above:
+
+- **Choices on a first sync**: a device that never synced stamps its local choices (name, emblem, frame, review history) with time −1, below anything stored in the account (≥ 0). So a fresh phone — or one played logged out for months — takes the account's name and emblem instead of overwriting them; later changes on it are stamped with the real time and win normally. The first device of a brand-new account keeps its own (there is nothing else).
+- **Order of writes**: the metadata (`chronos_sync`, with the new `own` and `base`) is saved before the merged keys. If a write fails halfway, the next cycle can't count a delta twice.
+- **Download cursor**: the latest server `updated_at` seen, minus one minute — rows are re-read a little (merges are idempotent) so a row committed late is never skipped.
+- **Upload only on change**: a hash of the last uploaded row; an unchanged row is not sent again.
+- **One cycle at a time**: a second call joins the one in flight; other tabs of the same browser wait on a Web Lock (`navigator.locks`) where available.
+- **Never during a run**: `syncNow` refuses while `gameActive`, and a cycle whose download finished after a run started stops before writing; `endGame` calls `syncSoon()` once the gameover is drawn.
+- **In-memory reload**: `onSyncApplied` (ui.js) → `reloadSavedProgress` (game.js: `loadSavedProgress` in state.js + `_loadTrophies`) and a redraw of whatever panel is open.
+- **Another account on this phone** (the metadata belongs to a different user id — only possible if a session expired and someone else logged in): sync pauses and the account block asks to sign out, which clears the phone.
+- **Logout**: always asks first ("your progress stays in your account and is removed from this phone"); if the final sync fails it asks again, saying what would be lost. Signing out reloads the page into a fresh profile. Device preferences (volume, theme, language, trivia) stay.
+- **Status line** in the account block: synced just now / n min / n h ago / on a date, syncing, no connection (retrying 1, 5, 15, 60 min), update the app, another account.
+- **Tests**: `sync_test.js` (multi-device, fake server) covers the scenarios table, a forged row, a newer schema, server down and back, logout and login again.
 
 ## Ready for Part C (ranking)
 

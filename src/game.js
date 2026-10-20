@@ -222,12 +222,16 @@ function _saveDailyResult(won){
 
 
 var earnedTrophies = {};
-try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=JSON.parse(_et); } catch(e) {}
+// Reads chronos_trophies — on boot and, through reloadSavedProgress, after a
+// cloud sync merged new trophies in.
 // Trophy families (same `family`, listed in level order) are climbed level by
 // level. Whoever already holds a higher level — On Fire from before the streak
 // tiers existed, or the old Librarian, now the top Compendium level — gets the
 // lower levels silently, dated the same day, so a card never reads "1 of 4".
-(function(){
+function _loadTrophies(){
+  earnedTrophies = {};
+  try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=JSON.parse(_et)||{}; } catch(e) {}
+  if(typeof earnedTrophies!=='object'||Array.isArray(earnedTrophies)) earnedTrophies = {};
   var changed = false, fams = {};
   TROPHY_DEFS.forEach(function(d){ if(d.family) (fams[d.family] = fams[d.family] || []).push(d.id); });
   Object.keys(fams).forEach(function(f){
@@ -242,7 +246,15 @@ try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=J
   TROPHY_DEFS.forEach(function(d){
     if(d.special === 'streak' && earnedTrophies[d.id] && d.goal > bestStreak){ bestStreak = d.goal; saveBestStreak(); }
   });
-})();
+}
+_loadTrophies();
+
+// Re-reads all saved progress into memory. Called by sync.js after it merged
+// data from other devices into localStorage — never during a run.
+function reloadSavedProgress(){
+  loadSavedProgress();
+  _loadTrophies();
+}
 
 function saveTrophies(){
   try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
@@ -1006,6 +1018,9 @@ function endGame(won){
   _renderGameoverXp(true);
   // stopMusic(true);
   document.getElementById('gameover').classList.add('show');
+  // Everything this run counted is saved: let the cloud copy catch up
+  // (sync.js; does nothing when logged out)
+  syncSoon();
 }
 
 // ── GAMEOVER XP ───────────────────────────────────────────────────────────

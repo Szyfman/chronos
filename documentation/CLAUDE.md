@@ -39,6 +39,7 @@ When working on this codebase, you should:
 
 4. **Follow the persistence contract** (`documentation/PERSISTENCE.md`)
    - Any new `localStorage` key or field, or a change of shape, is registered there with its merge rule
+   - A synced key is loaded in `loadSavedProgress()` (state.js) and taught to `src/sync.js` (checklist item 12) — otherwise it silently stays on one device
    - Data counted by a run is written either at the event or inside `endGame`, never elsewhere
    - New in-run state that changes the end result goes into the run save (`documentation/RUN_SAVE.md`; new `runFlags` entries into `RUN_SAVE_FLAGS` in runsave.js)
 
@@ -514,7 +515,7 @@ DOM updates (visible to user)
 
 | File | Responsible For | NOT Responsible For |
 |------|----------------|---------------------|
-| `src/state.js` | Variable declarations, initial values | Logic, calculations, rendering |
+| `src/state.js` | Variable declarations, initial values; `loadSavedProgress()` reads the saved ones (boot and after a sync) | Logic, calculations, rendering |
 | `src/cards.js` | Historical content (data only) | Game mechanics, UI |
 | `src/trophies.js` | Trophy definitions, check logic | Rendering, state management |
 | `src/game.js` | Game rules, scoring, lifecycle | DOM manipulation, translations |
@@ -525,7 +526,7 @@ DOM updates (visible to user)
 | `assets/bgm.mp3` | Background music | Volume controls (in ui.js) |
 | `src/sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
 | `src/runsave.js` | Saving the run in progress to `localStorage` and loading it back, validated (`RUN_SAVE.md`); `resumeSavedRun` in game.js applies it | Game rules, the cloud |
-| `src/sync.js` | Login, session and (from B2) sync with Supabase — the only file that touches the network; loads `src/vendor/supabase-*.js` on demand | Game rules, rendering (the account block is `renderAccount` in ui.js) |
+| `src/sync.js` | Login, session and progress sync with Supabase (per-type merge, per-device counters, validation of downloaded rows) — the only file that touches the network; loads `src/vendor/supabase-*.js` on demand | Game rules, rendering (the account block is `renderAccount` in ui.js) |
 | `src/vendor/` | Pinned third-party files, byte-exact (`.gitattributes`), SHA-256 in `CLOUD_SYNC_SPEC.md` | Anything edited by hand |
 | `supabase/` | Database schema, RLS policies, Edge Functions — versioned so the server never holds configuration that exists only in the dashboard | — |
 | `sw.js` | Caching, offline support | Game logic, content |

@@ -36,32 +36,22 @@ var currentDropZone = null;
 var reviewMode = false;
 var _pendingDraw = false;
 
-var gameHistory = [];
-try { gameHistory = JSON.parse(localStorage.getItem('chronos_history') || '[]'); } catch(e) {}
+// ── SAVED PROGRESS ────────────────────────────────────────────────────────
+// Loaded from localStorage by loadSavedProgress() (bottom of this file), on
+// boot and again after a cloud sync has merged new data into localStorage
+// (sync.js → reloadSavedProgress in game.js). Every key: PERSISTENCE.md.
 
+var gameHistory = [];
 var discoveredCards = new Set();
-try {
-  var _dc = JSON.parse(localStorage.getItem('chronos_discovered') || '[]');
-  _dc.forEach(function(n){ discoveredCards.add(n); });
-} catch(e) {}
 
 // Player profile (see progression.js)
 var playerName = '';
 var playerXp = 0;
 var playerCustom = {};
-try {
-  playerName = localStorage.getItem('chronos_player_name') || '';
-  playerXp = parseInt(localStorage.getItem('chronos_xp'), 10) || 0;
-  playerCustom = JSON.parse(localStorage.getItem('chronos_custom') || '{}') || {};
-} catch(e) {}
 
 // Customization ids already announced as unlocked (checkCustomUnlocks in
 // progression.js). null = never saved: the first check seeds it.
 var customKnown = null;
-try {
-  var _ck = JSON.parse(localStorage.getItem('chronos_custom_known') || 'null');
-  if (Array.isArray(_ck)) customKnown = _ck;
-} catch(e) {}
 
 function saveCustomKnown() {
   try { localStorage.setItem('chronos_custom_known', JSON.stringify(customKnown)); } catch(e) {}
@@ -76,10 +66,6 @@ function saveDiscovered() {
 // recent attempt. Recorded by recordCardResult (game.js); feeds era mastery
 // and the Review deck. Starts empty: past runs are not back-filled.
 var cardStats = {};
-try {
-  var _cs = JSON.parse(localStorage.getItem('chronos_card_stats') || '{}');
-  if (_cs && typeof _cs === 'object' && !Array.isArray(_cs)) cardStats = _cs;
-} catch(e) {}
 
 function saveCardStats() {
   try { localStorage.setItem('chronos_card_stats', JSON.stringify(cardStats)); } catch(e) {}
@@ -89,10 +75,6 @@ function saveCardStats() {
 // { classic: { best, bestDate, mostPlaced, bestStreak, runs }, …, daily: {…} }.
 // Kept apart from chronos_history, which only holds saved runs (max 30).
 var modeRecords = {};
-try {
-  var _mr = JSON.parse(localStorage.getItem('chronos_mode_records') || '{}');
-  if (_mr && typeof _mr === 'object' && !Array.isArray(_mr)) modeRecords = _mr;
-} catch(e) {}
 
 function saveModeRecords() {
   try { localStorage.setItem('chronos_mode_records', JSON.stringify(modeRecords)); } catch(e) {}
@@ -101,10 +83,6 @@ function saveModeRecords() {
 // Target cards of the last two Review decks, newest first: [[names], [names]].
 // Lowers their weight next time so reviews don't repeat (game.js, REVIEW DECK).
 var reviewHistory = [];
-try {
-  var _rh = JSON.parse(localStorage.getItem('chronos_review_history') || '[]');
-  if (Array.isArray(_rh)) reviewHistory = _rh.filter(Array.isArray).slice(0, 2);
-} catch(e) {}
 
 function saveReviewHistory() {
   try { localStorage.setItem('chronos_review_history', JSON.stringify(reviewHistory)); } catch(e) {}
@@ -113,7 +91,6 @@ function saveReviewHistory() {
 // Runs finished with at least one card placed, in any mode (Veteran trophy).
 // Counted from the version that introduced it: past runs aren't back-filled.
 var runsPlayed = 0;
-try { runsPlayed = parseInt(localStorage.getItem('chronos_runs_played'), 10) || 0; } catch(e) {}
 
 function saveRunsPlayed() {
   try { localStorage.setItem('chronos_runs_played', String(runsPlayed)); } catch(e) {}
@@ -123,8 +100,59 @@ function saveRunsPlayed() {
 // the progress bar of the Spark / Blaze / On Fire family. Seeded in game.js
 // from the streak levels already earned.
 var bestStreak = 0;
-try { bestStreak = parseInt(localStorage.getItem('chronos_best_streak'), 10) || 0; } catch(e) {}
 
 function saveBestStreak() {
   try { localStorage.setItem('chronos_best_streak', String(bestStreak)); } catch(e) {}
 }
+
+// Reads every saved value above from localStorage, with the same type checks
+// as always (a missing or broken value falls back to its default)
+function loadSavedProgress() {
+  gameHistory = [];
+  try { gameHistory = JSON.parse(localStorage.getItem('chronos_history') || '[]'); } catch(e) {}
+  if (!Array.isArray(gameHistory)) gameHistory = [];
+
+  discoveredCards = new Set();
+  try {
+    var _dc = JSON.parse(localStorage.getItem('chronos_discovered') || '[]');
+    if (Array.isArray(_dc)) _dc.forEach(function(n){ discoveredCards.add(n); });
+  } catch(e) {}
+
+  playerName = ''; playerXp = 0; playerCustom = {};
+  try {
+    playerName = localStorage.getItem('chronos_player_name') || '';
+    playerXp = parseInt(localStorage.getItem('chronos_xp'), 10) || 0;
+    playerCustom = JSON.parse(localStorage.getItem('chronos_custom') || '{}') || {};
+  } catch(e) {}
+
+  customKnown = null;
+  try {
+    var _ck = JSON.parse(localStorage.getItem('chronos_custom_known') || 'null');
+    if (Array.isArray(_ck)) customKnown = _ck;
+  } catch(e) {}
+
+  cardStats = {};
+  try {
+    var _cs = JSON.parse(localStorage.getItem('chronos_card_stats') || '{}');
+    if (_cs && typeof _cs === 'object' && !Array.isArray(_cs)) cardStats = _cs;
+  } catch(e) {}
+
+  modeRecords = {};
+  try {
+    var _mr = JSON.parse(localStorage.getItem('chronos_mode_records') || '{}');
+    if (_mr && typeof _mr === 'object' && !Array.isArray(_mr)) modeRecords = _mr;
+  } catch(e) {}
+
+  reviewHistory = [];
+  try {
+    var _rh = JSON.parse(localStorage.getItem('chronos_review_history') || '[]');
+    if (Array.isArray(_rh)) reviewHistory = _rh.filter(Array.isArray).slice(0, 2);
+  } catch(e) {}
+
+  runsPlayed = 0;
+  try { runsPlayed = parseInt(localStorage.getItem('chronos_runs_played'), 10) || 0; } catch(e) {}
+
+  bestStreak = 0;
+  try { bestStreak = parseInt(localStorage.getItem('chronos_best_streak'), 10) || 0; } catch(e) {}
+}
+loadSavedProgress();

@@ -105,10 +105,17 @@ function restartGame(){
 // ── CONFIRM END ───────────────────────────────────────────────────────────
 function confirmEnd(){
   if(!gameActive)return;
-  document.getElementById('cd-title').textContent=t('end_title');
-  document.getElementById('cd-body').textContent=t('end_body');
-  document.getElementById('cd-cancel').textContent=t('keep_playing');
-  document.getElementById('cd-end').textContent=t('end_run');
+  openConfirm(t('end_title'),t('end_body'),t('keep_playing'),t('end_run'),function(){ _voluntaryEnd=true; endGame(false); });
+}
+// The End-run dialog, reused for other confirmations (logout). The confirm
+// button runs onOk after closing; the inline doEndRun() stays as a fallback.
+function openConfirm(title,body,cancelLbl,okLbl,onOk){
+  document.getElementById('cd-title').textContent=title;
+  document.getElementById('cd-body').textContent=body;
+  document.getElementById('cd-cancel').textContent=cancelLbl;
+  var ok=document.getElementById('cd-end');
+  ok.textContent=okLbl;
+  ok.onclick=function(){ closeConfirm(); onOk(); };
   document.getElementById('confirm-dialog').classList.add('show');
 }
 function closeConfirm(){document.getElementById('confirm-dialog').classList.remove('show');}
@@ -1490,8 +1497,11 @@ function renderAccount(){
   } else if(a.status==='in'){
     add('div','pf-acc-text',t('acc_signed_in'));
     add('div','pf-acc-email',a.email);
-    add('div','pf-acc-text',t('acc_sync_soon'));
-    add('button','pf-acc-btn secondary',t('acc_logout')).onclick=syncLogout;
+    add('div','pf-acc-status'+(a.phase==='offline'||a.phase==='update'||a.phase==='other'?' warn':''),_syncStatusText(a));
+    var now=add('button','pf-acc-btn',t('acc_sync_now'));
+    now.disabled=a.phase==='syncing'||a.phase==='update'||a.phase==='other';
+    now.onclick=function(){ syncNow(); };
+    add('button','pf-acc-btn secondary',t('acc_logout')).onclick=_askLogout;
   } else {
     add('div','pf-acc-text',t('acc_pitch'));
     add('button','pf-acc-btn',t('acc_login')).onclick=syncLogin;
@@ -1500,6 +1510,45 @@ function renderAccount(){
   link.href='privacy.html';
   link.target='_blank';
   link.rel='noopener';
+}
+
+// One line on the state of the cloud copy
+function _syncStatusText(a){
+  if(a.phase==='syncing') return t('acc_syncing');
+  if(a.phase==='offline') return t('acc_sync_offline');
+  if(a.phase==='update') return t('acc_sync_update');
+  if(a.phase==='other') return t('acc_sync_other');
+  if(!a.lastSync) return t('acc_sync_never');
+  var min=Math.floor((Date.now()-Date.parse(a.lastSync))/60000);
+  if(!(min>=1)) return t('acc_synced_now');
+  if(min<60) return t('acc_synced_min').replace('{n}',min);
+  if(min<48*60) return t('acc_synced_h').replace('{n}',Math.floor(min/60));
+  return t('acc_synced_on').replace('{date}',new Date(a.lastSync).toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short'}));
+}
+
+// Logout clears this device's progress (it stays in the cloud), so it asks
+// first — and again, more bluntly, if the last sync before leaving failed
+function _askLogout(){
+  openConfirm(t('acc_logout_title'),t('acc_logout_body'),t('acc_cancel'),t('acc_logout'),function(){
+    syncLogout(false).then(function(r){
+      if(r&&r.ok) return;
+      openConfirm(t('acc_logout_title'),t('acc_logout_fail_body'),t('acc_cancel'),t('acc_logout_anyway'),function(){ syncLogout(true); });
+    });
+  });
+}
+
+// After sync.js merged other devices' progress into localStorage: reload it
+// into memory and redraw whatever is on screen (never runs during a run)
+function onSyncApplied(){
+  reloadSavedProgress();
+  var tp=document.getElementById('tp');
+  if(tp&&tp.classList.contains('open')){ renderTrophies(); if(_tpTab==='progress') renderProgress(); }
+  var hp=document.getElementById('history-panel');
+  if(hp&&hp.classList.contains('open')) switchHpTab(_hpTab);
+  var cp=document.getElementById('cp');
+  if(cp&&cp.classList.contains('open')) renderCP();
+  updateIntroHistBtn();
+  syncPlayModeButtons();   // the level may have changed (Review unlocks at 5)
 }
 
 // Era mastery block of the progress tab. The bar tracks the next seal; once

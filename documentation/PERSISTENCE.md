@@ -20,7 +20,7 @@ Anything else that affects the end result but lives only in memory during the ru
 
 ## Key registry
 
-### Synced progress (Part B)
+### Synced progress (Part B, `src/sync.js`, since v55)
 
 Merge rules are defined at the bottom of this file.
 
@@ -45,6 +45,7 @@ Merge rules are defined at the bottom of this file.
 
 | Key | Shape | Why it stays |
 |---|---|---|
+| `chronos_sync` | sync bookkeeping (sync.js): user and device id, download cursor, last sync time, this device's counter contribution (`own`) and the totals last written (`base`), the other devices' latest contributions, the choices and history ids last synced, deleted history ids, a hash of the last uploaded row | describes this device's place in the account; removed at logout. Losing it while keeping the progress would make the next sync count this device's progress again — never delete it by hand |
 | `chronos_run` | the run in progress (`RUN_SAVE.md`), written by `saveRun` / cleared by `clearRun` (runsave.js) | a run belongs to the device it is played on; syncing it would allow resuming on two phones and counting it twice |
 | `sb-egyrmnrabblsskebkvuh-auth-token` (and keys with that prefix, e.g. `…-code-verifier` during a login) | the login session, written by the Supabase client library (sync.js) | a secret of this device; removed at logout. Not a `chronos_` key because the library names it |
 | `chronos_prune_mark` | 'YYYY-MM-DD' watermark of the timeline sweep | housekeeping of this device's storage |
@@ -80,7 +81,7 @@ Exact algorithms belong to the Part B spec; these are the categories every key m
 For any new key, a new field inside an existing key, or a change of shape:
 
 1. **Name**: `chronos_` + snake_case. Never reuse a removed name.
-2. **Load** in state.js (or the owning module) inside `try/catch`, checking the type and falling back to a default — old versions, other devices and hand edits all produce unexpected values.
+2. **Load** inside `loadSavedProgress()` (state.js) — or, for trophies, `_loadTrophies()` (game.js) — inside `try/catch`, checking the type and falling back to a default: old versions, other devices and hand edits all produce unexpected values. A load done anywhere else is not refreshed after a cloud sync.
 3. **Register** it in the tables above: shape, writer, when, sync class and merge rule. A new field in a synced key needs its own merge rule (example: `bestStreak` → max).
 4. **Prefer shapes that merge cleanly**: sets and maxima over counters, ISO dates, one key per independent piece. If a counter can be derived from data that is already stored, derive it instead.
 5. **Pick the moment** — event or end (see *When things are counted*). If it is computed during the run from in-memory state, add that state to the run save: a new `runFlags` entry goes into `RUN_SAVE_FLAGS` (runsave.js); any other run variable goes into `saveRun` / `_parseRun` / `resumeSavedRun` and the shape in `RUN_SAVE.md`.
@@ -90,7 +91,8 @@ For any new key, a new field inside an existing key, or a change of shape:
 9. **Preview mode never writes** to `localStorage`.
 10. **No secrets** in `localStorage` other than the login session Part B will document.
 11. **Privacy policy**: if the change adds data that leaves the device (a new synced key, anything server-side), update `privacy.html` (pt + en) in the same change.
+12. **Sync it**: a new synced key, or a new field in one, only reaches the cloud once `src/sync.js` knows it — read (`_syncReadLocal`), validated (`_syncCleanState`), merged (`_syncMerge`, plus `_syncFold` for a counter), uploaded (`_syncRowState`), written back (`_syncWriteLocal`) and wiped at logout (`SYNC_WIPE_KEYS`). Add a case to the multi-device test. A change that older clients could misread raises `SYNC_SCHEMA` (they then pause sync and ask to be updated); a new optional field doesn't.
 
-## Known debt (fixed in Part B, before any data comes from the cloud)
+## Fixed debt
 
-- `renderHistoryPanel` and the daily calendar build HTML with `innerHTML` from stored records (card names, era, score). Harmless while the data is only written by this game; it must be escaped before cloud data can reach it.
+- B1 (v53): `renderHistoryPanel` and the daily calendar escape stored text (`esc()`, numbers forced, mode whitelisted) before `innerHTML`; downloaded rows are validated by `_syncCleanState` before they reach `localStorage`.
