@@ -6,14 +6,14 @@ Tudo o que precisa ser configurado em painéis web para a Parte B (login com Goo
 - Podem ir para o código e para o chat: a **Project URL** (`https://<ref>.supabase.co`), a **Publishable key** (`sb_publishable_…`) e o **Client ID** do Google (`….apps.googleusercontent.com`). São públicos por natureza; quem protege os dados são as políticas RLS.
 - **Nunca** vão para o código, o git ou o chat: a **Secret key** (`sb_secret_…`), a antiga `service_role`, a **senha do banco** e o **Client secret** do Google. Guarde-os num gerenciador de senhas.
 
-Onde aparece `<ref>` abaixo, use o identificador do seu projeto (a parte antes de `.supabase.co` na Project URL).
+Onde aparece `<ref>` abaixo, use o identificador do projeto: `egyrmnrabblsskebkvuh`.
 
 ---
 
 ## Parte 0 — Antes de começar
 
 - Endereço publicado do jogo: `https://szyfman.github.io/chronos/`.
-- Endereço usado para testar no computador: _(anotar aqui — ex.: `http://localhost:5500/chronos/`)_. Ele entra nas listas de endereços permitidos do Google e do Supabase; abrir o `index.html` direto do disco (`file://`) não funciona com login.
+- Endereço usado para testar no computador: `http://127.0.0.1:5500/index.html` (VS Code Live Server). Ele entra nas listas de endereços permitidos do Google e do Supabase; abrir o `index.html` direto do disco (`file://`) não funciona com login.
 
 ## Parte 1 — Criar o projeto no Supabase
 
@@ -35,7 +35,8 @@ Onde aparece `<ref>` abaixo, use o identificador do seu projeto (a parte antes d
 2. Abra no VS Code o arquivo `supabase/migrations/0001_sync.sql`, copie todo o conteúdo e cole no editor.
 3. **Run**. O esperado é *Success. No rows returned*.
 4. Confira em **Table Editor**: aparecem `device_states` e `keepalive`, nenhuma marcada como **Unrestricted** (isso indicaria RLS desligado).
-5. Confira em **Advisors → Security Advisor**: nenhum erro.
+5. Repita os passos 1–3 com `supabase/migrations/0002_keepalive_anon_only.sql` (cada arquivo de `migrations/` roda uma vez, em ordem).
+6. Confira em **Advisors → Security Advisor**: nenhum erro, e um único aviso amarelo esperado — *Public Can Execute SECURITY DEFINER Function* em `public.keepalive()`. É intencional: o despertador chama a função sem login; ela não recebe nada e só atualiza um horário.
 
 ## Parte 3 — Login com Google
 
@@ -50,7 +51,7 @@ Onde aparece `<ref>` abaixo, use o identificador do seu projeto (a parte antes d
 5. **Público-alvo → Status de publicação → Publicar app** (fica *Em produção*). Sem isso, só e-mails cadastrados como *usuários de teste* conseguem entrar — seus amigos ficariam de fora.
 6. **Clientes → Criar cliente**:
    - **Tipo de aplicativo**: **Aplicativo da Web**; nome `Chronos web`.
-   - **Origens JavaScript autorizadas**: `https://szyfman.github.io` e a origem do teste local (ex.: `http://localhost:5500`).
+   - **Origens JavaScript autorizadas**: `https://szyfman.github.io` e `http://127.0.0.1:5500` (teste local).
    - **URIs de redirecionamento autorizados**: `https://<ref>.supabase.co/auth/v1/callback`.
    - **Criar**. Copie o **ID do cliente** (pode ir ao chat) e a **Chave secreta do cliente** (só para o passo 3.2; não vai ao chat).
 
@@ -60,7 +61,7 @@ Onde aparece `<ref>` abaixo, use o identificador do seu projeto (a parte antes d
 3. **Authentication → Sign In / Providers → Email** → desligue o provedor de e-mail (só Google entra; evita contas criadas por e-mail).
 4. **Authentication → URL Configuration**:
    - **Site URL**: `https://szyfman.github.io/chronos/`
-   - **Redirect URLs**: `https://szyfman.github.io/chronos/` e o endereço do teste local (ex.: `http://localhost:5500/chronos/`).
+   - **Redirect URLs** (botão **Add URL**, um de cada vez): `https://szyfman.github.io/chronos/**` e `http://127.0.0.1:5500/**` (o `**` aceita qualquer página dentro do endereço, como `/index.html`).
 
 ## Parte 4 — Despertador no GitHub (evita a pausa do projeto)
 
@@ -82,9 +83,9 @@ _(preencher conforme for feito — só informação pública)_
 
 | Item | Valor |
 |---|---|
-| Project URL | |
-| Região | |
-| Publishable key criada em | |
+| Project URL | `https://egyrmnrabblsskebkvuh.supabase.co` (ref `egyrmnrabblsskebkvuh`) |
+| Região | grupo "Americas" (conferir em Project Settings → General) |
+| Publishable key | `sb_publishable_HAnGk0sed9nTULaRIEXvWg_F3mk-p4p` (2026-10-19) |
 | Google Client ID | |
-| Endereço de teste local | |
+| Endereço de teste local | `http://127.0.0.1:5500/index.html` |
 | Despertador testado em | |
