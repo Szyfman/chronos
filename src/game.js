@@ -334,6 +334,9 @@ function _resetRunFlags(){
   };
 }
 _resetRunFlags();
+// The card just missed, set only while checkTrophies runs right after the miss
+// (miss_card trophies are won on the spot, so nothing is kept in the run)
+var _missedCard = null;
 
 // Specials that can only be judged once the run is over: the Compendium is
 // saved at game end, an empty deck only counts as a finished run, and the
@@ -385,6 +388,8 @@ function checkTrophies(midGame){
       earned = normalizeEraFilter(eraFilter).length === 1 && score >= def.goal;
     } else if(def.special === 'phoenix'){
       earned = runFlags.lastLifeHits >= def.goal;
+    } else if(def.special === 'miss_card'){
+      earned = _missedCard === def.card;
     } else if(def.special === 'anachronism'){
       earned = runFlags.maxMissDelta > def.goal;
     } else if(def.special === 'ides'){
@@ -963,9 +968,11 @@ function attemptPlacement(idx){
       }
     }
     showFeedback(false,hint,yearDelta);
-    // Biggest miss of the run (Anachronism) — checked right away, as misses
-    // otherwise only reach checkTrophies on the next correct card
-    if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta){ runFlags.maxMissDelta=yearDelta; checkTrophies(true); }
+    // Trophies won by a miss — the biggest miss of the run (Anachronism) and
+    // missing a given card (Raiders of the Lost Ark) — are checked right away,
+    // as misses otherwise only reach checkTrophies on the next correct card
+    if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta) runFlags.maxMissDelta=yearDelta;
+    _missedCard=card.name; checkTrophies(true); _missedCard=null;
     if(livesMode){ lives--; renderLives(); }
     saveRun();
     if(livesMode&&lives<=0) setTimeout(()=>endGame(false),700);

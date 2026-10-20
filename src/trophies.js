@@ -829,4 +829,20 @@ var TROPHY_DEFS = [
     special:'phoenix',
     goal:15
   },
+  {
+    id:'lost_ark',
+    section:'secret',
+    icon:'🤠',
+    name:'Raiders of the Lost Ark',
+    name_pt:'Os Caçadores da Arca Perdida',
+    desc:'Misplace the Exodus card',
+    desc_pt:'Erre a carta do Êxodo',
+    hint:'Place The Exodus from Egypt in the wrong spot on the timeline.',
+    hint_pt:'Coloque O Êxodo do Egito no lugar errado da linha do tempo.',
+    trivia:'The Ark of the Covenant simply drops out of the Bible. It is last mentioned in 2 Chronicles, when King Josiah orders it set back in the Temple of Jerusalem; when the Babylonians sacked the city in 586 BCE, the account of the treasures they carried off says nothing about it. Later traditions filled the silence. 2 Maccabees says the prophet Jeremiah hid it in a cave on Mount Nebo, the mountain from which Moses saw the Promised Land, while the Ethiopian Orthodox Church holds that it rests in the Chapel of the Tablet in Aksum, seen only by a single guardian monk chosen for life. In 1981 Raiders of the Lost Ark sent Indiana Jones after it in 1936, racing the Nazis to the buried Egyptian city of Tanis.',
+    trivia_pt:'A Arca da Aliança simplesmente some da Bíblia. Ela é mencionada pela última vez em 2 Crônicas, quando o rei Josias manda recolocá-la no Templo de Jerusalém; quando os babilônios saquearam a cidade em 586 AEC, o relato dos tesouros que levaram não diz nada sobre ela. Tradições posteriores preencheram o silêncio. O livro de 2 Macabeus conta que o profeta Jeremias a escondeu numa caverna no Monte Nebo, a montanha de onde Moisés avistou a Terra Prometida, enquanto a Igreja Ortodoxa Etíope afirma que ela está na Capela da Tábua, em Axum, vista apenas por um único monge guardião escolhido para a vida toda. Em 1981, Os Caçadores da Arca Perdida mandou Indiana Jones atrás dela em 1936, numa corrida contra os nazistas até a cidade egípcia soterrada de Tânis.',
+    needed:null,
+    special:'miss_card',
+    card:'The Exodus from Egypt'
+  },
 ];
