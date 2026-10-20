@@ -430,10 +430,12 @@ function renderHistoryPanel()
 function renderCP()
 ```
 - Searchable encyclopedia of all cards
-- Filters: Type (All, People, Events, Empires, Biblical), Era (All, Ancient, Medieval, Modern)
+- Grouped in one folding section per era mastery era (`MASTERY_ERAS`), built like the trophy sections: all start closed on every visit, a search shows every section open, an empty section is hidden. The header shows the era's mastery seal and a count against the era's total (after the Type filter and search): "★ mastered · discovered / total" with Mastery "All", "★ mastered / total" with "Mastered", "to master / total" with "To master". An open section's header is sticky at the top of the list while its cards scroll; closing it from there scrolls the header back into view
+- Filters: Type (All, People, Events, Empires), Mastery (All, Mastered, To master = discovered and not mastered yet)
 - Search bar (filters by name)
-- Discovered count: "X / Y discovered"
-- Card list: chronologically sorted
+- Discovered count: "X / Y discovered · ★ N mastered" (the mastered total only without filters)
+- Mastered cards (same rule as the Gold seal: 2+ hits and more hits than misses, from `cardStats`) show a gold ★ after the name; an open card starts with "Your record: hits · misses — how many more hits to master"
+- Card list: chronologically sorted inside each section
 - Locked cards: "?????" name and year until discovered
 - Expandable: click to reveal facts, clues, full description
 

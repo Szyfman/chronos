@@ -679,7 +679,7 @@
   body.light #cp-title{color:#1d4ed8}
   #cp-cnt{font:400 .7rem/1 Inter,sans-serif;color:#9a9080;margin-top:4px}
   body.light #cp-cnt{color:#64748b}
-  #cp-close{background:none;border:1px solid rgba(201,168,76,.25);border-radius:6px;color:rgba(201,168,76,.6);cursor:pointer;font-size:.55rem;padding:5px 10px;letter-spacing:.1em;font-family:Inter,sans-serif;transition:all .2s}
+  #cp-close{white-space:nowrap;background:none;border:1px solid rgba(201,168,76,.25);border-radius:6px;color:rgba(201,168,76,.6);cursor:pointer;font-size:.55rem;padding:5px 10px;letter-spacing:.1em;font-family:Inter,sans-serif;transition:all .2s}
   body.light #cp-close{color:#1e40af;border-color:#bfdbfe;background:none}
   #cp-close:hover{border-color:#c9a84c;color:#c9a84c}
   body.light #cp-close:hover{border-color:#1d4ed8;color:#1d4ed8}
@@ -692,18 +692,18 @@
   /* ── COMPENDIUM FILTERS ────────────────────────────────── */
   #cp-filt{padding:8px 14px;border-bottom:1px solid rgba(201,168,76,.1);flex-shrink:0;display:flex;flex-direction:column;gap:7px}
   .cp-filter-block{display:flex;flex-direction:row;align-items:center;gap:8px}
-  .cp-filter-lbl{font:700 .5rem/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.35);flex-shrink:0;width:30px;text-align:right}
+  .cp-filter-lbl{font:700 .5rem/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.35);flex-shrink:0;width:52px;text-align:right}
   body.light .cp-filter-lbl{color:#64748b}
   .cp-chips{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;flex:1}
   .cp-chips::-webkit-scrollbar{display:none}
   .cp-chip{padding:6px 14px;background:none;border:1.5px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(201,168,76,.5);font:600 .72rem/1 Inter,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;transition:all .18s;flex-shrink:0}
   .cp-chip.on{border-color:#c9a84c;color:#0d0c0a;background:#c9a84c;font-weight:700}
-  .cp-era-chip{padding:6px 14px;background:none;border:1.5px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(201,168,76,.5);font:500 .72rem/1 Inter,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;transition:all .18s;flex-shrink:0}
-  .cp-era-chip.on{border-color:rgba(201,168,76,.7);color:#c9a84c;background:rgba(201,168,76,.12);font-weight:600}
+  .cp-m-chip{padding:6px 14px;background:none;border:1.5px solid rgba(201,168,76,.2);border-radius:20px;color:rgba(201,168,76,.5);font:500 .72rem/1 Inter,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;transition:all .18s;flex-shrink:0}
+  .cp-m-chip.on{border-color:rgba(201,168,76,.7);color:#c9a84c;background:rgba(201,168,76,.12);font-weight:600}
   body.light .cp-chip{border-color:#cbd5e1;color:#334155;background:#ffffff}
   body.light .cp-chip.on{border-color:#1d4ed8;color:#ffffff;background:#1d4ed8}
-  body.light .cp-era-chip{border-color:#cbd5e1;color:#334155;background:#ffffff}
-  body.light .cp-era-chip.on{border-color:#1d4ed8;color:#1d4ed8;background:#dbeafe}
+  body.light .cp-m-chip{border-color:#cbd5e1;color:#334155;background:#ffffff}
+  body.light .cp-m-chip.on{border-color:#1d4ed8;color:#1d4ed8;background:#dbeafe}
   body.light .cp-chip{border-color:#cbd5e1;color:#334155;background:#f8fafc}
   body.light .cp-chip.on{border-color:#1d4ed8;color:#1d4ed8;background:#dbeafe}
   #cp-list{flex:1;overflow-y:scroll;padding:8px 12px 36px;-webkit-overflow-scrolling:touch}
@@ -743,6 +743,22 @@
   body.light .ck-c:before{color:#1d4ed8}
   .ck-lk{font:italic 400 .84rem/1 Inter,sans-serif;color:#9a9080;padding:9px 0 4px}
   body.light .ck-lk{color:#64748b}
+  .ck-star{color:#c9a84c;font-size:.85em}
+  body.light .ck-star{color:#b8860b}
+  .ck-st{font:600 .74rem/1.4 Inter,sans-serif;color:#9a9080;padding:9px 0 2px}
+  .ck-st.done{color:#c9a84c}
+  body.light .ck-st{color:#475569}
+  body.light .ck-st.done{color:#b8860b}
+  /* Compendium era sections reuse the trophy section header (.tp-sec*) */
+  .cp-sec{margin-bottom:8px}
+  /* An open era's header sticks to the top of the list while its cards scroll,
+     so it can be closed from anywhere. Solid background: the cards pass under it. */
+  .cp-sec .tp-sec-hd{position:sticky;top:-8px;z-index:2;background:linear-gradient(rgba(201,168,76,.05),rgba(201,168,76,.05)),#0d0c0a}
+  .cp-sec .tp-sec-hd:hover{background:linear-gradient(rgba(201,168,76,.1),rgba(201,168,76,.1)),#0d0c0a}
+  body.light .cp-sec .tp-sec-hd{background:#ffffff}
+  body.light .cp-sec .tp-sec-hd:hover{background:#eff6ff}
+  .cp-sec-body{display:none}
+  .tp-sec.open .cp-sec-body{display:block}
 
   /* ── TROPHY PANEL ─────────────────────────────────────────── */
   #tp{position:fixed;inset:0;z-index:716;background:#0d0c0a;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
@@ -1515,13 +1531,11 @@
       </div>
     </div>
     <div class="cp-filter-block">
-      <div class="cp-filter-lbl" id="cfl-era">ERA</div>
-      <div class="cp-chips" id="cp-era-chips">
-        <button class="cp-era-chip on" data-e="all"      onclick="setCpEra(this)">All</button>
-        <button class="cp-era-chip"    data-e="ancient"  onclick="setCpEra(this)">Ancient</button>
-        <button class="cp-era-chip"    data-e="medieval" onclick="setCpEra(this)">Medieval</button>
-        <button class="cp-era-chip"    data-e="modern"   onclick="setCpEra(this)">Modern</button>
-        <button class="cp-era-chip"    data-e="contemporary" onclick="setCpEra(this)">Contemporary</button>
+      <div class="cp-filter-lbl" id="cfl-mastery">MASTERY</div>
+      <div class="cp-chips" id="cp-m-chips">
+        <button class="cp-m-chip on" data-m="all"      onclick="setCpMastery(this)">All</button>
+        <button class="cp-m-chip"    data-m="mastered" onclick="setCpMastery(this)">Mastered</button>
+        <button class="cp-m-chip"    data-m="todo"     onclick="setCpMastery(this)">To master</button>
       </div>
     </div>
   </div>

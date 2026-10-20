@@ -1057,19 +1057,24 @@ function confirmDel(){
 
 // ── COMPENDIUM ────────────────────────────────────────────────────────────
 var cpFilt = 'all';
-var cpEras = [];  // selected era filter keys ([] = all eras)
+var cpMastery = 'all';  // 'all' | 'mastered' | 'todo' (discovered, not mastered yet)
 var cpFiltVisible = false;
+// Era sections (MASTERY_ERAS indexes) open during this visit; all start closed
+var _cpOpenSections = [];
 
 function openCompendium() {
   var el = document.getElementById('cp-q');
   if (el) el.value = '';
   cpFilt = 'all';
-  cpEras = [];
+  cpMastery = 'all';
   cpFiltVisible = false;
+  _cpOpenSections = [];
   document.querySelectorAll('.cp-chip').forEach(function(b){
     b.classList.toggle('on', b.dataset.f === 'all');
   });
-  syncCpEraChips();
+  document.querySelectorAll('.cp-m-chip').forEach(function(b){
+    b.classList.toggle('on', b.dataset.m === 'all');
+  });
   // Reset filter panel collapsed
   var _cf = document.getElementById('cp-filt');
   var _ctb = document.getElementById('cp-filt-toggle');
@@ -1097,22 +1102,27 @@ function setCpFilt(btn) {
   renderCP();
 }
 
-// Multi-select, same rules as the game's era chips: each era toggles,
-// 'all' clears the selection, and an empty selection shows every era.
-function setCpEra(btn) {
-  var e = btn.dataset.e;
-  if (e === 'all') cpEras = [];
-  else if (cpEras.indexOf(e) !== -1) cpEras = cpEras.filter(function(x){ return x !== e; });
-  else cpEras = cpEras.concat(e);
-  syncCpEraChips();
+function setCpMastery(btn) {
+  cpMastery = btn.dataset.m;
+  document.querySelectorAll('.cp-m-chip').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
   renderCP();
 }
 
-function syncCpEraChips() {
-  document.querySelectorAll('.cp-era-chip').forEach(function(b){
-    var e = b.dataset.e;
-    b.classList.toggle('on', e === 'all' ? !cpEras.length : cpEras.indexOf(e) !== -1);
-  });
+// Toggles in place (keeps the scroll position). Reads the current class
+// because a search shows every section open without them being in the list.
+function toggleCpSection(i) {
+  var sec = document.getElementById('cp-sec-' + i);
+  if (!sec) return;
+  var open = !sec.classList.contains('open');
+  _cpOpenSections = _cpOpenSections.filter(function(x){ return x !== i; });
+  if (open) _cpOpenSections.push(i);
+  sec.classList.toggle('open', open);
+  // Closed from its sticky header far down the list: bring the header back
+  // into view instead of leaving the list scrolled into the next eras
+  var list = document.getElementById('cp-list');
+  var above = list ? list.getBoundingClientRect().top - sec.getBoundingClientRect().top : 0;
+  if (!open && above > 0) list.scrollTop -= above;
 }
 
 function toggleCpFilt() {
@@ -1146,12 +1156,20 @@ function renderCP() {
     return ya - yb;
   });
 
-  // Update era chip labels for language
-  var eraChipLabels = lang==='pt'
-    ? {all:'Todas', ancient:'Antiguidade', medieval:'Medieval', modern:'Moderno', contemporary:'Contemporâneo'}
-    : {all:'All', ancient:'Ancient', medieval:'Medieval', modern:'Modern', contemporary:'Contemporary'};
-  document.querySelectorAll('.cp-era-chip').forEach(function(b){
-    if(eraChipLabels[b.dataset.e]) b.textContent = eraChipLabels[b.dataset.e];
+  // Header and search box follow the language (they were English until a language switch)
+  var cpTitle = document.getElementById('cp-title');
+  if (cpTitle) cpTitle.textContent = t('cp_title');
+  var cpClose = document.getElementById('cp-close');
+  if (cpClose) cpClose.textContent = t('cp_close');
+  var cpFiltBtn = document.getElementById('cp-filt-toggle');
+  if (cpFiltBtn) cpFiltBtn.title = t('cp_filt_title');
+  var cpQ = document.getElementById('cp-q');
+  if (cpQ) cpQ.placeholder = t('cp_search');
+
+  // Update mastery chip labels for language
+  var masteryChipLabels = {all:t('cp_m_all'), mastered:t('cp_m_mastered'), todo:t('cp_m_todo')};
+  document.querySelectorAll('.cp-m-chip').forEach(function(b){
+    if(masteryChipLabels[b.dataset.m]) b.textContent = masteryChipLabels[b.dataset.m];
   });
 
   // Update type chip labels for language
@@ -1164,22 +1182,38 @@ function renderCP() {
 
   // Update filter section labels
   var flTypeLbl = document.getElementById('cfl-type');
-  var flEraLbl = document.getElementById('cfl-era');
+  var flMasteryLbl = document.getElementById('cfl-mastery');
   if(flTypeLbl) flTypeLbl.textContent = lang==='pt' ? 'TIPO' : 'TYPE';
-  if(flEraLbl) flEraLbl.textContent = lang==='pt' ? 'ERA' : 'ERA';
+  if(flMasteryLbl) flMasteryLbl.textContent = t('cp_mastery_lbl');
 
-  var cpEraList = allowedErasFor(cpEras);
+  // Same rule as the Gold seal of era mastery; a locked card shows nothing
+  function isMst(c) { return discoveredCards.has(c.name) && isCardMastered(cardStats[c.name]); }
 
-  var filtered = all.filter(function(c) {
+  var inView = all.filter(function(c) {
     var iv = c.startYear !== undefined;
     if (cpFilt === 'people'   && c.cat !== 'People') return false;
     if (cpFilt === 'events'   && c.cat !== 'Events') return false;
     if (cpFilt === 'empires'  && !iv) return false;
-    if (cpEraList && cpEraList.indexOf(c.era) === -1) return false;
     if (q) {
       var nm = (lang === 'pt' ? (c.name_pt || c.name) : c.name).toLowerCase();
       if (nm.indexOf(q) === -1) return false;
     }
+    return true;
+  });
+
+  // Per-era counts before the mastery filter: the section headers compare
+  // the filtered cards with the era's total
+  var eraCount = {};
+  inView.forEach(function(c) {
+    var n = eraCount[c.era] = eraCount[c.era] || { total: 0, disc: 0, mst: 0 };
+    n.total++;
+    if (discoveredCards.has(c.name)) n.disc++;
+    if (isMst(c)) n.mst++;
+  });
+
+  var filtered = inView.filter(function(c) {
+    if (cpMastery === 'mastered') return isMst(c);
+    if (cpMastery === 'todo') return discoveredCards.has(c.name) && !isMst(c);
     return true;
   });
 
@@ -1188,9 +1222,10 @@ function renderCP() {
   filtered.forEach(function(c){ if(discoveredCards.has(c.name)) discoveredInFilter++; });
   var allDiscovered = 0;
   all.forEach(function(c){ if(discoveredCards.has(c.name)) allDiscovered++; });
+  var allMastered = all.filter(isMst).length;
   var cntEl = document.getElementById('cp-cnt');
   if(cntEl) {
-    var isFiltered = (cpFilt !== 'all' || cpEras.length || q);
+    var isFiltered = (cpFilt !== 'all' || cpMastery !== 'all' || q);
     if(isFiltered) {
       // Show filtered count + total discovered in parentheses
       cntEl.textContent = discoveredInFilter + ' / ' + filtered.length
@@ -1198,8 +1233,10 @@ function renderCP() {
         + '  ·  ' + allDiscovered + ' / ' + all.length
         + (lang==='pt' ? ' no total' : ' total');
     } else {
+      // The mastered total fits only on the short line; the section headers show it per era
       cntEl.textContent = allDiscovered + ' / ' + all.length
-        + (lang==='pt' ? ' descobertos' : ' discovered');
+        + (lang==='pt' ? ' descobertos' : ' discovered')
+        + '  ·  ' + t('cp_cnt_mastered').replace('{n}', allMastered);
     }
   }
 
@@ -1210,14 +1247,16 @@ function renderCP() {
     return;
   }
 
-  var rows = [];  filtered.forEach(function(card) {
+  var rowsByEra = {};  filtered.forEach(function(card) {
     var iv   = card.startYear !== undefined;
     var disc = discoveredCards.has(card.name);
+    var mst  = isMst(card);
     var sid  = 'ck_' + card.name.replace(/[^a-z0-9]/gi, '_');
     var col  = ERA_COLORS[card.era] || '#888';
 
     var nm = disc
       ? esc(lang === 'pt' ? (card.name_pt || card.name) : card.name)
+        + (mst ? ' <span class="ck-star" title="' + esc(t('cp_m_mastered')) + '">★</span>' : '')
       : '?????';
 
     var yr = disc
@@ -1226,9 +1265,8 @@ function renderCP() {
           : formatYear(card.year))
       : '????';
 
-    var meta = esc(disc
-      ? (card.era + ' \u00b7 ' + (iv ? 'Empire/Era' : (lang === 'pt' ? (card.cat_pt || card.cat) : card.cat)))
-      : card.era);
+    // The era is the section header, so the row shows only the category
+    var meta = disc ? esc(iv ? t('cp_empire') : (lang === 'pt' ? (card.cat_pt || card.cat) : card.cat)) : '';
 
     var h = '';
     h += '<div class="ck">';
@@ -1236,7 +1274,7 @@ function renderCP() {
     h += '<div class="ck-dot" style="background:' + col + ';opacity:' + (disc ? '1' : '0.4') + '"></div>';
     h += '<div class="ck-mid">';
     h += '<div class="ck-n' + (disc ? '' : ' lk') + '">' + nm + '</div>';
-    h += '<div class="ck-m">' + meta + '</div>';
+    if (meta) h += '<div class="ck-m">' + meta + '</div>';
     h += '</div>';
     h += '<div class="ck-r">';
     h += '<div class="ck-y">' + yr + '</div>';
@@ -1249,6 +1287,7 @@ function renderCP() {
       var hint  = lang === 'pt' ? (card.hint_pt  || card.hint  || '') : (card.hint  || '');
       var facts = lang === 'pt' ? (card.facts_pt || card.facts || []) : (card.facts || []);
       var clues = lang === 'pt' ? (card.clues_pt || card.clues || []) : (card.clues || []);
+      h += _cpRecordLine(cardStats[card.name], mst);
       if (hint) h += '<div class="ck-tl">' + esc(hint) + '</div>';
       facts.forEach(function(f) { h += '<p class="ck-f">' + esc(f) + '</p>'; });
       if (clues.length) {
@@ -1257,13 +1296,51 @@ function renderCP() {
         h += '</div>';
       }
     } else {
-      h += '<div class="ck-lk">Play this card to unlock its story.</div>';
+      h += '<div class="ck-lk">' + t('cp_locked') + '</div>';
     }
     h += '</div></div></div>';
-    rows.push(String(h));
+    (rowsByEra[card.era] = rowsByEra[card.era] || []).push(h);
   });
 
-  list.innerHTML = rows.join('');
+  // One folding section per mastery era, like the trophy sections. A search
+  // opens every section so its matches are visible; an empty section is hidden.
+  var eraInfo = eraMastery();
+  var html = '';
+  MASTERY_ERAS.forEach(function(era, i) {
+    var rows = rowsByEra[era.id];
+    if (!rows) return;
+    var seal = eraInfo[i].seal;
+    var n = eraCount[era.id];
+    // No filter: ★ mastered · discovered / total. Mastered: ★ mastered / total.
+    // To master: discovered-not-mastered / total.
+    var cnt = cpMastery === 'mastered' ? '★ ' + n.mst + ' / ' + n.total
+      : cpMastery === 'todo' ? (n.disc - n.mst) + ' / ' + n.total
+      : '★ ' + n.mst + '  ·  ' + n.disc + ' / ' + n.total;
+    var isOpen = !!q || _cpOpenSections.indexOf(i) >= 0;
+    html += '<div class="tp-sec cp-sec' + (isOpen ? ' open' : '') + '" id="cp-sec-' + i + '">';
+    html += '<button class="tp-sec-hd" onclick="toggleCpSection(' + i + ')">';
+    html += '<span class="tp-sec-arrow">▸</span>';
+    html += '<span class="tp-sec-name">' + (lang === 'pt' ? era.name_pt : era.name) + (seal ? ' ' + seal.icon : '') + '</span>';
+    html += '<span class="tp-sec-cnt">' + cnt + '</span>';
+    html += '</button>';
+    html += '<div class="cp-sec-body">' + rows.join('') + '</div>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
+
+// "Your record" line of an open Compendium card: hits, misses and how many
+// more hits it needs to be mastered (2+ hits and more hits than misses)
+function _cpRecordLine(s, mastered) {
+  var ok = (s && s.ok) | 0, miss = (s && s.miss) | 0;
+  var need = Math.max(0, 2 - ok, miss - ok + 1);
+  var status = mastered ? t('cp_done')
+    : (need === 1 ? t('cp_need1') : t('cp_needn').replace('{n}', need));
+  var line = t('cp_hist')
+    .replace('{ok}', ok === 1 ? t('cp_ok1') : t('cp_okn').replace('{n}', ok))
+    .replace('{miss}', miss === 1 ? t('cp_miss1') : t('cp_missn').replace('{n}', miss))
+    .replace('{status}', status);
+  return '<div class="ck-st' + (mastered ? ' done' : '') + '">' + line + '</div>';
 }
 
 function toggleCK(sid) {
