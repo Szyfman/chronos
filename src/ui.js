@@ -1385,6 +1385,9 @@ function switchTpTab(tab){
   document.getElementById('tp-tab-progress').textContent=t('tab_progress');
   document.getElementById('tp-list').style.display = tab==='trophies' ? '' : 'none';
   document.getElementById('tp-progress').style.display = tab==='progress' ? 'flex' : 'none';
+  // The trophy title and count belong to the Trophies tab; hidden (not removed)
+  // on Progress so the header buttons don't move when switching tabs
+  document.getElementById('tp-head-title').style.visibility = tab==='trophies' ? '' : 'hidden';
   renderTrophies(); // keeps the header count current on both tabs
   if(tab==='progress') renderProgress();
 }
@@ -1409,8 +1412,13 @@ function renderProgress(){
   html += '<div class="pf-xp-foot"><span>'+t('pf_total_xp').replace('{n}',formatXp(info.totalXp))+'</span>';
   html += '<span>'+t('pf_to_next').replace('{n}',formatXp(info.xpNeeded-info.xp)).replace('{lvl}',info.level+1)+'</span></div></div>';
 
-  // Account (login): filled by renderAccount, which only uses textContent
-  html += '<div class="pf-block"><div class="dc-section-title">'+t('acc_title')+'</div><div class="pf-account" id="pf-account"></div></div>';
+  // Account (login): folds like Customization; filled by renderAccount, which only uses textContent
+  html += '<div class="tp-sec'+(_tpOpenSections.indexOf('account')>=0?' open':'')+'" id="tp-sec-account">';
+  html += '<button class="tp-sec-hd" onclick="toggleTpSection(\'account\')">';
+  html += '<span class="tp-sec-arrow">▸</span><span class="tp-sec-name">'+t('acc_title')+'</span><span class="tp-sec-cnt" id="pf-account-cnt"></span>';
+  html += '</button>';
+  html += '<div class="pf-acc-body"><div class="pf-account" id="pf-account"></div></div>';
+  html += '</div>';
 
   html += _renderEraMastery();
   html += _renderModeRecords();
@@ -1467,6 +1475,9 @@ function renderAccount(){
   var box=document.getElementById('pf-account');
   if(!box) return;
   var a=syncAccountInfo();
+  // Folded header: whether this device is signed in
+  var cnt=document.getElementById('pf-account-cnt');
+  if(cnt) cnt.textContent=a.status==='in'?t('acc_on'):(a.status==='starting'?t('acc_starting'):t('acc_off'));
   box.textContent='';
   var add=function(tag,cls,text){ var el=document.createElement(tag); el.className=cls; if(text) el.textContent=text; box.appendChild(el); return el; };
   if(a.status==='starting'){
