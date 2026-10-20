@@ -88,6 +88,6 @@ _(preencher conforme for feito — só informação pública)_
 | Região | grupo "Americas" (conferir em Project Settings → General) |
 | Publishable key | `sb_publishable_HAnGk0sed9nTULaRIEXvWg_F3mk-p4p` (2026-10-19) |
 | Google OAuth | app *Em produção* desde 2026-10-20; política em `https://szyfman.github.io/chronos/privacy.html` |
-| Google Client ID | |
+| Google Client ID | `785109016948-dl94e0ba0pprub40av8rap226l7c741u.apps.googleusercontent.com` (cliente *Chronos web*) |
 | Endereço de teste local | `http://127.0.0.1:5500/index.html` |
 | Despertador testado em | |
