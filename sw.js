@@ -1,4 +1,4 @@
-const CACHE = 'chronos-v52';
+const CACHE = 'chronos-v53';
 
 const BASE = '/chronos/';
 
@@ -15,6 +15,8 @@ const FILES = [
   BASE + 'src/i18n.js',
   BASE + 'src/game.js',
   BASE + 'src/runsave.js',
+  BASE + 'src/sync.js',
+  BASE + 'src/vendor/supabase-2.117.2.js',
   BASE + 'src/ui.js',
 
   BASE + 'assets/bgm.mp3',

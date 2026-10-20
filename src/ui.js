@@ -467,23 +467,31 @@ function renderHistoryPanel(){
     const loc=entry.lang==='pt'?'pt-BR':'en-US';
     const dateStr=d.toLocaleDateString(loc,{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString(loc,{hour:'2-digit',minute:'2-digit'});
     const modeLbl=modeBadgeLabel(entry.mode,entryPlayMode(entry));
+    // Stored records are data, not markup: numbers forced, text escaped, the
+    // mode whitelisted before it becomes a CSS class
+    const modeCls=RECORD_MODES.some(m=>m.id===entry.mode)?entry.mode:'classic';
     const div=document.createElement('div');div.className='history-entry';
     div.innerHTML=`
       <div class="he-header" onclick="toggleEntry(${i})">
-        <div><div class="he-date">${dateStr}</div><div class="he-stats">${entry.score} pts · ${entry.placed} ${t('cards_placed')}</div></div>
+        <div><div class="he-date">${esc(dateStr)}</div><div class="he-stats">${Number(entry.score)|0} pts · ${Number(entry.placed)|0} ${t('cards_placed')}</div></div>
         <div class="he-right">
           <span class="he-era-tag">${eraTagLabel(entry.eraFilter)}</span>
-          <span class="he-mode ${entry.mode}">${modeLbl}</span>
+          <span class="he-mode ${modeCls}">${modeLbl}</span>
           <button class="he-del" title="Delete" onclick="event.stopPropagation();askDeleteEntry(${i})">🗑</button>
           <span class="he-chevron" id="chev-${i}">▼</span>
         </div>
       </div>
       <div class="he-tl" id="ht-${i}">
         <div class="ht-label">${t('tl_lbl')}</div>
-        ${entry.timeline.map(c=>`<div class="ht-card"><div class="ht-dot" style="background:${ERA_COLORS[c.era]||'#888'}"></div><div class="ht-name">${c.name}</div><div class="ht-year">${c.span||formatYear(c.year)}</div></div>`).join('')}
+        ${(Array.isArray(entry.timeline)?entry.timeline:[]).map(c=>`<div class="ht-card"><div class="ht-dot" style="background:${_eraColor(c.era)}"></div><div class="ht-name">${esc(c.name)}</div><div class="ht-year">${esc(c.span||formatYear(c.year))}</div></div>`).join('')}
       </div>`;
     list.appendChild(div);
   });
+}
+// Dot colour of a stored timeline card: only colours from the era table, so a
+// stored value can never reach the style attribute
+function _eraColor(era){
+  return Object.prototype.hasOwnProperty.call(ERA_COLORS,era)?ERA_COLORS[era]:'#888';
 }
 function toggleEntry(i){
   const ht=document.getElementById(`ht-${i}`),chev=document.getElementById(`chev-${i}`);
@@ -890,12 +898,13 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
   // rec is null for a day that was never played — the panel then exists purely
   // to offer recovery, so every field below has to tolerate that.
   var html='<div class="dc-entry-header"><span class="dc-entry-date">📅 '+dateStr+'</span>'
-    +(rec?'<span class="dc-entry-score">'+rec.score+' pts · '+rec.placed+' '+(lang==='pt'?'cartas':'cards')+'</span>':'')
+    +(rec?'<span class="dc-entry-score">'+(Number(rec.score)|0)+' pts · '+(Number(rec.placed)|0)+' '+(lang==='pt'?'cartas':'cards')+'</span>':'')
     +'</div>';
-  if(rec&&rec.timeline&&rec.timeline.length){
+  // Stored timeline: text escaped, colour from the era table only
+  if(rec&&Array.isArray(rec.timeline)&&rec.timeline.length){
     html+='<div class="dc-entry-tl">';
     rec.timeline.forEach(function(c){
-      html+='<div class="ht-card"><div class="ht-dot" style="background:'+(ERA_COLORS[c.era]||'#888')+'"></div><div class="ht-name">'+c.name+'</div><div class="ht-year">'+(c.span||formatYear(c.year))+'</div></div>';
+      html+='<div class="ht-card"><div class="ht-dot" style="background:'+_eraColor(c.era)+'"></div><div class="ht-name">'+esc(c.name)+'</div><div class="ht-year">'+esc(c.span||formatYear(c.year))+'</div></div>';
     });
     html+='</div>';
   }
@@ -1107,8 +1116,11 @@ function toggleCpFilt() {
   if (btn) btn.classList.toggle('active', cpFiltVisible);
 }
 
+// Escapes text for innerHTML — also quotes, so it is safe inside attributes.
+// Stored records may one day come from the cloud: they always go through here.
 function esc(s) {
-  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 function renderCP() {
@@ -1397,6 +1409,9 @@ function renderProgress(){
   html += '<div class="pf-xp-foot"><span>'+t('pf_total_xp').replace('{n}',formatXp(info.totalXp))+'</span>';
   html += '<span>'+t('pf_to_next').replace('{n}',formatXp(info.xpNeeded-info.xp)).replace('{lvl}',info.level+1)+'</span></div></div>';
 
+  // Account (login): filled by renderAccount, which only uses textContent
+  html += '<div class="pf-block"><div class="dc-section-title">'+t('acc_title')+'</div><div class="pf-account" id="pf-account"></div></div>';
+
   html += _renderEraMastery();
   html += _renderModeRecords();
 
@@ -1442,6 +1457,33 @@ function renderProgress(){
   nameInput.placeholder = t('pf_name_ph');
   nameInput.addEventListener('change', function(){ setPlayerName(this.value); this.value = playerName; });
   nameInput.addEventListener('keydown', function(e){ if(e.key==='Enter') this.blur(); });
+  renderAccount();
+}
+
+// ── ACCOUNT (sync.js) ─────────────────────────────────────────────────────
+// Login block of the Progress tab. Built with textContent only: the e-mail
+// comes from the server. Re-drawn by sync.js whenever the session changes.
+function renderAccount(){
+  var box=document.getElementById('pf-account');
+  if(!box) return;
+  var a=syncAccountInfo();
+  box.textContent='';
+  var add=function(tag,cls,text){ var el=document.createElement(tag); el.className=cls; if(text) el.textContent=text; box.appendChild(el); return el; };
+  if(a.status==='starting'){
+    add('div','pf-acc-text',t('acc_starting'));
+  } else if(a.status==='in'){
+    add('div','pf-acc-text',t('acc_signed_in'));
+    add('div','pf-acc-email',a.email);
+    add('div','pf-acc-text',t('acc_sync_soon'));
+    add('button','pf-acc-btn secondary',t('acc_logout')).onclick=syncLogout;
+  } else {
+    add('div','pf-acc-text',t('acc_pitch'));
+    add('button','pf-acc-btn',t('acc_login')).onclick=syncLogin;
+  }
+  var link=add('a','pf-acc-link',t('acc_privacy'));
+  link.href='privacy.html';
+  link.target='_blank';
+  link.rel='noopener';
 }
 
 // Era mastery block of the progress tab. The bar tracks the next seal; once
@@ -2002,6 +2044,9 @@ window.addEventListener('DOMContentLoaded', function() {
   // Set initial mode UI state
   selectMode('classic');
   updateIntroHistBtn();
+  // The page is written in English: apply the language the player chose
+  // (setLang saves it to chronos_lang, which was never read back before)
+  try { if (localStorage.getItem('chronos_lang') === 'pt') setLang('pt'); } catch(e) {}
   // Test mode (?preview, see progression.js) stays flagged on screen at all times
   if(customPreview){
     var pv = document.createElement('div');
@@ -2011,6 +2056,8 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   // A run left in progress (app closed, killed or reloaded) resumes straight away
   resumeSavedRun();
+  // Login session, if any (no network at all when logged out)
+  syncBoot();
 });
 
 window.addEventListener('load', function() {

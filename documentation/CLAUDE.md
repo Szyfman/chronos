@@ -525,8 +525,9 @@ DOM updates (visible to user)
 | `assets/bgm.mp3` | Background music | Volume controls (in ui.js) |
 | `src/sfx.js` | Sound effects engine | When to play sounds (in game.js/ui.js) |
 | `src/runsave.js` | Saving the run in progress to `localStorage` and loading it back, validated (`RUN_SAVE.md`); `resumeSavedRun` in game.js applies it | Game rules, the cloud |
-| `src/sync.js` *(planned, Part B)* | Login, session, sync with Supabase — the only file that touches the network | Game rules, rendering (login UI and sync status are in ui.js) |
-| `supabase/` *(planned, Part B)* | Database schema, RLS policies, Edge Functions — versioned so the server never holds configuration that exists only in the dashboard | — |
+| `src/sync.js` | Login, session and (from B2) sync with Supabase — the only file that touches the network; loads `src/vendor/supabase-*.js` on demand | Game rules, rendering (the account block is `renderAccount` in ui.js) |
+| `src/vendor/` | Pinned third-party files, byte-exact (`.gitattributes`), SHA-256 in `CLOUD_SYNC_SPEC.md` | Anything edited by hand |
+| `supabase/` | Database schema, RLS policies, Edge Functions — versioned so the server never holds configuration that exists only in the dashboard | — |
 | `sw.js` | Caching, offline support | Game logic, content |
 
 ### Persistence, Backend & Security

@@ -1,6 +1,6 @@
 # Cloud Sync — Specification (Part B)
 
-Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end; phase B1 in progress. Written against v52.
+Login and progress sync between devices with Supabase. Part B of `CLOUD_SYNC.md`; built on the key registry of `PERSISTENCE.md` and on the run save of `RUN_SAVE.md` (Part A). **Status: approved 2026-10-19** — decisions recorded at the end. B1 (setup, login, security) implemented on `feat/sync-b1`; B2 (sync) next. Written against v52.
 
 ## Goals
 
@@ -173,7 +173,7 @@ Every table has RLS on; `device_states` has a policy per operation, limited to t
   - **Downloaded data is validated** before it reaches `localStorage`: known types and shapes only, numbers finite integers in range, strings length-capped (name ≤ 20, card names ≤ 100), ids checked against `TROPHY_DEFS` / `CUSTOMIZATIONS` / the card list, dates in `YYYY-MM-DD` or ISO form, a row over 1 MB rejected. An invalid entry is dropped, not the whole row.
   - **Content Security Policy**, as a `<meta>` in index.html: scripts only from the site itself (`'unsafe-inline'` is still needed for the 80 inline `onclick` handlers), network only to the site, Supabase and Google Fonts. Even if something slipped through, it couldn't send the token anywhere else.
     `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self' data:; connect-src 'self' https://<project-ref>.supabase.co; base-uri 'none'; form-action 'none'`
-- **Third-party code**: the client library is a pinned file in the repo (a version published at least two weeks earlier), its SHA-256 recorded in this document; updating it is a deliberate commit.
+- **Third-party code**: the client library is a pinned file in the repo (a version published at least two weeks earlier), its SHA-256 recorded here; updating it is a deliberate commit. Current: `src/vendor/supabase-2.117.2.js` = the npm package's `dist/umd/supabase.js` (published 2026-09-25), SHA-256 `59d39487c3589843b410322d8a3d562ce022aba1e5ccb16898ef3fb2a0da2ecd` — the CDN copy and the npm tarball matched. Kept byte-exact by `src/vendor/.gitattributes`.
 - **Size and abuse**: rows capped at 1 MB by the database itself; a client can only ever write its own rows.
 
 ## Keep-alive

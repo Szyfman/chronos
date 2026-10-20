@@ -46,12 +46,13 @@ Merge rules are defined at the bottom of this file.
 | Key | Shape | Why it stays |
 |---|---|---|
 | `chronos_run` | the run in progress (`RUN_SAVE.md`), written by `saveRun` / cleared by `clearRun` (runsave.js) | a run belongs to the device it is played on; syncing it would allow resuming on two phones and counting it twice |
+| `sb-egyrmnrabblsskebkvuh-auth-token` (and keys with that prefix, e.g. `…-code-verifier` during a login) | the login session, written by the Supabase client library (sync.js) | a secret of this device; removed at logout. Not a `chronos_` key because the library names it |
 | `chronos_prune_mark` | 'YYYY-MM-DD' watermark of the timeline sweep | housekeeping of this device's storage |
 | `chronos_music_vol`, `chronos_sfx_vol` | 0–100 | device preference |
 | `chronos_music_mute`, `chronos_sfx_mute` | 'true' / 'false' | device preference |
 | `chronos_placed_trivia` | 'true' / 'false' | device preference |
-| `chronos_theme` | 'light' / 'dark' | ❓ to decide in Part B (proposal: device only) |
-| `chronos_lang` | 'en' / 'pt' | ❓ to decide in Part B. Known issue: written by `setLang` but **never read on boot**, so the game always opens in English |
+| `chronos_theme` | 'light' / 'dark' | device preference |
+| `chronos_lang` | 'en' / 'pt' | device preference; written by `setLang`, applied on boot (ui.js) since B1 |
 
 ### Removed — do not reuse these names
 
