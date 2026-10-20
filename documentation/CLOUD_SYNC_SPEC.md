@@ -188,7 +188,7 @@ The game's own syncs are database activity, but a week without playing would sti
 
 ## UI
 
-An **Account** block in the Progress tab, under the profile (name, emblem, frame) — where the player's identity already lives. Nothing changes on the game screen.
+An **Account** section in the Progress tab, under the profile and level bar — where the player's identity already lives. It folds like Stats and Customization (closed when the panel opens; the folded header says "Signed in" / "Not signed in"). Nothing changes on the game screen.
 - Logged out: one line ("Keep your progress safe and play on any phone") and the login button(s).
 - Logged in: the account's e-mail; status — "Synced just now" / "Synced 3 h ago" / "No connection — will retry" / "Update the app to sync"; **Sync now**; **Log out**.
 All text in en + pt.

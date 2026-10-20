@@ -1420,8 +1420,13 @@ function renderProgress(){
   html += '<div class="pf-acc-body"><div class="pf-account" id="pf-account"></div></div>';
   html += '</div>';
 
-  html += _renderEraMastery();
-  html += _renderModeRecords();
+  // Stats (era mastery + mode records) fold like Customization
+  html += '<div class="tp-sec'+(_tpOpenSections.indexOf('stats')>=0?' open':'')+'" id="tp-sec-stats">';
+  html += '<button class="tp-sec-hd" onclick="toggleTpSection(\'stats\')">';
+  html += '<span class="tp-sec-arrow">▸</span><span class="tp-sec-name">📊 '+t('pf_stats')+'</span>';
+  html += '</button>';
+  html += '<div class="pf-stats-body">'+_renderEraMastery()+_renderModeRecords()+'</div>';
+  html += '</div>';
 
   // Customization folds like a trophy section; the count is of unlocked items
   var customHtml = '', customUnlocked = CUSTOMIZATIONS.filter(isCustomUnlocked).length;
