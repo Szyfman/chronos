@@ -48,8 +48,9 @@ Onde aparece `<ref>` abaixo, use o identificador do projeto: `egyrmnrabblsskebkv
    - **Público-alvo**: **Externo**.
    - **Informações de contato**: o seu e-mail. Aceite os termos e **Criar**.
 4. **Acesso a dados** (escopos): adicione só `openid`, `…/auth/userinfo.email` e `…/auth/userinfo.profile` (não são sensíveis, não exigem verificação do Google). Salve.
-5. **Público-alvo → Status de publicação → Publicar app** (fica *Em produção*). Sem isso, só e-mails cadastrados como *usuários de teste* conseguem entrar — seus amigos ficariam de fora.
-6. **Clientes → Criar cliente**:
+5. **Branding**: home page `https://szyfman.github.io/chronos/`, política de privacidade `https://szyfman.github.io/chronos/privacy.html` (o Google só libera a publicação com ela), **Authorized domains** `szyfman.github.io` e `<ref>.supabase.co`, e-mail de contato do desenvolvedor. **Sem logo** (logo exige verificação do app). Termos de serviço: em branco.
+6. **Público-alvo → Status de publicação → Publicar app** (fica *Em produção*). Sem isso, só e-mails cadastrados como *usuários de teste* conseguem entrar — seus amigos ficariam de fora.
+7. **Clientes → Criar cliente**:
    - **Tipo de aplicativo**: **Aplicativo da Web**; nome `Chronos web`.
    - **Origens JavaScript autorizadas**: `https://szyfman.github.io` e `http://127.0.0.1:5500` (teste local).
    - **URIs de redirecionamento autorizados**: `https://<ref>.supabase.co/auth/v1/callback`.
@@ -57,7 +58,7 @@ Onde aparece `<ref>` abaixo, use o identificador do projeto: `egyrmnrabblsskebkv
 
 ### 3.2 Supabase
 1. **Authentication → Sign In / Providers → Google** → ligue **Enable**.
-2. Cole o **Client ID** e o **Client Secret** do passo anterior. Confira que a **Callback URL** mostrada é a mesma do passo 3.1.6. **Save**.
+2. Cole o **Client ID** e o **Client Secret** do passo anterior. Confira que a **Callback URL** mostrada é a mesma do passo 3.1.7. **Save**.
 3. **Authentication → Sign In / Providers → Email** → desligue o provedor de e-mail (só Google entra; evita contas criadas por e-mail).
 4. **Authentication → URL Configuration**:
    - **Site URL**: `https://szyfman.github.io/chronos/`
@@ -86,6 +87,7 @@ _(preencher conforme for feito — só informação pública)_
 | Project URL | `https://egyrmnrabblsskebkvuh.supabase.co` (ref `egyrmnrabblsskebkvuh`) |
 | Região | grupo "Americas" (conferir em Project Settings → General) |
 | Publishable key | `sb_publishable_HAnGk0sed9nTULaRIEXvWg_F3mk-p4p` (2026-10-19) |
+| Google OAuth | app *Em produção* desde 2026-10-20; política em `https://szyfman.github.io/chronos/privacy.html` |
 | Google Client ID | |
 | Endereço de teste local | `http://127.0.0.1:5500/index.html` |
 | Despertador testado em | |
