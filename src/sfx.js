@@ -13,14 +13,63 @@ var SFX_WIN     = null;
 var SFX_LOSE    = null;
 
 // ── SFX engine ────────────────────────────────────────────────────────────
+/* Volume goes through Web Audio gain nodes: iOS ignores the volume property
+   of <audio> elements (it is read-only there, always full), so sliders and
+   the music OFF button did nothing on iPhones. One AudioContext is shared with
+   the music (ui.js, _initBGM). Where Web Audio is missing or fails, sounds fall
+   back to plain <audio> elements, exactly as before. */
+var _audioCtx = null;
+// Created on the first tap (SFX.init / _initBGM run from that gesture), which
+// is what lets iOS and Chrome start it
+function audioContext() {
+  if (_audioCtx) return _audioCtx;
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return null;
+  try { _audioCtx = new AC(); } catch(e) { _audioCtx = null; }
+  // iOS mutes Web Audio with the silent switch, unlike the <audio> elements
+  // used before; 'playback' keeps the old behaviour (Safari 17+, ignored elsewhere)
+  try { if (_audioCtx && navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(e) {}
+  return _audioCtx;
+}
+// The browser suspends the context in the background (iOS: "interrupted")
+function resumeAudio() {
+  if (_audioCtx && _audioCtx.state !== 'running' && _audioCtx.resume) {
+    try { _audioCtx.resume().catch(function() {}); } catch(e) {}
+  }
+}
+
 var SFX = {
-  _cache: {},
+  _cache: {},     // name → data URL (fallback path)
+  _buffers: {},   // name → decoded AudioBuffer (Web Audio path)
   _load: function(name, dataUrl) {
     if (!dataUrl) return;
     this._cache[name] = dataUrl;
+    var ctx = audioContext(), self = this;
+    if (!ctx) return;
+    try {
+      // base64 → bytes in place: no fetch, so the page's CSP isn't involved
+      var bin = atob(dataUrl.slice(dataUrl.indexOf(',') + 1));
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      // Callback form: older Safari has no promise version of decodeAudioData
+      ctx.decodeAudioData(bytes.buffer, function(buf) { self._buffers[name] = buf; }, function() {});
+    } catch(e) {}
   },
   play: function(name) {
     if (_sfxMute) return;
+    var ctx = _audioCtx, buf = this._buffers[name];
+    if (ctx && buf) {
+      try {
+        resumeAudio();
+        var src = ctx.createBufferSource(), gain = ctx.createGain();
+        gain.gain.value = _sfxVol / 100;
+        src.buffer = buf;
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(0);
+        return;
+      } catch(e) {}
+    }
     var dataUrl = this._cache[name];
     if (!dataUrl) return;
     var snd = new Audio(dataUrl);

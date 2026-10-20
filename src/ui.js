@@ -1932,26 +1932,49 @@ var _sfxMute   = false;
 var _bgm = null;
 var _bgmReady = false;
 var _bgmFadeTimer = null;
+// Gain node the music plays through (sfx.js explains why: iOS ignores the
+// element's volume). null when Web Audio isn't available: the element's own
+// volume is used, as before.
+var _bgmGain = null;
+
+// Every music volume change goes through these two
+function _setMusicLevel(v) {
+  if (_bgmGain) _bgmGain.gain.value = v;
+  else if (_bgm) _bgm.volume = v;
+}
+function _musicLevel() {
+  return _bgmGain ? _bgmGain.gain.value : (_bgm ? _bgm.volume : 0);
+}
+function _musicTarget() { return _musicMute ? 0 : _musicVol / 100; }
 
 function _initBGM() {
   if (_bgm) return;
   _bgm = new Audio('./assets/bgm.mp3');
   _bgm.loop = true;
-  _bgm.volume = _musicMute ? 0 : _musicVol / 100;
   _bgm.preload = 'auto';
   _bgm.currentTime = 3;
   _bgm.addEventListener('timeupdate', function() {
     if (_bgm.currentTime < 3) _bgm.currentTime = 3;
   });
+  var ctx = audioContext();
+  if (ctx) {
+    try {
+      var src = ctx.createMediaElementSource(_bgm);   // once per element: guarded by `if (_bgm) return`
+      _bgmGain = ctx.createGain();
+      src.connect(_bgmGain);
+      _bgmGain.connect(ctx.destination);
+    } catch(e) { _bgmGain = null; }
+  }
+  _setMusicLevel(_musicTarget());
   _bgmReady = true;
 }
 
 function playMusic() {
   _initBGM();
   if (!_bgm) return;
-  _bgm.volume = _musicMute ? 0 : _musicVol / 100;
+  resumeAudio();
+  _setMusicLevel(_musicTarget());
   if (_bgm.paused) {
-    // _bgm.currentTime = _bgm.currentTime || 0;
     _bgm.play().catch(function() {});
   }
 }
@@ -1961,28 +1984,29 @@ function stopMusic(fade) {
   if (!fade) { _bgm.pause(); return; }
   // Fade out over 800ms
   clearInterval(_bgmFadeTimer);
-  var startVol = _bgm.volume;
+  var startVol = _musicLevel();
   var steps = 16;
   var i = 0;
   _bgmFadeTimer = setInterval(function() {
     i++;
-    _bgm.volume = Math.max(0, startVol * (1 - i / steps));
-    if (i >= steps) { clearInterval(_bgmFadeTimer); _bgm.pause(); _bgm.volume = _musicMute ? 0 : _musicVol / 100; }
+    _setMusicLevel(Math.max(0, startVol * (1 - i / steps)));
+    if (i >= steps) { clearInterval(_bgmFadeTimer); _bgm.pause(); _setMusicLevel(_musicTarget()); }
   }, 50);
 }
 
 function fadeInMusic() {
   _initBGM();
   if (!_bgm) return;
+  resumeAudio();
   clearInterval(_bgmFadeTimer);
-  _bgm.volume = 0;
+  _setMusicLevel(0);
   if (_bgm.paused) _bgm.play().catch(function() {});
-  var target = _musicMute ? 0 : _musicVol / 100;
+  var target = _musicTarget();
   var steps = 20;
   var i = 0;
   _bgmFadeTimer = setInterval(function() {
     i++;
-    _bgm.volume = Math.min(target, target * (i / steps));
+    _setMusicLevel(Math.min(target, target * (i / steps)));
     if (i >= steps) clearInterval(_bgmFadeTimer);
   }, 50);
 }
@@ -1991,7 +2015,7 @@ function fadeInMusic() {
 function setMusicVolume(val) {
   _musicVol = parseInt(val);
   try { localStorage.setItem('chronos_music_vol', _musicVol); } catch(e) {}
-  if (_bgm && !_musicMute) _bgm.volume = _musicVol / 100;
+  if (_bgm && !_musicMute) _setMusicLevel(_musicVol / 100);
   _updateAudioUI();
 }
 
@@ -2004,7 +2028,7 @@ function setSfxVolume(val) {
 function toggleMusicMute() {
   _musicMute = !_musicMute;
   try { localStorage.setItem('chronos_music_mute', _musicMute); } catch(e) {}
-  if (_bgm) _bgm.volume = _musicMute ? 0 : _musicVol / 100;
+  if (_bgm) { resumeAudio(); _setMusicLevel(_musicTarget()); }
   _updateAudioUI();
 }
 
@@ -2029,7 +2053,7 @@ function _updateAudioUI() {
 document.addEventListener('visibilitychange', function() {
   if (!_bgm) return;
   if (document.hidden) { _bgm.pause(); }
-  else { _bgm.play().catch(function(){}); }
+  else { resumeAudio(); _bgm.play().catch(function(){}); }
 });
 
 // ── Run save: the OS may kill the app once it is in the background ───────
@@ -2101,6 +2125,9 @@ window.addEventListener('load', function() {
   }
   document.addEventListener('pointerdown', _startMusicOnce);
   document.addEventListener('keydown',     _startMusicOnce);
+  // iOS may leave the audio context suspended after the app comes back from
+  // the background, and only a tap is allowed to wake it
+  document.addEventListener('pointerdown', resumeAudio);
 });
 
 
