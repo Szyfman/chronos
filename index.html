@@ -904,6 +904,10 @@
   .pf-opt-name{font-size:.62rem;font-weight:700;line-height:1.2;text-align:center}
   /* Hit effect tiles: the effect's emoji; picking one plays it on the tile */
   .pf-opt{position:relative}
+  .pf-sfx-test{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+  .pf-sfx-lbl{width:100%;font-size:.75rem;opacity:.75}
+  .pf-sfx-btn{flex:1 1 45%;background:rgba(255,255,255,.04);border:1.5px solid rgba(201,168,76,.2);border-radius:8px;padding:8px 6px;color:inherit;font:inherit;font-size:.8rem;cursor:pointer}
+  .pf-sfx-btn.on{border-color:var(--gold,#c9a84c);background:rgba(201,168,76,.15)}
   .pf-fx-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;line-height:1;background:var(--bg3);border:2px solid rgba(201,168,76,.35)}
   body.light .pf-fx-ico{background:#f1f5f9;border-color:#cbd5e1}
   .pf-opt.locked .pf-fx-ico{filter:grayscale(1)}
@@ -1452,6 +1456,7 @@
 <script src="src/progression.js"></script>
 <script src="src/dailycards.js"></script>
 <script src="src/sfx.js"></script>
+<script src="src/hitsfx.js"></script>
 <script src="src/i18n.js"></script>
 <script src="src/game.js"></script>
 <script src="src/runsave.js"></script>
