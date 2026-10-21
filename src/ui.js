@@ -1757,6 +1757,7 @@ function openCustomModal(id){
     iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
     earned: unlocked || customPreview,
     badge: !unlocked && customPreview ? t('pf_preview_badge') : '',
+    howLbl: item.auto ? (lang==='pt' ? '— Como funciona' : '— How it works') : '',
     name: _nm(cat) + ': ' + _nm(item),
     date: date,
     trivia: lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || ''),
@@ -1849,7 +1850,8 @@ function openTrophyModal(idx){
 }
 
 /* Fills and opens the trophy/customization detail modal.
-   o: { icon, iconHtml?, earned, badge?, name, date (ISO or ''), trivia, how }
+   o: { icon, iconHtml?, earned, badge?, howLbl?, name, date (ISO or ''), trivia, how }
+   howLbl replaces the "how" heading of an earned item with no trivia.
    iconHtml (our own markup, e.g. a framed avatar) replaces the icon text;
    badge overrides the earned badge text (preview mode).
    Earned: trivia first, then how it was unlocked (only the latter if there is
@@ -1896,9 +1898,9 @@ function _showTpModal(o){
   var reqBody = document.getElementById('tp-modal-req-body');
 
   if(isEarned && !o.trivia){
-    lbl.textContent = o.badge
+    lbl.textContent = o.howLbl || (o.badge
       ? (lang==='pt' ? '— Como desbloquear' : '— How to unlock')
-      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked');
+      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked'));
     body.textContent = o.how || '';
     divider.style.display = 'none';
     reqLbl.style.display = 'none';
