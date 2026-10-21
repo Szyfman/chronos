@@ -291,8 +291,8 @@
   .cf-ember{--cf-color:#e2582b;--cf-line:rgba(226,88,43,.55);--cf-glow:0 0 0 3px rgba(226,88,43,.25),0 0 16px rgba(226,88,43,.45)}
   .cf-illumination{--cf-color:#d9a93a;--cf-line:rgba(217,169,58,.55);--cf-glow:0 0 0 3px rgba(30,63,143,.6),0 0 12px rgba(217,169,58,.35)}
   .cf-maya{--cf-color:#2e9a78;--cf-line:rgba(46,154,120,.5);--cf-glow:0 0 0 3px rgba(168,152,120,.45)}
-  .cf-zodiac{--cf-color:#7d8ef0;--cf-line:rgba(125,142,240,.5);--cf-glow:0 0 0 3px rgba(27,35,80,.85),0 0 14px rgba(125,142,240,.45)}
-  .cf-dagger{--cf-color:#6f80a8;--cf-line:rgba(111,128,168,.55);--cf-glow:0 0 0 2px #c9a24a,0 0 0 4px #1c1f26,0 0 14px rgba(111,128,168,.5)}
+  .cf-zodiac{--cf-color:#9aa8ff;--cf-line:rgba(154,168,255,.6);--cf-glow:0 0 0 3px rgba(27,35,80,.85),0 0 18px 3px rgba(140,158,255,.65)}
+  .cf-dagger{--cf-color:#2a2a31;--cf-line:rgba(255,255,255,.22);--cf-glow:0 0 0 1px rgba(255,255,255,.35),0 0 16px rgba(255,255,255,.22)}
   body.light .cf-silver{--cf-color:#94a3b8;--cf-line:#64748b}
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
   #hc-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1rem;color:var(--cream);line-height:1.2;flex:1;padding-right:10px;font-style:italic}
@@ -799,12 +799,15 @@
   .pf-frame-ember{border-color:#e2582b;box-shadow:0 0 0 3px rgba(226,88,43,.25),0 0 16px rgba(226,88,43,.45)}
   .pf-frame-illumination{border-color:#d9a93a;box-shadow:0 0 0 3px #1e3f8f,0 0 0 5px rgba(217,169,58,.55)} /* gold leaf on lapis blue */
   .pf-frame-maya{border-color:#2e9a78;box-shadow:0 0 0 3px rgba(168,152,120,.6)} /* jade set in limestone */
-  .pf-frame-zodiac{border-color:#7d8ef0;box-shadow:0 0 0 3px #1b2350,0 0 14px rgba(125,142,240,.45)} /* starlight on night sky */
-  .pf-frame-dagger{border-color:#6f80a8;box-shadow:0 0 0 2px #c9a24a,0 0 0 4px #1c1f26,0 0 14px rgba(111,128,168,.55)} /* blued meteoric iron, gold hilt band */
+  /* Glossy frames: the ring is a gradient (a highlight sliding over the
+     metal) drawn in the transparent border, over the avatar's own fill */
+  .pf-frame-zodiac{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,linear-gradient(135deg,#e4e9ff 0%,#8a9bff 30%,#2a3480 55%,#a9b6ff 80%,#ffffff 100%) border-box;box-shadow:0 0 0 2px #1b2350,0 0 18px 3px rgba(140,158,255,.6)} /* starlight on night sky */
+  .pf-frame-dagger{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,linear-gradient(135deg,#8c8c99 0%,#18181d 28%,#000 50%,#3c3c46 72%,#d6d6e0 100%) border-box;box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 14px rgba(255,255,255,.2)} /* polished black meteoric iron */
   body.light .pf-frame-silver{border-color:#94a3b8}
-  .pf-avatar.sm.pf-frame-ember,.pf-avatar.sm.pf-frame-zodiac,.pf-avatar.sm.pf-frame-maya{box-shadow:none}
+  .pf-avatar.sm.pf-frame-ember,.pf-avatar.sm.pf-frame-maya{box-shadow:none}
+  .pf-avatar.sm.pf-frame-zodiac{box-shadow:0 0 8px 1px rgba(140,158,255,.55)}
   .pf-avatar.sm.pf-frame-imperial{box-shadow:0 0 8px 1px rgba(163,95,214,.6)}
-  .pf-avatar.sm.pf-frame-dagger{box-shadow:0 0 0 2px #c9a24a}
+  .pf-avatar.sm.pf-frame-dagger{box-shadow:0 0 6px rgba(255,255,255,.25)}
   .pf-avatar.sm.pf-frame-illumination{box-shadow:0 0 0 2px #1e3f8f}
   .pf-name-wrap{position:relative;width:100%;max-width:280px}
   .pf-name{width:100%;background:transparent;border:1px solid transparent;border-radius:8px;padding:6px 26px;font:800 1.2rem/1.2 Inter,sans-serif;color:var(--cream);text-align:center;outline:none;transition:border-color .2s,background .2s}
@@ -902,7 +905,7 @@
   #preview-banner{position:fixed;left:6px;bottom:6px;z-index:2000;pointer-events:none;background:#b91c1c;color:#fff;font:800 .52rem/1 Inter,sans-serif;letter-spacing:.08em;padding:4px 7px;border-radius:10px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4);opacity:.9}
   body.light .pf-opt{background:#ffffff;border-color:#cbd5e1}
   body.light .pf-opt.on{border-color:#1d4ed8;background:#eff6ff}
-  .pf-opt-name{font-size:.62rem;font-weight:700;line-height:1.2}
+  .pf-opt-name{font-size:.62rem;font-weight:700;line-height:1.2;text-align:center}
   .tc{background:rgba(255,255,255,.03);border:1.5px solid rgba(201,168,76,.1);border-radius:10px;padding:14px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;position:relative;overflow:visible;transition:border-color .25s,background .25s;min-height:110px}
   .tc.earned{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.06)}
   .tc.earned::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.1),transparent 70%);pointer-events:none}
