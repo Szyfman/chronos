@@ -155,7 +155,8 @@ const CUSTOMIZATIONS = [
    category's fallback.
    Level titles keep their data (and trivia, when they have one) in
    PLAYER_TITLES: their items are built from it, so the two never drift
-   apart. Titles have no icon; TITLE_ICON stands for them in notices. */
+   apart. Titles take their source's emoji (titleIcon); TITLE_ICON is only
+   the fallback. */
 const TITLE_ICON = '🎖️';
 
 // Trophy titles (collections, then paradoxes), in their trophies' order
@@ -302,6 +303,16 @@ function shownTitle() {
 // True while the title follows the level (no fixed title chosen)
 function titleFollowsLevel() {
   return !!selectedCustom('title').auto;
+}
+
+// A title's emoji is its source's: the emblem of the same level title, or
+// the icon of the trophy that unlocks it (TITLE_ICON if neither exists)
+function titleIcon(item) {
+  var u = item.unlock || {};
+  var src = u.title ? CUSTOMIZATIONS.find(function(c) { return c.cat === 'emblem' && c.unlock && c.unlock.title === u.title; })
+    : u.trophy ? TROPHY_DEFS.find(function(d) { return d.id === u.trophy; })
+    : null;
+  return (src && src.icon) || TITLE_ICON;
 }
 
 // Unlocked, or anything at all in preview mode

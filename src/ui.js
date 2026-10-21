@@ -282,7 +282,7 @@ function _nextNotice(){
   } else if(notice.custom){
     var item=notice.custom;
     el=document.getElementById('tp-toast');
-    document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':(item.cat==='title'?TITLE_ICON:item.icon);
+    document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':(item.cat==='title'?titleIcon(item):item.icon);
     document.getElementById('tp-toast-txt').textContent=t(item.cat==='frame'?'cu_new_frame':(item.cat==='title'?'cu_new_title':'cu_new_emblem')).replace('{name}',_nm(item));
     el.classList.toggle('in-game', gameActive);
     ms=3200;
@@ -1568,10 +1568,11 @@ function _renderCustomTiles(catId, items, emblem, frame){
   return html + '</div>';
 }
 
-// Titles as one-line strips, the size of their section's header: the name,
-// and on the right where it comes from — or, for the title in use, that it
-// is in use (and whether it follows the level). They behave like emblem and
-// frame tiles: see pickTitle.
+// Titles as one-line strips, the size of their section's header: the emoji
+// of their source (titleIcon) and the name; on the right the level of a level
+// title and a lock when locked — or, for the title in use, that it is in use
+// (and whether it follows the level). They behave like emblem and frame
+// tiles: see pickTitle.
 function _renderTitleRows(items){
   var active = shownTitle(), follows = titleFollowsLevel(), html = '<div class="pf-ttls">';
   items.forEach(function(item){
@@ -1580,9 +1581,11 @@ function _renderTitleRows(items){
     var on = item.id === active.id;
     var lvl = item.unlock && item.unlock.title ? _unlockTitle(item) : null;
     var right = on ? t(follows ? 'cu_title_follow' : 'cu_title_on')
-      : (unlocked ? '' : '🔒 ') + (lvl ? t('pf_level').replace('{n}', lvl.minLevel) : '🏆');
+      : ((unlocked ? '' : '🔒 ') + (lvl ? t('pf_level').replace('{n}', lvl.minLevel) : '')).trim();
     html += '<div class="pf-ttl'+(on?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="pickTitle(\''+item.id+'\')">';
-    html += '<span class="pf-ttl-n">'+esc(_nm(item))+'</span><span class="pf-ttl-r">'+esc(right)+'</span></div>';
+    html += '<span class="pf-ttl-i">'+titleIcon(item)+'</span><span class="pf-ttl-n">'+esc(_nm(item))+'</span>';
+    if(right) html += '<span class="pf-ttl-r">'+esc(right)+'</span>';
+    html += '</div>';
   });
   return html + '</div>';
 }
@@ -1791,7 +1794,7 @@ function openCustomModal(id){
   if(unlocked && item.unlock && item.unlock.trophy) date = earnedTrophies[item.unlock.trophy] || '';
   var cat = CUSTOM_CATEGORIES.find(function(c){ return c.id === item.cat; });
   _showTpModal({
-    icon: item.cat==='title' ? TITLE_ICON : item.icon,
+    icon: item.cat==='title' ? titleIcon(item) : item.icon,
     // Frames show the current emblem wearing them
     iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
     earned: unlocked || customPreview,

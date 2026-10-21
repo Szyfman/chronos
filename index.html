@@ -875,7 +875,14 @@
   .pf-ttl.on{border-color:var(--gold);background:rgba(201,168,76,.1)}
   .pf-ttl.locked{opacity:.55}
   .pf-ttl.pv{border-style:dashed} /* preview mode: selectable, but not really unlocked */
+  .pf-ttl-i{flex-shrink:0;width:1.3em;text-align:center;font-size:.85rem;line-height:1}
+  .pf-ttl.locked .pf-ttl-i{filter:grayscale(1)}
   .pf-ttl-n{flex:1;min-width:0}
+  /* The Title header stays on top while its long list scrolls (like the
+     Compendium era headers); it needs an opaque background for that */
+  #tp-sec-custom_title>.tp-sec-hd{position:sticky;top:-22px;z-index:2;background:linear-gradient(rgba(201,168,76,.05),rgba(201,168,76,.05)),#0d0c0a}
+  #tp-sec-custom_title>.tp-sec-hd:hover{background:linear-gradient(rgba(201,168,76,.1),rgba(201,168,76,.1)),#0d0c0a}
+  body.light #tp-sec-custom_title>.tp-sec-hd{background:#ffffff}
   .pf-ttl-r{flex-shrink:0;font-weight:600;color:rgba(201,168,76,.7);white-space:nowrap}
   body.light .pf-ttl{background:#ffffff;border-color:#cbd5e1;color:#0f172a}
   body.light .pf-ttl.on{border-color:#1d4ed8;background:#eff6ff}
