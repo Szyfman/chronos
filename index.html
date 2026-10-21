@@ -861,6 +861,9 @@
   .pf-opt.locked[onclick]{cursor:pointer} /* locked items open their detail modal */
   .pf-opt.locked:hover{border-color:rgba(201,168,76,.12)}
   .pf-opt.locked .pf-avatar{filter:grayscale(1)}
+  .pf-opts.titles{grid-template-columns:repeat(auto-fill,minmax(124px,1fr))} /* names need more room than icons */
+  .pf-opt-name.pf-opt-ttl{font-style:italic;font-size:.7rem;color:var(--gold);text-align:center;padding:4px 0}
+  body.light .pf-opt-name.pf-opt-ttl{font-style:normal}
   .pf-opt.pv{border-style:dashed} /* preview mode: selectable, but not really unlocked */
   #tp-modal-icon .pf-avatar{margin:0 auto}
   /* Test mode flag (?preview) — always visible, never blocks a tap */

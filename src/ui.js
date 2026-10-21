@@ -282,8 +282,8 @@ function _nextNotice(){
   } else if(notice.custom){
     var item=notice.custom;
     el=document.getElementById('tp-toast');
-    document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':item.icon;
-    document.getElementById('tp-toast-txt').textContent=t(item.cat==='frame'?'cu_new_frame':'cu_new_emblem').replace('{name}',_nm(item));
+    document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':(item.cat==='title'?TITLE_ICON:item.icon);
+    document.getElementById('tp-toast-txt').textContent=t(item.cat==='frame'?'cu_new_frame':(item.cat==='title'?'cu_new_title':'cu_new_emblem')).replace('{name}',_nm(item));
     el.classList.toggle('in-game', gameActive);
     ms=3200;
   } else {
@@ -1479,7 +1479,7 @@ function switchTpTab(tab){
 // ── RENDER PROGRESSION TAB ────────────────────────────────────────────────
 function renderProgress(){
   var info = playerLevelInfo();
-  var title = playerTitle(info.level);
+  var title = shownTitle();
   var emblem = selectedCustom('emblem');
   var frame = selectedCustom('frame');
 
@@ -1516,23 +1516,28 @@ function renderProgress(){
   var customHtml = '', customUnlocked = CUSTOMIZATIONS.filter(isCustomUnlocked).length;
   CUSTOM_CATEGORIES.forEach(function(cat){
     var selected = selectedCustom(cat.id);
-    customHtml += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts">';
+    var isTitle = cat.id==='title';
+    customHtml += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts'+(isTitle?' titles':'')+'">';
     CUSTOMIZATIONS.forEach(function(item){
       if(item.cat !== cat.id) return;
       var unlocked = isCustomUnlocked(item);
       var selectable = isCustomSelectable(item);   // differs only in preview mode
       var hidden = _customHidden(item);
-      // Previews combine with the other current choice, so each tile shows the real result
-      var preview = cat.id==='frame'
+      // Previews combine with the other current choice, so each tile shows the
+      // real result; a title tile is just its name
+      var preview = isTitle ? ''
+        : cat.id==='frame'
         ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
         : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
       var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
+      // Automatic says which title it shows right now
+      var sub = item.auto ? _nm(playerTitle(info.level)) : req;
       // Selectable items are picked; locked ones open their detail modal (with the requirement)
       var click = selectable ? 'pickCustomization' : 'openCustomModal';
       customHtml += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
       customHtml += preview;
-      customHtml += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
-      if(req) customHtml += '<div class="pf-opt-req">'+req+'</div>';
+      customHtml += '<div class="pf-opt-name'+(isTitle?' pf-opt-ttl':'')+'">'+(hidden?'???':_nm(item))+'</div>';
+      if(sub) customHtml += '<div class="pf-opt-req">'+sub+'</div>';
       customHtml += '</div>';
     });
     customHtml += '</div></div>';
@@ -1718,6 +1723,7 @@ function _customReqLabel(item){
 }
 // Full sentence for the detail modal
 function _customHowText(item){
+  if(item.auto) return t('cu_auto_how').replace('{title}', _nm(playerTitle(playerLevelInfo().level)));
   var u = item.unlock || {};
   if(u.title){
     var title = _unlockTitle(item);
@@ -1746,7 +1752,7 @@ function openCustomModal(id){
   if(unlocked && item.unlock && item.unlock.trophy) date = earnedTrophies[item.unlock.trophy] || '';
   var cat = CUSTOM_CATEGORIES.find(function(c){ return c.id === item.cat; });
   _showTpModal({
-    icon: item.icon,
+    icon: item.cat==='title' ? TITLE_ICON : item.icon,
     // Frames show the current emblem wearing them
     iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
     earned: unlocked || customPreview,

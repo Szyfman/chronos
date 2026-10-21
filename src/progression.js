@@ -25,7 +25,8 @@ const PLAYER_TITLES = [
 // Each category holds exactly one selected item in playerCustom[cat.id].
 const CUSTOM_CATEGORIES = [
   { id: 'emblem', name: 'Emblem',        name_pt: 'Emblema' },
-  { id: 'frame',  name: 'Profile Frame', name_pt: 'Moldura do Perfil' }
+  { id: 'frame',  name: 'Profile Frame', name_pt: 'Moldura do Perfil' },
+  { id: 'title',  name: 'Title',         name_pt: 'Título' }
 ];
 
 /* unlock: null            → available from the start
@@ -137,6 +138,27 @@ const CUSTOMIZATIONS = [
     trivia_pt: 'Entre os tesouros do túmulo de Tutancâmon havia um punhal com lâmina de ferro que nunca enferrujou — feito numa época em que o Egito mal começara a trabalhar o ferro. Em 2016 uma análise do teor de níquel e cobalto mostrou que o metal veio de um meteorito. Os egípcios mais tarde chamariam o ferro de "metal do céu". Uma das cartas de Amarna registra um rei de Mitani enviando um punhal de ferro de presente ao avô de Tutancâmon, Amenhotep III — talvez esta mesma lâmina.' }
 ];
 
+// ── TITLES ────────────────────────────────────────────────────────────────
+/* The title under the player's name is a customization too (category
+   'title', shown by shownTitle). "Automatic", the default, always shows the
+   title of the player's level, so it follows every level-up. Each level
+   title becomes a fixed choice once reached ({ title: id }, the same rule as
+   the title emblems), and some titles are won through trophies. Level
+   titles keep their data (and trivia, when they have one) in PLAYER_TITLES:
+   their items are built from it, so the two never drift apart. Titles have
+   no icon; TITLE_ICON stands for them in notices and in the detail modal. */
+const TITLE_ICON = '🎖️';
+
+// Trophy titles, in the order of their trophies' sections
+const TROPHY_TITLE_ITEMS = [];
+
+Array.prototype.push.apply(CUSTOMIZATIONS,
+  [{ id: 'title_auto', cat: 'title', auto: true, name: 'Automatic', name_pt: 'Automático', unlock: null }]
+    .concat(PLAYER_TITLES.map(function(t) {
+      return { id: 'title_' + t.id, cat: 'title', name: t.name, name_pt: t.name_pt, unlock: { title: t.id },
+               trivia: t.trivia, trivia_pt: t.trivia_pt };
+    }), TROPHY_TITLE_ITEMS));
+
 // ── XP CURVE ──────────────────────────────────────────────────────────────
 /* XP to go from level L to L+1:
      L < capLevel:  base + growth × (L−1)^exponent, rounded to the nearest `step`
@@ -203,6 +225,8 @@ function playerTitle(level) {
 
 function isCustomUnlocked(item) {
   if (!item.unlock) return true;
+  // Unlocked once, unlocked for good — even if its requirement is raised later
+  if (customKnown && customKnown.indexOf(item.id) >= 0) return true;
   if (item.unlock.title) {
     var title = PLAYER_TITLES.find(function(t) { return t.id === item.unlock.title; });
     return !!title && playerLevelInfo().level >= title.minLevel;
@@ -211,6 +235,13 @@ function isCustomUnlocked(item) {
   if (item.unlock.trophy) return !!earnedTrophies[item.unlock.trophy];
   if (item.unlock.mastery) return eraSealReached(item.unlock.mastery.era, item.unlock.mastery.seal);
   return false;
+}
+
+// The title shown under the player's name: the chosen one, or the title of
+// the player's level while the choice is Automatic
+function shownTitle() {
+  var item = selectedCustom('title');
+  return item.auto ? playerTitle(playerLevelInfo().level) : item;
 }
 
 // Unlocked, or anything at all in preview mode
@@ -250,12 +281,15 @@ var _previewCustom = {};
 try { customPreview = PREVIEW_ENABLED && new URLSearchParams(location.search).has('preview'); } catch(e) {}
 
 // ── UNLOCK NOTICES ────────────────────────────────────────────────────────
-/* customKnown (state.js) holds the ids the player was already told about.
-   checkCustomUnlocks() returns the items unlocked since the last call and
-   records them; game.js turns them into notices. Items available from the
-   start are never announced. On the very first call (no saved list yet),
-   the items that existed before unlock notices are recorded silently —
-   newer ones the player already qualifies for are still announced. */
+/* customKnown (state.js) holds every item the player has unlocked — which
+   also keeps it unlocked for good (isCustomUnlocked) — and so the ones they
+   were already told about. checkCustomUnlocks() returns the items unlocked
+   since the last call and records them; game.js turns them into notices.
+   Items available from the start are never announced, nor are level titles
+   (the gameover screen already says "New title"). On the very first call
+   (no saved list yet), the items that existed before unlock notices are
+   recorded silently — newer ones the player already qualifies for are
+   still announced. */
 const _CUSTOM_PRE_NOTICE = ['emblem_hourglass', 'emblem_scroll', 'emblem_owl', 'emblem_dragon',
   'emblem_key', 'emblem_clock', 'emblem_crown', 'emblem_column', 'emblem_rocket',
   'frame_classic', 'frame_bronze', 'frame_silver', 'frame_imperial', 'frame_ember'];
@@ -267,7 +301,8 @@ function checkCustomUnlocks() {
   CUSTOMIZATIONS.forEach(function(item) {
     if (customKnown.indexOf(item.id) >= 0 || !isCustomUnlocked(item)) return;
     customKnown.push(item.id);
-    if (item.unlock && !(first && _CUSTOM_PRE_NOTICE.indexOf(item.id) >= 0)) fresh.push(item);
+    var levelTitle = item.cat === 'title' && item.unlock && item.unlock.title;
+    if (item.unlock && !levelTitle && !(first && _CUSTOM_PRE_NOTICE.indexOf(item.id) >= 0)) fresh.push(item);
   });
   if (first || fresh.length) saveCustomKnown();
   return fresh;
