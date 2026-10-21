@@ -144,13 +144,18 @@ const CUSTOMIZATIONS = [
 
 // ── TITLES ────────────────────────────────────────────────────────────────
 /* The title under the player's name is a customization too (category
-   'title', shown by shownTitle). "Automatic", the default, always shows the
-   title of the player's level, so it follows every level-up. Each level
-   title becomes a fixed choice once reached ({ title: id }, the same rule as
-   the title emblems), and some titles are won through trophies. Level
-   titles keep their data (and trivia, when they have one) in PLAYER_TITLES:
-   their items are built from it, so the two never drift apart. Titles have
-   no icon; TITLE_ICON stands for them in notices and in the detail modal. */
+   'title', shown by shownTitle). By default it follows the player's level,
+   changing at every new level title. Each level title becomes a fixed
+   choice once reached ({ title: id }, the same rule as the title emblems),
+   and some titles are won through trophies. Choosing the title of one's
+   current level means "follow the level" again.
+   "Following the level" is stored as title_auto: an item that is never
+   shown (hidden: true) but must exist, because the saved choice is synced
+   and sync.js only accepts ids listed here. It stays first, as the
+   category's fallback.
+   Level titles keep their data (and trivia, when they have one) in
+   PLAYER_TITLES: their items are built from it, so the two never drift
+   apart. Titles have no icon; TITLE_ICON stands for them in notices. */
 const TITLE_ICON = '🎖️';
 
 // Trophy titles (collections, then paradoxes), in their trophies' order
@@ -197,7 +202,7 @@ const TROPHY_TITLE_ITEMS = [
 ];
 
 Array.prototype.push.apply(CUSTOMIZATIONS,
-  [{ id: 'title_auto', cat: 'title', auto: true, name: 'Automatic', name_pt: 'Automático', unlock: null }]
+  [{ id: 'title_auto', cat: 'title', auto: true, hidden: true, name: 'Follow my level', name_pt: 'Acompanhar meu nível', unlock: null }]
     .concat(PLAYER_TITLES.map(function(t) {
       return { id: 'title_' + t.id, cat: 'title', name: t.name, name_pt: t.name_pt, unlock: { title: t.id },
                trivia: t.trivia, trivia_pt: t.trivia_pt };
@@ -281,11 +286,22 @@ function isCustomUnlocked(item) {
   return false;
 }
 
-// The title shown under the player's name: the chosen one, or the title of
-// the player's level while the choice is Automatic
+// Item of the title the player's level gives right now
+function levelTitleItem() {
+  var id = 'title_' + playerTitle(playerLevelInfo().level).id;
+  return CUSTOMIZATIONS.find(function(c) { return c.id === id; });
+}
+
+// The title item shown under the player's name: the chosen one, or the
+// level's title while the player follows their level (title_auto)
 function shownTitle() {
   var item = selectedCustom('title');
-  return item.auto ? playerTitle(playerLevelInfo().level) : item;
+  return item.auto ? levelTitleItem() : item;
+}
+
+// True while the title follows the level (no fixed title chosen)
+function titleFollowsLevel() {
+  return !!selectedCustom('title').auto;
 }
 
 // Unlocked, or anything at all in preview mode
@@ -306,6 +322,8 @@ function selectedCustom(catId) {
 function selectCustomization(id) {
   var item = CUSTOMIZATIONS.find(function(c) { return c.id === id; });
   if (!item || !isCustomSelectable(item)) return false;
+  // Choosing the title of one's current level means following the level again
+  if (item.cat === 'title' && item === levelTitleItem()) id = 'title_auto';
   if (customPreview) { _previewCustom[item.cat] = id; return true; }   // never saved
   playerCustom[item.cat] = id;
   try { localStorage.setItem('chronos_custom', JSON.stringify(playerCustom)); } catch(e) {}

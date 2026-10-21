@@ -1512,44 +1512,18 @@ function renderProgress(){
   html += '<div class="pf-stats-body">'+_renderEraMastery()+_renderModeRecords()+'</div>';
   html += '</div>';
 
-  // Customization folds like a trophy section; the count is of unlocked items
-  var customHtml = '', customUnlocked = CUSTOMIZATIONS.filter(isCustomUnlocked).length;
+  // Customization folds like a trophy section, and so does each category
+  // inside it; counts are of unlocked items. Hidden items (title_auto) are
+  // never shown nor counted.
+  var shownItems = CUSTOMIZATIONS.filter(function(i){ return !i.hidden; });
+  var customHtml = '';
   CUSTOM_CATEGORIES.forEach(function(cat){
-    var selected = selectedCustom(cat.id);
-    var isTitle = cat.id==='title';
-    customHtml += '<div class="pf-cat"><div class="pf-cat-lbl">'+(lang==='pt'?cat.name_pt:cat.name)+'</div><div class="pf-opts'+(isTitle?' titles':'')+'">';
-    CUSTOMIZATIONS.forEach(function(item){
-      if(item.cat !== cat.id) return;
-      var unlocked = isCustomUnlocked(item);
-      var selectable = isCustomSelectable(item);   // differs only in preview mode
-      var hidden = _customHidden(item);
-      // Previews combine with the other current choice, so each tile shows the
-      // real result; a title tile is just its name
-      var preview = isTitle ? ''
-        : cat.id==='frame'
-        ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
-        : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
-      var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
-      // Automatic says which title it shows right now
-      var sub = item.auto ? _nm(playerTitle(info.level)) : req;
-      // Selectable items are picked; locked ones open their detail modal (with the requirement)
-      var click = selectable ? 'pickCustomization' : 'openCustomModal';
-      customHtml += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
-      customHtml += preview;
-      customHtml += '<div class="pf-opt-name'+(isTitle?' pf-opt-ttl':'')+'">'+(hidden?'???':_nm(item))+'</div>';
-      if(sub) customHtml += '<div class="pf-opt-req">'+sub+'</div>';
-      customHtml += '</div>';
-    });
-    customHtml += '</div></div>';
+    var items = shownItems.filter(function(i){ return i.cat === cat.id; });
+    var body = cat.id==='title' ? _renderTitleRows(items) : _renderCustomTiles(cat.id, items, emblem, frame);
+    customHtml += _foldSection('custom_'+cat.id, _nm(cat), items.filter(isCustomUnlocked).length+' / '+items.length, body, 'pf-sub');
   });
-  html += '<div class="tp-sec'+(_tpOpenSections.indexOf('custom')>=0?' open':'')+'" id="tp-sec-custom">';
-  html += '<button class="tp-sec-hd" onclick="toggleTpSection(\'custom\')">';
-  html += '<span class="tp-sec-arrow">▸</span>';
-  html += '<span class="tp-sec-name">🎨 '+t('pf_custom')+'</span>';
-  html += '<span class="tp-sec-cnt">'+customUnlocked+' / '+CUSTOMIZATIONS.length+'</span>';
-  html += '</button>';
-  html += '<div class="pf-custom-body">'+customHtml+'</div>';
-  html += '</div>';
+  html += _foldSection('custom', '🎨 '+t('pf_custom'),
+    shownItems.filter(isCustomUnlocked).length+' / '+shownItems.length, customHtml, 'pf-custom');
 
   document.getElementById('tp-progress').innerHTML = html;
 
@@ -1560,6 +1534,81 @@ function renderProgress(){
   nameInput.addEventListener('change', function(){ setPlayerName(this.value); this.value = playerName; });
   nameInput.addEventListener('keydown', function(e){ if(e.key==='Enter') this.blur(); });
   renderAccount();
+}
+
+// A folding section with the trophy-tab look; it stays open or closed while
+// the panel is open (toggleTpSection). cls names its body: <cls>-body.
+function _foldSection(id, name, count, body, cls){
+  return '<div class="tp-sec '+cls+(_tpOpenSections.indexOf(id)>=0?' open':'')+'" id="tp-sec-'+id+'">'
+    + '<button class="tp-sec-hd" onclick="toggleTpSection(\''+id+'\')">'
+    + '<span class="tp-sec-arrow">▸</span><span class="tp-sec-name">'+name+'</span><span class="tp-sec-cnt">'+count+'</span>'
+    + '</button><div class="'+cls+'-body">'+body+'</div></div>';
+}
+
+// Emblem / frame tiles. Each tile previews the item combined with the other
+// current choice, so it shows the real result.
+function _renderCustomTiles(catId, items, emblem, frame){
+  var selected = selectedCustom(catId), html = '<div class="pf-opts">';
+  items.forEach(function(item){
+    var unlocked = isCustomUnlocked(item);
+    var selectable = isCustomSelectable(item);   // differs only in preview mode
+    var hidden = _customHidden(item);
+    var preview = catId==='frame'
+      ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
+      : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
+    var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
+    // Selectable items are picked; locked ones open their detail modal (with the requirement)
+    var click = selectable ? 'pickCustomization' : 'openCustomModal';
+    html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
+    html += preview;
+    html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
+    if(req) html += '<div class="pf-opt-req">'+req+'</div>';
+    html += '</div>';
+  });
+  return html + '</div>';
+}
+
+// Titles as Compendium-style rows (.ck): name, where it comes from, and on
+// tap the trivia plus a "Use this title" button. The row in use says so —
+// and, when the title follows the level, that it does.
+function _renderTitleRows(items){
+  var active = shownTitle(), follows = titleFollowsLevel(), levelItem = levelTitleItem(), html = '';
+  items.forEach(function(item){
+    var unlocked = isCustomUnlocked(item);
+    var selectable = isCustomSelectable(item);   // differs only in preview mode
+    var on = item.id === active.id;
+    var lvl = item.unlock && item.unlock.title ? _unlockTitle(item) : null;
+    var sid = 'tt_' + item.id;
+    // The level is already on the right, so a locked level title just says it is locked
+    var meta = on ? t(follows ? 'cu_title_follow' : 'cu_title_on') : (unlocked ? '' : (lvl ? t('cu_locked') : _customReqLabel(item)));
+    html += '<div class="ck pf-ttl'+(on?' on':'')+'">';
+    html += '<div class="ck-h" onclick="toggleCK(\''+sid+'\')">';
+    html += '<div class="ck-dot" style="background:'+(lvl?'#c9a84c':'#4a90c2')+';opacity:'+(unlocked?'1':'.35')+'"></div>';
+    html += '<div class="ck-mid"><div class="ck-n'+(unlocked?'':' lk')+'">'+esc(_nm(item))+'</div>';
+    if(meta) html += '<div class="ck-m">'+esc(meta)+'</div>';
+    html += '</div><div class="ck-r"><div class="ck-y">'+(lvl ? esc(t('pf_level').replace('{n}', lvl.minLevel)) : '🏆')+'</div>';
+    html += '<div class="ck-a" id="ka_'+sid+'">›</div></div></div>';
+    html += '<div class="ck-b" id="'+sid+'"><div class="ck-i">';
+    // Like trophies, the trivia is the reward: locked titles only say how to
+    // earn them (preview mode shows everything)
+    var trivia = lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || '');
+    if((unlocked || customPreview) && trivia) html += '<p class="ck-f">'+esc(trivia)+'</p>';
+    html += '<div class="'+(unlocked?'pf-ttl-how':'ck-lk')+'">'+esc(_customHowText(item))+'</div>';
+    if(selectable && !on){
+      if(item === levelItem) html += '<div class="pf-ttl-how">'+esc(t('cu_title_follow_note'))+'</div>';
+      html += '<button class="pf-ttl-use" onclick="pickTitle(\''+item.id+'\')">'+esc(t('cu_use_title'))+'</button>';
+    }
+    html += '</div></div></div>';
+  });
+  return html;
+}
+
+// Uses a title, re-renders, and keeps its row open
+function pickTitle(id){
+  if(!selectCustomization(id)) return;
+  SFX.play('drop');
+  renderProgress();
+  toggleCK('tt_'+id);
 }
 
 // ── ACCOUNT (sync.js) ─────────────────────────────────────────────────────
@@ -1723,10 +1772,11 @@ function _customReqLabel(item){
 }
 // Full sentence for the detail modal
 function _customHowText(item){
-  if(item.auto) return t('cu_auto_how').replace('{title}', _nm(playerTitle(playerLevelInfo().level)));
   var u = item.unlock || {};
   if(u.title){
     var title = _unlockTitle(item);
+    // A level title's own row only needs the level
+    if(item.cat==='title' && title) return title.minLevel <= 1 ? t('cu_title_start') : t('em_how_level').replace('{n}', title.minLevel);
     if(title && title.minLevel <= 1) return t('em_how_start').replace('{title}', _nm(title));
     return t('em_how_title').replace('{title}', _nm(title) || u.title).replace('{n}', title ? title.minLevel : '?');
   }
@@ -1757,7 +1807,6 @@ function openCustomModal(id){
     iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
     earned: unlocked || customPreview,
     badge: !unlocked && customPreview ? t('pf_preview_badge') : '',
-    howLbl: item.auto ? (lang==='pt' ? '— Como funciona' : '— How it works') : '',
     name: _nm(cat) + ': ' + _nm(item),
     date: date,
     trivia: lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || ''),
@@ -1850,8 +1899,7 @@ function openTrophyModal(idx){
 }
 
 /* Fills and opens the trophy/customization detail modal.
-   o: { icon, iconHtml?, earned, badge?, howLbl?, name, date (ISO or ''), trivia, how }
-   howLbl replaces the "how" heading of an earned item with no trivia.
+   o: { icon, iconHtml?, earned, badge?, name, date (ISO or ''), trivia, how }
    iconHtml (our own markup, e.g. a framed avatar) replaces the icon text;
    badge overrides the earned badge text (preview mode).
    Earned: trivia first, then how it was unlocked (only the latter if there is
@@ -1898,9 +1946,9 @@ function _showTpModal(o){
   var reqBody = document.getElementById('tp-modal-req-body');
 
   if(isEarned && !o.trivia){
-    lbl.textContent = o.howLbl || (o.badge
+    lbl.textContent = o.badge
       ? (lang==='pt' ? '— Como desbloquear' : '— How to unlock')
-      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked'));
+      : (lang==='pt' ? '— Como foi desbloqueado' : '— How it was unlocked');
     body.textContent = o.how || '';
     divider.style.display = 'none';
     reqLbl.style.display = 'none';

@@ -381,7 +381,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Unlock notices**: newly unlocked items are announced through the notice queue ("New emblem / frame / title: …"). Level titles are not, since the gameover screen already says "New title".
 
-**Titles**: `title_auto` ("Automatic", the default) always shows the level's title (`shownTitle`). Level-title items are built from `PLAYER_TITLES` (their trivia lives there); trophy titles go in `TROPHY_TITLE_ITEMS`. Keep titles gender-neutral in Portuguese where possible.
+**Titles**: by default the title follows the player's level (`shownTitle`); choosing another title fixes it, and choosing the current level's title follows the level again. "Following" is stored as `title_auto`, a `hidden` item that is never shown or counted but must exist for sync. Level-title items are built from `PLAYER_TITLES` (their trivia lives there); trophy titles go in `TROPHY_TITLE_ITEMS`. Titles render as Compendium-style rows (`_renderTitleRows`, `.ck`), emblems and frames as tiles; each category is a folding section inside Customization. Keep titles gender-neutral in Portuguese where possible.
 
 **Content rules**: trivia in both languages, 4–6 sentences, same numbers in en and pt, and never repeating or contradicting a card, trophy or daily card (search them first). The topic of each trivia is agreed with the developer.
 
