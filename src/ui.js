@@ -1556,13 +1556,13 @@ function _renderCustomTiles(catId, items, emblem, frame){
     var preview = catId==='frame'
       ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
       : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
-    var req = unlocked ? '' : (hidden ? t('secret_card') : _customReqLabel(item));
-    // Selectable items are picked; locked ones open their detail modal (with the requirement)
+    // Selectable items are picked; locked ones open their card, which says how
+    // to unlock them — the tile itself shows only the look and the name, so
+    // every tile has the same size
     var click = selectable ? 'pickCustomization' : 'openCustomModal';
     html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
     html += preview;
     html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
-    if(req) html += '<div class="pf-opt-req">'+req+'</div>';
     html += '</div>';
   });
   return html + '</div>';
@@ -1751,16 +1751,6 @@ function _unlockMastery(item){
 // A locked secret item hides its look, name and requirement (preview shows all)
 function _customHidden(item){
   return !!item.secret && !customPreview && !isCustomUnlocked(item);
-}
-
-// Short requirement shown under a locked tile
-function _customReqLabel(item){
-  var u = item.unlock || {};
-  if(u.title)  return t('pf_req_title').replace('{name}', _nm(_unlockTitle(item)) || u.title);
-  if(u.level)  return t('pf_req_level').replace('{n}', u.level);
-  if(u.trophy) return t('pf_req_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
-  if(u.mastery){ var m = _unlockMastery(item); return t('pf_req_mastery').replace('{seal}', m.seal).replace('{era}', m.era); }
-  return '';
 }
 // Full sentence for the detail modal
 function _customHowText(item){
