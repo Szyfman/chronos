@@ -29,7 +29,7 @@ const PLAYER_TITLES = [
 // Each category holds exactly one selected item in playerCustom[cat.id].
 const CUSTOM_CATEGORIES = [
   { id: 'emblem', name: 'Emblem',        name_pt: 'Emblema' },
-  { id: 'frame',  name: 'Profile Frame', name_pt: 'Moldura do Perfil' },
+  { id: 'frame',  name: 'Frame',         name_pt: 'Moldura' },
   { id: 'title',  name: 'Title',         name_pt: 'Título' }
 ];
 
@@ -331,16 +331,22 @@ function selectCustomization(id) {
 }
 
 // ── PREVIEW (TEST) MODE ───────────────────────────────────────────────────
-/* Opening the game with ?preview makes every customization selectable and
-   shows the trivia of locked and secret items, so new visuals can be checked
-   without earning them. Choices made in preview live only in memory: the
-   saved profile and the real unlock state are never touched, so reopening
-   without ?preview brings the real profile back.
+/* With PREVIEW_ENABLED on (feature branches only), the game run on the
+   developer's machine — opened as a file or from localhost — makes every
+   customization selectable and shows the trivia of locked and secret items,
+   so new visuals can be checked without earning them. It never turns on for
+   the published site, and ?nopreview turns it off locally to see the real
+   locked look. Choices made in preview live only in memory: the saved
+   profile and the real unlock state are never touched, so a normal run
+   brings the real profile back.
    PREVIEW_ENABLED must be false on main — switch it off before merging. */
 const PREVIEW_ENABLED = true;
 var customPreview = false;
 var _previewCustom = {};
-try { customPreview = PREVIEW_ENABLED && new URLSearchParams(location.search).has('preview'); } catch(e) {}
+try {
+  var _runsLocally = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  customPreview = PREVIEW_ENABLED && _runsLocally && !new URLSearchParams(location.search).has('nopreview');
+} catch(e) {}
 
 // ── UNLOCK NOTICES ────────────────────────────────────────────────────────
 /* customKnown (state.js) holds every item the player has unlocked — which

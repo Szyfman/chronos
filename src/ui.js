@@ -1583,7 +1583,6 @@ function _renderTitleRows(items){
     var meta = on ? t(follows ? 'cu_title_follow' : 'cu_title_on') : (unlocked ? '' : (lvl ? t('cu_locked') : _customReqLabel(item)));
     html += '<div class="ck pf-ttl'+(on?' on':'')+'">';
     html += '<div class="ck-h" onclick="toggleCK(\''+sid+'\')">';
-    html += '<div class="ck-dot" style="background:'+(lvl?'#c9a84c':'#4a90c2')+';opacity:'+(unlocked?'1':'.35')+'"></div>';
     html += '<div class="ck-mid"><div class="ck-n'+(unlocked?'':' lk')+'">'+esc(_nm(item))+'</div>';
     if(meta) html += '<div class="ck-m">'+esc(meta)+'</div>';
     html += '</div><div class="ck-r"><div class="ck-y">'+(lvl ? esc(t('pf_level').replace('{n}', lvl.minLevel)) : '🏆')+'</div>';

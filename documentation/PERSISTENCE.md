@@ -63,7 +63,7 @@ Merge rules are defined at the bottom of this file.
 
 ### Never stored
 
-Kept in memory on purpose: `?preview` choices (`_previewCustom`, progression.js — preview never writes to `localStorage`), menu selections (`menuPlayMode`, `eraSelection`), `empiresShownTutorial`, the notice queue, the unsaved gameover record (`_pendingGameRecord`).
+Kept in memory on purpose: preview-mode choices (`_previewCustom`, progression.js — preview never writes to `localStorage`), menu selections (`menuPlayMode`, `eraSelection`), `empiresShownTutorial`, the notice queue, the unsaved gameover record (`_pendingGameRecord`).
 
 ## Merge rules
 

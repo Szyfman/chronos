@@ -860,10 +860,22 @@
   .pf-opt.locked:hover{border-color:rgba(201,168,76,.12)}
   .pf-opt.locked .pf-avatar{filter:grayscale(1)}
   /* Category sections inside Customization (emblem / frame / title) */
-  .pf-sub .tp-sec-hd{padding:10px 12px;font-size:.68rem}
+  /* Progress-tab sections (Account, Stats, Customization) are the big buttons;
+     the category sections inside Customization are smaller and indented */
+  #tp-progress>.tp-sec>.tp-sec-hd{padding:16px;font-size:.84rem;border-radius:12px}
+  .pf-custom-body{padding-left:12px}
+  .pf-sub .tp-sec-hd{padding:8px 12px;font-size:.62rem;border-radius:8px}
+  .pf-sub .tp-sec-arrow{font-size:.6rem}
   .pf-sub-body{display:none}
   .tp-sec.open>.pf-sub-body{display:block}
   /* Title rows reuse the Compendium card (.ck) */
+  .pf-ttl{margin-bottom:6px}
+  .pf-ttl .ck-h{min-height:0;padding:8px 12px;gap:8px}
+  .pf-ttl .ck-n{font-size:.8rem}
+  .pf-ttl .ck-m{font-size:.62rem;margin-top:2px}
+  .pf-ttl .ck-y{font-size:.66rem}
+  .pf-ttl .ck-a{font-size:.95rem}
+  .pf-ttl .ck-f{font-size:.8rem}
   .pf-ttl.on{border-color:var(--gold)}
   body.light .pf-ttl.on{border-color:#1d4ed8}
   .pf-ttl-how{font:italic 400 .76rem/1.45 Inter,sans-serif;color:#9a9080;margin-top:9px}
