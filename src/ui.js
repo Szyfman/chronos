@@ -139,7 +139,7 @@ function renderHandCard(){
   document.getElementById('hc-era').textContent='';
   document.getElementById('hc-hint').textContent=cHint(c);
   document.getElementById('hc-bar').style.background='rgba(201,168,76,0.25)';
-  document.getElementById('hand-card').className=gameMode==='empires'?'empires-border':(playMode==='free'?'free-border':(playMode==='review'?'review-border':cardFrameClass()));
+  document.getElementById('hand-card').className=playMode==='free'?'free-border':(playMode==='review'?'review-border':cardFrameClass());
   document.getElementById('ghost').className=cardFrameClass();
   // Interval-specific fields
   const spanEl=document.getElementById('hc-span');
@@ -180,11 +180,11 @@ function renderTimeline(){
     el.appendChild(hint);
   }
 }
-// Classic runs with lives (daily included) dress the cards in the player's
-// profile frame (.cf-<style> in CSS). The default Classic frame is the base
-// card look, and other modes keep their own border colours.
+// Runs with lives, in every game mode (daily included), dress the cards in
+// the player's profile frame (.cf-<style> in CSS); the default Classic frame
+// is the base card look. Free and Review show their mode colour instead.
 function cardFrameClass(){
-  if(gameMode!=='classic'||playMode!=='lives')return '';
+  if(playMode!=='lives')return '';
   const f=selectedCustom('frame');
   return f.style==='classic'?'':'cf-'+f.style;
 }
@@ -192,15 +192,15 @@ function makeTCard(card,idx){
   const d=document.createElement('div');
   const iv=isInterval(card);
   const color=ERA_COLORS[card.era]||'#9a6abf';
+  // Framed runs drop the purple interval border: the frame wins on every card
+  const fc=cardFrameClass();
+  d.className='timeline-card'+(iv&&playMode!=='lives'?' interval-card':'')+(fc?' '+fc:'');
   if(iv){
     const dur=card.endYear-card.startYear;
     const durStr=dur>0?`${dur} yrs`:'';
     const cultureBadge=cCulture(card)?`<span class="tc-culture-badge">${cCulture(card)}</span>`:'';
-    d.className='timeline-card interval-card';
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}${cultureBadge}</div><div class="tc-meta tc-region">${cRegion(card)||card.era}</div></div><div class="tc-span">${formatYear(card.startYear)} – ${formatYear(card.endYear)}</div><div class="tc-peek">ℹ</div>`;
   } else {
-    const fc=cardFrameClass();
-    d.className='timeline-card'+(fc?' '+fc:'');
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}</div><div class="tc-meta">${card.era} · ${cCat(card)}</div></div><div class="tc-year">${formatYear(card.year)}</div><div class="tc-peek">ℹ</div>`;
   }
   d.addEventListener('click',()=>{

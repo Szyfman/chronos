@@ -366,7 +366,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Location**: `src/progression.js` (`CUSTOM_CATEGORIES`, `CUSTOMIZATIONS`, `TROPHY_TITLE_ITEMS`); styles in `index.html`; rendering in `ui.js` (`renderProgress`, `openCustomModal`).
 
-**Categories**: `emblem` (an emoji in the avatar), `frame` (the avatar ring, also worn by classic Lives cards) and `title` (shown under the player's name). The player picks one item per category; the choice is stored in `chronos_custom`. The **first item of each category must be free** (`unlock: null`): it is the fallback whenever a saved choice is missing or locked.
+**Categories**: `emblem` (an emoji in the avatar), `frame` (the avatar ring, also worn by the cards of every Lives run — Free and Review keep their blue/green mode border) and `title` (shown under the player's name). The player picks one item per category; the choice is stored in `chronos_custom`. The **first item of each category must be free** (`unlock: null`): it is the fallback whenever a saved choice is missing or locked.
 
 ```javascript
 { id: 'emblem_wheat', cat: 'emblem', icon: '🌾', name: 'Wheat', name_pt: 'Espiga',
@@ -604,7 +604,7 @@ Decided on 2026-10-18 (`documentation/CLOUD_SYNC.md`): the game gets run save, l
 **CSS Classes**:
 - `.timeline-card` - component name
 - `.active` - state modifier
-- `.empires-border` - mode-specific styling
+- `.free-border` - mode-specific styling
 
 ### Code Comments
 
