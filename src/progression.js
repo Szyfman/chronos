@@ -244,7 +244,7 @@ function selectCustomization(id) {
    saved profile and the real unlock state are never touched, so reopening
    without ?preview brings the real profile back.
    PREVIEW_ENABLED must be false on main — switch it off before merging. */
-const PREVIEW_ENABLED = false;
+const PREVIEW_ENABLED = true;
 var customPreview = false;
 var _previewCustom = {};
 try { customPreview = PREVIEW_ENABLED && new URLSearchParams(location.search).has('preview'); } catch(e) {}
