@@ -27,10 +27,11 @@ const PLAYER_TITLES = [
 ];
 
 // Each category holds exactly one selected item in playerCustom[cat.id].
+// Array order = order of the sections in the Progress tab.
 const CUSTOM_CATEGORIES = [
+  { id: 'title',  name: 'Title',         name_pt: 'Título' },
   { id: 'emblem', name: 'Emblem',        name_pt: 'Emblema' },
   { id: 'frame',  name: 'Frame',         name_pt: 'Moldura' },
-  { id: 'title',  name: 'Title',         name_pt: 'Título' },
   { id: 'effect', name: 'Hit Effect',    name_pt: 'Efeito de Acerto' },
   { id: 'theme',  name: 'Theme',         name_pt: 'Tema' }
 ];
@@ -216,10 +217,12 @@ Array.prototype.push.apply(CUSTOMIZATIONS,
    in every game mode. Won through skill trophies; secret trophies give
    secret effects. `fx` names the effect: its particles are built by
    HIT_FX in ui.js and drawn by the .fx-<fx> CSS classes in index.html.
-   effect_none (the game's original look: no burst) stays first, as the
-   category's fallback. */
+   There is no "none" to pick: effects are switched on or off in Settings
+   (Appearance). effect_none is never shown (hidden), but stays first as
+   the category's fallback: it stands for "nothing chosen yet", which plays
+   the first effect won (shownEffect). */
 Array.prototype.push.apply(CUSTOMIZATIONS, [
-  { id: 'effect_none', cat: 'effect', icon: '🚫', fx: 'none', name: 'None', name_pt: 'Nenhum', unlock: null },
+  { id: 'effect_none', cat: 'effect', hidden: true, icon: '🚫', fx: 'none', name: 'None', name_pt: 'Nenhum', unlock: null },
   { id: 'effect_sparks', cat: 'effect', icon: '✨', fx: 'sparks', name: 'Sparks', name_pt: 'Faíscas', unlock: { trophy: 'streak_15' },
     trivia: 'In 1991 two hikers found a man who had died in the Ötztal Alps some 5,000 years earlier, preserved in the ice with his gear. Ötzi carried a complete fire kit: a pouch of tinder fungus — a tree fungus that starts to smoulder from a single spark — with flint tools and traces of pyrite, the stone that throws sparks when struck with flint. He also carried embers in a birch-bark container, wrapped in fresh maple leaves, so that he would not have to start a fire from nothing.',
     trivia_pt: 'Em 1991, dois alpinistas encontraram um homem que havia morrido nos Alpes de Ötztal uns 5.000 anos antes, conservado no gelo com seus pertences. Ötzi levava um kit completo de fazer fogo: uma bolsinha com fungo-isqueiro — um fungo de árvore que começa a arder com uma única faísca —, ferramentas de sílex e vestígios de pirita, a pedra que solta faíscas quando golpeada com sílex. Levava ainda brasas num recipiente de casca de bétula, embrulhadas em folhas frescas de bordo, para não ter de acender o fogo do zero.' },
@@ -252,7 +255,8 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
 // ── TIMELINE THEMES ───────────────────────────────────────────────────────
 /* The look of the game screen — timeline background, centre line, cards
    and the bars around them — in every game mode (applyTheme in ui.js).
-   One for each culture of the Cultures mode, plus Candlelight and Night
+   One for each culture of the Cultures mode (Jerusalem Stone, Greek Vase,
+   Chinese Lacquer), plus Candlelight and Night
    Sky; all dark. `style` maps to the .th-<style> CSS class in index.html
    (body while in use, and the tile swatch); `base` is the light or dark
    palette the theme is drawn on, so while a theme is in use the dark/light
@@ -272,10 +276,10 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
     unlock: { level: 30 },
     trivia: 'Around 530 BCE the potters of Athens turned their art inside out. In the older black-figure style, figures were painted in black on the orange clay; in the new red-figure style, invented perhaps in the workshop of the potter Andokides, the figures were left the colour of the clay and the background was painted black, so details could be drawn with a fine brush instead of scratched in. The black was not paint but a very fine clay slip, and the colours came from the kiln: fired with air, then smoked without it, then with air again, the slip stayed a glossy black while the bare clay turned orange.',
     trivia_pt: 'Por volta de 530 AEC os oleiros de Atenas viraram sua arte do avesso. No estilo antigo, de figuras negras, as figuras eram pintadas de preto sobre a argila laranja; no novo estilo de figuras vermelhas, criado talvez na oficina do oleiro Andócides, as figuras ficavam na cor da argila e o fundo era pintado de preto, e assim os detalhes podiam ser desenhados com um pincel fino em vez de riscados. O preto não era tinta, mas uma argila finíssima diluída, e as cores vinham do forno: queimado com ar, depois na fumaça, sem ar, e de novo com ar, o engobe ficava de um preto brilhante enquanto a argila nua voltava ao laranja.' },
-  { id: 'theme_persian_tiles', cat: 'theme', icon: '🕌', style: 'persian', base: 'dark', name: 'Persian Tiles', name_pt: 'Azulejos Persas',
+  { id: 'theme_lacquer', cat: 'theme', icon: '🏮', style: 'lacquer', base: 'dark', name: 'Chinese Lacquer', name_pt: 'Laca Chinesa',
     unlock: { level: 40 },
-    trivia: 'In 2005 Peter Lu, a physics student at Harvard, noticed while travelling in Uzbekistan that the star-and-polygon patterns of Islamic tilework looked like the quasicrystal patterns of modern physics. With the physicist Paul Steinhardt he showed in 2007 that many of them could be built from a handful of tile shapes, the girih tiles, and that the portal of the Darb-i Imam shrine in Isfahan, finished in 1453, comes very close to a Penrose tiling — a pattern that never repeats, which Western mathematicians only described in the 1970s.',
-    trivia_pt: 'Em 2005 Peter Lu, estudante de física em Harvard, notou numa viagem ao Uzbequistão que os padrões de estrelas e polígonos dos azulejos islâmicos pareciam os padrões de quasicristais da física moderna. Com o físico Paul Steinhardt, ele mostrou em 2007 que muitos deles podiam ser montados com um punhado de formas de peças, os azulejos girih, e que o portal do santuário Darb-i Imam, em Isfahan, concluído em 1453, chega muito perto de um ladrilhamento de Penrose — um padrão que nunca se repete, que os matemáticos ocidentais só descreveram nos anos 1970.' },
+    trivia: 'Lacquer is the sap of the lacquer tree, a relative of poison ivy that gives the same rash while it is fresh. It does not dry like paint: it hardens by taking in moisture, so each coat, brushed on very thin, has to cure in a warm, humid room before the next one. The result is a hard, waterproof shell — the oldest known lacquered object is a bow about 8,000 years old, found at Kuahuqiao, near Hangzhou. For the carved lacquer of the Ming and Qing courts, a hundred coats or more were built up and then carved like stone.',
+    trivia_pt: 'A laca é a seiva da árvore-da-laca, parente da hera venenosa, que causa a mesma irritação na pele enquanto está fresca. Ela não seca como tinta: endurece absorvendo umidade, e por isso cada demão, pincelada bem fina, precisa curar num cômodo quente e úmido antes da seguinte. O resultado é uma casca dura e à prova d\'água — o objeto laqueado mais antigo que se conhece é um arco de cerca de 8.000 anos, achado em Kuahuqiao, perto de Hangzhou. Para a laca entalhada das cortes Ming e Qing, aplicavam-se cem demãos ou mais, que depois eram entalhadas como pedra.' },
   { id: 'theme_night_sky', cat: 'theme', icon: '🌌', style: 'night', base: 'dark', name: 'Night Sky', name_pt: 'Céu Noturno',
     unlock: { mastery: { era: 'Contemporary', seal: 'gold' } },
     trivia: 'On 14 February 1990, about 6 billion kilometres from the Sun, Voyager 1 turned its camera back and photographed the planets one last time; soon afterwards its cameras were switched off for good. Carl Sagan had argued for the picture for years. In it, Earth is a speck smaller than a single pixel, caught in a ray of scattered sunlight. Sagan named it the "Pale Blue Dot" and reflected that everyone who had ever lived had lived out their lives on that tiny point.',
@@ -371,6 +375,15 @@ function levelTitleItem() {
 function shownTitle() {
   var item = selectedCustom('title');
   return item.auto ? levelTitleItem() : item;
+}
+
+// The hit effect in use: the chosen one, or — while none was chosen yet
+// (effect_none) — the first one won, so a new player's first effect plays
+// right away. None at all until one is won.
+function shownEffect() {
+  var item = selectedCustom('effect');
+  if (!item.hidden) return item;
+  return CUSTOMIZATIONS.find(function(c) { return c.cat === 'effect' && !c.hidden && isCustomSelectable(c); }) || item;
 }
 
 // True while the title follows the level (no fixed title chosen)

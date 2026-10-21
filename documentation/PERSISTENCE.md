@@ -52,6 +52,7 @@ Merge rules are defined at the bottom of this file.
 | `chronos_music_vol`, `chronos_sfx_vol` | 0–100 | device preference |
 | `chronos_music_mute`, `chronos_sfx_mute` | 'true' / 'false' | device preference |
 | `chronos_placed_trivia` | 'true' / 'false' | device preference |
+| `chronos_hit_fx` | 'true' / 'false' — hit effects on or off (Settings → Appearance, `toggleHitFx` in ui.js); missing = on | device preference (phase 3) |
 | `chronos_theme` | 'light' / 'dark' | device preference |
 | `chronos_lang` | 'en' / 'pt' | device preference; written by `setLang`, applied on boot (ui.js) since B1 |
 

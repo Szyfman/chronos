@@ -367,6 +367,14 @@ function showFeedback(ok,hint,yearDelta){
 // .fx-<kind> class, placed and steered by CSS variables (--x/--y start,
 // --dx/--dy travel, --r turn, --d delay, --t duration; px, deg, ms).
 // With reduced motion only a short glow around the card is shown.
+// Settings → Appearance switches them off during play (chronos_hit_fx).
+var _hitFxOn=true;
+(function(){ try{ if(localStorage.getItem('chronos_hit_fx')==='false')_hitFxOn=false; }catch(e){} })();
+function toggleHitFx(val){
+  _hitFxOn=!!val;
+  try{ localStorage.setItem('chronos_hit_fx',_hitFxOn); }catch(e){}
+  updateSettingsUI();
+}
 var _rnd=function(a,b){return a+Math.random()*(b-a);};
 function _fxPart(burst,cls,v){
   var i=document.createElement('i');i.className=cls;
@@ -425,9 +433,10 @@ const HIT_FX={
     _fxPart(b,'fx-clock',{x:0,y:0,t:1300});
   }
 };
-function playHitEffect(target){
-  var item=selectedCustom('effect');
-  if(!target||!item||!HIT_FX[item.fx])return;
+// preview: picked in the Progress tab — plays even with effects switched off
+function playHitEffect(target,preview){
+  var item=shownEffect();
+  if(!target||!HIT_FX[item.fx]||(!_hitFxOn&&!preview))return;
   // Cards burst inside the scrolling timeline (so the burst follows them and
   // is drawn above the next cards); tiles burst inside themselves
   // Layout offsets, not the on-screen box: a card just placed is still
@@ -1647,8 +1656,13 @@ function _foldSection(id, name, count, body, cls){
 // Emblem / frame / effect tiles. Emblem and frame tiles preview the item
 // combined with the other current choice, so they show the real result;
 // effect tiles show the effect's emoji (picking one plays it on the tile).
+// The item in use in a tile category: for effects, the first one won while
+// none was chosen (shownEffect)
+function _customInUse(catId){
+  return catId==='effect' ? shownEffect() : selectedCustom(catId);
+}
 function _renderCustomTiles(catId, items, emblem, frame){
-  var selected = selectedCustom(catId), html = '<div class="pf-opts">';
+  var selected = _customInUse(catId), html = '<div class="pf-opts">';
   items.forEach(function(item){
     var unlocked = isCustomUnlocked(item);
     var selectable = isCustomSelectable(item);   // differs only in preview mode
@@ -1837,12 +1851,12 @@ function _renderModeRecords(){
 // detail modal instead
 function pickCustomization(id){
   var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
-  if(item && selectedCustom(item.cat).id === id){ openCustomModal(id); return; }
+  if(item && _customInUse(item.cat).id === id){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
   if(item.cat==='theme') applyTheme();
   renderProgress();
-  if(item.cat==='effect') playHitEffect(document.getElementById('pf-opt-'+id));
+  if(item.cat==='effect') playHitEffect(document.getElementById('pf-opt-'+id),true);
 }
 
 function _unlockTitle(item){
@@ -2117,6 +2131,9 @@ function updateSettingsUI() {
   document.getElementById('sopt-en').classList.toggle('on', lang === 'en');
   document.getElementById('sopt-pt').classList.toggle('on', lang === 'pt');
   document.getElementById('sett-theme-lbl').textContent = lang === 'pt' ? 'Aparência' : 'Appearance';
+  document.getElementById('sett-hitfx-lbl').textContent = lang === 'pt' ? 'Efeitos de acerto' : 'Hit effects';
+  document.getElementById('sopt-hitfx-on').classList.toggle('on', _hitFxOn);
+  document.getElementById('sopt-hitfx-off').classList.toggle('on', !_hitFxOn);
   document.getElementById('sett-lang-lbl').textContent = lang === 'pt' ? 'Idioma' : 'Language';
   document.getElementById('settings-title').textContent = lang === 'pt' ? '⚙ Configurações' : '⚙ Settings';
   document.getElementById('settings-close').textContent = lang === 'pt' ? 'Fechar' : 'Close';
