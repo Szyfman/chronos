@@ -902,6 +902,96 @@
   body.light .pf-opt{background:#ffffff;border-color:#cbd5e1}
   body.light .pf-opt.on{border-color:#1d4ed8;background:#eff6ff}
   .pf-opt-name{font-size:.62rem;font-weight:700;line-height:1.2;text-align:center}
+  /* Hit effect tiles: the effect's emoji; picking one plays it on the tile */
+  .pf-opt{position:relative}
+  .pf-fx-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;line-height:1;background:var(--bg3);border:2px solid rgba(201,168,76,.35)}
+  body.light .pf-fx-ico{background:#f1f5f9;border-color:#cbd5e1}
+  .pf-opt.locked .pf-fx-ico{filter:grayscale(1)}
+
+  /* ── HIT EFFECTS (playHitEffect / HIT_FX in ui.js) ───────────────────
+     A burst is a zero-size point at the card's centre; each particle <i>
+     reads --x/--y (start), --dx/--dy (travel), --r/--a (turn), --s (size),
+     --d (delay) and --t (duration) set by HIT_FX. */
+  .fx-burst{position:absolute;width:0;height:0;pointer-events:none;z-index:6}
+  .fx-burst i{position:absolute;left:0;top:0;display:block;font-style:normal;pointer-events:none;opacity:0;animation-duration:var(--t,700ms);animation-delay:var(--d,0ms);animation-fill-mode:forwards;animation-timing-function:ease-out}
+  .fx-aura{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);border-radius:8px;box-shadow:0 0 0 2px var(--c),0 0 18px 4px var(--c);animation-name:fx-aura}
+  @keyframes fx-aura{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+  .fx-flash{width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:radial-gradient(circle,rgba(255,250,220,.95),rgba(255,200,60,.55) 40%,transparent 70%);animation-name:fx-flash}
+  .fx-flash.gold{background:radial-gradient(circle,rgba(255,246,200,.95),rgba(242,201,76,.6) 40%,transparent 70%)}
+  @keyframes fx-flash{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(1.8)}}
+  /* Sparks: short bright streaks flying out from the card */
+  .fx-spark{width:12px;height:2px;margin-top:-1px;border-radius:2px;background:linear-gradient(90deg,rgba(255,200,60,0),#ffd23f 50%,#fffbe0);box-shadow:0 0 6px 1px rgba(255,170,0,.85);transform-origin:0 50%;animation-name:fx-spark}
+  body.light .fx-spark{background:linear-gradient(90deg,rgba(234,88,12,0),#f59e0b 50%,#ea580c);box-shadow:0 0 5px 1px rgba(234,88,12,.6)}
+  @keyframes fx-spark{0%{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--a)) translateX(0) scaleX(1.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--a)) translateX(var(--dx)) scaleX(.3)}}
+  /* Flames: tongues of fire rising off the card */
+  /* a drop whose sharp corner, turned 45°, points up */
+  .fx-flame{width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);border-radius:50% 0 50% 50%;background:radial-gradient(circle at 38% 62%,#fff8c8 0 16%,#ffcf3a 36%,#ff7a00 62%,#d42a00 88%);box-shadow:0 0 10px 2px rgba(255,100,0,.5);animation-name:fx-flame;animation-timing-function:cubic-bezier(.3,.6,.5,1)}
+  @keyframes fx-flame{0%{opacity:0;transform:translate(var(--x),var(--y)) rotate(-45deg) scale(.4)}20%{opacity:1;transform:translate(var(--x),var(--y)) rotate(-45deg) scale(1)}100%{opacity:0;transform:translate(calc(var(--x) + var(--dx)),calc(var(--y) + var(--dy))) rotate(-45deg) scale(.2)}}
+  /* Coins: tossed up spinning, then falling */
+  .fx-coin{width:15px;height:15px;margin:-7.5px 0 0 -7.5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6c8,#f2c94c 42%,#b8860b 78%);border:1.5px solid #8a6514;box-shadow:inset 0 0 0 2px rgba(255,240,180,.55);animation-name:fx-coin}
+  @keyframes fx-coin{
+    0%{opacity:1;transform:translate(var(--x),var(--y)) rotateY(0);animation-timing-function:ease-out}
+    40%{transform:translate(calc(var(--x) + var(--dx)*.45),var(--dy)) rotateY(calc(var(--r)*.4));animation-timing-function:ease-in}
+    85%{opacity:1}
+    100%{opacity:0;transform:translate(calc(var(--x) + var(--dx)),var(--ey)) rotateY(var(--r))}}
+  /* Gold leaf: flakes drifting down over the card, catching the light */
+  .fx-leaf{width:var(--s);height:calc(var(--s)*.7);margin:calc(var(--s)*-.35) 0 0 calc(var(--s)/-2);border-radius:1px 40% 1px 40%;background:linear-gradient(135deg,#fff4c4,#e8b931 45%,#a87b10);box-shadow:0 0 4px rgba(255,220,120,.6);animation-name:fx-leaf;animation-timing-function:ease-in-out}
+  @keyframes fx-leaf{
+    0%{opacity:0;transform:translate(var(--x),var(--y)) rotate(0) rotateX(0)}
+    15%{opacity:1}
+    50%{transform:translate(calc(var(--x) + var(--dx)),calc(var(--y) + var(--dy)*.5)) rotate(calc(var(--r)*.5)) rotateX(180deg)}
+    80%{opacity:1}
+    100%{opacity:0;transform:translate(calc(var(--x) - var(--dx)*.5),calc(var(--y) + var(--dy))) rotate(var(--r)) rotateX(360deg)}}
+  /* Ink: a blot spreads, droplets splash out */
+  .fx-blot{width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);border-radius:46% 54% 42% 58%/55% 45% 55% 45%;background:radial-gradient(circle at 40% 40%,#2f3a8f,#151a4d 60%,#0b0e2e);box-shadow:0 0 0 1px rgba(160,175,255,.18),0 0 10px rgba(80,100,220,.35);animation-name:fx-blot}
+  @keyframes fx-blot{0%{opacity:.95;transform:translate(var(--x),var(--y)) scale(.1)}18%{opacity:.95;transform:translate(var(--x),var(--y)) scale(1.08)}28%{transform:translate(var(--x),var(--y)) scale(1)}70%{opacity:.85}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.05)}}
+  .fx-drop{width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);border-radius:50%;background:#1b2160;box-shadow:0 0 0 1px rgba(160,175,255,.18);animation-name:fx-drop}
+  .fx-drop.wax{background:#a3161b;box-shadow:none}
+  @keyframes fx-drop{0%{opacity:1;transform:translate(var(--x),var(--y)) scale(1)}100%{opacity:0;transform:translate(calc(var(--x) + var(--dx)),calc(var(--y) + var(--dy))) scale(.5)}}
+  /* Wax seal: stamped on the card's right end, with a shock ring */
+  .fx-wax{width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:47% 53% 50% 50%/52% 48% 52% 48%;background:radial-gradient(circle at 38% 32%,#f0686a,#b41d22 45%,#7a0d12 85%);box-shadow:0 2px 6px rgba(0,0,0,.45),inset 0 -2px 3px rgba(0,0,0,.35);animation-name:fx-wax}
+  .fx-burst i.fx-wax{display:flex;align-items:center;justify-content:center}
+  .fx-wax::before{content:'';position:absolute;inset:6px;border-radius:50%;border:2px solid rgba(255,190,190,.35);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+  .fx-wax::after{content:'✠';position:relative;font:700 15px/1 serif;color:rgba(70,0,5,.6);text-shadow:0 1px 0 rgba(255,170,170,.35)}
+  @keyframes fx-wax{
+    0%{opacity:0;transform:translate(var(--x),var(--y)) scale(2.4) rotate(-25deg);animation-timing-function:ease-in}
+    28%{opacity:1;transform:translate(var(--x),var(--y)) scale(.9) rotate(0)}
+    36%{transform:translate(var(--x),var(--y)) scale(1.06)}
+    44%{transform:translate(var(--x),var(--y)) scale(1)}
+    85%{opacity:1;transform:translate(var(--x),var(--y)) scale(1)}
+    100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1)}}
+  .fx-ring{width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:2px solid rgba(201,168,76,.85);animation-name:fx-ring}
+  .fx-ring.red{border-color:rgba(200,40,40,.7)}
+  @keyframes fx-ring{0%{opacity:.9;transform:translate(var(--x),var(--y)) scale(.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(2)}}
+  /* Backwards clock: rings close in while the hands spin back */
+  .fx-ring.back{animation-name:fx-ring-back}
+  @keyframes fx-ring-back{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(2.6)}30%{opacity:.8}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.4)}}
+  .fx-clock{width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;border:2px solid #c9a84c;background:radial-gradient(circle,#fbf3dd 0 60%,transparent 61%),repeating-conic-gradient(#6b5320 0 4deg,#fbf3dd 4deg 30deg);box-shadow:0 0 0 2px rgba(0,0,0,.25),0 0 14px rgba(201,168,76,.6);animation-name:fx-clock}
+  .fx-clock::before,.fx-clock::after{content:'';position:absolute;left:50%;bottom:50%;width:2px;margin-left:-1px;border-radius:1px;background:#3b2a0c;transform-origin:50% 100%}
+  .fx-clock::after{height:17px;animation:fx-hand var(--t) cubic-bezier(.4,0,.2,1) forwards}
+  .fx-clock::before{height:11px;width:3px;margin-left:-1.5px;animation:fx-hand-h var(--t) cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes fx-hand{from{transform:rotate(0)}to{transform:rotate(-1080deg)}}
+  @keyframes fx-hand-h{from{transform:rotate(120deg)}to{transform:rotate(30deg)}}
+  @keyframes fx-clock{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3)}15%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.05)}22%{transform:translate(var(--x),var(--y)) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.85)}}
+  /* Shooting stars: streaks crossing the card, then twinkles on it */
+  .fx-meteor{width:80px;height:2px;margin:-1px 0 0 -80px;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(190,215,255,.75) 75%,#fff);animation-name:fx-meteor;animation-timing-function:ease-in}
+  .fx-meteor::after{content:'';position:absolute;right:-3px;top:-2px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px 3px rgba(200,225,255,.9)}
+  body.light .fx-meteor{background:linear-gradient(90deg,rgba(30,58,138,0),rgba(37,99,235,.6) 75%,#1e3a8a)}
+  body.light .fx-meteor::after{background:#1e3a8a;box-shadow:0 0 8px 3px rgba(37,99,235,.6)}
+  @keyframes fx-meteor{0%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--a)) translateX(-40px)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--a)) translateX(var(--dx))}}
+  .fx-twinkle{width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);background:#fffbe0;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation-name:fx-twinkle}
+  body.light .fx-twinkle{background:#d9a21b}
+  @keyframes fx-twinkle{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(0) rotate(0)}50%{opacity:1;transform:translate(var(--x),var(--y)) scale(1) rotate(45deg)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(0) rotate(90deg)}}
+  /* Phoenix feathers: fiery feathers floating up, with embers */
+  .fx-feather{width:8px;height:22px;margin:-11px 0 0 -4px;border-radius:50% 50% 50% 50%/75% 75% 25% 25%;background:linear-gradient(to top,#8f0d0b,#e2361a 30%,#ff7a1f 60%,#ffc93c 85%,#fff1a8);box-shadow:0 0 6px rgba(255,120,30,.6);animation-name:fx-feather;animation-timing-function:ease-in-out}
+  .fx-feather::after{content:'';position:absolute;left:50%;top:15%;bottom:-3px;width:1px;margin-left:-.5px;background:rgba(90,10,0,.55)}
+  @keyframes fx-feather{
+    0%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(.6)}
+    15%{opacity:1}
+    50%{transform:translate(calc(var(--x) + var(--dx)),calc(var(--y) + var(--dy)*.5)) rotate(calc(var(--r) + 35deg)) scale(1)}
+    80%{opacity:1}
+    100%{opacity:0;transform:translate(calc(var(--x) - var(--dx)*.4),calc(var(--y) + var(--dy))) rotate(calc(var(--r) - 25deg)) scale(.9)}}
+  .fx-ember{width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:#ffd36b;box-shadow:0 0 6px 2px rgba(255,120,20,.85);animation-name:fx-drop}
   .tc{background:rgba(255,255,255,.03);border:1.5px solid rgba(201,168,76,.1);border-radius:10px;padding:14px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;position:relative;overflow:visible;transition:border-color .25s,background .25s;min-height:110px}
   .tc.earned{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.06)}
   .tc.earned::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.1),transparent 70%);pointer-events:none}

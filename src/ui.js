@@ -283,7 +283,7 @@ function _nextNotice(){
     var item=notice.custom;
     el=document.getElementById('tp-toast');
     document.getElementById('tp-toast-icon').textContent=item.cat==='frame'?'🖼️':(item.cat==='title'?titleIcon(item):item.icon);
-    document.getElementById('tp-toast-txt').textContent=t(item.cat==='frame'?'cu_new_frame':(item.cat==='title'?'cu_new_title':'cu_new_emblem')).replace('{name}',_nm(item));
+    document.getElementById('tp-toast-txt').textContent=t('cu_new_'+item.cat).replace('{name}',_nm(item));
     el.classList.toggle('in-game', gameActive);
     ms=3200;
   } else {
@@ -358,6 +358,92 @@ function showFeedback(ok,hint,yearDelta){
   el.className=ok?'correct':'incorrect';
   clearTimeout(_feedbackTimer);
   _feedbackTimer=setTimeout(()=>el.className='',2400);
+}
+
+// ── HIT EFFECTS ───────────────────────────────────────────────────────────
+// The chosen hit effect (category 'effect', progression.js) bursts over the
+// card just placed correctly — or over its tile when picked in the Progress
+// tab. HIT_FX[fx] adds the particles to the burst: each is an <i> with the
+// .fx-<kind> class, placed and steered by CSS variables (--x/--y start,
+// --dx/--dy travel, --r turn, --d delay, --t duration; px, deg, ms).
+// With reduced motion only a short glow around the card is shown.
+var _rnd=function(a,b){return a+Math.random()*(b-a);};
+function _fxPart(burst,cls,v){
+  var i=document.createElement('i');i.className=cls;
+  Object.keys(v||{}).forEach(function(k){
+    var unit=(k==='r'||k==='a')?'deg':((k==='d'||k==='t')?'ms':'px');
+    i.style.setProperty('--'+k,(Math.round(v[k]*10)/10)+unit);
+  });
+  burst.appendChild(i);return i;
+}
+function _fxAura(burst,w,h,color,t){
+  var a=_fxPart(burst,'fx-aura',{w:w,h:h,t:t||700});a.style.setProperty('--c',color);return a;
+}
+const HIT_FX={
+  sparks:function(b,w,h){
+    _fxPart(b,'fx-flash',{t:380});
+    for(var n=0;n<18;n++)_fxPart(b,'fx-spark',{x:_rnd(-w*.3,w*.3),y:_rnd(-h*.3,h*.3),a:_rnd(0,360),dx:_rnd(35,85),d:_rnd(0,120),t:_rnd(420,700)});
+  },
+  flames:function(b,w,h){
+    _fxAura(b,w,h,'rgba(255,110,20,.75)',900);
+    for(var n=0;n<16;n++)_fxPart(b,'fx-flame',{x:_rnd(-w*.46,w*.46),y:-h*_rnd(.15,.45),dx:_rnd(-12,12),dy:-_rnd(30,65),s:_rnd(11,19),d:_rnd(0,260),t:_rnd(650,950)});
+  },
+  coins:function(b,w,h){
+    _fxPart(b,'fx-flash gold',{t:380});
+    for(var n=0;n<11;n++){var py=-_rnd(45,95);
+      _fxPart(b,'fx-coin',{x:_rnd(-w*.25,w*.25),y:0,dx:_rnd(-90,90),dy:py,ey:_rnd(25,60),r:_rnd(540,1080)*(Math.random()<.5?-1:1),d:_rnd(0,160),t:_rnd(850,1150)});}
+  },
+  leaf:function(b,w,h){
+    _fxAura(b,w,h,'rgba(232,185,49,.7)',1100);
+    for(var n=0;n<16;n++)_fxPart(b,'fx-leaf',{x:_rnd(-w*.48,w*.48),y:-h/2-_rnd(8,40),dx:_rnd(-28,28),dy:h+_rnd(10,45),r:_rnd(180,540)*(Math.random()<.5?-1:1),s:_rnd(6,11),d:_rnd(0,300),t:_rnd(1000,1400)});
+  },
+  ink:function(b,w,h){
+    var cx=_rnd(-w*.2,w*.2);
+    _fxPart(b,'fx-blot',{x:cx,y:0,s:_rnd(34,44),t:1000});
+    for(var n=0;n<3;n++)_fxPart(b,'fx-blot',{x:cx+_rnd(-50,50),y:_rnd(-h*.35,h*.35),s:_rnd(10,18),d:_rnd(60,180),t:900});
+    for(n=0;n<10;n++){var a=_rnd(0,Math.PI*2),dist=_rnd(28,62);
+      _fxPart(b,'fx-drop',{x:cx,y:0,dx:Math.cos(a)*dist,dy:Math.sin(a)*dist*.7,s:_rnd(3,8),d:_rnd(0,80),t:_rnd(500,750)});}
+  },
+  seal:function(b,w,h){
+    var x=-w/2+12;   // the left end: the year on the right stays readable
+    _fxPart(b,'fx-wax',{x:x,y:0,t:1400});
+    _fxPart(b,'fx-ring red',{x:x,y:0,d:380,t:600});
+    for(var n=0;n<6;n++){var a=_rnd(0,Math.PI*2),dist=_rnd(22,40);
+      _fxPart(b,'fx-drop wax',{x:x,y:0,dx:Math.cos(a)*dist,dy:Math.sin(a)*dist,s:_rnd(3,6),d:380,t:_rnd(400,600)});}
+  },
+  stars:function(b,w,h){
+    for(var n=0;n<4;n++)_fxPart(b,'fx-meteor',{x:_rnd(-w*.55,w*.1),y:-h/2-_rnd(10,40),a:_rnd(22,38),dx:_rnd(150,230),d:n*_rnd(90,150),t:_rnd(600,800)});
+    for(n=0;n<7;n++)_fxPart(b,'fx-twinkle',{x:_rnd(-w*.45,w*.45),y:_rnd(-h*.6,h*.6),s:_rnd(8,14),d:_rnd(150,650),t:650});
+  },
+  feathers:function(b,w,h){
+    _fxAura(b,w,h,'rgba(255,90,30,.75)',1300);
+    for(var n=0;n<9;n++)_fxPart(b,'fx-feather',{x:_rnd(-w*.42,w*.42),y:_rnd(-h*.1,h*.3),dx:_rnd(-30,30),dy:-_rnd(60,115),r:_rnd(-40,40),d:_rnd(0,350),t:_rnd(1150,1500)});
+    for(n=0;n<10;n++)_fxPart(b,'fx-ember',{x:_rnd(-w*.45,w*.45),y:_rnd(-h*.2,h*.4),dx:_rnd(-10,10),dy:-_rnd(40,90),d:_rnd(0,500),t:_rnd(700,1000)});
+  },
+  rewind:function(b,w,h){
+    for(var n=0;n<3;n++)_fxPart(b,'fx-ring back',{x:0,y:0,d:n*160,t:700});
+    _fxPart(b,'fx-clock',{x:0,y:0,t:1300});
+  }
+};
+function playHitEffect(target){
+  var item=selectedCustom('effect');
+  if(!target||!item||!HIT_FX[item.fx])return;
+  // Cards burst inside the scrolling timeline (so the burst follows them and
+  // is drawn above the next cards); tiles burst inside themselves
+  // Layout offsets, not the on-screen box: a card just placed is still
+  // scaled by its entry animation
+  var own=!target.classList.contains('timeline-card');
+  var host=own?target:document.getElementById('timeline');
+  var w=target.offsetWidth,h=target.offsetHeight;
+  var burst=document.createElement('div');burst.className='fx-burst';
+  burst.style.left=((own?0:target.offsetLeft)+w/2)+'px';
+  burst.style.top=((own?0:target.offsetTop)+h/2)+'px';
+  var calm=false;
+  try{calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  if(calm)_fxAura(burst,w,h,'rgba(201,168,76,.8)',700);
+  else HIT_FX[item.fx](burst,w,h);
+  host.appendChild(burst);
+  setTimeout(function(){burst.remove();},2000);
 }
 
 // ── FACT PANEL ────────────────────────────────────────────────────────────
@@ -1546,8 +1632,9 @@ function _foldSection(id, name, count, body, cls){
     + '</button><div class="'+cls+'-body">'+body+'</div></div>';
 }
 
-// Emblem / frame tiles. Each tile previews the item combined with the other
-// current choice, so it shows the real result.
+// Emblem / frame / effect tiles. Emblem and frame tiles preview the item
+// combined with the other current choice, so they show the real result;
+// effect tiles show the effect's emoji (picking one plays it on the tile).
 function _renderCustomTiles(catId, items, emblem, frame){
   var selected = selectedCustom(catId), html = '<div class="pf-opts">';
   items.forEach(function(item){
@@ -1556,12 +1643,14 @@ function _renderCustomTiles(catId, items, emblem, frame){
     var hidden = _customHidden(item);
     var preview = catId==='frame'
       ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
+      : catId==='effect'
+      ? '<div class="pf-fx-ico">'+(hidden?'❓':item.icon)+'</div>'
       : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
     // Selectable items are picked; locked ones open their card, which says how
     // to unlock them — the tile itself shows only the look and the name, so
     // every tile has the same size
     var click = selectable ? 'pickCustomization' : 'openCustomModal';
-    html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="'+click+'(\''+item.id+'\')">';
+    html += '<div class="pf-opt'+(item.id===selected.id?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" id="pf-opt-'+item.id+'" onclick="'+click+'(\''+item.id+'\')">';
     html += preview;
     html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
     html += '</div>';
@@ -1737,6 +1826,7 @@ function pickCustomization(id){
   if(!selectCustomization(id)) return;
   SFX.play('drop');
   renderProgress();
+  if(item.cat==='effect') playHitEffect(document.getElementById('pf-opt-'+id));
 }
 
 function _unlockTitle(item){

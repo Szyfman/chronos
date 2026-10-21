@@ -978,6 +978,7 @@ function attemptPlacement(idx){
     saveRun();   // right after the card stats, so a resumed run starts after this card
     checkTrophies(true);
     renderTimeline();
+    playHitEffect(document.querySelectorAll('#timeline .timeline-card')[idx]);
     document.getElementById('score-val').textContent=score;
     document.getElementById('streak-val').textContent=streak;
     var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
