@@ -868,21 +868,18 @@
   .pf-sub .tp-sec-arrow{font-size:.6rem}
   .pf-sub-body{display:none}
   .tp-sec.open>.pf-sub-body{display:block}
-  /* Title rows reuse the Compendium card (.ck) */
-  .pf-ttl{margin-bottom:6px}
-  .pf-ttl .ck-h{min-height:0;padding:8px 12px;gap:8px}
-  .pf-ttl .ck-n{font-size:.8rem}
-  .pf-ttl .ck-m{font-size:.62rem;margin-top:2px}
-  .pf-ttl .ck-y{font-size:.66rem}
-  .pf-ttl .ck-a{font-size:.95rem}
-  .pf-ttl .ck-f{font-size:.8rem}
-  .pf-ttl.on{border-color:var(--gold)}
-  body.light .pf-ttl.on{border-color:#1d4ed8}
-  .pf-ttl-how{font:italic 400 .76rem/1.45 Inter,sans-serif;color:#9a9080;margin-top:9px}
-  body.light .pf-ttl-how{color:#64748b}
-  .pf-ttl-use{display:block;width:100%;margin-top:11px;padding:9px 12px;border-radius:8px;border:1px solid var(--gold);background:rgba(201,168,76,.12);color:var(--gold);font:700 .74rem/1 Inter,sans-serif;letter-spacing:.03em;cursor:pointer}
-  .pf-ttl-use:hover{background:rgba(201,168,76,.22)}
-  body.light .pf-ttl-use{border-color:#1d4ed8;background:#eff6ff;color:#1d4ed8}
+  /* Title strips: same size as the category section headers above them */
+  .pf-ttls{display:flex;flex-direction:column;gap:6px}
+  .pf-ttl{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid rgba(201,168,76,.18);background:rgba(255,255,255,.03);color:var(--cream);font:600 .62rem/1.2 Inter,sans-serif;letter-spacing:.04em;cursor:pointer;transition:border-color .2s,background .2s}
+  .pf-ttl:hover{border-color:rgba(201,168,76,.4)}
+  .pf-ttl.on{border-color:var(--gold);background:rgba(201,168,76,.1)}
+  .pf-ttl.locked{opacity:.55}
+  .pf-ttl.pv{border-style:dashed} /* preview mode: selectable, but not really unlocked */
+  .pf-ttl-n{flex:1;min-width:0}
+  .pf-ttl-r{flex-shrink:0;font-weight:600;color:rgba(201,168,76,.7);white-space:nowrap}
+  body.light .pf-ttl{background:#ffffff;border-color:#cbd5e1;color:#0f172a}
+  body.light .pf-ttl.on{border-color:#1d4ed8;background:#eff6ff}
+  body.light .pf-ttl-r{color:#1d4ed8}
   .pf-opt.pv{border-style:dashed} /* preview mode: selectable, but not really unlocked */
   #tp-modal-icon .pf-avatar{margin:0 auto}
   /* Test mode flag (?preview) — always visible, never blocks a tap */

@@ -1568,46 +1568,36 @@ function _renderCustomTiles(catId, items, emblem, frame){
   return html + '</div>';
 }
 
-// Titles as Compendium-style rows (.ck): name, where it comes from, and on
-// tap the trivia plus a "Use this title" button. The row in use says so —
-// and, when the title follows the level, that it does.
+// Titles as one-line strips, the size of their section's header: the name,
+// and on the right where it comes from — or, for the title in use, that it
+// is in use (and whether it follows the level). They behave like emblem and
+// frame tiles: see pickTitle.
 function _renderTitleRows(items){
-  var active = shownTitle(), follows = titleFollowsLevel(), levelItem = levelTitleItem(), html = '';
+  var active = shownTitle(), follows = titleFollowsLevel(), html = '<div class="pf-ttls">';
   items.forEach(function(item){
     var unlocked = isCustomUnlocked(item);
     var selectable = isCustomSelectable(item);   // differs only in preview mode
     var on = item.id === active.id;
     var lvl = item.unlock && item.unlock.title ? _unlockTitle(item) : null;
-    var sid = 'tt_' + item.id;
-    // The level is already on the right, so a locked level title just says it is locked
-    var meta = on ? t(follows ? 'cu_title_follow' : 'cu_title_on') : (unlocked ? '' : (lvl ? t('cu_locked') : _customReqLabel(item)));
-    html += '<div class="ck pf-ttl'+(on?' on':'')+'">';
-    html += '<div class="ck-h" onclick="toggleCK(\''+sid+'\')">';
-    html += '<div class="ck-mid"><div class="ck-n'+(unlocked?'':' lk')+'">'+esc(_nm(item))+'</div>';
-    if(meta) html += '<div class="ck-m">'+esc(meta)+'</div>';
-    html += '</div><div class="ck-r"><div class="ck-y">'+(lvl ? esc(t('pf_level').replace('{n}', lvl.minLevel)) : '🏆')+'</div>';
-    html += '<div class="ck-a" id="ka_'+sid+'">›</div></div></div>';
-    html += '<div class="ck-b" id="'+sid+'"><div class="ck-i">';
-    // Like trophies, the trivia is the reward: locked titles only say how to
-    // earn them (preview mode shows everything)
-    var trivia = lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || '');
-    if((unlocked || customPreview) && trivia) html += '<p class="ck-f">'+esc(trivia)+'</p>';
-    html += '<div class="'+(unlocked?'pf-ttl-how':'ck-lk')+'">'+esc(_customHowText(item))+'</div>';
-    if(selectable && !on){
-      if(item === levelItem) html += '<div class="pf-ttl-how">'+esc(t('cu_title_follow_note'))+'</div>';
-      html += '<button class="pf-ttl-use" onclick="pickTitle(\''+item.id+'\')">'+esc(t('cu_use_title'))+'</button>';
-    }
-    html += '</div></div></div>';
+    var right = on ? t(follows ? 'cu_title_follow' : 'cu_title_on')
+      : (unlocked ? '' : '🔒 ') + (lvl ? t('pf_level').replace('{n}', lvl.minLevel) : '🏆');
+    html += '<div class="pf-ttl'+(on?' on':'')+(selectable?'':' locked')+(selectable&&!unlocked?' pv':'')+'" onclick="pickTitle(\''+item.id+'\')">';
+    html += '<span class="pf-ttl-n">'+esc(_nm(item))+'</span><span class="pf-ttl-r">'+esc(right)+'</span></div>';
   });
-  return html;
+  return html + '</div>';
 }
 
-// Uses a title, re-renders, and keeps its row open
+// Like an emblem or frame tile: the first tap uses the title, a tap on the
+// title in use (or on a locked one) opens its card with the trivia. The
+// title in use is the shown one, which may be the level's title while it
+// follows the level — selectedCustom would say title_auto there.
 function pickTitle(id){
+  var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
+  if(!item) return;
+  if(item.id === shownTitle().id || !isCustomSelectable(item)){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
   renderProgress();
-  toggleCK('tt_'+id);
 }
 
 // ── ACCOUNT (sync.js) ─────────────────────────────────────────────────────
@@ -1809,7 +1799,8 @@ function openCustomModal(id){
     name: _nm(cat) + ': ' + _nm(item),
     date: date,
     trivia: lang==='pt' ? (item.trivia_pt || item.trivia || '') : (item.trivia || ''),
-    how: _customHowText(item)
+    // The current level's title also explains that using it follows the level
+    how: _customHowText(item) + (item.cat==='title' && item===levelTitleItem() ? ' '+t('cu_title_follow_note') : '')
   });
 }
 
