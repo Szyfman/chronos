@@ -881,7 +881,10 @@
   .pf-sub-body{display:none}
   .tp-sec.open>.pf-sub-body{display:block}
   /* Title strips: same size as the category section headers above them */
-  .pf-ttls{display:flex;flex-direction:column;gap:6px}
+  /* The list scrolls inside its section, so the panel stays put while the
+     titles move; reaching either end doesn't scroll the panel behind it */
+  .pf-ttls{display:flex;flex-direction:column;gap:6px;max-height:min(52vh,340px);overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.35) transparent}
+  body.light .pf-ttls{scrollbar-color:#94a3b8 transparent}
   .pf-ttl{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid rgba(201,168,76,.18);background:rgba(255,255,255,.03);color:var(--cream);font:600 .62rem/1.2 Inter,sans-serif;letter-spacing:.04em;cursor:pointer;transition:border-color .2s,background .2s}
   .pf-ttl:hover{border-color:rgba(201,168,76,.4)}
   .pf-ttl.on{border-color:var(--gold);background:rgba(201,168,76,.1)}
@@ -890,11 +893,6 @@
   .pf-ttl-i{flex-shrink:0;width:1.3em;text-align:center;font-size:.85rem;line-height:1}
   .pf-ttl.locked .pf-ttl-i{filter:grayscale(1)}
   .pf-ttl-n{flex:1;min-width:0}
-  /* The Title header stays on top while its long list scrolls (like the
-     Compendium era headers); it needs an opaque background for that */
-  #tp-sec-custom_title>.tp-sec-hd{position:sticky;top:-22px;z-index:2;background:linear-gradient(rgba(201,168,76,.05),rgba(201,168,76,.05)),#0d0c0a}
-  #tp-sec-custom_title>.tp-sec-hd:hover{background:linear-gradient(rgba(201,168,76,.1),rgba(201,168,76,.1)),#0d0c0a}
-  body.light #tp-sec-custom_title>.tp-sec-hd{background:#ffffff}
   .pf-ttl-r{flex-shrink:0;font-weight:600;color:rgba(201,168,76,.7);white-space:nowrap}
   body.light .pf-ttl{background:#ffffff;border-color:#cbd5e1;color:#0f172a}
   body.light .pf-ttl.on{border-color:#1d4ed8;background:#eff6ff}

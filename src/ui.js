@@ -1600,7 +1600,11 @@ function pickTitle(id){
   if(item.id === shownTitle().id || !isCustomSelectable(item)){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
+  // The list scrolls on its own: keep its position across the re-render
+  var list = document.querySelector('.pf-ttls'), top = list ? list.scrollTop : 0;
   renderProgress();
+  list = document.querySelector('.pf-ttls');
+  if(list) list.scrollTop = top;
 }
 
 // ── ACCOUNT (sync.js) ─────────────────────────────────────────────────────
