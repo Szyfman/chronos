@@ -366,7 +366,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Location**: `src/progression.js` (`CUSTOM_CATEGORIES`, `CUSTOMIZATIONS`, `TROPHY_TITLE_ITEMS`); styles in `index.html`; rendering in `ui.js` (`renderProgress`, `openCustomModal`).
 
-**Categories**: `emblem` (an emoji in the avatar), `frame` (the avatar ring, also worn by the cards of every Lives run — Free and Review keep their blue/green mode border) and `title` (shown under the player's name). The player picks one item per category; the choice is stored in `chronos_custom`. The **first item of each category must be free** (`unlock: null`): it is the fallback whenever a saved choice is missing or locked.
+**Categories**: `emblem` (an emoji in the avatar), `frame` (the avatar ring, also worn by the cards of every Lives run — Free and Review keep their blue/green mode border), `title` (shown under the player's name), `effect` (a burst over each card placed correctly, every mode) and `theme` (the look of the game screen, every mode). The player picks one item per category; the choice is stored in `chronos_custom`. The **first item of each category must be free** (`unlock: null`): it is the fallback whenever a saved choice is missing or locked (`effect_none`, `theme_classic` keep the original look).
 
 ```javascript
 { id: 'emblem_wheat', cat: 'emblem', icon: '🌾', name: 'Wheat', name_pt: 'Espiga',
@@ -379,9 +379,13 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Unlocked for good**: every unlocked item is recorded in `chronos_custom_known` (`checkCustomUnlocks`, run mid-game after trophies and at game end), and an id there stays unlocked even if its rule is later made harder. So raising a requirement only affects players who had not reached it yet; to take an item back, its id must be removed explicitly.
 
-**Unlock notices**: newly unlocked items are announced through the notice queue ("New emblem / frame / title: …"). Level titles are not, since the gameover screen already says "New title".
+**Unlock notices**: newly unlocked items are announced through the notice queue ("New emblem / frame / title / hit effect / theme: …", i18n key `cu_new_<category>`). Level titles are not, since the gameover screen already says "New title".
 
 **Titles**: by default the title follows the player's level (`shownTitle`); choosing another title fixes it, and choosing the current level's title follows the level again. "Following" is stored as `title_auto`, a `hidden` item that is never shown or counted but must exist for sync. Level-title items are built from `PLAYER_TITLES` (their trivia lives there); trophy titles go in `TROPHY_TITLE_ITEMS`. Emblems and frames render as tiles, titles as one-line strips (`_renderTitleRows`); all work alike — the first tap uses the item, a tap on the item in use (or a locked one) opens its card with the trivia. Each category is a folding section inside Customization. Keep titles gender-neutral in Portuguese where possible.
+
+**Hit effects**: `{ cat: 'effect', icon, fx: 'sparks', … }` — `fx` names a builder in `HIT_FX` (ui.js) that adds the particles, drawn by `.fx-*` classes in index.html (`playHitEffect`, called from `attemptPlacement` on a correct placement and when the effect is picked). Won through skill trophies (secret trophies → secret effects). Keep them under ~1.5 s, CSS only, never covering the card's year for long; reduced motion shows only a glow.
+
+**Themes**: `{ cat: 'theme', icon, style: 'papyrus', base: 'light' | 'dark', … }` — `.th-<style>` in index.html sets the `--th-*` variables (background, centre line, cards, text, accent, bars) used by `body.themed` rules and by the tile swatch (`.pf-th-sw`). One per era, won with that era's Gold mastery seal. `base` is the palette the theme is drawn on: while a theme is in use `applyTheme` (ui.js) forces it, and the dark/light buttons in Settings (row "Appearance") are disabled with a note; the saved `chronos_theme` choice returns with Classic.
 
 **Content rules**: trivia in both languages, 4–6 sentences, same numbers in en and pt, and never repeating or contradicting a card, trophy or daily card (search them first). The topic of each trivia is agreed with the developer.
 
