@@ -744,6 +744,7 @@ function _renderRunHeader(){
 }
 
 function initGame(){
+  setRunTheme(gameMode);   // Cultures runs wear their culture's theme
   _pendingGameRecord = null;
   _voluntaryEnd = false;
   currentCard = null;
@@ -814,6 +815,7 @@ function resumeSavedRun(){
   if(!s) return false;
   _pendingGameRecord=null; _voluntaryEnd=false; reviewMode=false; _lastDailyResult=null;
   gameMode=s.mode; setPlayMode(s.playMode); eraFilter=s.eraFilter.slice();
+  setRunTheme(gameMode);
   _isDailyChallenge=!!s.daily;
   _isRecoverRun=!!(s.daily&&s.daily.recover);
   _dailyRunDate=s.daily?s.daily.date:null;

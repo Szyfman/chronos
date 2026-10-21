@@ -43,6 +43,8 @@ const CUSTOM_CATEGORIES = [
            { mastery: { era, seal } } → earn that Era Mastery seal (or a
                              higher one) in that era (MASTERY_ERAS /
                              MASTERY_SEALS ids)
+           { record: { mode, best } } → a record of `best` points or more
+                             in that mode (RECORD_MODES id; Lives runs only)
    secret: true → while locked, the item shows as ❓ / ??? and its modal
    only says to keep playing (like a secret trophy).
    The first item of each category must always be unlocked: it is the
@@ -261,27 +263,30 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
    (body while in use, and the tile swatch); `base` is the light or dark
    palette the theme is drawn on, so while a theme is in use the dark/light
    setting is off. theme_classic (no base: the player's own dark/light
-   setting) stays first, as the category's fallback. */
+   setting) stays first, as the category's fallback.
+   A culture theme carries `mode` (its Cultures mode id): it is won with a
+   1,000-point record in that mode, and runs of that mode always wear it,
+   won or not (activeTheme in ui.js). */
 Array.prototype.push.apply(CUSTOMIZATIONS, [
-  { id: 'theme_classic', cat: 'theme', icon: '🌗', style: 'classic', name: 'Classic', name_pt: 'Clássico', unlock: null },
+  { id: 'theme_classic', cat: 'theme', icon: '⏳', style: 'classic', name: 'Classic', name_pt: 'Clássico', unlock: null },
   { id: 'theme_candlelight', cat: 'theme', icon: '🕯️', style: 'candlelight', base: 'dark', name: 'Candlelight', name_pt: 'Luz de Vela',
     unlock: { level: 15 },
     trivia: 'King Alfred the Great of Wessex, his biographer Asser tells us, wanted to give half of his time to God, and needed a way to measure it by night as well as by day. He had candles made from twelve pennyweights of wax each, all of the same length and thickness and marked in inches; six of them, burning one after another, lasted a whole day and night. Draughts blowing through the windows and the cracks in the walls made them burn unevenly, so Alfred had them placed in lanterns of wood with sides of horn scraped so thin that the light shone through.',
     trivia_pt: 'O rei Alfredo, o Grande, de Wessex, conta seu biógrafo Asser, queria dedicar metade do seu tempo a Deus e precisava de um jeito de medi-lo à noite e de dia. Mandou fazer velas com doze pennyweights de cera cada uma, todas do mesmo comprimento e grossura e marcadas em polegadas; seis delas, queimando uma depois da outra, duravam um dia e uma noite inteiros. As correntes de ar que entravam pelas janelas e pelas frestas das paredes as faziam queimar de forma irregular, então Alfredo as pôs em lanternas de madeira com laterais de chifre raspado tão fino que a luz passava.' },
-  { id: 'theme_jerusalem_stone', cat: 'theme', icon: '🧱', style: 'jerusalem', base: 'dark', name: 'Jerusalem Stone', name_pt: 'Pedra de Jerusalém',
-    unlock: { level: 25 },
+  { id: 'theme_jerusalem_stone', cat: 'theme', icon: '✡️', style: 'jerusalem', base: 'dark', mode: 'abrahamic', name: 'Jerusalem Stone', name_pt: 'Pedra de Jerusalém',
+    unlock: { record: { mode: 'abrahamic', best: 1000 } },
     trivia: 'Every building in Jerusalem must be faced with the local pale limestone. The rule goes back to 1918, when the British military governor Ronald Storrs banned stucco and iron sheeting on walls and ordered new buildings to be built of stone, so that the city would keep its look; he meant it for the area around the Old City, and it was later extended to the whole municipality. The same stone has been quarried there since antiquity — the great blocks of the Western Wall are of it — and at sunset it turns golden, which is why the city is called "Jerusalem of Gold".',
     trivia_pt: 'Todo prédio de Jerusalém precisa ser revestido com o calcário claro da região. A regra vem de 1918, quando o governador militar britânico Ronald Storrs proibiu reboco e chapas de ferro nas paredes e mandou que os novos prédios fossem de pedra, para que a cidade mantivesse sua aparência; ele pensava na área em volta da Cidade Velha, e depois a regra foi estendida a todo o município. A mesma pedra é extraída ali desde a Antiguidade — os grandes blocos do Muro das Lamentações são dela — e ao pôr do sol fica dourada, e por isso a cidade é chamada de "Jerusalém de Ouro".' },
-  { id: 'theme_greek_vase', cat: 'theme', icon: '🏺', style: 'greek_vase', base: 'dark', name: 'Greek Vase', name_pt: 'Vaso Grego',
-    unlock: { level: 30 },
+  { id: 'theme_greek_vase', cat: 'theme', icon: '🏛️', style: 'greek_vase', base: 'dark', mode: 'roman', name: 'Greek Vase', name_pt: 'Vaso Grego',
+    unlock: { record: { mode: 'roman', best: 1000 } },
     trivia: 'Around 530 BCE the potters of Athens turned their art inside out. In the older black-figure style, figures were painted in black on the orange clay; in the new red-figure style, invented perhaps in the workshop of the potter Andokides, the figures were left the colour of the clay and the background was painted black, so details could be drawn with a fine brush instead of scratched in. The black was not paint but a very fine clay slip, and the colours came from the kiln: fired with air, then smoked without it, then with air again, the slip stayed a glossy black while the bare clay turned orange.',
     trivia_pt: 'Por volta de 530 AEC os oleiros de Atenas viraram sua arte do avesso. No estilo antigo, de figuras negras, as figuras eram pintadas de preto sobre a argila laranja; no novo estilo de figuras vermelhas, criado talvez na oficina do oleiro Andócides, as figuras ficavam na cor da argila e o fundo era pintado de preto, e assim os detalhes podiam ser desenhados com um pincel fino em vez de riscados. O preto não era tinta, mas uma argila finíssima diluída, e as cores vinham do forno: queimado com ar, depois na fumaça, sem ar, e de novo com ar, o engobe ficava de um preto brilhante enquanto a argila nua voltava ao laranja.' },
-  { id: 'theme_lacquer', cat: 'theme', icon: '🏮', style: 'lacquer', base: 'dark', name: 'Chinese Lacquer', name_pt: 'Laca Chinesa',
-    unlock: { level: 40 },
+  { id: 'theme_lacquer', cat: 'theme', icon: '☯️', style: 'lacquer', base: 'dark', mode: 'eastern', name: 'Chinese Lacquer', name_pt: 'Laca Chinesa',
+    unlock: { record: { mode: 'eastern', best: 1000 } },
     trivia: 'Lacquer is the sap of the lacquer tree, a relative of poison ivy that gives the same rash while it is fresh. It does not dry like paint: it hardens by taking in moisture, so each coat, brushed on very thin, has to cure in a warm, humid room before the next one. The result is a hard, waterproof shell — the oldest known lacquered object is a bow about 8,000 years old, found at Kuahuqiao, near Hangzhou. For the carved lacquer of the Ming and Qing courts, a hundred coats or more were built up and then carved like stone.',
     trivia_pt: 'A laca é a seiva da árvore-da-laca, parente da hera venenosa, que causa a mesma irritação na pele enquanto está fresca. Ela não seca como tinta: endurece absorvendo umidade, e por isso cada demão, pincelada bem fina, precisa curar num cômodo quente e úmido antes da seguinte. O resultado é uma casca dura e à prova d\'água — o objeto laqueado mais antigo que se conhece é um arco de cerca de 8.000 anos, achado em Kuahuqiao, perto de Hangzhou. Para a laca entalhada das cortes Ming e Qing, aplicavam-se cem demãos ou mais, que depois eram entalhadas como pedra.' },
-  { id: 'theme_night_sky', cat: 'theme', icon: '🌌', style: 'night', base: 'dark', name: 'Night Sky', name_pt: 'Céu Noturno',
-    unlock: { mastery: { era: 'Contemporary', seal: 'gold' } },
+  { id: 'theme_night_sky', cat: 'theme', icon: '🌙', style: 'night', base: 'dark', name: 'Night Sky', name_pt: 'Céu Noturno',
+    unlock: { level: 40 },
     trivia: 'On 14 February 1990, about 6 billion kilometres from the Sun, Voyager 1 turned its camera back and photographed the planets one last time; soon afterwards its cameras were switched off for good. Carl Sagan had argued for the picture for years. In it, Earth is a speck smaller than a single pixel, caught in a ray of scattered sunlight. Sagan named it the "Pale Blue Dot" and reflected that everyone who had ever lived had lived out their lives on that tiny point.',
     trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' }
 ]);
@@ -361,6 +366,10 @@ function isCustomUnlocked(item) {
   if (item.unlock.level) return playerLevelInfo().level >= item.unlock.level;
   if (item.unlock.trophy) return !!earnedTrophies[item.unlock.trophy];
   if (item.unlock.mastery) return eraSealReached(item.unlock.mastery.era, item.unlock.mastery.seal);
+  if (item.unlock.record) {
+    var rec = modeRecords[item.unlock.record.mode];
+    return !!rec && (rec.best | 0) >= item.unlock.record.best;
+  }
   return false;
 }
 

@@ -1392,12 +1392,9 @@
   body.themed .tc-year,body.themed .tc-peek{color:var(--th-accent)}
   body.themed #header,body.themed #bottom-area{background:var(--th-bar);border-color:var(--th-card-line)}
   body.themed .stat-val{color:var(--th-accent)}
-  /* Swatch: the theme's background, centre line and a small card */
-  .pf-th-sw{width:40px;height:40px;border-radius:10px;border:2px solid rgba(201,168,76,.35);background:var(--th-bg);position:relative;overflow:hidden;flex-shrink:0}
-  .pf-th-sw::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--th-line)}
-  .pf-th-sw::before{content:'';position:absolute;z-index:1;left:5px;right:5px;top:50%;height:10px;margin-top:-5px;border-radius:2px;background:var(--th-card);border:1px solid var(--th-card-line)}
-  .pf-th-sw.lg{width:84px;height:84px;border-radius:16px;margin:0 auto}
-  .pf-th-sw.lg::before{left:10px;right:10px;height:20px;margin-top:-10px;border-radius:4px}
+  /* Swatch: the theme's emoji on the theme's own background */
+  .pf-th-sw{width:40px;height:40px;border-radius:10px;border:2px solid rgba(201,168,76,.35);background:var(--th-bg);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;line-height:1}
+  .pf-th-sw.lg{width:84px;height:84px;border-radius:16px;margin:0 auto;font-size:2.4rem}
   body.light .pf-th-sw{border-color:#cbd5e1}
   .pf-opt.locked .pf-th-sw{filter:grayscale(1)}
   /* Dark/light buttons are off while a theme decides */

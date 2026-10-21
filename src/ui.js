@@ -74,6 +74,7 @@ function updateIntroHistBtn(){
 let _fromGameover=false;
 var _currentFactCard=null; // tracks which card the fact panel is showing
 function showIntro(){
+  setRunTheme(null);   // back to the player's own theme
   const cs = document.getElementById('cultures-screen');
   if(cs) cs.classList.remove('show');
   document.getElementById('gameover').classList.remove('show');
@@ -1461,10 +1462,24 @@ try{lightMode=localStorage.getItem('chronos_theme')==='light';}catch(e){}
 // its own light or dark base: while one is in use the dark/light setting is
 // off (kept, and back with the Classic theme). body gets .themed and the
 // theme's .th-<style> class.
-var _themeCls='';
-function themeLocksMode(){ return !!selectedCustom('theme').base; }
+// A run of a Cultures mode always wears that culture's theme (the theme item
+// with that `mode`), won or not: set when a run starts or resumes
+// (initGame / resumeSavedRun), cleared on the menus (showIntro / openCultures).
+var _themeCls='', _runThemeMode=null;
+function setRunTheme(mode){
+  _runThemeMode=CUSTOMIZATIONS.some(function(c){ return c.cat==='theme'&&c.mode===mode; })?mode:null;
+  applyTheme();
+}
+function activeTheme(){
+  if(_runThemeMode){
+    var th=CUSTOMIZATIONS.find(function(c){ return c.cat==='theme'&&c.mode===_runThemeMode; });
+    if(th) return th;
+  }
+  return selectedCustom('theme');
+}
+function themeLocksMode(){ return !!activeTheme().base; }
 function applyTheme(){
-  var th=selectedCustom('theme');
+  var th=activeTheme();
   document.body.classList.toggle('light',th.base?th.base==='light':lightMode);
   if(_themeCls)document.body.classList.remove(_themeCls);
   _themeCls=th.base?'th-'+th.style:'';
@@ -1672,7 +1687,7 @@ function _renderCustomTiles(catId, items, emblem, frame){
       : catId==='effect'
       ? '<div class="pf-fx-ico">'+(hidden?'❓':item.icon)+'</div>'
       : catId==='theme'
-      ? '<div class="pf-th-sw th-'+item.style+'"></div>'
+      ? '<div class="pf-th-sw th-'+item.style+'">'+item.icon+'</div>'
       : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
     // Selectable items are picked; locked ones open their card, which says how
     // to unlock them — the tile itself shows only the look and the name, so
@@ -1890,6 +1905,11 @@ function _customHowText(item){
   if(u.level)  return t('em_how_level').replace('{n}', u.level);
   if(u.trophy) return t('em_how_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
   if(u.mastery){ var m = _unlockMastery(item); return t('em_how_mastery').replace('{seal}', m.seal).replace('{era}', m.era); }
+  if(u.record){
+    var rm = RECORD_MODES.find(function(r){ return r.id === u.record.mode; });
+    return t('em_how_record').replace('{n}', formatXp(u.record.best)).replace('{mode}', rm ? t(rm.label) : u.record.mode)
+      + (item.mode ? ' '+t('th_culture_note') : '');
+  }
   return t('em_how_free');
 }
 
@@ -1912,7 +1932,7 @@ function openCustomModal(id){
     icon: item.cat==='title' ? titleIcon(item) : item.icon,
     // Frames show the current emblem wearing them
     iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>'
-      : item.cat==='theme' ? '<div class="pf-th-sw lg th-'+item.style+'"></div>' : '',
+      : item.cat==='theme' ? '<div class="pf-th-sw lg th-'+item.style+'">'+item.icon+'</div>' : '',
     earned: unlocked || customPreview,
     badge: !unlocked && customPreview ? t('pf_preview_badge') : '',
     name: _nm(cat) + ': ' + _nm(item),
@@ -2122,12 +2142,12 @@ function closeSettings() {
 function updateSettingsUI() {
   // A timeline theme in use sets dark or light itself: both buttons are off
   // and a note says which theme decides
-  var th = selectedCustom('theme'), locked = !!th.base;
+  var th = activeTheme(), locked = !!th.base;
   var light = locked ? th.base === 'light' : lightMode;
   ['sopt-dark', 'sopt-light'].forEach(function(id) { document.getElementById(id).disabled = locked; });
   document.getElementById('sopt-dark').classList.toggle('on', !light);
   document.getElementById('sopt-light').classList.toggle('on', light);
-  document.getElementById('sett-theme-note').textContent = locked ? t('th_mode_note').replace('{name}', _nm(th)) : '';
+  document.getElementById('sett-theme-note').textContent = locked ? t(_runThemeMode ? 'th_mode_note_run' : 'th_mode_note').replace('{name}', _nm(th)) : '';
   document.getElementById('sopt-en').classList.toggle('on', lang === 'en');
   document.getElementById('sopt-pt').classList.toggle('on', lang === 'pt');
   document.getElementById('sett-theme-lbl').textContent = lang === 'pt' ? 'Aparência' : 'Appearance';
@@ -2165,6 +2185,7 @@ function togglePlacedTrivia(val){
 let cultureMode='abrahamic', cultureLivesMode=true, _fromCultures=false;
 
 function openCultures(){
+  setRunTheme(null);
   document.getElementById('intro').classList.remove('show');
   document.getElementById('cultures-screen').classList.add('show');
   // Cultures only offer Lives / Free: a Review choice on the menu shows as Lives
