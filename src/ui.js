@@ -1448,10 +1448,22 @@ function toggleCK(sid) {
 // ── THEME ─────────────────────────────────────────────────────────────────
 let lightMode=false;
 try{lightMode=localStorage.getItem('chronos_theme')==='light';}catch(e){}
+// A timeline theme (Customization, progression.js) brings its own look on
+// its own light or dark base: while one is in use the dark/light setting is
+// off (kept, and back with the Classic theme). body gets .themed and the
+// theme's .th-<style> class.
+var _themeCls='';
+function themeLocksMode(){ return !!selectedCustom('theme').base; }
 function applyTheme(){
-  document.body.classList.toggle('light',lightMode);
+  var th=selectedCustom('theme');
+  document.body.classList.toggle('light',th.base?th.base==='light':lightMode);
+  if(_themeCls)document.body.classList.remove(_themeCls);
+  _themeCls=th.base?'th-'+th.style:'';
+  if(_themeCls)document.body.classList.add(_themeCls);
+  document.body.classList.toggle('themed',!!th.base);
 }
 function toggleTheme(){
+  if(themeLocksMode())return;
   lightMode=!lightMode;
   try{localStorage.setItem('chronos_theme',lightMode?'light':'dark');}catch(e){}
   applyTheme();
@@ -1645,6 +1657,8 @@ function _renderCustomTiles(catId, items, emblem, frame){
       ? '<div class="pf-avatar sm pf-frame-'+(hidden?'classic':item.style)+'">'+(hidden?'❓':emblem.icon)+'</div>'
       : catId==='effect'
       ? '<div class="pf-fx-ico">'+(hidden?'❓':item.icon)+'</div>'
+      : catId==='theme'
+      ? '<div class="pf-th-sw th-'+item.style+'"></div>'
       : '<div class="pf-avatar sm pf-frame-'+frame.style+'">'+(hidden?'❓':item.icon)+'</div>';
     // Selectable items are picked; locked ones open their card, which says how
     // to unlock them — the tile itself shows only the look and the name, so
@@ -1758,6 +1772,7 @@ function _askLogout(){
 // into memory and redraw whatever is on screen (never runs during a run)
 function onSyncApplied(){
   reloadSavedProgress();
+  applyTheme();   // the theme chosen on another device
   var tp=document.getElementById('tp');
   if(tp&&tp.classList.contains('open')){ renderTrophies(); if(_tpTab==='progress') renderProgress(); }
   var hp=document.getElementById('history-panel');
@@ -1825,6 +1840,7 @@ function pickCustomization(id){
   if(item && selectedCustom(item.cat).id === id){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
   SFX.play('drop');
+  if(item.cat==='theme') applyTheme();
   renderProgress();
   if(item.cat==='effect') playHitEffect(document.getElementById('pf-opt-'+id));
 }
@@ -1881,7 +1897,8 @@ function openCustomModal(id){
   _showTpModal({
     icon: item.cat==='title' ? titleIcon(item) : item.icon,
     // Frames show the current emblem wearing them
-    iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>' : '',
+    iconHtml: item.cat==='frame' ? '<div class="pf-avatar pf-frame-'+item.style+'">'+selectedCustom('emblem').icon+'</div>'
+      : item.cat==='theme' ? '<div class="pf-th-sw lg th-'+item.style+'"></div>' : '',
     earned: unlocked || customPreview,
     badge: !unlocked && customPreview ? t('pf_preview_badge') : '',
     name: _nm(cat) + ': ' + _nm(item),
@@ -2089,11 +2106,17 @@ function closeSettings() {
 }
 
 function updateSettingsUI() {
-  document.getElementById('sopt-dark').classList.toggle('on', !lightMode);
-  document.getElementById('sopt-light').classList.toggle('on', lightMode);
+  // A timeline theme in use sets dark or light itself: both buttons are off
+  // and a note says which theme decides
+  var th = selectedCustom('theme'), locked = !!th.base;
+  var light = locked ? th.base === 'light' : lightMode;
+  ['sopt-dark', 'sopt-light'].forEach(function(id) { document.getElementById(id).disabled = locked; });
+  document.getElementById('sopt-dark').classList.toggle('on', !light);
+  document.getElementById('sopt-light').classList.toggle('on', light);
+  document.getElementById('sett-theme-note').textContent = locked ? t('th_mode_note').replace('{name}', _nm(th)) : '';
   document.getElementById('sopt-en').classList.toggle('on', lang === 'en');
   document.getElementById('sopt-pt').classList.toggle('on', lang === 'pt');
-  document.getElementById('sett-theme-lbl').textContent = lang === 'pt' ? 'Tema' : 'Theme';
+  document.getElementById('sett-theme-lbl').textContent = lang === 'pt' ? 'Aparência' : 'Appearance';
   document.getElementById('sett-lang-lbl').textContent = lang === 'pt' ? 'Idioma' : 'Language';
   document.getElementById('settings-title').textContent = lang === 'pt' ? '⚙ Configurações' : '⚙ Settings';
   document.getElementById('settings-close').textContent = lang === 'pt' ? 'Fechar' : 'Close';
@@ -2107,6 +2130,7 @@ function updateSettingsUI() {
 }
 
 function setTheme(mode) {
+  if (themeLocksMode()) return;
   lightMode = (mode === 'light');
   try { localStorage.setItem('chronos_theme', mode); } catch(e) {}
   applyTheme();

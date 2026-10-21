@@ -1320,6 +1320,107 @@
   body.light .tc-trivia{color:#0f172a!important}
 
   body.light #cp-q::placeholder{color:#475569}
+
+  /* ── TIMELINE THEMES (applyTheme in ui.js) ───────────────────────────
+     Each .th-<style> only sets variables; body.themed (a theme in use)
+     draws the game screen with them, and .pf-th-sw (tile / modal swatch)
+     draws a miniature. Kept last so they win over the light-mode rules.
+     --th-bg: timeline background · --th-line: centre line · --th-dz: drop
+     lines · --th-card/-hover/-line: placed cards · --th-ink/-ink2: card
+     text · --th-accent: years and score · --th-bar: header and hand area */
+  .th-classic{--th-bg:var(--bg);--th-line:rgba(201,168,76,.6);--th-card:var(--bg3);--th-card-line:rgba(201,168,76,.35)}
+  body.light .th-classic{--th-bg:#f8fafc;--th-line:#94a3b8;--th-card:#ffffff;--th-card-line:#94a3b8}
+  .th-papyrus{
+    --th-bg:repeating-linear-gradient(90deg,rgba(140,100,35,.11) 0 2px,transparent 2px 7px,rgba(255,245,215,.14) 7px 9px,transparent 9px 17px,rgba(120,85,30,.08) 17px 20px,transparent 20px 31px,rgba(140,100,35,.06) 31px 32px,transparent 32px 43px),
+      repeating-linear-gradient(0deg,rgba(140,100,35,.06) 0 1px,transparent 1px 4px,rgba(140,100,35,.05) 4px 6px,transparent 6px 13px,rgba(255,245,215,.08) 13px 15px,transparent 15px 23px),
+      linear-gradient(90deg,transparent 33%,rgba(120,85,30,.10) 33.3%,transparent 34%,transparent 66%,rgba(120,85,30,.10) 66.3%,transparent 67%),
+      radial-gradient(ellipse at 25% 15%,rgba(255,250,225,.55),transparent 55%),
+      radial-gradient(ellipse at 80% 85%,rgba(150,105,40,.22),transparent 55%),#e6d29a;
+    --th-line:#6b4e1c;--th-dz:rgba(107,78,28,.35);--th-card:#f3e6bf;--th-card-hover:#f7edcf;--th-card-line:rgba(107,78,28,.45);
+    --th-ink:#3b2a0e;--th-ink2:#6b5228;--th-accent:#8a4b12;--th-bar:#dcc68c}
+  .th-marble{
+    --th-bg:linear-gradient(115deg,transparent 30%,rgba(105,105,118,.17) 31%,transparent 33%),
+      linear-gradient(62deg,transparent 54%,rgba(105,105,118,.13) 55%,transparent 56.5%),
+      linear-gradient(150deg,transparent 70%,rgba(150,128,95,.16) 71%,transparent 72%),
+      linear-gradient(100deg,transparent 9%,rgba(115,115,128,.10) 10%,transparent 11%),
+      radial-gradient(ellipse at 20% 30%,rgba(195,195,202,.55),transparent 50%),
+      radial-gradient(ellipse at 75% 70%,rgba(214,208,196,.65),transparent 55%),#f4f2ee;
+    --th-line:#b8963e;--th-dz:rgba(150,140,120,.4);--th-card:#ffffff;--th-card-hover:#faf8f3;--th-card-line:rgba(150,140,120,.5);
+    --th-ink:#2b2b33;--th-ink2:#6b6b75;--th-accent:#9a7a2c;--th-bar:#ebe8e1}
+  .th-stained_glass{
+    --th-bg:repeating-linear-gradient(60deg,rgba(0,0,0,.72) 0 2px,transparent 2px 44px),
+      repeating-linear-gradient(-60deg,rgba(0,0,0,.72) 0 2px,transparent 2px 44px),
+      radial-gradient(circle at 18% 12%,rgba(40,80,230,.6),transparent 30%),
+      radial-gradient(circle at 85% 30%,rgba(205,25,45,.55),transparent 30%),
+      radial-gradient(circle at 22% 55%,rgba(25,150,85,.45),transparent 28%),
+      radial-gradient(circle at 80% 72%,rgba(232,165,25,.45),transparent 28%),
+      radial-gradient(circle at 30% 92%,rgba(130,40,190,.5),transparent 28%),#0d1030;
+    --th-line:#d9a93a;--th-dz:rgba(217,169,58,.35);--th-card:rgba(12,14,34,.92);--th-card-hover:rgba(22,26,60,.96);--th-card-line:rgba(217,169,58,.4);
+    --th-ink:#f1e6c8;--th-ink2:#a9a3c9;--th-accent:#e8c15a;--th-bar:#0b0d26}
+  .th-fresco{
+    --th-bg:radial-gradient(ellipse at 15% 20%,rgba(190,90,60,.24),transparent 45%),
+      radial-gradient(ellipse at 85% 35%,rgba(70,110,160,.2),transparent 45%),
+      radial-gradient(ellipse at 40% 82%,rgba(200,150,60,.24),transparent 50%),
+      linear-gradient(178deg,transparent 47.6%,rgba(120,90,60,.16) 48%,transparent 48.6%),
+      linear-gradient(88deg,transparent 62%,rgba(120,90,60,.12) 62.3%,transparent 62.8%),#ecdcc2;
+    --th-line:#9c4a2a;--th-dz:rgba(156,74,42,.35);--th-card:#f6ecdb;--th-card-hover:#f9f2e6;--th-card-line:rgba(156,74,42,.4);
+    --th-ink:#3a2416;--th-ink2:#7a5a44;--th-accent:#9c4a2a;--th-bar:#e2cfb0}
+  .th-nautical{
+    --th-bg:repeating-conic-gradient(from 0deg at 72% 26%,rgba(125,40,30,.24) 0 .35deg,transparent .35deg 22.5deg),
+      repeating-conic-gradient(from 11.25deg at 16% 78%,rgba(30,90,60,.22) 0 .35deg,transparent .35deg 22.5deg),
+      linear-gradient(rgba(110,80,40,.08) 1px,transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg,rgba(110,80,40,.08) 1px,transparent 1px) 0 0/48px 48px,
+      radial-gradient(ellipse at center,transparent 55%,rgba(120,85,40,.3)),#efe1bd;
+    --th-line:#7a2a1e;--th-dz:rgba(122,42,30,.35);--th-card:#f6ead0;--th-card-hover:#f9f0dc;--th-card-line:rgba(110,80,40,.45);
+    --th-ink:#2e2414;--th-ink2:#6e5a3a;--th-accent:#7a2a1e;--th-bar:#e3d2a6}
+  .th-blueprint{
+    --th-bg:linear-gradient(rgba(255,255,255,.16) 1px,transparent 1px) 0 0/100px 100px,
+      linear-gradient(90deg,rgba(255,255,255,.16) 1px,transparent 1px) 0 0/100px 100px,
+      linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/20px 20px,
+      linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/20px 20px,
+      radial-gradient(ellipse at 50% 40%,#1a5aa8,#0c3570 75%);
+    --th-line:repeating-linear-gradient(to bottom,rgba(255,255,255,.85) 0 8px,transparent 8px 14px);
+    --th-dz:rgba(255,255,255,.4);--th-card:rgba(12,52,110,.94);--th-card-hover:rgba(20,66,135,.96);--th-card-line:rgba(255,255,255,.6);
+    --th-ink:#ffffff;--th-ink2:#b9d3f2;--th-accent:#ffffff;--th-bar:#0b3168}
+  .th-starry{
+    --th-bg:radial-gradient(1px 1px at 20px 30px,#fff,transparent) 0 0/240px 260px,
+      radial-gradient(1px 1px at 130px 80px,rgba(255,255,255,.8),transparent) 0 0/240px 260px,
+      radial-gradient(1.5px 1.5px at 60px 150px,#fff,transparent) 0 0/240px 260px,
+      radial-gradient(1px 1px at 180px 195px,rgba(220,230,255,.9),transparent) 0 0/240px 260px,
+      radial-gradient(1px 1px at 95px 235px,rgba(255,255,255,.7),transparent) 0 0/240px 260px,
+      radial-gradient(1.5px 1.5px at 215px 40px,rgba(255,240,220,.9),transparent) 0 0/240px 260px,
+      radial-gradient(1px 1px at 40px 110px,rgba(200,215,255,.6),transparent) 0 0/170px 190px,
+      linear-gradient(120deg,transparent 30%,rgba(140,150,255,.10) 45%,rgba(200,170,255,.08) 52%,transparent 68%),
+      linear-gradient(to bottom,#050816,#0b1638);
+    --th-line:linear-gradient(to bottom,transparent,rgba(170,190,255,.6) 10%,rgba(170,190,255,.6) 90%,transparent);
+    --th-dz:rgba(170,190,255,.3);--th-card:rgba(10,16,40,.9);--th-card-hover:rgba(18,28,64,.95);--th-card-line:rgba(150,170,255,.38);
+    --th-ink:#e8ecff;--th-ink2:#98a3cf;--th-accent:#c8d2ff;--th-bar:#050816}
+  body.themed #timeline-area{background:var(--th-bg)}
+  body.themed #timeline::before{background:var(--th-line);width:2px}
+  body.themed .drop-zone .dz-line{background:var(--th-dz)}
+  body.themed .drop-zone.active{background:rgba(127,127,127,.14)}
+  body.themed .drop-zone.active .dz-line{background:var(--th-accent)}
+  body.themed .drop-zone.active::after{color:var(--th-accent)}
+  body.themed .timeline-card{background:var(--th-card);border-color:var(--cf-line,var(--th-card-line))}
+  body.themed .timeline-card:hover,body.themed .timeline-card:active{background:var(--th-card-hover);border-color:var(--th-accent)}
+  body.themed .timeline-card .tcard-name{color:var(--th-ink)!important}
+  body.themed .tc-meta{color:var(--th-ink2)}
+  body.themed .tc-year,body.themed .tc-peek{color:var(--th-accent)}
+  body.themed #header,body.themed #bottom-area{background:var(--th-bar);border-color:var(--th-card-line)}
+  body.themed .stat-val{color:var(--th-accent)}
+  /* Swatch: the theme's background, centre line and a small card */
+  .pf-th-sw{width:40px;height:40px;border-radius:10px;border:2px solid rgba(201,168,76,.35);background:var(--th-bg);position:relative;overflow:hidden;flex-shrink:0}
+  .pf-th-sw::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--th-line)}
+  .pf-th-sw::before{content:'';position:absolute;z-index:1;left:5px;right:5px;top:50%;height:10px;margin-top:-5px;border-radius:2px;background:var(--th-card);border:1px solid var(--th-card-line)}
+  .pf-th-sw.lg{width:84px;height:84px;border-radius:16px;margin:0 auto}
+  .pf-th-sw.lg::before{left:10px;right:10px;height:20px;margin-top:-10px;border-radius:4px}
+  body.light .pf-th-sw{border-color:#cbd5e1}
+  .pf-opt.locked .pf-th-sw{filter:grayscale(1)}
+  /* Dark/light buttons are off while a theme decides */
+  .sopt:disabled{opacity:.45;cursor:default}
+  .settings-note{margin-top:8px;font:500 .62rem/1.4 Inter,sans-serif;color:var(--cream-dim)}
+  .settings-note:empty{display:none}
+  body.light .settings-note{color:#475569}
 </style>
 <script id="pwa-init">
 (function(){
@@ -1759,6 +1860,7 @@
         <button class="sopt on" id="sopt-dark" onclick="setTheme('dark')">🌙 Dark</button>
         <button class="sopt" id="sopt-light" onclick="setTheme('light')">☀︎ Light</button>
       </div>
+      <div class="settings-note" id="sett-theme-note"></div>
     </div>
     <div class="settings-row">
       <div class="settings-lbl" id="sett-lang-lbl">Language</div>
