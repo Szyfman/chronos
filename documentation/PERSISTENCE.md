@@ -32,9 +32,9 @@ Merge rules are defined at the bottom of this file.
 | `chronos_mode_records` | `{ "<mode>": { best, bestDate, mostPlaced, bestStreak, runs } }` (modes of `RECORD_MODES`, incl. `daily`); Lives runs only | `recordModeResult` (progression.js) | end | per mode: `best` **max** (with its `bestDate`); `mostPlaced`, `bestStreak` **max**; `runs` **counter** |
 | `chronos_trophies` | `{ "<trophy id>": ISO date }` | `checkTrophies` (game.js), family back-fill on load | event + end | **union**, earliest date per id |
 | `chronos_discovered` | `["<card name>", …]` | `_eagerSaveDiscovered` (game.js) | end | **union** |
-| `chronos_custom_known` | `["<customization id>", …]` — unlocked items, also stops repeated unlock notices | `checkCustomUnlocks` (progression.js) | event + end | **union, never remove** (an unlocked item is never lost, even if its requirement changes) |
+| `chronos_custom_known` | `["<customization id>", …]` — every item ever unlocked; keeps it unlocked for good (`isCustomUnlocked`, since v58) and stops repeated unlock notices | `checkCustomUnlocks` (progression.js) | event + end | **union, never remove** (an unlocked item is never lost, even if its requirement changes) |
 | `chronos_best_streak` | integer — only where streak trophies can unlock; seeded on load from streak trophies earned | `attemptPlacement` (game.js) | event | **max** |
-| `chronos_custom` | `{ "<category id>": "<item id>" }` — the item chosen per category | `selectCustomization` (progression.js) | on choice | **choice**, per category |
+| `chronos_custom` | `{ "<category id>": "<item id>" }` — the item chosen per category (`CUSTOM_CATEGORIES`: `emblem`, `frame`, `title` since v58); ids are checked against `CUSTOMIZATIONS`, so a new category or item needs no sync.js change | `selectCustomization` (progression.js) | on choice | **choice**, per category |
 | `chronos_player_name` | string, ≤ `PLAYER_NAME_MAX` (20) | `setPlayerName` (progression.js) | on edit | **choice** |
 | `chronos_review_history` | `[[names], [names]]`, newest first | `_rememberReviewTargets` (game.js) | Review run start | **choice**, whole value |
 | `chronos_history` | `[record, …]`, newest first, max 30 | `saveAndOpenHistory` (game.js), `confirmDel` (ui.js) | "Save timeline" / delete | **capped list** |

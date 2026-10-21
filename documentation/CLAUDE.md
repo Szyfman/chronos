@@ -362,6 +362,33 @@ score += Math.round(basePoints * streakMultiplier(streak));
 - Switch language, verify all text translates
 - Check that trophy saves to localStorage (refresh page)
 
+### Adding a Customization Item
+
+**Location**: `src/progression.js` (`CUSTOM_CATEGORIES`, `CUSTOMIZATIONS`, `TROPHY_TITLE_ITEMS`); styles in `index.html`; rendering in `ui.js` (`renderProgress`, `openCustomModal`).
+
+**Categories**: `emblem` (an emoji in the avatar), `frame` (the avatar ring, also worn by classic Lives cards) and `title` (shown under the player's name). The player picks one item per category; the choice is stored in `chronos_custom`. The **first item of each category must be free** (`unlock: null`): it is the fallback whenever a saved choice is missing or locked.
+
+```javascript
+{ id: 'emblem_wheat', cat: 'emblem', icon: '🌾', name: 'Wheat', name_pt: 'Espiga',
+  unlock: { mastery: { era: 'Ancient', seal: 'silver' } },
+  trivia: '…', trivia_pt: '…' }                       // shown once unlocked
+{ id: 'frame_iron', cat: 'frame', style: 'iron', … }  // needs .pf-frame-iron and .cf-iron in index.html
+```
+
+**Unlock rules** (`unlock`): `null` (free) · `{ title: id }` (that level title reached) · `{ level: n }` · `{ trophy: id }` · `{ mastery: { era, seal } }` (that Era Mastery seal or a higher one). Add `secret: true` (with a secret trophy) to hide the item as ❓ / ??? until earned.
+
+**Unlocked for good**: every unlocked item is recorded in `chronos_custom_known` (`checkCustomUnlocks`, run mid-game after trophies and at game end), and an id there stays unlocked even if its rule is later made harder. So raising a requirement only affects players who had not reached it yet; to take an item back, its id must be removed explicitly.
+
+**Unlock notices**: newly unlocked items are announced through the notice queue ("New emblem / frame / title: …"). Level titles are not, since the gameover screen already says "New title".
+
+**Titles**: `title_auto` ("Automatic", the default) always shows the level's title (`shownTitle`). Level-title items are built from `PLAYER_TITLES` (their trivia lives there); trophy titles go in `TROPHY_TITLE_ITEMS`. Keep titles gender-neutral in Portuguese where possible.
+
+**Content rules**: trivia in both languages, 4–6 sentences, same numbers in en and pt, and never repeating or contradicting a card, trophy or daily card (search them first). The topic of each trivia is agreed with the developer.
+
+**Preview mode**: set `PREVIEW_ENABLED = true` on the feature branch and open `index.html?preview` — every item becomes selectable (choices kept in memory only, never saved), locked and secret trivia is shown, and a 🧪 TEST badge stays on screen. **Set it back to `false` before merging.**
+
+**Sync**: no change needed in `sync.js` — it accepts any id listed in `CUSTOMIZATIONS` under its category.
+
 ### Fixing a Bug
 
 **Diagnosis process**:
