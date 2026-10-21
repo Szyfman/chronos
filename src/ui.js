@@ -235,7 +235,7 @@ function renderSideBtns(){
   // Hint button — disabled if no hints left in pool OR card already showed 3
   const hBtn=document.getElementById('hint-btn');
   hBtn.classList.toggle('visible',visible);
-  hBtn.disabled=(!currentCard||!gameActive||hints<=0||cardCluesUsed>=3);
+  hBtn.disabled=(!currentCard||!gameActive||hints<=0||(cardCluesUsed>=3&&!playModeRules().clueLoop));
   document.getElementById('hint-count').textContent=isFinite(hints)?hints:'∞';
   // Dots show hints remaining in pool (up to 3 dots max for visual)
   for(let i=0;i<3;i++){
@@ -1329,8 +1329,9 @@ function renderCP() {
   list.innerHTML = html;
 }
 
-// "Your record" line of an open Compendium card: hits, misses and how many
-// more hits it needs to be mastered (2+ hits and more hits than misses)
+// "Your record" line of an open Compendium card: the mastery hits and misses
+// (ok/miss — not amiss, so the line agrees with the ★) and how many more
+// hits it needs to be mastered (2+ hits and more hits than misses)
 function _cpRecordLine(s, mastered) {
   var ok = (s && s.ok) | 0, miss = (s && s.miss) | 0;
   var need = Math.max(0, 2 - ok, miss - ok + 1);

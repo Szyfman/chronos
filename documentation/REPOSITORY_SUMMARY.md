@@ -276,6 +276,7 @@ function attemptPlacement(idx)
 function useHint()
 ```
 - Reveals progressive clues (max 3 per card from card.clues)
+- Lives and Review: the button locks after the 3rd clue. Free (`clueLoop`, unlimited hints): the next tap starts over from the 1st clue, so the player can read them again
 - Costs 1 hint from pool
 - Earned via streak (every 20 correct placements)
 - Starting hints: 3 (Classic/Empires/Characters), 0 (Daily Challenge)
@@ -434,7 +435,7 @@ function renderCP()
 - Filters: Type (All, People, Events, Empires), Mastery (All, Mastered, To master = discovered and not mastered yet)
 - Search bar (filters by name)
 - Discovered count: "X / Y discovered · ★ N mastered" (the mastered total only without filters)
-- Mastered cards (same rule as the Gold seal: 2+ hits and more hits than misses, from `cardStats`) show a gold ★ after the name; an open card starts with "Your record: hits · misses — how many more hits to master"
+- Mastered cards (same rule as the Gold seal: 2+ hits and more hits than misses, from `cardStats`) show a gold ★ after the name; an open card starts with "Your record: hits · misses — how many more hits to master", using only the mastery numbers (`ok` / `miss`: Lives hits and misses plus Review hits — never `amiss`)
 - Card list: chronologically sorted inside each section
 - Locked cards: "?????" name and year until discovered
 - Expandable: click to reveal facts, clues, full description
@@ -908,6 +909,8 @@ The registry of every `chronos_*` key — shape, which function writes it, when 
 - Incorrect placement: No penalty (except broken streak)
 - Game continues until deck empty or voluntary end
 - Useful for learning and exploration
+- No XP, trophies, records or mastery: hits are not recorded; misses only go to `amiss`, which feeds the Review deck (`REVIEW_MODE.md`, *Card stats and mastery*)
+- Clues loop: after the 3rd, the hint button shows the 1st again
 
 ---
 
@@ -1102,7 +1105,8 @@ queueNotice({ streak: true })  // streak reward (showStreakToast)
 - [ ] Lives mode ends game at 0 lives
 - [ ] Free mode allows unlimited failures
 - [ ] Scoring calculates correctly (base + streak)
-- [ ] Hints reveal clues progressively (max 3)
+- [ ] Hints reveal clues progressively (max 3; in Free they loop back to the 1st)
+- [ ] Card stats follow the play mode: Free hits record nothing, Review/Free misses only raise `amiss`
 - [ ] Skip returns card to deck and draws new one
 - [ ] Daily challenge: seeded, no hints/skips, 18 cards
 - [ ] Language switch updates all UI instantly

@@ -125,6 +125,13 @@ function _sArr(a) { return Array.isArray(a) ? a : []; }
 function _sObj(o) { return (o && typeof o === 'object' && !Array.isArray(o)) ? o : {}; }
 function _sEach(o, fn) { o = _sObj(o); Object.keys(o).forEach(function(k) { fn(k, o[k]); }); }
 function _sHas(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+// A card counter [ok, miss, amiss]. Rows and metadata written before amiss
+// existed (v59 and older) hold [ok, miss]: every miss then counted in any
+// mode, so amiss falls back to miss — and amiss is never below miss.
+function _sCard(v) {
+  v = _sArr(v);
+  return [_sN(v[0]), _sN(v[1]), Math.max(_sN(v[1]), _sN(v[2]))];
+}
 function _sNewId() {
   var b = new Uint8Array(16);
   (window.crypto || {}).getRandomValues ? window.crypto.getRandomValues(b) : b.forEach(function(_, i) { b[i] = Math.floor(Math.random() * 256); });
@@ -225,7 +232,7 @@ function _syncCleanState(s) {
   var K = _syncKnown(), c = _sObj(s.counters);
   var o = { v: SYNC_SCHEMA, counters: { xp: _sN(c.xp), runs: _sN(c.runs), modes: {}, cards: {} } };
   _sEach(c.modes, function(k, v) { if (K.modes[k]) o.counters.modes[k] = _sN(v); });
-  _sEach(c.cards, function(k, v) { if (K.cards[k] && Array.isArray(v)) o.counters.cards[k] = [_sN(v[0]), _sN(v[1])]; });
+  _sEach(c.cards, function(k, v) { if (K.cards[k] && Array.isArray(v)) o.counters.cards[k] = _sCard(v); });
   o.trophies = {};
   _sEach(s.trophies, function(k, v) { if (K.trophies[k] && _sIsIso(v)) o.trophies[k] = v; });
   o.discovered = _sArr(s.discovered).filter(function(n) { return typeof n === 'string' && K.cards[n]; });
@@ -256,7 +263,7 @@ function _syncCleanState(s) {
 }
 
 // ── MERGE ─────────────────────────────────────────────────────────────────
-/* Counters ({ xp, runs, modes: { mode: runs }, cards: { name: [ok, miss] } })
+/* Counters ({ xp, runs, modes: { mode: runs }, cards: { name: [ok, miss, amiss] } })
    are merged by per-device contribution: each device keeps its own share
    ("own"), and the account's total is the sum of every device's latest share.
    CLOUD_SYNC_SPEC.md, "Counters". */
@@ -266,13 +273,16 @@ function _syncCopyCounters(c) {
   c = c || o;
   o.xp = _sN(c.xp); o.runs = _sN(c.runs);
   _sEach(c.modes, function(k, v) { o.modes[k] = _sN(v); });
-  _sEach(c.cards, function(k, v) { o.cards[k] = [_sN(v && v[0]), _sN(v && v[1])]; });
+  _sEach(c.cards, function(k, v) { o.cards[k] = _sCard(v); });
   return o;
 }
 function _syncAddCounters(t, c) {
   t.xp += _sN(c.xp); t.runs += _sN(c.runs);
   _sEach(c.modes, function(k, v) { t.modes[k] = (t.modes[k] || 0) + _sN(v); });
-  _sEach(c.cards, function(k, v) { var a = t.cards[k] || (t.cards[k] = [0, 0]); a[0] += _sN(v[0]); a[1] += _sN(v[1]); });
+  _sEach(c.cards, function(k, v) {
+    var a = t.cards[k] || (t.cards[k] = [0, 0, 0]), n = _sCard(v);
+    a[0] += n[0]; a[1] += n[1]; a[2] += n[2];
+  });
 }
 
 /* Folds what this device did since the last sync into its own row: counter
@@ -288,8 +298,9 @@ function _syncFold(L, meta, now) {
   _sEach(L.modeRecords, function(m, r) { if (r && typeof r === 'object') own.modes[m] = (own.modes[m] || 0) + d(r.runs, base.modes[m]); });
   _sEach(L.cardStats, function(n, s) {
     if (!s || typeof s !== 'object') return;
-    var b = base.cards[n] || [0, 0], o = own.cards[n] || (own.cards[n] = [0, 0]);
+    var b = base.cards[n] || [0, 0, 0], o = own.cards[n] || (own.cards[n] = [0, 0, 0]);
     o[0] += d(s.ok, b[0]); o[1] += d(s.miss, b[1]);
+    o[2] += d(Math.max(_sN(s.miss), _sN(s.amiss)), b[2]);   // amiss missing → miss, as _sCard
   });
   var prev = meta.choices || { custom: {} };
   // −1 = "before anything the account chose": loses to every stored choice
@@ -346,8 +357,8 @@ function _syncMerge(L, fold, peers, peerCounters, today) {
   var cardNames = {};
   [L.cardStats, total.cards, last].forEach(function(o) { _sEach(o, function(n) { cardNames[n] = true; }); });
   Object.keys(cardNames).forEach(function(n) {
-    var c = total.cards[n] || [0, 0];
-    M.cardStats[n] = { ok: c[0], miss: c[1], last: last[n] || '' };
+    var c = total.cards[n] || [0, 0, 0];
+    M.cardStats[n] = { ok: c[0], miss: c[1], amiss: c[2], last: last[n] || '' };
   });
 
   M.modeRecords = {};
@@ -508,7 +519,7 @@ function _syncCycle() {
     var M = _syncMerge(L, fold, peers, meta.peers, new Date(now));
     var base = { xp: M.xp, runs: M.runs, modes: {}, cards: {} };
     _sEach(M.modeRecords, function(m, r) { base.modes[m] = r.runs; });
-    _sEach(M.cardStats, function(n, s) { base.cards[n] = [s.ok, s.miss]; });
+    _sEach(M.cardStats, function(n, s) { base.cards[n] = [s.ok, s.miss, s.amiss]; });
     if (maxAt) meta.cursor = new Date(Date.parse(maxAt) - SYNC_CURSOR_OVERLAP_MS).toISOString();
     meta.own = fold.own; meta.base = base; meta.choices = M.choices; meta.deleted = M.deleted;
     meta.histIds = M.history.map(function(e) { return e.date; });

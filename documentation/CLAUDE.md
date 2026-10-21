@@ -200,7 +200,7 @@ When working on this codebase, you should:
   - No duplicates: don't add a card that covers the same subject as an existing one under another name.
   - If a conflict is found, resolve it across ALL affected cards in the same change (fix the wrong one, don't leave two versions in the deck) and mention the correction to the developer.
 - **Facts**: Write 3-5 interesting facts, make them engaging (not just "Born in X, died in Y")
-- **Clues**: Progressive difficulty - vague → specific → very specific (3 clues total)
+- **Clues**: Progressive difficulty - vague → specific → very specific (3 clues total). In Lives and Review a card never shows more than its 3 clues (Free lets the player loop through them again), so each one must really narrow down the date — a player who spends all 3 on a card should be able to place it
 - **Tags**: Only add if card should appear in special mode (roman, abrahamic, eastern)
 
 **Testing**:
@@ -660,7 +660,8 @@ function doSomething() { ... }
 - [ ] Streak increments/resets correctly
 - [ ] Lives decrement in Lives mode
 - [ ] Game ends at 0 lives or deck empty
-- [ ] Hint/skip buttons enable/disable correctly
+- [ ] Hint/skip buttons enable/disable correctly (the hint button locks after 3 clues in Lives/Review, loops in Free)
+- [ ] Card stats follow the play mode (`REVIEW_MODE.md`, *Card stats and mastery*)
 - [ ] Daily challenge uses seeded shuffle
 
 **After UI changes**:

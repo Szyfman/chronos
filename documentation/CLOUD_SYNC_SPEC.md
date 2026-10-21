@@ -70,7 +70,7 @@ From the registry in `PERSISTENCE.md`. "Row" is what the device uploads.
 | Key | Row holds | Merge |
 |---|---|---|
 | `chronos_xp`, `chronos_runs_played` | own contribution | sum of contributions |
-| `chronos_card_stats` | per card: own `ok`, own `miss`; `last` | `ok`/`miss`: sum of contributions; `last`: max |
+| `chronos_card_stats` | per card: own `[ok, miss, amiss]`; `last` | `ok`/`miss`/`amiss`: sum of contributions; `last`: max. `amiss` (since v60) is read as `max(miss, amiss)`, so rows and metadata written by v59 and older (`[ok, miss]`) count their misses as `amiss` too; older clients read only the first two values and keep syncing (no `SYNC_SCHEMA` change) |
 | `chronos_mode_records` | per mode: `best` + `bestDate`, `mostPlaced`, `bestStreak`; own `runs` | `best` max (its `bestDate` follows; tie → earlier date); `mostPlaced`, `bestStreak` max; `runs` sum of contributions |
 | `chronos_trophies` | id → date | union, earliest date per id |
 | `chronos_discovered`, `chronos_custom_known` | set | union, never remove |

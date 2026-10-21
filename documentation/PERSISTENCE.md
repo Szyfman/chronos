@@ -28,7 +28,7 @@ Merge rules are defined at the bottom of this file.
 |---|---|---|---|---|
 | `chronos_xp` | integer, total XP | `awardXp` (progression.js) | end | **counter** |
 | `chronos_runs_played` | integer — runs finished with ≥ 1 card, any mode | `endGame` (game.js) | end | **counter** |
-| `chronos_card_stats` | `{ "<card name>": { ok, miss, last } }`, `last` = 'YYYY-MM-DD'; every placement except a run's first card, skips don't count | `recordCardResult` (game.js) | event | per card: `ok`, `miss` **counter**; `last` **max** |
+| `chronos_card_stats` | `{ "<card name>": { ok, miss, amiss, last } }`, `last` = 'YYYY-MM-DD'; every placement except a run's first card, skips don't count. By play mode (`REVIEW_MODE.md`, *Card stats and mastery*): `ok` = Lives + Review hits, `miss` = Lives misses (both feed mastery); `amiss` (since v60) = misses in every mode, feeds the Review deck; Free hits are not recorded. Saved before v60: `amiss` missing → loaded as `miss` (`loadSavedProgress`) | `recordCardResult` (game.js) | event | per card: `ok`, `miss`, `amiss` **counter** (`amiss` read as `max(miss, amiss)`); `last` **max** |
 | `chronos_mode_records` | `{ "<mode>": { best, bestDate, mostPlaced, bestStreak, runs } }` (modes of `RECORD_MODES`, incl. `daily`); Lives runs only | `recordModeResult` (progression.js) | end | per mode: `best` **max** (with its `bestDate`); `mostPlaced`, `bestStreak` **max**; `runs` **counter** |
 | `chronos_trophies` | `{ "<trophy id>": ISO date }` | `checkTrophies` (game.js), family back-fill on load | event + end | **union**, earliest date per id |
 | `chronos_discovered` | `["<card name>", …]` | `_eagerSaveDiscovered` (game.js) | end | **union** |

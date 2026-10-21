@@ -465,13 +465,16 @@ function buildPool(mode, eraFilter){
    each rule: documentation/REVIEW_MODE.md. In short: weak cards become
    targets, grouped into up to 4 "regions" (contiguous stretches of the mode's
    timeline) that prefer the first region's era band; every target keeps the
-   cards right before and after it; the rest of each region is drawn at random. */
+   cards right before and after it; the rest of each region is drawn at random.
+   Mastered cards that were missed before seed the regions when no card is
+   weak, and top the deck up to `topUp` regions when weak cards are few. */
 const REVIEW_MIN_LEVEL=5;
 const REVIEW_MODES=['classic','empires','characters'];
 const REVIEW_DECK={
   min:18, max:30,            // deck size
   regionMin:6, regionMax:12, // drawn size of each region (may grow past max to reach `min`)
   regionsMax:4,
+  topUp:3,                   // with weak cards, mastered-missed ones add regions only up to this many
   join:5,                    // a weak card this many positions from a region joins it
   apart:3,                   // a new region starts at least this far from the others
   cooldown:[0.5,0.75]        // weight of targets from the last / second-to-last review
@@ -480,26 +483,34 @@ const REVIEW_DECK={
 const ERA_BAND={};
 ERA_FILTER_KEYS.forEach(function(k,i){ ERA_FILTER_MAP[k].forEach(function(e){ ERA_BAND[e]=i; }); });
 
-// Weak = missed at least once and not mastered yet (same rule as era mastery)
+// Weak = missed at least once in any mode (amiss) and not mastered yet (same
+// rule as era mastery)
 function _isWeakCard(c){
   var s=cardStats[c.name];
-  return !!s&&(s.miss|0)>0&&!isCardMastered(s);
+  return !!s&&(s.amiss|0)>0&&!isCardMastered(s);
 }
-function reviewWeakCards(mode, ef){
+// Mastered, but missed at least once: the Review fallback once nothing is weak
+function _isMasteredMissed(c){
+  var s=cardStats[c.name];
+  return !!s&&(s.amiss|0)>0&&isCardMastered(s);
+}
+// Cards a Review can target in this mode/filter: weak or mastered-missed
+function reviewTargetCards(mode, ef){
   var allowed=allowedErasFor(ef);
-  return buildPool(mode,[]).filter(function(c){ return (!allowed||allowed.indexOf(c.era)>=0)&&_isWeakCard(c); });
+  return buildPool(mode,[]).filter(function(c){ return (!allowed||allowed.indexOf(c.era)>=0)&&(_isWeakCard(c)||_isMasteredMissed(c)); });
 }
 // { ok } or { ok:false, reason:'level'|'mode'|'empty' } — checked when the
 // player picks Review and again when the run starts (mode/filter may change)
 function reviewAvailability(mode, ef){
   if(playerLevelInfo().level<REVIEW_MIN_LEVEL) return { ok:false, reason:'level' };
   if(REVIEW_MODES.indexOf(mode)<0) return { ok:false, reason:'mode' };
-  if(!reviewWeakCards(mode, ef).length) return { ok:false, reason:'empty' };
+  if(!reviewTargetCards(mode, ef).length) return { ok:false, reason:'empty' };
   return { ok:true };
 }
 
-// Returns { deck, targets } (targets = card names), or null when there is no
-// weak card. `rand` is injectable for tests.
+// Returns { deck, targets, allMastered } (targets = card names; allMastered =
+// no weak card, the targets are mastered-missed ones), or null when no card
+// of the mode/filter was ever missed. `rand` is injectable for tests.
 function buildReviewDeck(mode, ef, rand){
   rand=rand||Math.random;
   var R=REVIEW_DECK;
@@ -509,10 +520,13 @@ function buildReviewDeck(mode, ef, rand){
   var S=buildPool(mode,[]).slice().sort(function(a,b){ return cardYear(a)-cardYear(b)||(a.name<b.name?-1:a.name>b.name?1:0); });
   var pos={}; S.forEach(function(c,i){ pos[c.name]=i; });
   var weak=S.filter(function(c){ return inF(c)&&_isWeakCard(c); });
-  if(!weak.length) return null;
+  var spare=S.filter(function(c){ return inF(c)&&_isMasteredMissed(c); });
+  if(!weak.length&&!spare.length) return null;
+  var allMastered=!weak.length;
   var recent=reviewHistory.map(function(list){ return list||[]; });
   var weight=function(c){
-    var s=cardStats[c.name], w=Math.max(1,(s.miss|0)-(s.ok|0)+1);
+    // Weak: how far it is from mastered; mastered: how often it was missed
+    var s=cardStats[c.name], w=isCardMastered(s)?(s.amiss|0):Math.max(1,(s.amiss|0)-(s.ok|0)+1);
     R.cooldown.forEach(function(f,k){ if(recent[k]&&recent[k].indexOf(c.name)>=0) w*=f; });
     return w;
   };
@@ -548,8 +562,12 @@ function buildReviewDeck(mode, ef, rand){
   var bandOf=function(c){ return ERA_BAND[c.era]; };
   var distTo=function(i){ return regions.reduce(function(d,r){ return Math.min(d, i<r.lo?r.lo-i:(i>r.hi?i-r.hi:0)); },Infinity); };
 
+  var free=function(list){ return list.filter(function(c){ var i=pos[c.name]; return !taken[i]&&distTo(i)>=R.apart; }); };
   while(regions.length<R.regionsMax&&count+R.regionMin<=R.max){
-    var cand=weak.filter(function(c){ var i=pos[c.name]; return !taken[i]&&distTo(i)>=R.apart; });
+    // Weak cards seed first; mastered-missed ones take over when none is left —
+    // for every region if nothing is weak, else only up to R.topUp regions
+    var cand=free(weak), joiners=weak;
+    if(!cand.length&&(allMastered||regions.length<R.topUp)){ cand=free(spare); joiners=weak.concat(spare); }
     if(!cand.length) break;
     // Strong preference: same era band as the first region, then the adjacent ones
     if(regions.length){
@@ -565,11 +583,12 @@ function buildReviewDeck(mode, ef, rand){
     take(r,p); isTarget[seed.name]=true;
     // Fixed: the target's own boundary cards
     grow(r,-1,false); grow(r,1,false);
-    // Weak cards nearby join as extra targets (nearest first), with their
-    // boundary cards, while the region stays within its goal
+    // Weak cards nearby (and mastered-missed ones, in a region they seeded)
+    // join as extra targets (nearest first), with their boundary cards, while
+    // the region stays within its goal
     for(;;){
       var best=null, bestD=Infinity;
-      weak.forEach(function(c){
+      joiners.forEach(function(c){
         var i=pos[c.name];
         if(isTarget[c.name]||(taken[i]&&(i<r.lo||i>r.hi))) return;
         var d=i<r.lo?r.lo-i:(i>r.hi?i-r.hi:0);
@@ -612,7 +631,7 @@ function buildReviewDeck(mode, ef, rand){
   if(last>0&&isTarget[deck[last].name]){
     for(var j=last-1;j>=0;j--) if(!isTarget[deck[j].name]){ var tmp=deck[j]; deck[j]=deck[last]; deck[last]=tmp; break; }
   }
-  return { deck:deck, targets:targets };
+  return { deck:deck, targets:targets, allMastered:allMastered };
 }
 
 // Remembers this review's targets for the cooldown (newest first, last two)
@@ -740,7 +759,10 @@ function initGame(){
   // if it somehow can't, the run falls back to Lives rather than a full deck.
   if(playMode==='review'){
     var _rd=buildReviewDeck(gameMode,eraFilter);
-    if(_rd){ deck=_rd.deck; _rememberReviewTargets(_rd.targets); }
+    if(_rd){
+      deck=_rd.deck; _rememberReviewTargets(_rd.targets);
+      if(_rd.allMastered) queueNotice({ text:t('review_all_mastered') });
+    }
     else setPlayMode('lives');
   }
   var _rules=playModeRules();
@@ -843,9 +865,13 @@ const cRegion=c=>lang==='pt'?(c.region_pt||c.region):c.region;
 const cCulture=c=>lang==='pt'?(c.culture_pt||c.culture):c.culture;
 
 function useHint(){
-  if(!currentCard||!gameActive||hints<=0||cardCluesUsed>=3)return;
+  const loop=playModeRules().clueLoop;
+  if(!currentCard||!gameActive||hints<=0||(cardCluesUsed>=3&&!loop))return;
   const pool=lang==='pt'?currentCard.clues_pt:currentCard.clues;
-  if(!pool||!pool[cardCluesUsed])return;
+  if(!pool)return;
+  // Free play: past the last clue, the next tap shows the first one again
+  if(loop&&(cardCluesUsed>=3||!pool[cardCluesUsed]))cardCluesUsed=0;
+  if(!pool[cardCluesUsed])return;
   hints--;
   runFlags.aidsUsed=true;
   const clueEl=document.getElementById('hc-clue');
@@ -872,13 +898,16 @@ function useSkip(){
    share of the final score that becomes XP, and which trophies can unlock
    ('all' | 'none' | 'sections' = only the TROPHY_SECTIONS ids in `sections`,
    minus `excludeTrophies`).
-   Infinity = unlimited; a card still has only 3 clues.
+   Infinity = unlimited; a card still has only 3 clues. `clueLoop`: after the
+   3rd clue the hint button starts over from the 1st instead of locking.
+   `mastery`: which placements count towards mastery (recordCardResult):
+   'all' (hits and misses), 'hits' (a miss never sets mastery back) or 'none'.
    The daily challenge overrides hints/skips to 0 in initGame. */
 const PLAY_MODE_RULES={
-  lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all'  },
+  lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all',  mastery:'all'  },
   // A ~18–30 card deck would make emptying it (The End of History) trivial
-  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','secret'], excludeTrophies:['time_lord'] },
-  free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none' }
+  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','secret'], excludeTrophies:['time_lord'], mastery:'hits' },
+  free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none', mastery:'none', clueLoop:true }
 };
 function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }
 function trophyAllowedInMode(def){
@@ -902,12 +931,21 @@ function streakMultiplier(streakBefore){
 
 // Tallies one placement attempt in cardStats (state.js) and saves right away,
 // so a closed tab never loses it. Skipped cards are not attempts.
+// ok/miss feed mastery and follow the play mode's `mastery` rule; amiss
+// counts every miss, in any mode, and feeds the Review deck:
+//   Lives: hit → ok, miss → miss + amiss · Review: hit → ok, miss → amiss
+//   Free: hit → nothing, miss → amiss
 function recordCardResult(card, ok){
   var key = card && card.name;
-  if(!key) return;
+  var mastery = playModeRules().mastery;
+  if(!key || (ok && mastery === 'none')) return;
   var s = cardStats[key];
-  if(!s || typeof s !== 'object') s = cardStats[key] = { ok:0, miss:0, last:'' };
-  if(ok) s.ok = (s.ok|0) + 1; else s.miss = (s.miss|0) + 1;
+  if(!s || typeof s !== 'object') s = cardStats[key] = { ok:0, miss:0, amiss:0, last:'' };
+  if(ok) s.ok = (s.ok|0) + 1;
+  else {
+    if(mastery === 'all') s.miss = (s.miss|0) + 1;
+    s.amiss = (s.amiss|0) + 1;
+  }
   s.last = _dayStamp(new Date());
   saveCardStats();
 }

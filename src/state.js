@@ -62,9 +62,10 @@ function saveDiscovered() {
 }
 
 // Per-card placement results, keyed by the card's English name (same key as
-// discoveredCards): { ok, miss, last } — last is the 'YYYY-MM-DD' of the most
-// recent attempt. Recorded by recordCardResult (game.js); feeds era mastery
-// and the Review deck. Starts empty: past runs are not back-filled.
+// discoveredCards): { ok, miss, amiss, last } — ok/miss count towards mastery,
+// amiss is every miss in any mode (so amiss ≥ miss); last is the 'YYYY-MM-DD'
+// of the most recent attempt. Recorded by recordCardResult (game.js); feeds
+// era mastery and the Review deck. Starts empty: past runs are not back-filled.
 var cardStats = {};
 
 function saveCardStats() {
@@ -135,6 +136,12 @@ function loadSavedProgress() {
   try {
     var _cs = JSON.parse(localStorage.getItem('chronos_card_stats') || '{}');
     if (_cs && typeof _cs === 'object' && !Array.isArray(_cs)) cardStats = _cs;
+    // Stats saved before amiss existed (v59 and older): every miss was a miss
+    // in any mode, so amiss starts equal to miss
+    Object.keys(cardStats).forEach(function(k) {
+      var s = cardStats[k];
+      if (s && typeof s === 'object' && !((s.amiss | 0) >= (s.miss | 0))) s.amiss = s.miss | 0;
+    });
   } catch(e) {}
 
   modeRecords = {};
