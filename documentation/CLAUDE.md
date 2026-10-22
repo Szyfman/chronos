@@ -158,6 +158,7 @@ When working on this codebase, you should:
     'Pista mais específica',
     'Pista muito específica'
   ],
+  cultures: ['roman', 'european'],  // Keys of CULTURES (cards.js), see Cultures below
   tags: ['roman']  // Optional: for mode filtering
 }
 ```
@@ -172,8 +173,7 @@ When working on this codebase, you should:
   era: 'Classical',
   region: 'Mediterranean',
   region_pt: 'Mediterrâneo',
-  culture: 'Roman',
-  culture_pt: 'Romano',
+  cultures: ['roman', 'european'],
   description: 'Full paragraph description...',
   description_pt: 'Descrição completa...',
   facts: ['Fact 1', 'Fact 2', ...],
@@ -202,6 +202,11 @@ When working on this codebase, you should:
 - **Facts**: Write 3-5 interesting facts, make them engaging (not just "Born in X, died in Y")
 - **Clues**: Progressive difficulty - vague → specific → very specific (3 clues total). In Lives and Review a card never shows more than its 3 clues (Free lets the player loop through them again), so each one must really narrow down the date — a player who spends all 3 on a card should be able to place it
 - **Tags**: Only add if card should appear in special mode (roman, abrahamic, eastern)
+- **Cultures**: every card (CARDS and INTERVALS) has `cultures`, an array of keys of the `CULTURES` table at the top of `cards.js` (each key has `en`, `pt` and `kind`: `people`, `religion` or `region`).
+  - List every key that applies: the people/nation(s) involved, the religion when the card is religious in nature (`christian`, `islamic`, `buddhist`, `jewish`), and **at least one region** (`european`, `middle_eastern`, `asian`, `african`, `americas`, `oceanian`, `global`). Conflicts list both sides (Cold War → `american`, `russian`, `global`).
+  - Use the existing keys; add a new one to `CULTURES` only when no existing key fits. `british` covers England and the UK; `russian` covers Rus', the Tsardom and the USSR; `germanic` is the ancient/early-medieval peoples (Goths, Vandals, Franks), `german` the later German lands.
+  - `hebrew` = the biblical period (up to the return from Babylon); `jewish` = the Jewish people and religion from the Second Temple onward; `israeli` = the modern state (1948 on).
+  - Cultures are data only: they are not shown to the player and do not decide which cards a mode uses (modes filter by `tags`).
 
 **Testing**:
 1. Start game in relevant mode

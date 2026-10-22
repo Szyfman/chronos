@@ -90,7 +90,6 @@
   body.light .timeline-card.interval-card{border-color:#c4b5fd}
   body.light .timeline-card.interval-card:hover{border-color:#7c3aed;background:#faf5ff}
   body.light .tc-span{color:#6d28d9;font-weight:700}
-  body.light .tc-culture-badge{color:#6d28d9;border-color:#ddd6fe;background:#f5f3ff}
 
   /* ── Bottom / hand card ── */
   body.light #bottom-area{background:#f1f5f9;border-top:1.5px solid #94a3b8}
@@ -105,7 +104,6 @@
   body.light #hc-hint{color:#1e293b;border-top-color:#cbd5e1;font-weight:500}
   body.light #hc-span{color:#6d28d9;font-weight:700}
   body.light #hc-region{color:#0f172a}
-  body.light #hc-culture{color:#6d28d9;background:#f5f3ff;border-color:#ddd6fe}
 
   /* ── Side buttons (hint/skip) ── */
   body.light .side-btn{background:#ffffff;border:1.5px solid #cbd5e1;border-radius:8px}
@@ -295,6 +293,7 @@
   .hc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
   #hc-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1rem;color:var(--cream);line-height:1.2;flex:1;padding-right:10px;font-style:italic}
   #hc-cat{font-size:.45rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:3px;padding:2px 5px;white-space:nowrap;flex-shrink:0}
+  #hc-cat:empty{display:none}  /* interval cards show no category */
   #hc-era{display:none}
   #hc-hint{font-size:.54rem;color:var(--cream-dim);margin-top:5px;font-style:italic;font-family:'Inter',sans-serif;border-top:1px solid rgba(255,255,255,.05);padding-top:5px}
   #hc-bar{display:none}
@@ -325,6 +324,7 @@
   #ghost.visible{opacity:1}
   #ghost .g-name{font-family:'Inter',sans-serif;font-size:.88rem;color:var(--cream);font-style:italic}
   #ghost .g-cat{font-size:.46rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
+  #ghost .g-cat:empty{display:none}
 
   /* FEEDBACK */
   #feedback{position:fixed;top:65px;left:50%;transform:translateX(-50%);padding:6px 15px;border-radius:30px;font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;z-index:600;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
@@ -421,12 +421,10 @@
   .timeline-card.interval-card:hover{border-color:rgba(154,106,191,.55)}
   .tc-span{font-weight:600;font-family:'Inter',sans-serif;font-size:.62rem;color:#b890d8;flex-shrink:0;white-space:nowrap}
   .tc-region{font-size:.38rem;color:var(--cream-dim);letter-spacing:.1em}
-  .tc-culture-badge{display:inline-block;font-size:.36rem;color:#b890d8;border:1px solid rgba(154,106,191,.3);border-radius:10px;padding:1px 5px;margin-left:4px;letter-spacing:.08em}
 
   /* HAND CARD — interval fields */
   #hc-span{font-weight:600;font-family:'Inter',sans-serif;font-size:.72rem;color:#b890d8;letter-spacing:.05em;margin-bottom:2px}
   #hc-region{font-size:.43rem;color:var(--cream-dim);letter-spacing:.12em;text-transform:uppercase;margin-top:1px}
-  #hc-culture{font-size:.41rem;color:#b890d8;letter-spacing:.1em;text-transform:uppercase;background:rgba(154,106,191,.08);border:1px solid rgba(154,106,191,.2);border-radius:3px;padding:1px 5px;display:inline-block;margin-top:3px}
 
   /* TUTORIAL OVERLAY */
   #tutorial{position:fixed;inset:0;background:rgba(13,12,10,.95);z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -1635,7 +1633,6 @@
       <div id="hc-span" style="display:none">—</div>
       <div id="hc-era">—</div>
       <div id="hc-region" style="display:none">—</div>
-      <div id="hc-culture" style="display:none">—</div>
       <div id="hc-hint">—</div>
       <div id="hc-clue"></div>
       <div id="hc-bar"></div>
