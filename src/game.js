@@ -666,7 +666,6 @@ function _resetRunDom(){
   var _hcBar  = document.getElementById('hc-bar');
   var _hcSpan = document.getElementById('hc-span');
   var _hcReg  = document.getElementById('hc-region');
-  var _hcCult = document.getElementById('hc-culture');
   if(_hcName) _hcName.textContent = '—';
   if(_hcCat)  _hcCat.textContent  = '—';
   if(_hcEra)  _hcEra.textContent  = '—';
@@ -675,7 +674,6 @@ function _resetRunDom(){
   if(_hcBar)  _hcBar.style.background = '';
   if(_hcSpan) { _hcSpan.textContent = ''; _hcSpan.style.display = 'none'; }
   if(_hcReg)  { _hcReg.textContent  = ''; _hcReg.style.display  = 'none'; }
-  if(_hcCult) { _hcCult.textContent = ''; _hcCult.style.display = 'none'; }
 
   // Close confirm dialog if lingering
   var _cd = document.getElementById('confirm-dialog');
@@ -864,7 +862,6 @@ const isInterval=c=>c.startYear!==undefined;
 const cardYear=c=>isInterval(c)?c.startYear:c.year;
 const formatSpan=c=>isInterval(c)?formatYear(c.startYear)+' – '+formatYear(c.endYear):formatYear(c.year);
 const cRegion=c=>lang==='pt'?(c.region_pt||c.region):c.region;
-const cCulture=c=>lang==='pt'?(c.culture_pt||c.culture):c.culture;
 
 function useHint(){
   const loop=playModeRules().clueLoop;
@@ -1171,7 +1168,7 @@ function buildGameRecord(won) {
       return {
         name: cName(c), year: cardYear(c),
         span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
-        era: c.era, cat: isInterval(c) ? cCulture(c) : cCat(c)
+        era: c.era, cat: isInterval(c) ? null : cCat(c)
       };
     })
   };
