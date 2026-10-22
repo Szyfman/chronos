@@ -52,7 +52,8 @@ chronos/
 │   ├── trophies.js     # Trophy definitions and checking logic (41KB)
 │   ├── progression.js  # Player profile: XP, levels, titles, customizations, records, era mastery
 │   ├── dailycards.js   # Daily reward card content
-│   └── sfx.js          # Sound effects engine (8KB)
+│   ├── sfx.js          # Sound effects engine (8KB)
+│   └── hitsfx.js       # Hit effect sounds, synthesised in code
 ├── assets/             # Static assets
 │   ├── bgm.mp3         # Background music
 │   ├── manifest.json   # PWA manifest
