@@ -961,7 +961,8 @@ function attemptPlacement(idx){
   // so it says nothing about the player's knowledge
   if(timeline.length>0) recordCardResult(card, valid);
   // The drop sound is played here, once the result is known: a hit plays its
-  // effect's sound instead (playHitEffect)
+  // effect's sound instead (playHitEffect), and while hits have a sound a
+  // miss plays none (hitSoundOn)
   if(valid){
     // Run events for skill/secret trophies: the tightest gap filled (Scalpel)
     // and hits made while on the last life (Phoenix)
@@ -988,8 +989,7 @@ function attemptPlacement(idx){
     if(typeof _showPlacedTrivia==='undefined'||_showPlacedTrivia){showFact(card,false);}
     else{_pendingDraw=false;drawCard();}
   } else {
-    SFX.play('drop');
-    SFX.play('wrong');
+    if(!hitSoundOn()){ SFX.play('drop'); SFX.play('wrong'); }
     streak=0;document.getElementById('streak-val').textContent=streak;
     let hint='none';
     let yearDelta=null;

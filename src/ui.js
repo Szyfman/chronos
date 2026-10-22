@@ -429,6 +429,12 @@ const HIT_FX={
     _fxPart(b,'fx-clock',{x:0,y:0,t:1300});
   }
 };
+// Whether hits play an effect's sound: effects on and one won. Misses are
+// then silent (attemptPlacement).
+function hitSoundOn(){
+  var item=shownEffect();
+  return _hitFxOn&&!!HIT_FX[item.fx]&&!!HIT_SFX[item.fx];
+}
 // preview: picked in the Progress tab — plays even with effects switched off.
 // Says whether the effect's sound played (then the drop sound is left out).
 function playHitEffect(target,preview){
