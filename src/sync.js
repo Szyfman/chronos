@@ -212,13 +212,17 @@ function _syncCleanTl(c) {
 function _syncCleanEntry(e) {
   var K = _syncKnown();
   if (!e || typeof e !== 'object' || !_sIsIso(e.date)) return null;
-  return {
+  var o = {
     date: e.date, mode: K.gameModes[e.mode] ? e.mode : 'classic',
     playMode: (e.playMode === 'review' || e.playMode === 'free') ? e.playMode : 'lives',
     livesMode: e.livesMode !== false, eraFilter: _sArr(e.eraFilter).filter(function(k) { return K.eras[k]; }),
     lang: e.lang === 'pt' ? 'pt' : 'en', score: _sN(e.score), placed: _sN(e.placed), won: !!e.won,
     timeline: _sArr(e.timeline).slice(0, 300).map(_syncCleanTl).filter(Boolean)
   };
+  // Optional: the card of the run's last miss (buildGameRecord), keyed by its English name
+  var miss = _syncCleanTl(e.miss);
+  if (miss && typeof e.miss.key === 'string' && e.miss.key) { miss.key = _sStr(e.miss.key, 100); o.miss = miss; }
+  return o;
 }
 function _syncCleanDay(r, recover) {
   if (!r || typeof r !== 'object') return null;

@@ -18,8 +18,9 @@ var RUN_SAVE_NAME_MAX = 100;          // longest card name is 38 chars
 
 /* runFlags saved with the run, each with the value it loads as when missing
    or invalid. dailyFinished is left out: endGame sets it. A new run flag that
-   changes the end result must be listed here (PERSISTENCE.md, checklist 5). */
-var RUN_SAVE_FLAGS = { aidsUsed: false, minGap: Infinity, maxMissDelta: 0, lastLifeHits: 0, maxStreak: 0 };
+   changes the end result must be listed here (PERSISTENCE.md, checklist 5).
+   A null default marks a card name (loaded only if the card still exists). */
+var RUN_SAVE_FLAGS = { aidsUsed: false, minGap: Infinity, maxMissDelta: 0, lastLifeHits: 0, maxStreak: 0, lastMiss: null };
 
 // Infinity isn't JSON: unlimited hints/skips and an unset minGap save as null
 function _runNum(n) { return isFinite(n) ? n : null; }
@@ -30,7 +31,9 @@ function saveRun() {
   if (!gameActive || !timeline.length) return;
   var flags = {};
   Object.keys(RUN_SAVE_FLAGS).forEach(function(k) {
-    flags[k] = typeof RUN_SAVE_FLAGS[k] === 'number' ? _runNum(runFlags[k]) : !!runFlags[k];
+    var def = RUN_SAVE_FLAGS[k];
+    flags[k] = def === null ? (typeof runFlags[k] === 'string' ? runFlags[k] : null)
+      : typeof def === 'number' ? _runNum(runFlags[k]) : !!runFlags[k];
   });
   var data = {
     v: RUN_SAVE_VERSION,
@@ -112,7 +115,8 @@ function _parseRun(raw) {
   var flags = {}, f = (s.flags && typeof s.flags === 'object') ? s.flags : {};
   Object.keys(RUN_SAVE_FLAGS).forEach(function(k) {
     var def = RUN_SAVE_FLAGS[k], v = f[k];
-    if (typeof def === 'boolean') flags[k] = typeof v === 'boolean' ? v : def;
+    if (def === null) flags[k] = (typeof v === 'string' && v.length <= RUN_SAVE_NAME_MAX && Object.prototype.hasOwnProperty.call(byName, v)) ? v : null;
+    else if (typeof def === 'boolean') flags[k] = typeof v === 'boolean' ? v : def;
     else flags[k] = (typeof v === 'number' && isFinite(v) && v >= 0) ? v : def;
   });
 

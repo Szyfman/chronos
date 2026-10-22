@@ -494,6 +494,15 @@ score += Math.round(basePoints * streakMultiplier(streak));
 - Brazilian Portuguese is primary (project author is Brazilian)
 - Avoid overly formal language (use "você", not "vós")
 
+### Panels, Sheets and the Back Button
+
+**Location**: `src/ui.js` (BACK BUTTON HANDLER, DRAG A SHEET DOWN TO CLOSE)
+
+- Every panel or card the back button should close calls `_pushNavState('name')` when it opens and `_popNavState('name')` in its close function, and has a case in `_closePanel`. Back closes only the innermost one: a trophy card closes and Trophies stays open; the trivia after a hit closes like "Continue" (the next card is drawn).
+- The browser history holds at most ONE entry of ours (the guard) while panels are open, however many. Close functions never call `history.back()` (it is async and races with a panel opened right after); a leftover guard is consumed by the next back press, which then goes back once more. So the back button never needs dead presses, and with nothing open it leaves the game.
+- Panels a run start hides without their close functions are forgotten by `resetNav()` (called from `_resetRunDom`).
+- Bottom sheets close by dragging them down: `_sheetDrag(el, closeFn)`, wired in the init, with the offset in `--sheet-dy` used by the sheet's `.open` transform in index.html. The drag only starts from the sheet's top, so scrolling a long trivia never closes it. A new sheet needs both.
+
 ### Working with Service Worker
 
 **Location**: `sw.js`
@@ -678,7 +687,8 @@ function doSomething() { ... }
 - [ ] Layout doesn't break on narrow screens
 - [ ] Animations play smoothly
 - [ ] Drag-and-drop works on touch
-- [ ] Panels open/close correctly
+- [ ] Panels open/close correctly, and the phone's back button closes only the innermost one
+- [ ] Bottom sheets (trivia, trophy/customization card, daily card) close when dragged down
 - [ ] Buttons have clear hover/active states
 - [ ] Text is readable in both themes
 
@@ -1158,4 +1168,4 @@ Migration: None needed (pure UI enhancement)
 
 ---
 
-*This guide was written for AI assistants helping with the Chronos codebase. Last updated: 2026-10-19*
+*This guide was written for AI assistants helping with the Chronos codebase. Last updated: 2026-10-22*
