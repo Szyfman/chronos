@@ -136,7 +136,7 @@ function renderHandCard(){
   const c=currentCard;
   const iv=isInterval(c);
   document.getElementById('hc-name').textContent=cName(c);
-  document.getElementById('hc-cat').textContent=iv?cCulture(c):cCat(c);
+  document.getElementById('hc-cat').textContent=iv?'':cCat(c);
   document.getElementById('hc-era').textContent='';
   document.getElementById('hc-hint').textContent=cHint(c);
   document.getElementById('hc-bar').style.background='rgba(201,168,76,0.25)';
@@ -145,17 +145,14 @@ function renderHandCard(){
   // Interval-specific fields
   const spanEl=document.getElementById('hc-span');
   const regionEl=document.getElementById('hc-region');
-  const cultureEl=document.getElementById('hc-culture');
   spanEl.style.display=iv?'block':'none';
   regionEl.style.display=iv?'block':'none';
-  cultureEl.style.display=iv?'inline-block':'none';
   if(iv){
     spanEl.textContent='?? – ?? · place to reveal dates';
     regionEl.textContent=cRegion(c)||'';
-    cultureEl.textContent=cCulture(c)||'';
   }
   document.getElementById('g-name').textContent=cName(c);
-  document.getElementById('g-cat').textContent=iv?(cCulture(c)||''):cCat(c);
+  document.getElementById('g-cat').textContent=iv?'':cCat(c);
   document.getElementById('score-val').textContent=score;
   document.getElementById('streak-val').textContent=streak;
   // Clue display: blank, or the last clue revealed
@@ -199,8 +196,7 @@ function makeTCard(card,idx){
   if(iv){
     const dur=card.endYear-card.startYear;
     const durStr=dur>0?`${dur} yrs`:'';
-    const cultureBadge=cCulture(card)?`<span class="tc-culture-badge">${cCulture(card)}</span>`:'';
-    d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}${cultureBadge}</div><div class="tc-meta tc-region">${cRegion(card)||card.era}</div></div><div class="tc-span">${formatYear(card.startYear)} – ${formatYear(card.endYear)}</div><div class="tc-peek">ℹ</div>`;
+    d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}</div><div class="tc-meta tc-region">${cRegion(card)||card.era}</div></div><div class="tc-span">${formatYear(card.startYear)} – ${formatYear(card.endYear)}</div><div class="tc-peek">ℹ</div>`;
   } else {
     d.innerHTML=`<div class="tc-dot" style="background:${color}"></div><div class="tc-info"><div class="tcard-name">${cName(card)}</div><div class="tc-meta">${card.era} · ${cCat(card)}</div></div><div class="tc-year">${formatYear(card.year)}</div><div class="tc-peek">ℹ</div>`;
   }
@@ -491,10 +487,9 @@ function showFact(card,isReview,keepIdx){
   document.getElementById('fp-name').textContent=cName(card);
   const fact=_nextFact(card,keepIdx);
   if(iv){
-    const cul=cCulture(card);const reg=cRegion(card);
+    const reg=cRegion(card);
     document.getElementById('fp-year').textContent=formatYear(card.startYear)+' – '+formatYear(card.endYear)+(reg?' · '+reg:'');
-    const prefix=cul?cul+' · ':'';
-    document.getElementById('fp-text').textContent=prefix+fact;
+    document.getElementById('fp-text').textContent=fact;
   } else {
     document.getElementById('fp-year').textContent=formatYear(card.year)+' · '+card.era;
     document.getElementById('fp-text').textContent=fact;

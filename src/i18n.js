@@ -20,7 +20,7 @@ en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review'
     era_all:'All Ages',era_ancient:'Ancient',era_medieval:'Medieval',era_modern:'Modern',era_contemporary:'Contemporary',hint_lbl:'Hint',skip_earned:'💡 +1 Hint — streak bonus!',
     mc_empires_title:'Empires',mc_empires_desc:'Place empires and eras by their rise and fall.',
     empires_lbl:'Empires',drag_label_empires:'Drag to place · tap cards to review',
-    span_label:'Duration',region_label:'Region',culture_label:'Culture',
+    span_label:'Duration',region_label:'Region',
     tut_title:'Empires in Parallel',tut_sub:'How to play',
     tut_s1:'Each card shows an empire, dynasty or era with its start and end dates hidden. Place it in the correct position on the timeline.',
     tut_s2:"You're sorting by start year. Place the card where it fits chronologically among what's already placed.",
@@ -51,7 +51,7 @@ pt:{subtitle:'Linha do Tempo',drag_label:'Arraste para colocar · toque nas cart
     era_all:'Todas as Eras',era_ancient:'Antiga',era_medieval:'Medieval',era_modern:'Moderna',era_contemporary:'Contemporânea',hint_lbl:'Dica',skip_earned:'💡 +1 Dica — bônus de sequência!',
     mc_empires_title:'Impérios',mc_empires_desc:'Posicione impérios e eras pelo seu surgimento e queda.',
     empires_lbl:'Impérios',drag_label_empires:'Arraste para colocar · toque nas cartas para rever',
-    span_label:'Duração',region_label:'Região',culture_label:'Cultura',
+    span_label:'Duração',region_label:'Região',
     tut_title:'Impérios em Paralelo',tut_sub:'Como jogar',
     tut_s1:'Cada carta mostra um império, dinastia ou era com suas datas de início e fim ocultas. Coloque-a na posição correta na linha do tempo.',
     tut_s2:'Você está ordenando pelo ano de início. Coloque a carta onde ela se encaixa cronologicamente entre as já colocadas.',
@@ -170,10 +170,10 @@ function _applyAllTranslations() {
     if(currentCard){
       var _iv=currentCard.startYear!==undefined;
       var _hcn=document.getElementById('hc-name');if(_hcn)_hcn.textContent=cName(currentCard);
-      var _hcc=document.getElementById('hc-cat');if(_hcc)_hcc.textContent=_iv?cCulture(currentCard):cCat(currentCard);
+      var _hcc=document.getElementById('hc-cat');if(_hcc)_hcc.textContent=_iv?'':cCat(currentCard);
       var _hch=document.getElementById('hc-hint');if(_hch)_hch.textContent=cHint(currentCard);
       var _gn=document.getElementById('g-name');if(_gn)_gn.textContent=cName(currentCard);
-      var _gc=document.getElementById('g-cat');if(_gc)_gc.textContent=_iv?(cCulture(currentCard)||''):cCat(currentCard);
+      var _gc=document.getElementById('g-cat');if(_gc)_gc.textContent=_iv?'':cCat(currentCard);
       // Refresh active clue if one is showing
       var _clueEl=document.getElementById('hc-clue');
       if(_clueEl&&_clueEl.classList.contains('show')&&cardCluesUsed>0){

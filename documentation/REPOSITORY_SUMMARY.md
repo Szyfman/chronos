@@ -150,6 +150,7 @@ var CARDS = [
     facts_pt: ['Fato 1', 'Fato 2'], // Portuguese trivia
     clues: ['Clue 1', ...],         // Progressive hints (max 3)
     clues_pt: ['Pista 1', ...],     // Portuguese clues
+    cultures: ['roman', 'european'], // Keys of CULTURES (data only, not shown)
     tags: ['roman', ...]             // Mode tags (for filtering)
   },
   // ... ~1000+ cards
@@ -165,8 +166,7 @@ var INTERVALS = [
     era: 'Classical',
     region: 'Mediterranean',
     region_pt: 'Mediterrâneo',
-    culture: 'Roman',
-    culture_pt: 'Romano',
+    cultures: ['roman', 'european'],
     description: 'Full description...',
     description_pt: 'Descrição...',
     facts: ['Fact 1', ...],
@@ -834,7 +834,7 @@ The registry of every `chronos_*` key — shape, which function writes it, when 
 - **Pool**: INTERVALS only (empires/eras), filtered by era
 - **Era Filters**: multi-select Ancient, Medieval, Modern, Contemporary (none = All Ages)
 - **Lives**: Optional (3 lives or Free)
-- **Special**: Shows duration, region, culture for each empire
+- **Special**: Shows duration and region for each empire
 - **Scoring**: Bonus points for longer empires (10-30 points)
 - **Tutorial**: First-time popup explaining interval mechanics
 - **Description**: "Place empires and eras by their rise and fall"
