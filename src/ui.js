@@ -221,7 +221,7 @@ function makeDZ(idx){
   d.addEventListener('click',(e)=>{
     const fp=document.getElementById('fact-panel');
     if(fp&&fp.classList.contains('open')){closeFact();return;}
-    if(!isDragging&&currentCard){SFX.play('drop');_justPlaced=true;setTimeout(()=>{_justPlaced=false;},0);attemptPlacement(idx);}
+    if(!isDragging&&currentCard){_justPlaced=true;setTimeout(()=>{_justPlaced=false;},0);attemptPlacement(idx);}
   });
   return d;
 }
@@ -325,7 +325,6 @@ function endDrag(e){
   document.getElementById('hand-card').classList.remove('lifting');
   isDragging=false;
   if(currentDropZone){
-    SFX.play('drop');
     currentDropZone.classList.remove('active');
     const idx=parseInt(currentDropZone.dataset.index);
     currentDropZone=null;attemptPlacement(idx);
@@ -430,10 +429,11 @@ const HIT_FX={
     _fxPart(b,'fx-clock',{x:0,y:0,t:1300});
   }
 };
-// preview: picked in the Progress tab — plays even with effects switched off
+// preview: picked in the Progress tab — plays even with effects switched off.
+// Says whether the effect's sound played (then the drop sound is left out).
 function playHitEffect(target,preview){
   var item=shownEffect();
-  if(!target||!HIT_FX[item.fx]||(!_hitFxOn&&!preview))return;
+  if(!target||!HIT_FX[item.fx]||(!_hitFxOn&&!preview))return false;
   // Cards burst inside the scrolling timeline (so the burst follows them and
   // is drawn above the next cards); tiles burst inside themselves
   // Layout offsets, not the on-screen box: a card just placed is still
@@ -451,6 +451,7 @@ function playHitEffect(target,preview){
   playHitSound(item.fx);
   host.appendChild(burst);
   setTimeout(function(){burst.remove();},2000);
+  return !!HIT_SFX[item.fx];
 }
 
 // ── FACT PANEL ────────────────────────────────────────────────────────────
@@ -1864,7 +1865,7 @@ function pickCustomization(id){
   var item = CUSTOMIZATIONS.find(function(c){ return c.id === id; });
   if(item && _customInUse(item.cat).id === id){ openCustomModal(id); return; }
   if(!selectCustomization(id)) return;
-  SFX.play('drop');
+  if(item.cat!=='effect') SFX.play('drop');   // an effect plays its own sound
   if(item.cat==='theme') applyTheme();
   renderProgress();
   if(item.cat==='effect') playHitEffect(document.getElementById('pf-opt-'+id),true);
