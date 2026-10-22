@@ -1694,27 +1694,7 @@ function _renderCustomTiles(catId, items, emblem, frame){
     html += '<div class="pf-opt-name">'+(hidden?'???':_nm(item))+'</div>';
     html += '</div>';
   });
-  html += '</div>';
-  if(catId==='effect' && customPreview) html += _hitSfxTestRow(selected);
-  return html;
-}
-
-// TEST (preview only): the 5 sound candidates of the effect in use; a tap
-// plays that one with the burst and makes it the one heard in game (memory
-// only, hitsfx.js)
-function _hitSfxTestRow(item){
-  var cands = HIT_SFX[item.fx] || [], pick = _hitSfxPick[item.fx] || 0;
-  var html = '<div class="pf-sfx-test"><div class="pf-sfx-lbl">🧪 Som — '+esc(_nm(item))+'</div>';
-  cands.forEach(function(c, n){
-    html += '<button class="pf-sfx-btn'+(n===pick?' on':'')+'" onclick="pickHitSfx('+n+')">'+(n+1)+' · '+esc(c.name)+'</button>';
-  });
   return html + '</div>';
-}
-function pickHitSfx(n){
-  var item = shownEffect();
-  _hitSfxPick[item.fx] = n;
-  renderProgress();
-  playHitEffect(document.getElementById('pf-opt-'+item.id), true);
 }
 
 // Titles as one-line strips, the size of their section's header: the emoji
