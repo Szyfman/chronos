@@ -343,17 +343,36 @@ var _feedbackTimer=null;
 var _justPlaced=false;
 var _showPlacedTrivia=true;
 (function(){ try{ var v=localStorage.getItem('chronos_placed_trivia'); if(v==='false')_showPlacedTrivia=false; }catch(e){} })();
-function showFeedback(ok,hint,yearDelta){
+/* A miss says how far to move without giving the slot away: the direction,
+   how many cards to move past (1–2, 3–5, 6–10, more than 10 — never the
+   exact count) and the size of the error in years, by order of magnitude.
+   Both are shown because they disagree where cards are crowded (5 cards
+   can be a few decades) or sparse (1 card can be centuries). `miss` comes
+   from attemptPlacement: { dir, cards, years, ranged, span }. */
+const MISS_CARD_BANDS=[[2,'1'],[5,'3'],[10,'6'],[Infinity,'11']];
+const MISS_YEAR_BANDS=[[10,'years'],[25,'decades2'],[100,'decades'],[250,'centuries2'],[1000,'centuries'],[2500,'millennia2'],[Infinity,'millennia']];
+function missMessage(m){
+  const head=m.cards<=2&&m.years<10?'hair':m.cards<=2&&m.years<100?'close':m.cards>10||m.years>=1000?'far':'off';
+  const dir=t((m.ranged?'miss_started_':'miss_')+m.dir);
+  const cards=t(m.dir==='earlier'?'miss_up':'miss_down').replace('{n}',t('miss_c_'+MISS_CARD_BANDS.find(b=>m.cards<=b[0])[1]));
+  const why=m.span?t('miss_span'):t('miss_y_'+MISS_YEAR_BANDS.find(b=>m.years<b[0])[1]);
+  return { head:t('miss_'+head)+' '+dir, detail:cards+' · '+why };
+}
+function showFeedback(ok,miss){
   const el=document.getElementById('feedback');el.className='';
   if(ok){el.textContent=t('correct');}
-  else{
-    const band=yearDelta<100?'_close':yearDelta<500?'_off':'_far';
-    el.textContent=t('wrong_'+hint+band);
+  else if(miss){
+    const msg=missMessage(miss);
+    el.textContent=msg.head;
+    const sub=document.createElement('span');sub.className='fb-sub';sub.textContent=msg.detail;
+    el.appendChild(sub);
   }
+  else el.textContent='✗';
   void el.offsetWidth;
   el.className=ok?'correct':'incorrect';
   clearTimeout(_feedbackTimer);
-  _feedbackTimer=setTimeout(()=>el.className='',2400);
+  // A miss stays longer: it has a second line to read before moving the card
+  _feedbackTimer=setTimeout(()=>el.className='',ok?2400:4200);
 }
 
 // ── HIT EFFECTS ───────────────────────────────────────────────────────────
