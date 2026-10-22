@@ -394,17 +394,13 @@ function showFact(card, isReview)
 
 **Feedback System**:
 ```javascript
-function showFeedback(ok, hint, yearDelta)
+function showFeedback(ok, miss)
 ```
 - Animated banner at top of screen
 - Correct: "✓ Correct" (green)
-- Incorrect: Contextual message based on:
-  - Direction: "earlier" or "later"
-  - Proximity: "close" (<100 years), "off" (100-500 years), "far" (>500 years)
-- Examples:
-  - "✗ So close! Just a little later"
-  - "✗ Not quite — a few centuries too early"
-  - "✗ Wrong era — place it MUCH earlier"
+- Incorrect: two lines (see "Feedback Messages with Context" below), e.g.
+  - "✗ Not quite — place it earlier" / "↑ 6 to 10 cards up · off by 1 or 2 decades"
+  - "✗ Way off! place it earlier" / "↑ 1 or 2 cards up · off by 1 or 2 millennia"
 
 **History Panel**:
 ```javascript
@@ -975,13 +971,14 @@ function renderTimeline() {
 
 ### Feedback Messages with Context
 ```javascript
-function showFeedback(ok, hint, yearDelta)
+function showFeedback(ok, miss)   // miss = { dir, cards, years, ranged, span } from attemptPlacement
 ```
-- Calculates year difference to closest neighbor at attempted slot
-- Bands: <100 years = "close", 100-500 = "off", >500 = "far"
-- Combines with direction: earlier/later
-- 6 unique incorrect messages (earlier×3 + later×3)
-- Bilingual: Each message translated in i18n.js
+A miss tells how far to move the card without giving the slot away. Two measures are shown because they disagree where the timeline is crowded (7 cards can be 20 years) or sparse (1 card can be 1,000 years):
+- **Cards to move past** (`cards`, counted from the nearest valid slot; cards of the same year fit on either side), always as a band, never the exact count: 1–2, 3–5, 6–10, more than 10. The arrow follows the timeline (↑ earlier, ↓ later).
+- **Size of the error in years** (`years`, from the card to the nearest card of the slot tried — the same number the Anachronism trophy reads), by order of magnitude: a few years (<10), 1–2 decades (<25), several decades (<100), 1–2 centuries (<250), several centuries (<1000), 1–2 millennia (<2500), several millennia.
+- **Headline**: "By a hair!" (≤2 cards and <10 years), "So close!" (≤2 cards and <100 years), "Way off!" (>10 cards or ≥1000 years), otherwise "Not quite —"; then "place it earlier/later", or "it started earlier/later" when the card in hand is ranged (ranged cards are ordered by start year).
+- **Ranged-card rule** (`span`): an event placed before an empire/era it happened during gets "empires and eras count from their start" instead of the years.
+- Bands: `MISS_CARD_BANDS` / `MISS_YEAR_BANDS` in ui.js; strings `miss_*` in i18n.js. A miss stays on screen 4.2 s (a hit 2.4 s).
 
 ### Compendium Discovery System
 ```javascript
@@ -1000,7 +997,7 @@ queueNotice({ streak: true })  // streak reward (showStreakToast)
 ```
 - One shared queue in ui.js: notices show one at a time, never overlapping
 - Trophy: 3.2s, streak reward: 2.6s, 0.45s gap for the fade-out
-- In-game the toasts sit at top:100px, just below the #feedback pill that fires on the same card; outside a run the trophy toast keeps its original position
+- In-game the toasts sit at top:116px, just below the #feedback pill (two lines on a miss) that fires on the same card; outside a run the trophy toast keeps its original position
 
 ### Calendar Picker (Month/Year Selection)
 - Drum-roll style scrolling columns

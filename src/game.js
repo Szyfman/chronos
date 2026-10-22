@@ -985,30 +985,32 @@ function attemptPlacement(idx){
     document.getElementById('streak-val').textContent=streak;
     var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
     setTimeout(()=>{const cards=document.querySelectorAll('.timeline-card');if(cards[idx])cards[idx].scrollIntoView({behavior:'smooth',block:'center'});},100);
-    _pendingDraw=true;showFeedback(true,null);
+    _pendingDraw=true;showFeedback(true);
     if(typeof _showPlacedTrivia==='undefined'||_showPlacedTrivia){showFact(card,false);}
     else{_pendingDraw=false;drawCard();}
   } else {
     if(!hitSoundOn()){ SFX.play('drop'); SFX.play('wrong'); }
     streak=0;document.getElementById('streak-val').textContent=streak;
-    let hint='none';
+    /* What the miss message needs (showFeedback): the direction, how many
+       placed cards the player must move past (`cards`) and by how many years
+       the slot missed (`years`: from the card to the nearest card of the slot
+       tried — also the Anachronism measure). The card fits any slot from lo
+       to hi (cards of the same year can go on either side). `span` flags the
+       classic confusion with ranged cards: an event placed before an empire
+       or era because it happened during it, when ranged cards are ordered
+       by their start year. */
+    let miss=null;
     let yearDelta=null;
     if(timeline.length>0){
-      const firstNewerIdx=timeline.findIndex(c=>cy<cardYear(c));
-      let correctSlot=firstNewerIdx===-1?timeline.length:firstNewerIdx;
-      hint=correctSlot<idx?'earlier':'later';
-      // Find the neighbour at the attempted slot closest to the card's year
-      const nBefore=timeline[idx-1]?cardYear(timeline[idx-1]):null;
-      const nAfter=timeline[idx]?cardYear(timeline[idx]):null;
-      if(nBefore!==null&&nAfter!==null){
-        yearDelta=Math.min(Math.abs(cy-nBefore),Math.abs(cy-nAfter));
-      } else if(nBefore!==null){
-        yearDelta=Math.abs(cy-nBefore);
-      } else if(nAfter!==null){
-        yearDelta=Math.abs(cy-nAfter);
-      }
+      const lo=timeline.filter(c=>cardYear(c)<cy).length;
+      const hi=timeline.filter(c=>cardYear(c)<=cy).length;
+      const earlier=idx>hi;
+      const passed=earlier?timeline.slice(hi,idx):timeline.slice(idx,lo);
+      yearDelta=earlier?cardYear(prev)-cy:cy-cardYear(next);
+      miss={ dir:earlier?'earlier':'later', cards:passed.length, years:yearDelta, ranged:isInterval(card),
+        span:!earlier&&!isInterval(card)&&passed.some(c=>isInterval(c)&&c.endYear>=cy) };
     }
-    showFeedback(false,hint,yearDelta);
+    showFeedback(false,miss);
     // Trophies won by a miss — the biggest miss of the run (Anachronism) and
     // missing a given card (Raiders of the Lost Ark) — are checked right away,
     // as misses otherwise only reach checkTrophies on the next correct card
