@@ -59,14 +59,14 @@ Remaining window: the app dying *inside* the single JS task between `recordCardR
   clues: 1,                   // clues already revealed on the card in hand
   score: 340, streak: 4, lives: 2,
   hints: 2, skip: 1,          // null = unlimited (Free play: Infinity isn't JSON)
-  flags: { aidsUsed: true, minGap: 12, maxMissDelta: 300, lastLifeHits: 0, maxStreak: 7 },  // runFlags minus dailyFinished (set by endGame); minGap null = Infinity
+  flags: { aidsUsed: true, minGap: 12, maxMissDelta: 300, lastLifeHits: 0, maxStreak: 7, lastMiss: 'Sun Tzu' },  // runFlags minus dailyFinished (set by endGame); minGap null = Infinity; lastMiss: card name or null
   daily: null                 // or { date: '2026-10-18', attempt: 2, recover: false }
 }
 ```
 
 - Cards are stored by **English name** (the same key as `chronos_card_stats` / `chronos_discovered`; all 505 names are unique) and looked up in `CARDS`/`INTERVALS` on resume. The full deck as names is ~10 KB.
 - The deck is stored **in order**, so the resumed run draws exactly the same cards: closing the app never re-rolls the hand or the deck.
-- `flags` mirrors `runFlags` (game.js, `RUN_SAVE_FLAGS` in runsave.js). A new run flag — or any other in-memory value that changes the end result — must be added here too, or a resumed run silently loses it (`PERSISTENCE.md`, checklist item 5). Loading tolerates missing flags (default value), so adding one doesn't invalidate older saves.
+- `flags` mirrors `runFlags` (game.js, `RUN_SAVE_FLAGS` in runsave.js). A new run flag — or any other in-memory value that changes the end result — must be added here too, or a resumed run silently loses it (`PERSISTENCE.md`, checklist item 5). Loading tolerates missing flags (default value), so adding one doesn't invalidate older saves. A flag whose default is `null` holds a card name (`lastMiss`, the card of the run's last miss, shown in the saved timeline): it loads only if that card still exists, else `null`.
 
 ### Validation on load
 Even local data is checked before use (the same discipline Part B needs for cloud data). The save is **discarded** (and the key removed) if:

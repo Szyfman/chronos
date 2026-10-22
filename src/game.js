@@ -330,6 +330,7 @@ function _resetRunFlags(){
     maxMissDelta: 0,       // biggest miss, in years (Anachronism)
     lastLifeHits: 0,       // correct cards placed while on the last life (Phoenix)
     maxStreak: 0,          // longest streak of the run (mode records)
+    lastMiss: null,        // name of the card of the run's last miss (saved timeline)
     dailyFinished: false   // the run was a live daily (Carpe Diem, Midnight Bells)
   };
 }
@@ -685,6 +686,8 @@ function _resetRunDom(){
     _fp.classList.remove('open');
     _fp.classList.remove('review-mode');
   }
+  // The menus the run was started from were hidden without closing them
+  resetNav();
 
   // Clear timeline DOM immediately
   var _tl = document.getElementById('timeline');
@@ -1016,6 +1019,7 @@ function attemptPlacement(idx){
     // as misses otherwise only reach checkTrophies on the next correct card
     if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta) runFlags.maxMissDelta=yearDelta;
     _missedCard=card.name; checkTrophies(true); _missedCard=null;
+    runFlags.lastMiss=card.name;
     if(livesMode){ lives--; renderLives(); }
     saveRun();
     if(livesMode&&lives<=0) setTimeout(()=>endGame(false),700);
@@ -1164,19 +1168,27 @@ function _renderDailyGameover(){
 }
 
 // ── HISTORY ───────────────────────────────────────────────────────────────
-function buildGameRecord(won) {
+function _recordCard(c) {
   return {
+    name: cName(c), year: cardYear(c),
+    span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
+    era: c.era, cat: isInterval(c) ? null : cCat(c)
+  };
+}
+
+function buildGameRecord(won) {
+  var rec = {
     date: new Date().toISOString(),
     mode: gameMode, playMode: playMode, livesMode: livesMode, eraFilter: eraFilter,
     lang: lang, score: score, placed: timeline.length, won: won,
-    timeline: timeline.map(function(c) {
-      return {
-        name: cName(c), year: cardYear(c),
-        span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
-        era: c.era, cat: isInterval(c) ? null : cCat(c)
-      };
-    })
+    timeline: timeline.map(_recordCard)
   };
+  /* The card of the last miss, when it never made it into the timeline (one
+     placed on a later try is already in its place). `key` is its English
+     name: the history shows where it belongs only once it is discovered */
+  var missed = runFlags.lastMiss && CARDS.concat(INTERVALS).find(function(c) { return c.name === runFlags.lastMiss; });
+  if (missed && timeline.indexOf(missed) < 0) rec.miss = Object.assign({ key: missed.name }, _recordCard(missed));
+  return rec;
 }
 
 function _eagerSaveDiscovered() {

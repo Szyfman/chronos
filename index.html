@@ -334,7 +334,11 @@
 
   /* FACT PANEL */
   #fact-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:420px;background:var(--bg3);border-top:1px solid var(--gold-dim);border-radius:16px 16px 0 0;padding:15px 20px 30px;z-index:500;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-  #fact-panel.open{transform:translateX(-50%) translateY(0)}
+  #fact-panel.open{transform:translateX(-50%) translateY(var(--sheet-dy,0px))}
+  /* Bottom sheet being dragged down (_sheetDrag in ui.js): follows the finger */
+  .sheet-drag{transition:none!important}
+  #fp-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:-5px auto 10px;cursor:pointer}
+  body.light #fp-pill{background:#cbd5e1}
   #fp-tag{font-size:.46rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
   #fp-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
   #fp-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1.08rem;color:var(--gold);margin-bottom:2px}
@@ -650,6 +654,14 @@
   .ht-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
   .ht-name{flex:1;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--cream)}
   .ht-year{font-size:.56rem;color:var(--gold-dim);font-weight:700;font-family:'Inter',sans-serif}
+  /* The run's last miss, where it belongs (_htCards in ui.js) */
+  .ht-card.ht-miss{background:rgba(184,64,64,.14);box-shadow:inset 3px 0 0 var(--red)}
+  .ht-miss-lbl{display:block;font-size:.5rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#eb5757;margin-top:2px}
+  .ht-miss-note{padding:7px 12px 9px;border-top:1px solid rgba(255,255,255,.04);font-family:'Inter',sans-serif;font-size:.66rem;line-height:1.45;color:var(--cream-dim)}
+  .ht-miss-note b{color:#eb5757;font-weight:700}
+  body.light .ht-card.ht-miss{background:#fef2f2}
+  body.light .ht-miss-lbl,body.light .ht-miss-note b{color:var(--red)}
+  body.light .ht-miss-note{color:#475569;border-top-color:#f1f5f9}
 
   /* DELETE BUTTONS IN HISTORY */
   .he-del{background:none;border:none;color:rgba(184,64,64,.4);cursor:pointer;font-size:.65rem;padding:3px 5px;border-radius:3px;transition:color .18s,background .18s;flex-shrink:0;line-height:1;margin-left:2px}
@@ -1068,7 +1080,7 @@
   #tp-modal{position:fixed;bottom:0;left:0;right:0;z-index:801;background:#1a1710;border-radius:16px 16px 0 0;padding:24px 20px 32px;transform:translateY(100%);transition:transform .32s cubic-bezier(.22,1,.36,1);max-height:80dvh;overflow-y:auto;scrollbar-width:none;box-shadow:0 -8px 40px rgba(0,0,0,.6)}
   #tp-modal::-webkit-scrollbar{display:none}
   body.light #tp-modal{background:#ffffff;box-shadow:0 -8px 40px rgba(15,23,42,.12)}
-  #tp-modal.open{transform:translateY(0)}
+  #tp-modal.open{transform:translateY(var(--sheet-dy,0px))}
   #tp-modal-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:0 auto 18px;cursor:pointer}
   #tp-modal-icon{font-size:3rem;text-align:center;margin-bottom:8px;line-height:1;filter:grayscale(1) brightness(.4)}
   #tp-modal.earned-modal #tp-modal-icon{filter:none}
@@ -1103,7 +1115,7 @@
   #dcard-bg.open{opacity:1;pointer-events:all}
   #dcard-modal{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:420px;z-index:811;background:#1a1710;border-radius:16px 16px 0 0;padding:18px 20px 30px;transition:transform .32s cubic-bezier(.22,1,.36,1);max-height:88dvh;overflow-y:auto;scrollbar-width:none;box-shadow:0 -8px 40px rgba(0,0,0,.6)}
   #dcard-modal::-webkit-scrollbar{display:none}
-  #dcard-modal.open{transform:translateX(-50%) translateY(0)}
+  #dcard-modal.open{transform:translateX(-50%) translateY(var(--sheet-dy,0px))}
   body.light #dcard-modal{background:#ffffff;box-shadow:0 -8px 40px rgba(15,23,42,.14)}
   #dcard-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:0 auto 16px;cursor:pointer}
   body.light #dcard-pill{background:#cbd5e1}
@@ -1659,6 +1671,7 @@
 
 <!-- FACT PANEL -->
 <div id="fact-panel">
+  <div id="fp-pill" onclick="closeFact()"></div>
   <div id="fp-tag">Historical Insight</div>
   <div id="fp-name"></div>
   <div id="fp-year"></div>

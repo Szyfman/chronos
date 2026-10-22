@@ -37,7 +37,7 @@ Merge rules are defined at the bottom of this file.
 | `chronos_custom` | `{ "<category id>": "<item id>" }` — the item chosen per category (`CUSTOM_CATEGORIES`: `emblem`, `frame`, `title` since v58; `effect`, `theme` since phase 3 — a theme also overrides the dark/light look of `chronos_theme` while in use, without changing it); ids are checked against `CUSTOMIZATIONS`, so a new category or item needs no sync.js change | `selectCustomization` (progression.js) | on choice | **choice**, per category |
 | `chronos_player_name` | string, ≤ `PLAYER_NAME_MAX` (20) | `setPlayerName` (progression.js) | on edit | **choice** |
 | `chronos_review_history` | `[[names], [names]]`, newest first | `_rememberReviewTargets` (game.js) | Review run start | **choice**, whole value |
-| `chronos_history` | `[record, …]`, newest first, max 30 | `saveAndOpenHistory` (game.js), `confirmDel` (ui.js) | "Save timeline" / delete | **capped list** |
+| `chronos_history` | `[record, …]`, newest first, max 30; a record may carry `miss` — the card of the run's last miss when it never made it into the timeline, `{ key (English name), name, year, span, era, cat }` (`buildGameRecord`, game.js) | `saveAndOpenHistory` (game.js), `confirmDel` (ui.js) | "Save timeline" / delete | **capped list** (`miss` travels with its record; optional, so no `SYNC_SCHEMA` bump) |
 | `chronos_daily_YYYY-MM-DD` | `{ v:2, attempts, won, score, placed, timeline }` (legacy: `'1'` or v1 object) | `_commitDailyAttempt` (first placement), `_saveDailyResult` (end) | event + end | **daily record**; key presence = the streak |
 | `chronos_recover_YYYY-MM-DD` | `{ v:3, day, attempts, tries, won, score, placed, timeline }` | same functions, recovery runs | event + end | **daily record** (recovery variant) |
 

@@ -90,7 +90,7 @@ function restartGame(){
   // Hide gameover and close any open panels immediately
   document.getElementById('gameover').classList.remove('show');
   var _fp2=document.getElementById('fact-panel');
-  if(_fp2){_fp2.classList.remove('open');_fp2.classList.remove('review-mode');}
+  if(_fp2){_fp2.classList.remove('open');_fp2.classList.remove('review-mode');_popNavState('fact');}
   // If last game was a culture mode, go back to cultures hub
   if(gameMode==='abrahamic'||gameMode==='roman'||gameMode==='eastern'){
     selectCultureMode(gameMode);
@@ -523,6 +523,8 @@ function showFact(card,isReview,keepIdx){
   }
   document.getElementById('fp-btn').textContent=isReview?t('fp_close'):t('fp_continue');
   fp.classList.toggle('review-mode',isReview);
+  // A review over an open panel reuses it: still one back press to close
+  if(!fp.classList.contains('open')) _pushNavState('fact');
   fp.classList.add('open');
 }
 function reviewCard(card){
@@ -531,6 +533,9 @@ function reviewCard(card){
   showFact(card,true);
 }
 function closeFact(){
+  // Already closed (Escape with no panel open): must not draw a card
+  if(!document.getElementById('fact-panel').classList.contains('open')) return;
+  _popNavState('fact');
   document.getElementById('fact-panel').classList.remove('open');
   document.getElementById('fact-panel').classList.remove('review-mode');
   _currentFactCard=null;
@@ -555,11 +560,13 @@ function openHistory(){
   if (hpContent) hpContent.addEventListener('pointerdown', _hpStartSwipe);
   if (hpStreak) hpStreak.addEventListener('pointerdown', _hpStartSwipe);
 }
+// After "Save timeline": the saved games, with the one just saved (the newest) open
 function openHistoryFromGameover(){
   _fromGameover=true;
   document.getElementById('gameover').classList.remove('show');
-  _hpTab='streak';
+  _hpTab='timelines';
   renderHistoryPanel();
+  if(gameHistory.length) toggleEntry(0);
   document.getElementById('history-panel').classList.add('open');
   _pushNavState('history');
   // Anexar listeners de swipe
@@ -569,7 +576,7 @@ function openHistoryFromGameover(){
   if (hpStreak) hpStreak.addEventListener('pointerdown', _hpStartSwipe);
 }
 function closeHistory(){
-  _popNavState();
+  _popNavState('history');
   // Remover listeners de swipe
   var hpContent = document.getElementById('history-list');
   var hpStreak = document.getElementById('hp-streak');
@@ -608,10 +615,27 @@ function renderHistoryPanel(){
       </div>
       <div class="he-tl" id="ht-${i}">
         <div class="ht-label">${t('tl_lbl')}</div>
-        ${(Array.isArray(entry.timeline)?entry.timeline:[]).map(c=>`<div class="ht-card"><div class="ht-dot" style="background:${_eraColor(c.era)}"></div><div class="ht-name">${esc(c.name)}</div><div class="ht-year">${esc(c.span||formatYear(c.year))}</div></div>`).join('')}
+        ${_htCards(entry)}
       </div>`;
     list.appendChild(div);
   });
+}
+function _htRow(c,miss){
+  return `<div class="ht-card${miss?' ht-miss':''}"><div class="ht-dot" style="background:${_eraColor(c.era)}"></div><div class="ht-name">${esc(c.name)}${miss?`<span class="ht-miss-lbl">✗ ${t('ht_last_miss')}</span>`:''}</div><div class="ht-year">${esc(c.span||formatYear(c.year))}</div></div>`;
+}
+/* A saved timeline, with the card of the run's last miss (buildGameRecord)
+   highlighted where it belongs — only once it is in the Compendium, so the
+   history never gives away a date; before that, only its name, at the end */
+function _htCards(entry){
+  const tl=Array.isArray(entry.timeline)?entry.timeline:[];
+  const rows=tl.map(c=>_htRow(c,false));
+  const m=entry.miss;
+  if(!m||typeof m!=='object'||typeof m.name!=='string'||typeof m.year!=='number') return rows.join('');
+  if(discoveredCards.has(m.key)){
+    rows.splice(tl.filter(c=>c.year<=m.year).length,0,_htRow(m,true));
+    return rows.join('');
+  }
+  return rows.join('')+`<div class="ht-miss-note">✗ ${t('ht_last_miss')}: <b>${esc(m.name)}</b> — ${t('ht_miss_hidden')}</div>`;
 }
 // Dot colour of a stored timeline card: only colours from the era table, so a
 // stored value can never reach the style attribute
@@ -1146,10 +1170,7 @@ function openDailyCard(yr,mo,d){
 function closeDailyCard(){
   var m=document.getElementById('dcard-modal');
   if(!m||!m.classList.contains('open')) return;
-  // Only pop when we own the top of the stack: the popstate handler has
-  // already popped by the time it calls us, so a blind pop would eat the
-  // entry of whatever panel we were opened from.
-  if(_navStack[_navStack.length-1]==='dailycard') _popNavState();
+  _popNavState('dailycard');
   m.classList.remove('open');
   document.getElementById('dcard-bg').classList.remove('open');
   _dcardDate=null;
@@ -1204,7 +1225,7 @@ function openCompendium() {
 }
 
 function closeCompendium() {
-  _popNavState();
+  _popNavState('compendium');
   document.getElementById('cp').classList.remove('open');
   if (!gameActive) {
     document.getElementById('gameover').classList.remove('show');
@@ -1527,7 +1548,7 @@ function openTrophies(tab){
   _pushNavState('trophies');
 }
 function closeTrophies(){
-  _popNavState();
+  _popNavState('trophies');
   document.getElementById('tp').classList.remove('open');
   if(!gameActive){
     if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
@@ -2138,11 +2159,15 @@ function _showTpModal(o){
   modal.classList.toggle('earned-modal', isEarned);
 
   // Open
+  if(!modal.classList.contains('open')) _pushNavState('tpmodal');
+  modal.scrollTop = 0;
   bg.classList.add('open');
   modal.classList.add('open');
 }
 
 function closeTrophyModal(){
+  if(!document.getElementById('tp-modal').classList.contains('open')) return;
+  _popNavState('tpmodal');
   document.getElementById('tp-modal').classList.remove('open');
   document.getElementById('tp-modal-bg').classList.remove('open');
 }
@@ -2157,7 +2182,7 @@ function openSettings() {
 }
 
 function closeSettings() {
-  _popNavState();
+  _popNavState('settings');
   document.getElementById('settings-panel').classList.remove('open');
 }
 
@@ -2218,7 +2243,7 @@ function openCultures(){
 }
 
 function closeCultures(){
-  _popNavState();
+  _popNavState('cultures');
   document.getElementById('cultures-screen').classList.remove('show');
   showIntro();
 }
@@ -2414,6 +2439,10 @@ window.addEventListener('DOMContentLoaded', function() {
   // Keyboard shortcuts
   document.addEventListener('keydown', e => { if(e.key==='Escape'){closeDailyCard();closeFact();closeConfirm();cancelDel();} });
   document.addEventListener('touchmove', e => { if(isDragging)e.preventDefault(); }, {passive:false});
+  // Bottom sheets close when dragged down, like their close buttons
+  _sheetDrag(document.getElementById('fact-panel'), closeFact);
+  _sheetDrag(document.getElementById('tp-modal'), closeTrophyModal);
+  _sheetDrag(document.getElementById('dcard-modal'), closeDailyCard);
   // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
   function _closeFactIfOpen(e){
     if(_justPlaced)return;
@@ -2476,18 +2505,36 @@ window.addEventListener('load', function() {
 
 
 // ── BACK BUTTON HANDLER ───────────────────────────────────────────────────
+/* Open panels, innermost last; the back button closes the last one.
+   While any is open, ONE history entry of ours (the guard) sits above the
+   page, whatever the number of panels: back lands on the page, and the guard
+   is pushed again if panels remain. A panel closed by its own button leaves
+   the guard in place for the next panel to reuse, so closing never calls
+   history.back() (which is async and would race with a panel opened right
+   after, as closeHistory → openCultures does) and never leaves a pile of
+   dead steps behind. A back press with no panel open only meets a leftover
+   guard, and goes back once more to do what back does on the page. */
 var _navStack = [];
+var _navGuard = !!(window.history.state && window.history.state.chronosGuard);   // the current entry is our guard (also after a reload on it)
+var _navPopping = false;   // a close function is running for the back button
 
 function _pushNavState(panel) {
   _navStack.push(panel);
-  window.history.pushState({ chronosPanel: panel }, '');
+  if (!_navGuard) { window.history.pushState({ chronosGuard: true }, ''); _navGuard = true; }
 }
 
-function _popNavState() {
-  if (_navStack.length > 0) {
-    _navStack.pop();
-  }
+// Called by the close functions. Under the back button the panel is already
+// off the stack, and a panel opened twice must not lose its outer entry
+function _popNavState(panel) {
+  if (_navPopping) return;
+  var i = _navStack.lastIndexOf(panel);
+  if (i >= 0) _navStack.splice(i, 1);
 }
+
+// A run starting or ending hides panels without their close functions (and
+// the fact panel goes with the run): forget them, so back never closes a
+// panel that isn't there
+function resetNav() { _navStack = []; }
 
 function _closePanel(panel) {
   switch(panel) {
@@ -2497,14 +2544,62 @@ function _closePanel(panel) {
     case 'settings': closeSettings(); break;
     case 'cultures': closeCultures(); break;
     case 'dailycard': closeDailyCard(); break;
-    case 'gameover': showIntro(); break;
+    case 'tpmodal': closeTrophyModal(); break;
+    case 'fact': closeFact(); break;
   }
 }
 
-window.addEventListener('popstate', function(e) {
-  if (_navStack.length > 0) {
-    var lastPanel = _navStack[_navStack.length - 1];
-    _popNavState();
-    _closePanel(lastPanel);
+// ── DRAG A SHEET DOWN TO CLOSE ────────────────────────────────────────────
+/* The bottom sheets (fact panel, trophy/customization card, daily card)
+   follow the finger down and close when let go past SHEET_CLOSE_PX, or on a
+   quick flick; short of that they spring back. A sheet scrolled down scrolls
+   as usual, so the drag only starts from its top and reading a long trivia
+   never closes it. The offset is --sheet-dy, used by each sheet's open
+   transform in index.html; .sheet-drag turns the transition off meanwhile. */
+const SHEET_CLOSE_PX = 80;
+const SHEET_FLICK_PX = 30, SHEET_FLICK_MS = 250;
+function _sheetDrag(el, onClose) {
+  var startY = 0, startT = 0, dy = 0, armed = false, dragging = false;
+  el.addEventListener('touchstart', function(e) {
+    dragging = false; dy = 0;
+    armed = e.touches.length === 1 && el.scrollTop <= 0 && !e.target.closest('button');
+    if (armed) { startY = e.touches[0].clientY; startT = Date.now(); }
+  }, { passive: true });
+  el.addEventListener('touchmove', function(e) {
+    if (!armed) return;
+    dy = e.touches[0].clientY - startY;
+    if (!dragging) {
+      if (dy < -6) { armed = false; return; }   // an upward swipe scrolls the sheet
+      // From the top a downward move can't scroll it: keep the browser from
+      // taking the gesture (pull-to-refresh) before it counts as a drag
+      if (dy > 0) e.preventDefault();
+      if (dy < 6) return;
+      dragging = true; el.classList.add('sheet-drag');
+    }
+    e.preventDefault();
+    el.style.setProperty('--sheet-dy', Math.max(0, dy) + 'px');
+  }, { passive: false });
+  function release(close) {
+    armed = false;
+    if (!dragging) return;
+    dragging = false;
+    el.classList.remove('sheet-drag');
+    el.style.removeProperty('--sheet-dy');   // springs back, or slides out from here
+    if (close) onClose();
   }
+  el.addEventListener('touchend', function() {
+    release(dy > SHEET_CLOSE_PX || (dy > SHEET_FLICK_PX && Date.now() - startT < SHEET_FLICK_MS));
+  });
+  el.addEventListener('touchcancel', function() { release(false); });
+}
+
+window.addEventListener('popstate', function(e) {
+  // Forward onto the guard (desktop): it is ours again, nothing to close
+  if (e.state && e.state.chronosGuard) { _navGuard = true; return; }
+  _navGuard = false;
+  if (!_navStack.length) { window.history.back(); return; }
+  var panel = _navStack.pop();
+  _navPopping = true;
+  try { _closePanel(panel); } finally { _navPopping = false; }
+  if (_navStack.length && !_navGuard) { window.history.pushState({ chronosGuard: true }, ''); _navGuard = true; }
 });
