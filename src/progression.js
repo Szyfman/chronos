@@ -446,7 +446,7 @@ function selectCustomization(id) {
    profile and the real unlock state are never touched, so a normal run
    brings the real profile back.
    PREVIEW_ENABLED must be false on main — switch it off before merging. */
-const PREVIEW_ENABLED = true;
+const PREVIEW_ENABLED = false;
 var customPreview = false;
 var _previewCustom = {};
 try {
