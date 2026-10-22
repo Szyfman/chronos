@@ -688,7 +688,7 @@ function doSomething() { ... }
 - [ ] Animations play smoothly
 - [ ] Drag-and-drop works on touch
 - [ ] Panels open/close correctly, and the phone's back button closes only the innermost one
-- [ ] Bottom sheets (trivia, trophy/customization card, daily card) close when dragged down
+- [ ] Bottom sheets (trivia, trophy/customization card, daily card, settings) close when dragged down
 - [ ] Buttons have clear hover/active states
 - [ ] Text is readable in both themes
 

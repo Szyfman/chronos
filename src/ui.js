@@ -510,7 +510,7 @@ function showFact(card,isReview,keepIdx){
   _currentFactCard=card;
   const fp=document.getElementById('fact-panel');
   const iv=isInterval(card);
-  document.getElementById('fp-tag').textContent=isReview?t('review_tag'):t('fact_tag');
+  document.getElementById('fp-tag-txt').textContent=isReview?t('review_tag'):t('fact_tag');
   document.getElementById('fp-name').textContent=cName(card);
   const fact=_nextFact(card,keepIdx);
   if(iv){
@@ -522,10 +522,20 @@ function showFact(card,isReview,keepIdx){
     document.getElementById('fp-text').textContent=fact;
   }
   document.getElementById('fp-btn').textContent=isReview?t('fp_close'):t('fp_continue');
+  // Facts: the card's next fact; with a single one there is nothing to cycle
+  const n=_factPool(card).length;
+  const more=document.getElementById('fp-more');
+  more.textContent=t('fp_more');
+  more.disabled=n<2;
+  document.getElementById('fp-count').textContent=n>1?(_factIdx[card.name]+1)+'/'+n:'';
   fp.classList.toggle('review-mode',isReview);
   // A review over an open panel reuses it: still one back press to close
   if(!fp.classList.contains('open')) _pushNavState('fact');
   fp.classList.add('open');
+}
+// Facts button: the next of the card's facts, in the same panel (same mode)
+function nextFact(){
+  if(_currentFactCard) showFact(_currentFactCard,reviewMode);
 }
 function reviewCard(card){
   // Tap on a placed card in the timeline → show its fact in review mode
@@ -2443,6 +2453,7 @@ window.addEventListener('DOMContentLoaded', function() {
   _sheetDrag(document.getElementById('fact-panel'), closeFact);
   _sheetDrag(document.getElementById('tp-modal'), closeTrophyModal);
   _sheetDrag(document.getElementById('dcard-modal'), closeDailyCard);
+  _sheetDrag(document.getElementById('settings-sheet'), closeSettings);
   // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
   function _closeFactIfOpen(e){
     if(_justPlaced)return;
@@ -2550,7 +2561,8 @@ function _closePanel(panel) {
 }
 
 // ── DRAG A SHEET DOWN TO CLOSE ────────────────────────────────────────────
-/* The bottom sheets (fact panel, trophy/customization card, daily card)
+/* The bottom sheets (fact panel, trophy/customization card, daily card,
+   settings)
    follow the finger down and close when let go past SHEET_CLOSE_PX, or on a
    quick flick; short of that they spring back. A sheet scrolled down scrolls
    as usual, so the drag only starts from its top and reading a long trivia
@@ -2562,7 +2574,9 @@ function _sheetDrag(el, onClose) {
   var startY = 0, startT = 0, dy = 0, armed = false, dragging = false;
   el.addEventListener('touchstart', function(e) {
     dragging = false; dy = 0;
-    armed = e.touches.length === 1 && el.scrollTop <= 0 && !e.target.closest('button');
+    // Buttons and controls keep their own gestures (a volume slider moved
+    // slightly downwards must not close Settings)
+    armed = e.touches.length === 1 && el.scrollTop <= 0 && !e.target.closest('button, input, select, textarea');
     if (armed) { startY = e.touches[0].clientY; startT = Date.now(); }
   }, { passive: true });
   el.addEventListener('touchmove', function(e) {

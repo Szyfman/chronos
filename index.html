@@ -135,6 +135,9 @@
   body.light #fp-btn{background:#1d4ed8;border:none;color:#ffffff;border-radius:8px;font-weight:700}
   body.light #fp-btn:hover{background:#1e40af;opacity:1}
   body.light #fact-panel.review-mode #fp-btn{background:#f1f5f9;border:1.5px solid #cbd5e1;color:#334155}
+  body.light #fp-more{background:#f1f5f9;border:1.5px solid #cbd5e1;color:#334155;border-radius:8px;font-weight:700}
+  body.light #fp-more:hover{border-color:#1d4ed8;color:#1d4ed8}
+  body.light #fp-count{color:#64748b}
 
   /* ── Overlays / intro ── */
   body.light .overlay:not(#tutorial):not(#confirm-dialog){background:#ffffff}
@@ -340,11 +343,19 @@
   #fp-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:-5px auto 10px;cursor:pointer}
   body.light #fp-pill{background:#cbd5e1}
   #fp-tag{font-size:.46rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-  #fp-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
+  #fp-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2);order:1}
+  /* Which of the card's facts is shown, after the line: "2/4" */
+  #fp-count{order:2;color:var(--cream-dim);letter-spacing:.1em}
   #fp-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1.08rem;color:var(--gold);margin-bottom:2px}
   #fp-year{font-size:.54rem;color:var(--cream-dim);letter-spacing:.14em;margin-bottom:9px}
   #fp-text{font-family:'Inter',sans-serif;font-size:.96rem;color:var(--cream);line-height:1.65;font-weight:300}
-  #fp-btn{margin-top:12px;width:100%;padding:10px;background:transparent;border:1px solid var(--gold-dim);border-radius:5px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+  /* Facts (next fact) on the left, Continue / Close on the right */
+  #fp-btns{display:flex;gap:8px;margin-top:12px}
+  #fp-btns button{flex:1;min-width:0}
+  #fp-more{padding:10px;background:transparent;border:1px solid rgba(201,168,76,.3);border-radius:5px;color:var(--cream-dim);font-family:'Inter',sans-serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+  #fp-more:hover{border-color:var(--gold-dim);color:var(--gold)}
+  #fp-more:disabled{opacity:.35;cursor:default;border-color:rgba(201,168,76,.3);color:var(--cream-dim)}
+  #fp-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--gold-dim);border-radius:5px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
   #fp-btn:hover{background:var(--gold);color:var(--bg)}
   /* when fact panel opened from a placed card, show "Close" not "Continue" */
   #fact-panel.review-mode #fp-btn{border-color:rgba(201,168,76,.3);color:var(--cream-dim)}
@@ -1167,7 +1178,7 @@
   #settings-sheet{position:absolute;bottom:0;left:0;right:0;background:#1a1710;border-radius:18px 18px 0 0;padding:20px 20px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);max-height:90dvh;overflow-y:auto;scrollbar-width:none}
   body.light #settings-sheet{background:#ffffff;border-top:1.5px solid #cbd5e1}
   body.light #settings-pill{background:#bfdbfe}
-  #settings-panel.open #settings-sheet{transform:translateY(0)}
+  #settings-panel.open #settings-sheet{transform:translateY(var(--sheet-dy,0px))}
   #settings-pill{width:36px;height:3px;background:rgba(201,168,76,.25);border-radius:2px;margin:0 auto 20px;cursor:pointer}
   #settings-title{font:700 1rem/1 Inter,sans-serif;color:#c9a84c;margin-bottom:18px;font-style:italic}
   body.light #settings-title{color:#1d4ed8}
@@ -1672,11 +1683,14 @@
 <!-- FACT PANEL -->
 <div id="fact-panel">
   <div id="fp-pill" onclick="closeFact()"></div>
-  <div id="fp-tag">Historical Insight</div>
+  <div id="fp-tag"><span id="fp-tag-txt">Historical Insight</span><span id="fp-count"></span></div>
   <div id="fp-name"></div>
   <div id="fp-year"></div>
   <div id="fp-text"></div>
-  <button id="fp-btn" onclick="closeFact()">Continue →</button>
+  <div id="fp-btns">
+    <button id="fp-more" onclick="nextFact()">Facts ↻</button>
+    <button id="fp-btn" onclick="closeFact()">Continue →</button>
+  </div>
 </div>
 
 <!-- CONFIRM END DIALOG -->
