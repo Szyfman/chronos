@@ -710,7 +710,6 @@ function _tabSwipe(panelId, areas, getTab, switchTab) {
     var dir = s.dx < 0 ? -1 : 1, w = s.el.offsetWidth;
     slide(s.el, dir * w, function() {
       s.el.style.transform = '';
-      SFX.play('drop');
       switchTab(tabs[next]);
       var n = document.getElementById(areas[tabs[next]]);
       n.style.transition = 'none';
