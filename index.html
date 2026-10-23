@@ -521,7 +521,7 @@
   .tab-swiping{cursor:grabbing;user-select:none;-webkit-user-select:none}
   .streak-stats{display:flex;gap:28px;justify-content:center;width:100%}
   .streak-stat{display:flex;flex-direction:column;align-items:center;gap:4px}
-  .streak-stat-val{font-size:2rem;font-weight:800;color:var(--gold);font-family:'Inter',sans-serif;line-height:1}
+  .streak-stat-val{font-size:1.5rem;font-weight:800;color:var(--gold);font-family:'Inter',sans-serif;line-height:1}
   .streak-stat-lbl{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);font-family:'Inter',sans-serif}
   body.light .streak-stat-val{color:#1d4ed8}
   .streak-divider{width:1px;background:rgba(201,168,76,.2);align-self:stretch}
@@ -619,10 +619,13 @@
   body.light .dc-recover-btn:hover{background:#eff6ff}
   body.light .dc-recover-note{color:#475569}
   .streak-tries-msg{font-size:.62rem;color:var(--cream-dim);font-family:'Inter',sans-serif;text-align:center;margin-top:-4px}
-  .streak-card-btn{width:100%;max-width:280px;padding:11px 0;background:transparent;border:1px solid var(--gold-dim);border-radius:10px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:background .2s}
-  .streak-card-btn:hover{background:rgba(201,168,76,.12)}
-  body.light .streak-card-btn{border-color:#93c5fd;color:#1d4ed8}
-  body.light .streak-card-btn:hover{background:#eff6ff}
+  .streak-play-btn.done{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;background:transparent;border:1px solid var(--gold-dim);color:var(--gold)}
+  .streak-play-btn.done:hover{background:rgba(201,168,76,.12)}
+  .streak-btn-sub{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
+  body.light .streak-play-btn.done{border-color:#93c5fd;color:#1d4ed8}
+  body.light .streak-play-btn.done:hover{background:#eff6ff}
+  body.light .streak-btn-sub{color:#64748b}
+  .streak-preview-btn{background:#b91c1c;color:#fff;border:none;border-radius:6px;padding:5px 10px;font:700 .58rem/1 Inter,sans-serif;letter-spacing:.04em;cursor:pointer}
   .dc-entry-panel{margin-top:8px;border-top:1px solid rgba(201,168,76,.12);padding-top:10px}
   .dc-entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .dc-entry-date{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;color:var(--gold)}
