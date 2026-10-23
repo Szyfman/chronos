@@ -564,11 +564,6 @@ function openHistory(){
   renderHistoryPanel();
   document.getElementById('history-panel').classList.add('open');
   _pushNavState('history');
-  // Anexar listeners de swipe
-  var hpContent = document.getElementById('history-list');
-  var hpStreak = document.getElementById('hp-streak');
-  if (hpContent) hpContent.addEventListener('pointerdown', _hpStartSwipe);
-  if (hpStreak) hpStreak.addEventListener('pointerdown', _hpStartSwipe);
 }
 // After "Save timeline": the saved games, with the one just saved (the newest) open
 function openHistoryFromGameover(){
@@ -579,19 +574,9 @@ function openHistoryFromGameover(){
   if(gameHistory.length) toggleEntry(0);
   document.getElementById('history-panel').classList.add('open');
   _pushNavState('history');
-  // Anexar listeners de swipe
-  var hpContent = document.getElementById('history-list');
-  var hpStreak = document.getElementById('hp-streak');
-  if (hpContent) hpContent.addEventListener('pointerdown', _hpStartSwipe);
-  if (hpStreak) hpStreak.addEventListener('pointerdown', _hpStartSwipe);
 }
 function closeHistory(){
   _popNavState('history');
-  // Remover listeners de swipe
-  var hpContent = document.getElementById('history-list');
-  var hpStreak = document.getElementById('hp-streak');
-  if (hpContent) hpContent.removeEventListener('pointerdown', _hpStartSwipe);
-  if (hpStreak) hpStreak.removeEventListener('pointerdown', _hpStartSwipe);
   document.getElementById('history-panel').classList.remove('open');
   if(gameActive)return;
   document.getElementById('gameover').classList.remove('show');
@@ -661,13 +646,6 @@ function toggleEntry(i){
 // ── HISTORY TABS ──────────────────────────────────────────────────────────
 var _hpTab = 'streak';
 
-// ── HISTORY PANEL SWIPE ───────────────────────────────────────────────────
-var _hpSwipeStart = null;
-var _hpSwipeStartX = 0;
-var _hpSwipeStartY = 0;
-var _hpSwiping = false;
-const _hpSwipeThreshold = 80; // px
-
 function switchHpTab(tab){
   _hpTab = tab;
   document.getElementById('hp-tab-timelines').classList.toggle('active', tab==='timelines');
@@ -679,94 +657,74 @@ function switchHpTab(tab){
   if(tab==='streak'){ _calViewYear=new Date().getFullYear(); _calViewMonth=new Date().getMonth(); renderStreakTab(); }
 }
 
-function _hpStartSwipe(e) {
-  // Ignorar swipes em tabs ou header
-  if (e.target.closest('.hp-tab') || e.target.closest('#hp-header')) return;
-
-  _hpSwipeStart = Date.now();
-  _hpSwipeStartX = e.clientX;
-  _hpSwipeStartY = e.clientY;
-  _hpSwiping = false;
-
-  var panel = document.getElementById('history-panel');
-  panel.addEventListener('pointermove', _hpOnSwipe);
-  panel.addEventListener('pointerup', _hpEndSwipe);
-  panel.addEventListener('pointercancel', _hpCancelSwipe);
-}
-
-function _hpOnSwipe(e) {
-  if (!_hpSwipeStart) return;
-
-  var deltaX = e.clientX - _hpSwipeStartX;
-  var deltaY = e.clientY - _hpSwipeStartY;
-
-  // Detectar se é swipe horizontal (não scroll vertical)
-  if (!_hpSwiping && Math.abs(deltaX) > 10) {
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      _hpSwiping = true;
-      document.getElementById('history-panel').classList.add('swiping');
+// ── SWIPE BETWEEN TABS ────────────────────────────────────────────────────
+/* History (Timelines | Streak) and Trophies (Progress | Trophies): a
+   horizontal drag on a tab's content moves it with the finger. Let go past
+   TAB_SWIPE_PX, or on a quick flick, it slides out and the neighbour tab
+   slides in; short of that it springs back. Towards a side with no tab it
+   only gives a little. Vertical moves stay scrolls: the tab areas are
+   touch-action: pan-y (index.html), so the browser leaves horizontal moves
+   to us instead of cancelling them. areas: { tab: element id }, left to right. */
+const TAB_SWIPE_PX = 60, TAB_FLICK_PX = 30, TAB_FLICK_MS = 250, TAB_SLIDE_MS = 160;
+function _tabSwipe(panelId, areas, getTab, switchTab) {
+  var tabs = Object.keys(areas);
+  var panel = document.getElementById(panelId);
+  var g = null;   // the gesture in progress
+  function slide(el, x, then) {
+    el.style.transition = 'transform ' + TAB_SLIDE_MS + 'ms ease-out';
+    el.style.transform = x ? 'translateX(' + x + 'px)' : '';
+    setTimeout(function() { el.style.transition = ''; if (then) then(); }, TAB_SLIDE_MS);
+  }
+  panel.addEventListener('pointerdown', function(e) {
+    if (g || !e.isPrimary || e.button !== 0) return;
+    var el = document.getElementById(areas[getTab()]);
+    if (!el.contains(e.target) || e.target.closest('input, textarea, select')) return;
+    g = { el: el, id: e.pointerId, x: e.clientX, y: e.clientY, t: Date.now(), dx: 0, on: false, i: tabs.indexOf(getTab()) };
+  });
+  panel.addEventListener('pointermove', function(e) {
+    if (!g || e.pointerId !== g.id) return;
+    var dx = e.clientX - g.x, dy = e.clientY - g.y;
+    if (!g.on) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+      if (Math.abs(dy) >= Math.abs(dx)) { g = null; return; }   // a scroll
+      g.on = true;
+      panel.classList.add('tab-swiping');
+      g.el.style.transition = 'none';
     }
-  }
-
-  // Feedback visual do swipe
-  if (_hpSwiping) {
-    var indicator = document.getElementById('hp-swipe-indicator');
-    if (indicator) {
-      var opacity = Math.min(1, Math.abs(deltaX) / _hpSwipeThreshold);
-      indicator.style.opacity = opacity;
-      // Mostrar seta indicando direção
-      indicator.textContent = deltaX < 0 ? '←' : '→';
-    }
-  }
-}
-
-function _hpEndSwipe(e) {
-  var panel = document.getElementById('history-panel');
-  panel.removeEventListener('pointermove', _hpOnSwipe);
-  panel.removeEventListener('pointerup', _hpEndSwipe);
-  panel.removeEventListener('pointercancel', _hpCancelSwipe);
-
-  if (!_hpSwipeStart || !_hpSwiping) {
-    _hpSwipeStart = null;
-    _hpSwiping = false;
-    panel.classList.remove('swiping');
-    return;
-  }
-
-  var deltaX = e.clientX - _hpSwipeStartX;
-  var deltaTime = Date.now() - _hpSwipeStart;
-
-  // Verificar threshold de distância e tempo
-  if (Math.abs(deltaX) > _hpSwipeThreshold && deltaTime < 500) {
-    if (deltaX < 0 && _hpTab === 'timelines') {
-      // Swipe esquerda: timelines → streak
+    g.dx = dx;
+    var next = g.i + (dx < 0 ? 1 : -1);
+    g.el.style.transform = 'translateX(' + (tabs[next] ? dx : dx / 4) + 'px)';
+  });
+  function release(e, cancelled) {
+    if (!g || e.pointerId !== g.id) return;
+    var s = g; g = null;
+    if (!s.on) return;
+    panel.classList.remove('tab-swiping');
+    // A drag that ends on a button (a calendar day, a saved game) doesn't press it
+    window.addEventListener('click', _swallowClick, true);
+    setTimeout(function() { window.removeEventListener('click', _swallowClick, true); }, 400);
+    var next = s.i + (s.dx < 0 ? 1 : -1);
+    var go = !cancelled && !!tabs[next] && (Math.abs(s.dx) > TAB_SWIPE_PX
+      || (Math.abs(s.dx) > TAB_FLICK_PX && Date.now() - s.t < TAB_FLICK_MS));
+    if (!go) { slide(s.el, 0); return; }
+    var dir = s.dx < 0 ? -1 : 1, w = s.el.offsetWidth;
+    slide(s.el, dir * w, function() {
+      s.el.style.transform = '';
       SFX.play('drop');
-      switchHpTab('streak');
-    } else if (deltaX > 0 && _hpTab === 'streak') {
-      // Swipe direita: streak → timelines
-      SFX.play('drop');
-      switchHpTab('timelines');
-    }
+      switchTab(tabs[next]);
+      var n = document.getElementById(areas[tabs[next]]);
+      n.style.transition = 'none';
+      n.style.transform = 'translateX(' + (-dir * w) + 'px)';
+      void n.offsetWidth;   // start from the side before sliding in
+      slide(n, 0);
+    });
   }
-
-  _hpSwipeStart = null;
-  _hpSwiping = false;
-  panel.classList.remove('swiping');
-
-  // Limpar indicador
-  var indicator = document.getElementById('hp-swipe-indicator');
-  if (indicator) indicator.style.opacity = 0;
+  panel.addEventListener('pointerup', function(e) { release(e, false); });
+  panel.addEventListener('pointercancel', function(e) { release(e, true); });
 }
-
-function _hpCancelSwipe() {
-  var panel = document.getElementById('history-panel');
-  panel.removeEventListener('pointermove', _hpOnSwipe);
-  panel.removeEventListener('pointerup', _hpEndSwipe);
-  panel.removeEventListener('pointercancel', _hpCancelSwipe);
-
-  _hpSwipeStart = null;
-  _hpSwiping = false;
-  panel.classList.remove('swiping');
+function _swallowClick(e) {
+  e.stopPropagation(); e.preventDefault();
+  window.removeEventListener('click', _swallowClick, true);
 }
 
 // ── RENDER STREAK TAB ─────────────────────────────────────────────────────
@@ -2454,6 +2412,9 @@ window.addEventListener('DOMContentLoaded', function() {
   _sheetDrag(document.getElementById('tp-modal'), closeTrophyModal);
   _sheetDrag(document.getElementById('dcard-modal'), closeDailyCard);
   _sheetDrag(document.getElementById('settings-sheet'), closeSettings);
+  // Tabs change with a horizontal swipe on their content
+  _tabSwipe('history-panel', { timelines: 'history-list', streak: 'hp-streak' }, function() { return _hpTab; }, switchHpTab);
+  _tabSwipe('tp', { progress: 'tp-progress', trophies: 'tp-list' }, function() { return _tpTab; }, switchTpTab);
   // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
   function _closeFactIfOpen(e){
     if(_justPlaced)return;

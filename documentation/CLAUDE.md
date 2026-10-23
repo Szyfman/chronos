@@ -502,6 +502,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 - The browser history holds at most ONE entry of ours (the guard) while panels are open, however many. Close functions never call `history.back()` (it is async and races with a panel opened right after); a leftover guard is consumed by the next back press, which then goes back once more. So the back button never needs dead presses, and with nothing open it leaves the game.
 - Panels a run start hides without their close functions are forgotten by `resetNav()` (called from `_resetRunDom`).
 - Bottom sheets close by dragging them down: `_sheetDrag(el, closeFn)`, wired in the init, with the offset in `--sheet-dy` used by the sheet's `.open` transform in index.html. The drag only starts from the sheet's top, so scrolling a long trivia never closes it. A new sheet needs both.
+- Tabs change with a horizontal swipe on their content: `_tabSwipe(panelId, { tab: areaId, … }, getTab, switchTab)`, areas listed left to right (History: Timelines | Streak; Trophies: Progress | Trophies). The content follows the finger and slides to the neighbour tab past 60 px or on a quick flick; towards a side with no tab it only gives a little. Each area needs `touch-action: pan-y` (index.html), otherwise the phone's browser takes the horizontal move and cancels the pointer. Inputs never start a swipe, and a drag never presses the button it ends on.
 
 ### Working with Service Worker
 
@@ -689,6 +690,7 @@ function doSomething() { ... }
 - [ ] Drag-and-drop works on touch
 - [ ] Panels open/close correctly, and the phone's back button closes only the innermost one
 - [ ] Bottom sheets (trivia, trophy/customization card, daily card, settings) close when dragged down
+- [ ] Swiping left/right switches the tabs of History and Trophies; vertical scrolling still works
 - [ ] Buttons have clear hover/active states
 - [ ] Text is readable in both themes
 
