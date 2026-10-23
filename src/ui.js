@@ -737,24 +737,7 @@ function renderStreakTab(){
   stats.innerHTML='<div class="streak-stat"><div class="streak-stat-val">'+st.cur+'</div><div class="streak-stat-lbl">🔥 '+t('daily_current_streak')+'</div></div><div class="streak-divider"></div><div class="streak-stat"><div class="streak-stat-val">'+st.longest+'</div><div class="streak-stat-lbl">⭐ '+t('daily_longest_streak')+'</div></div>';
   panel.appendChild(stats);
 
-  // ── This week grid ────────────────────────────────────────────────────
   var today=new Date(); today.setHours(0,0,0,0);
-  var dow=today.getDay();
-  var mondayOffset=dow===0?-6:1-dow;
-  var monday=new Date(today); monday.setDate(today.getDate()+mondayOffset);
-  var dayNames=lang==='pt'?['Seg','Ter','Qua','Qui','Sex','Sáb','Dom']:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  var week=document.createElement('div'); week.className='streak-week';
-  for(var i=0;i<7;i++){
-    var day=new Date(monday); day.setDate(monday.getDate()+i);
-    var dst=_dailyStatus(day);
-    var done=_isDailyDone(day);
-    var isToday=day.getTime()===today.getTime();
-    var dc=document.createElement('div'); dc.className='streak-day';
-    var dotCls='streak-dot'+(done?' done':'')+(done&&!dst.won?' lost':'')+(isToday?' today':'');
-    dc.innerHTML='<div class="streak-day-lbl">'+dayNames[i]+'</div><div class="'+dotCls+'"></div>';
-    week.appendChild(dc);
-  }
-  panel.appendChild(week);
 
   // ── Monthly calendar with prev/next navigation ───────────────────────
   var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
