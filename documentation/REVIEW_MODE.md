@@ -10,7 +10,7 @@ Agreed design for the Review play mode (phase 6). Lives / **Review** / Free are 
 | Hints / skips | 3 / 1 | 10 / 3 | unlimited |
 | Clues per card | 3, then the hint button locks | 3, then the hint button locks | 3, then they loop: the next tap shows the 1st again |
 | XP | full | half | none |
-| Trophies | all | Skill, Long Term and Secret sections, except The End of History (`time_lord`) | none |
+| Trophies | all | Skill, Long Term, Events and Secret sections, except The End of History (`time_lord`) | none |
 | Mode records | yes | no | no |
 | Hits count towards mastery | yes | yes | no |
 | Misses count towards mastery | yes | **no** | no |

@@ -6,6 +6,7 @@ var TROPHY_SECTIONS = [
   { id:'paradoxes',   icon:'🔀', name:'Paradoxes',   name_pt:'Paradoxos' },
   { id:'skill',       icon:'⚔️', name:'Skill',       name_pt:'Habilidade' },
   { id:'longterm',    icon:'📈', name:'Long Term',   name_pt:'Longo Prazo' },
+  { id:'events',      icon:'📅', name:'Events',      name_pt:'Eventos' },
   { id:'secret',      icon:'❓', name:'Secret',      name_pt:'Secretos' }
 ];
 
@@ -746,8 +747,25 @@ var TROPHY_DEFS = [
     goal:2000
   },
   {
+    id:'carpe_diem',
+    section:'events',
+    icon:'🍯',
+    name:'Carpe Diem',
+    name_pt:'Carpe Diem',
+    desc:'Complete the Daily Challenge on the 1st of January',
+    desc_pt:'Complete o Desafio Diário no dia 1º de janeiro',
+    hint:'Finish the Daily Challenge on New Year\'s Day.',
+    hint_pt:'Termine o Desafio Diário no dia de Ano-Novo.',
+    trivia:'"Carpe diem, quam minimum credula postero" — "pluck the day, trusting as little as possible in tomorrow" — comes from an ode the poet Horace addressed to a woman named Leuconoe around 23 BCE. The verb carpere means to pick, like ripe fruit, rather than to seize. On the first of January the Romans exchanged small gifts called strenae — honey, dates and figs — so that the new year would be sweet, along with greetings for a happy year.',
+    trivia_pt:'"Carpe diem, quam minimum credula postero" — "colha o dia, confiando o mínimo possível no amanhã" — vem de uma ode que o poeta Horácio dirigiu a uma mulher chamada Leucônoe, por volta de 23 AEC. O verbo carpere significa colher, como uma fruta madura, e não agarrar. No primeiro dia de janeiro, os romanos trocavam pequenos presentes chamados strenae — mel, tâmaras e figos — para que o ano novo fosse doce, junto com votos de um ano feliz.',
+    needed:null,
+    special:'daily_on_date',
+    month:1,
+    day:1
+  },
+  {
     id:'ides_of_march',
-    section:'secret',
+    section:'events',
     icon:'🗡️',
     name:'Ides of March',
     name_pt:'Idos de Março',
@@ -764,6 +782,21 @@ var TROPHY_DEFS = [
     day:15
   },
   {
+    id:'friday_13',
+    section:'events',
+    icon:'🐈‍⬛',
+    name:'Friday the 13th',
+    name_pt:'Sexta-feira 13',
+    desc:'Finish a game on a Friday the 13th',
+    desc_pt:'Termine uma partida numa sexta-feira 13',
+    hint:'Finish any game on a Friday the 13th.',
+    hint_pt:'Termine qualquer partida numa sexta-feira 13.',
+    trivia:'The fear of Friday the 13th is far younger than it seems. Friday and the number 13 were each considered unlucky on their own in Christian tradition, but the two only appear together as a bad omen in writing in the 19th century. The idea spread widely after Thomas W. Lawson\'s 1907 novel Friday, the Thirteenth, about a stockbroker who exploits the superstition to crash the market. The popular link to the arrest of the Knights Templar on Friday 13 October 1307 was made only much later. The fear even has a name: paraskevidekatriaphobia.',
+    trivia_pt:'O medo da sexta-feira 13 é bem mais recente do que parece. Na tradição cristã, a sexta-feira e o número 13 eram considerados azarados cada um por si, mas os dois só aparecem juntos como mau presságio por escrito no século XIX. A ideia se espalhou depois do romance Friday, the Thirteenth, de Thomas W. Lawson, de 1907, sobre um corretor que explora a superstição para derrubar a bolsa. A ligação popular com a prisão dos Templários na sexta-feira, 13 de outubro de 1307, só foi feita muito depois. O medo tem até nome: parascavedecatriafobia.',
+    needed:null,
+    special:'friday_13'
+  },
+  {
     id:'anachronism',
     section:'secret',
     icon:'⌚',
@@ -778,38 +811,6 @@ var TROPHY_DEFS = [
     needed:null,
     special:'anachronism',
     goal:2000
-  },
-  {
-    id:'carpe_diem',
-    section:'secret',
-    icon:'🍯',
-    name:'Carpe Diem',
-    name_pt:'Carpe Diem',
-    desc:'Complete the Daily Challenge on the 1st of January',
-    desc_pt:'Complete o Desafio Diário no dia 1º de janeiro',
-    hint:'Finish the Daily Challenge on New Year\'s Day.',
-    hint_pt:'Termine o Desafio Diário no dia de Ano-Novo.',
-    trivia:'"Carpe diem, quam minimum credula postero" — "pluck the day, trusting as little as possible in tomorrow" — comes from an ode the poet Horace addressed to a woman named Leuconoe around 23 BCE. The verb carpere means to pick, like ripe fruit, rather than to seize. On the first of January the Romans exchanged small gifts called strenae — honey, dates and figs — so that the new year would be sweet, along with greetings for a happy year.',
-    trivia_pt:'"Carpe diem, quam minimum credula postero" — "colha o dia, confiando o mínimo possível no amanhã" — vem de uma ode que o poeta Horácio dirigiu a uma mulher chamada Leucônoe, por volta de 23 AEC. O verbo carpere significa colher, como uma fruta madura, e não agarrar. No primeiro dia de janeiro, os romanos trocavam pequenos presentes chamados strenae — mel, tâmaras e figos — para que o ano novo fosse doce, junto com votos de um ano feliz.',
-    needed:null,
-    special:'daily_on_date',
-    month:1,
-    day:1
-  },
-  {
-    id:'friday_13',
-    section:'secret',
-    icon:'🐈‍⬛',
-    name:'Friday the 13th',
-    name_pt:'Sexta-feira 13',
-    desc:'Finish a game on a Friday the 13th',
-    desc_pt:'Termine uma partida numa sexta-feira 13',
-    hint:'Finish any game on a Friday the 13th.',
-    hint_pt:'Termine qualquer partida numa sexta-feira 13.',
-    trivia:'The fear of Friday the 13th is far younger than it seems. Friday and the number 13 were each considered unlucky on their own in Christian tradition, but the two only appear together as a bad omen in writing in the 19th century. The idea spread widely after Thomas W. Lawson\'s 1907 novel Friday, the Thirteenth, about a stockbroker who exploits the superstition to crash the market. The popular link to the arrest of the Knights Templar on Friday 13 October 1307 was made only much later. The fear even has a name: paraskevidekatriaphobia.',
-    trivia_pt:'O medo da sexta-feira 13 é bem mais recente do que parece. Na tradição cristã, a sexta-feira e o número 13 eram considerados azarados cada um por si, mas os dois só aparecem juntos como mau presságio por escrito no século XIX. A ideia se espalhou depois do romance Friday, the Thirteenth, de Thomas W. Lawson, de 1907, sobre um corretor que explora a superstição para derrubar a bolsa. A ligação popular com a prisão dos Templários na sexta-feira, 13 de outubro de 1307, só foi feita muito depois. O medo tem até nome: parascavedecatriafobia.',
-    needed:null,
-    special:'friday_13'
   },
   {
     id:'midnight_bells',

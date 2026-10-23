@@ -908,7 +908,7 @@ function useSkip(){
 const PLAY_MODE_RULES={
   lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all',  mastery:'all'  },
   // A ~18–30 card deck would make emptying it (The End of History) trivial
-  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','secret'], excludeTrophies:['time_lord'], mastery:'hits' },
+  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','events','secret'], excludeTrophies:['time_lord'], mastery:'hits' },
   free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none', mastery:'none', clueLoop:true }
 };
 function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }

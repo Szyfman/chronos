@@ -311,7 +311,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 ```javascript
 {
   id: 'unique_trophy_id',
-  section: 'collections',  // a TROPHY_SECTIONS id: collections | paradoxes | skill | longterm | secret
+  section: 'collections',  // a TROPHY_SECTIONS id: collections | paradoxes | skill | longterm | events | secret
   tier: 'bronze',          // optional: bronze | silver | gold (levels of the same feat)
   icon: '🏆',
   name: 'Trophy Name',
@@ -337,7 +337,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Families** (`family` on a trophy): levels of the same feat — Compendium 25/50/75/100%, streak 15/30/50, daily 7/40 days, era mastery 1/all eras. Each level keeps its own id, unlock and trivia, and counts in the totals, but the trophy tab draws the family as ONE card: the highest level earned, "Level n/total" and the bar towards the next level (`_familyCard` / `openTrophyFamily` in ui.js). Its modal shows the trivia of every level earned so far and the ladder of levels. Members must be listed together, in level order, in the same section. On load, holding a higher level grants the lower ones silently (same date).
 
-**Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`ides`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy. `miss_card` (Raiders of the Lost Ark) is won the moment its `card` is misplaced: the miss branch of `attemptPlacement` sets the transient `_missedCard` around a `checkTrophies(true)` call, so nothing about it is stored in the run.
+**Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`ides`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; trophies tied to a date of the calendar sit in the visible **Events** section (`section: 'events'`), while `daily_at_hour` (Midnight Bells) stays secret; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy. `miss_card` (Raiders of the Lost Ark) is won the moment its `card` is misplaced: the miss branch of `attemptPlacement` sets the transient `_missedCard` around a `checkTrophies(true)` call, so nothing about it is stored in the run.
 
 **Secret trophies** (`section: 'secret'`): while locked, the card shows ❓ / ??? / "Secret trophy" and the modal only says to keep playing; the real name, hint and trivia appear once earned.
 
