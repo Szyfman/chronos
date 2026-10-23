@@ -415,11 +415,11 @@ function renderHistoryPanel()
 - **Streak Tab**:
   - Current daily streak counter
   - Longest daily streak
-  - This week grid (Mon-Sun, dots show completion)
   - Monthly calendar with completion markers
   - Month/year picker (drum-roll style)
   - Click completed days to view their timelines
-  - "Play Today's Challenge" button (disabled if already done)
+  - "Play Today's Challenge" button below the calendar; once today is won it
+    becomes one "Completed today · See Today's Card" button
   - Past days without a card open a panel offering catch-up (3 tries, gated on
     today being finished); recovered days show a hollow ring and ✦ instead of ★
 

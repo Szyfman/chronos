@@ -727,6 +727,27 @@ function _swallowClick(e) {
 }
 
 // ── RENDER STREAK TAB ─────────────────────────────────────────────────────
+// Preview mode lets the developer step today's daily through its states;
+// 'real' reads the saved record as usual.
+var _PREVIEW_DAILY=[
+  {id:'real',    en:'real',            pt:'real'},
+  {id:'none',    en:'not played',      pt:'não jogado'},
+  {id:'retry',   en:'lost, tries left',pt:'perdeu, com tentativas'},
+  {id:'out',     en:'out of tries',    pt:'sem tentativas'},
+  {id:'won',     en:'completed',       pt:'concluído'}
+];
+var _previewDailyIdx=0;
+function _previewDailyStatus(){
+  if(!customPreview) return null;
+  var M=DAILY_MAX_ATTEMPTS;
+  switch(_PREVIEW_DAILY[_previewDailyIdx].id){
+    case 'none':  return {won:false,locked:false,attemptsUsed:0,attemptsLeft:M};
+    case 'retry': return {won:false,locked:false,attemptsUsed:1,attemptsLeft:M-1};
+    case 'out':   return {won:false,locked:true, attemptsUsed:M,attemptsLeft:0};
+    case 'won':   return {won:true, locked:true, attemptsUsed:1,attemptsLeft:0};
+  }
+  return null;
+}
 function renderStreakTab(){
   var panel=document.getElementById('hp-streak');
   panel.innerHTML='';
@@ -737,67 +758,7 @@ function renderStreakTab(){
   stats.innerHTML='<div class="streak-stat"><div class="streak-stat-val">'+st.cur+'</div><div class="streak-stat-lbl">🔥 '+t('daily_current_streak')+'</div></div><div class="streak-divider"></div><div class="streak-stat"><div class="streak-stat-val">'+st.longest+'</div><div class="streak-stat-lbl">⭐ '+t('daily_longest_streak')+'</div></div>';
   panel.appendChild(stats);
 
-  // ── This week grid ────────────────────────────────────────────────────
   var today=new Date(); today.setHours(0,0,0,0);
-  var dow=today.getDay();
-  var mondayOffset=dow===0?-6:1-dow;
-  var monday=new Date(today); monday.setDate(today.getDate()+mondayOffset);
-  var dayNames=lang==='pt'?['Seg','Ter','Qua','Qui','Sex','Sáb','Dom']:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  var week=document.createElement('div'); week.className='streak-week';
-  for(var i=0;i<7;i++){
-    var day=new Date(monday); day.setDate(monday.getDate()+i);
-    var dst=_dailyStatus(day);
-    var done=_isDailyDone(day);
-    var isToday=day.getTime()===today.getTime();
-    var dc=document.createElement('div'); dc.className='streak-day';
-    var dotCls='streak-dot'+(done?' done':'')+(done&&!dst.won?' lost':'')+(isToday?' today':'');
-    dc.innerHTML='<div class="streak-day-lbl">'+dayNames[i]+'</div><div class="'+dotCls+'"></div>';
-    week.appendChild(dc);
-  }
-  panel.appendChild(week);
-
-  // ── Play / retry button ───────────────────────────────────────────────
-  // Four states: never played · lost with tries left · won · out of tries.
-  // Note that "played today" (streak) and "can still play" are different
-  // questions — the latter is _dailyStatus().locked.
-  var st2=_dailyTodayStatus();
-  var btn=document.createElement('button');
-  btn.className='streak-play-btn';
-  btn.disabled=st2.locked;
-  if(st2.won)              btn.textContent=t('daily_done');
-  else if(st2.locked)      btn.textContent=t('daily_no_tries');
-  else if(st2.attemptsUsed>0) btn.textContent=t('daily_retry');
-  else                     btn.textContent=t('daily_play');
-  if(!st2.locked) btn.onclick=function(){ closeHistory(); startDailyChallenge(); };
-  panel.appendChild(btn);
-
-  if(!st2.locked&&st2.attemptsUsed>0){
-    var tries=document.createElement('div'); tries.className='streak-tries-msg';
-    tries.textContent=t('daily_tries_left').replace('{n}',st2.attemptsLeft).replace('{max}',DAILY_MAX_ATTEMPTS);
-    panel.appendChild(tries);
-  }
-  if(st2.won){
-    var cardBtn=document.createElement('button'); cardBtn.className='streak-card-btn';
-    cardBtn.textContent=t('daily_view_card');
-    cardBtn.onclick=function(){ openDailyCard(today.getFullYear(),today.getMonth(),today.getDate()); };
-    panel.appendChild(cardBtn);
-  }
-  if(st2.locked){
-    var msg=document.createElement('div'); msg.className='streak-done-msg';
-    msg.textContent=st2.won?t('daily_comeback'):t('daily_out_of_tries');
-    panel.appendChild(msg);
-  } else if(st2.attemptsUsed===0){
-    var hint=document.createElement('div'); hint.className='streak-done-msg';
-    hint.textContent=t('daily_card_hint');
-    panel.appendChild(hint);
-  }
-  // Catch-up pointer. Shown only once today is closed out, which is exactly
-  // when the past days in the calendar below become actionable.
-  if(_recoverGateOpen()){
-    var rHint=document.createElement('div'); rHint.className='streak-done-msg';
-    rHint.textContent=t('daily_recover_hint');
-    panel.appendChild(rHint);
-  }
 
   // ── Monthly calendar with prev/next navigation ───────────────────────
   var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
@@ -808,6 +769,54 @@ function renderStreakTab(){
   calWrap.id='dc-cal-wrap';
   panel.appendChild(calWrap);
   _renderCalMonth(_calViewYear, _calViewMonth);
+
+  // ── Play / retry button ───────────────────────────────────────────────
+  // Four states: never played · lost with tries left · won · out of tries.
+  // Note that "played today" (streak) and "can still play" are different
+  // questions — the latter is _dailyStatus().locked.
+  var fake=_previewDailyStatus();
+  var st2=fake||_dailyTodayStatus();
+  var btn=document.createElement('button');
+  btn.className='streak-play-btn';
+  btn.disabled=st2.locked&&!st2.won;
+  if(st2.won){
+    // Won: one button, the day's status on top of the way to its card
+    btn.classList.add('done');
+    btn.innerHTML='<span class="streak-btn-sub">'+t('daily_done')+'</span><span>'+t('daily_view_card')+'</span>';
+    btn.onclick=function(){ openDailyCard(today.getFullYear(),today.getMonth(),today.getDate()); };
+  } else {
+    if(st2.locked)              btn.textContent=t('daily_no_tries');
+    else if(st2.attemptsUsed>0) btn.textContent=t('daily_retry');
+    else                        btn.textContent=t('daily_play');
+    if(!st2.locked&&!fake) btn.onclick=function(){ closeHistory(); startDailyChallenge(); };
+  }
+  panel.appendChild(btn);
+
+  if(!st2.locked&&st2.attemptsUsed>0){
+    var tries=document.createElement('div'); tries.className='streak-tries-msg';
+    tries.textContent=t('daily_tries_left').replace('{n}',st2.attemptsLeft).replace('{max}',DAILY_MAX_ATTEMPTS);
+    panel.appendChild(tries);
+  }
+  // Once today is closed out (won or out of tries) the past days in the
+  // calendar above become actionable, so the message also points to catch-up
+  // (st2.locked is what _recoverGateOpen() answers).
+  if(st2.locked){
+    var msg=document.createElement('div'); msg.className='streak-done-msg';
+    msg.textContent=st2.won?t('daily_comeback'):t('daily_out_recover');
+    panel.appendChild(msg);
+  } else if(st2.attemptsUsed===0){
+    var hint=document.createElement('div'); hint.className='streak-done-msg';
+    hint.textContent=t('daily_card_hint');
+    panel.appendChild(hint);
+  }
+
+  // Preview only: switch today's state without playing (nothing is saved)
+  if(customPreview){
+    var pv=document.createElement('button'); pv.className='streak-preview-btn';
+    pv.textContent='🧪 '+(lang==='pt'?'Hoje: ':'Today: ')+_PREVIEW_DAILY[_previewDailyIdx][lang==='pt'?'pt':'en']+' ▸';
+    pv.onclick=function(){ _previewDailyIdx=(_previewDailyIdx+1)%_PREVIEW_DAILY.length; renderStreakTab(); };
+    panel.appendChild(pv);
+  }
 }
 
 // ── Calendar navigation state ─────────────────────────────────────────────
