@@ -398,7 +398,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Content rules**: trivia in both languages, 4–6 sentences, same numbers in en and pt, and never repeating or contradicting a card, trophy or daily card (search them first). The topic of each trivia is agreed with the developer.
 
-**Preview mode**: set `PREVIEW_ENABLED = true` on the feature branch; the game run on the developer's machine (opened as a file or from localhost) then turns preview on by itself — every item becomes selectable (choices kept in memory only, never saved), locked and secret trivia is shown, and a 🧪 TEST badge stays on screen. `?nopreview` turns it off locally; it never turns on for the published site. **Set it back to `false` before merging.**
+**Preview mode**: set `PREVIEW_ENABLED = true` on the feature branch; the game run on the developer's machine (opened as a file or from localhost) then turns preview on by itself — every item becomes selectable (choices kept in memory only, never saved), locked and secret trivia is shown (customization items and trophies: secret trophies are revealed and every locked trophy or family level opens with its trivia), and a 🧪 TEST badge stays on screen. `?nopreview` turns it off locally; it never turns on for the published site. **Set it back to `false` before merging.**
 
 **Sync**: no change needed in `sync.js` — it accepts any id listed in `CUSTOMIZATIONS` under its category.
 

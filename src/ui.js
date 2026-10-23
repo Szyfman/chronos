@@ -1972,7 +1972,8 @@ function _trophyProgressBar(def){
     + '<div class="tcard-prog-txt">'+formatXp(n)+' / '+formatXp(pr.goal)+'</div></div>';
 }
 
-function _isHiddenTrophy(def){ return def.section === 'secret' && !earnedTrophies[def.id]; }
+// Preview mode reveals secret trophies, like secret customization items
+function _isHiddenTrophy(def){ return def.section === 'secret' && !earnedTrophies[def.id] && !customPreview; }
 
 // ── TROPHY FAMILIES ───────────────────────────────────────────────────────
 // Levels of the same feat (`family` in trophies.js) share one card: it shows
@@ -2005,10 +2006,11 @@ function _familyCard(fid){
   return html + '</div>';
 }
 // Family modal: the trivia of every level earned so far (a new level reveals a
-// new one), then the ladder of levels with the progress towards the next
+// new one), then the ladder of levels with the progress towards the next.
+// Preview mode shows the trivia of every level.
 function openTrophyFamily(fid){
   var f = _familyState(fid), shown = f.top || f.levels[0];
-  var trivia = f.done.map(function(d){
+  var trivia = (customPreview ? f.levels : f.done).map(function(d){
     return '✦ '+_nm(d)+'\n'+(lang==='pt' ? (d.trivia_pt || d.trivia || '') : (d.trivia || ''));
   }).join('\n\n');
   var ladder = f.levels.map(function(d){
@@ -2020,7 +2022,8 @@ function openTrophyFamily(fid){
   else if(!f.next) ladder += '\n\n'+t('tp_all_levels');
   _showTpModal({
     icon: shown.icon,
-    earned: !!f.top,
+    earned: !!f.top || customPreview,
+    badge: !f.top && customPreview ? t('pf_preview_badge') : '',
     name: _nm(shown)+' · '+t('tp_level').replace('{n}', f.done.length).replace('{total}', f.levels.length),
     date: f.top ? earnedTrophies[f.top.id] : '',
     trivia: trivia,
@@ -2037,7 +2040,9 @@ function openTrophyModal(idx){
   var pr = earnedTrophies[def.id] ? null : trophyProgress(def);
   _showTpModal({
     icon: def.icon,
-    earned: !!earnedTrophies[def.id],
+    // Preview mode opens locked trophies like earned ones, to read their trivia
+    earned: !!earnedTrophies[def.id] || customPreview,
+    badge: !earnedTrophies[def.id] && customPreview ? t('pf_preview_badge') : '',
     name: lang==='pt' ? def.name_pt : def.name,
     date: earnedTrophies[def.id] || '',
     trivia: lang==='pt' ? (def.trivia_pt || def.trivia || '') : (def.trivia || ''),

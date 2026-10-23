@@ -319,6 +319,20 @@ var TROPHY_DEFS = [
     needed:['Gutenberg Bible Printed','Martin Luther','John Calvin','Henry VIII']
   },
   {
+    id:'rushmore',
+    section:'collections',
+    icon:'🏔️',
+    name:'Mount Rushmore',
+    name_pt:'Monte Rushmore',
+    desc:'Place Washington, Jefferson, Lincoln, Theodore Roosevelt & Mount Rushmore in one run',
+    desc_pt:'Coloque Washington, Jefferson, Lincoln, Theodore Roosevelt e o Monte Rushmore em uma única partida',
+    hint:'Place George Washington, Thomas Jefferson, Abraham Lincoln, Theodore Roosevelt and Mount Rushmore correctly in a single run — the four faces and the mountain they were carved into.',
+    hint_pt:'Coloque George Washington, Thomas Jefferson, Abraham Lincoln, Theodore Roosevelt e Monte Rushmore corretamente em uma única partida — os quatro rostos e a montanha onde foram esculpidos.',
+    trivia:'Thomas Jefferson was first carved on the other side of George Washington. After about two years of work the granite there proved too cracked, so in 1934 Gutzon Borglum had the half-finished face blasted off with dynamite and started again between Washington and Roosevelt, where Jefferson stands today. Even the mountain\'s name was a joke. In 1885 Charles E. Rushmore, a New York lawyer checking titles to tin mines in the Black Hills, asked his guide what the peak was called — and was told it had never had a name, but from then on it would be Rushmore. Decades later he returned the favour: in 1927 he gave 5,000 dollars towards the carving.',
+    trivia_pt:'Thomas Jefferson foi esculpido primeiro do outro lado de George Washington. Depois de cerca de dois anos de trabalho, o granito ali se mostrou rachado demais, e em 1934 Gutzon Borglum mandou explodir com dinamite o rosto pela metade e recomeçou entre Washington e Roosevelt, onde Jefferson está hoje. Até o nome da montanha foi uma brincadeira. Em 1885 Charles E. Rushmore, um advogado de Nova York que verificava títulos de minas de estanho nas Black Hills, perguntou ao seu guia como se chamava o pico — e ouviu que ele nunca tivera nome, mas dali em diante se chamaria Rushmore. Décadas depois ele retribuiu: em 1927 doou 5 mil dólares para a escultura.',
+    needed:['George Washington','Thomas Jefferson','Abraham Lincoln','Theodore Roosevelt','Mount Rushmore']
+  },
+  {
     id:'cleopatra_paradox',
     section:'paradoxes',
     icon:'🌙',
