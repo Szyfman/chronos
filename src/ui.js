@@ -756,6 +756,16 @@ function renderStreakTab(){
   }
   panel.appendChild(week);
 
+  // ── Monthly calendar with prev/next navigation ───────────────────────
+  var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
+  calTitle.textContent=lang==='pt'?'📅 Calendário de Desafios':'📅 Challenge Calendar';
+  panel.appendChild(calTitle);
+
+  var calWrap=document.createElement('div'); calWrap.className='dc-cal-wrap';
+  calWrap.id='dc-cal-wrap';
+  panel.appendChild(calWrap);
+  _renderCalMonth(_calViewYear, _calViewMonth);
+
   // ── Play / retry button ───────────────────────────────────────────────
   // Four states: never played · lost with tries left · won · out of tries.
   // Note that "played today" (streak) and "can still play" are different
@@ -792,22 +802,12 @@ function renderStreakTab(){
     panel.appendChild(hint);
   }
   // Catch-up pointer. Shown only once today is closed out, which is exactly
-  // when the past days in the calendar below become actionable.
+  // when the past days in the calendar above become actionable.
   if(_recoverGateOpen()){
     var rHint=document.createElement('div'); rHint.className='streak-done-msg';
     rHint.textContent=t('daily_recover_hint');
     panel.appendChild(rHint);
   }
-
-  // ── Monthly calendar with prev/next navigation ───────────────────────
-  var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
-  calTitle.textContent=lang==='pt'?'📅 Calendário de Desafios':'📅 Challenge Calendar';
-  panel.appendChild(calTitle);
-
-  var calWrap=document.createElement('div'); calWrap.className='dc-cal-wrap';
-  calWrap.id='dc-cal-wrap';
-  panel.appendChild(calWrap);
-  _renderCalMonth(_calViewYear, _calViewMonth);
 }
 
 // ── Calendar navigation state ─────────────────────────────────────────────
