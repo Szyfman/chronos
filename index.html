@@ -496,7 +496,7 @@
   .go-btn:hover{opacity:.8}
 
   /* HISTORY PANEL */
-  #history-panel{position:fixed;inset:0;background:var(--bg);z-index:710;display:flex;flex-direction:column;align-items:center;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+  #history-panel{position:fixed;inset:0;overflow:hidden;background:var(--bg);z-index:710;display:flex;flex-direction:column;align-items:center;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
   #history-panel.open{transform:translateX(0)}
   #hp-header{width:100%;max-width:420px;padding:12px 18px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0}
   body.light #hp-header{background:#ffffff;border-bottom-color:#cbd5e1}
@@ -516,8 +516,9 @@
   body.light .hp-tab.active{color:#1d4ed8;border-bottom-color:#1d4ed8}
   #hp-streak{width:100%;max-width:420px;flex:1;overflow-y:auto;padding:24px 18px;scrollbar-width:none;display:flex;flex-direction:column;align-items:center;gap:24px}
   /* Swipe state */
-  #history-panel.swiping{cursor:grabbing}
-  #history-panel.swiping #history-list,#history-panel.swiping #hp-streak{user-select:none;-webkit-user-select:none}
+  /* Swipe between tabs (_tabSwipe in ui.js): vertical scroll stays the browser's */
+  #history-list,#hp-streak,#tp-list,#tp-progress{touch-action:pan-y}
+  .tab-swiping{cursor:grabbing;user-select:none;-webkit-user-select:none}
   .streak-stats{display:flex;gap:28px;justify-content:center;width:100%}
   .streak-stat{display:flex;flex-direction:column;align-items:center;gap:4px}
   .streak-stat-val{font-size:2rem;font-weight:800;color:var(--gold);font-family:'Inter',sans-serif;line-height:1}
@@ -781,7 +782,7 @@
   .tp-sec.open .cp-sec-body{display:block}
 
   /* ── TROPHY PANEL ─────────────────────────────────────────── */
-  #tp{position:fixed;inset:0;z-index:716;background:#0d0c0a;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  #tp{position:fixed;inset:0;overflow:hidden;z-index:716;background:#0d0c0a;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
   #tp.open{transform:translateX(0)}
   body.light #tp{background:#f8fafc}
   body.light #tp-head{border-bottom-color:#e2e8f0}
@@ -1736,7 +1737,6 @@
   </div>
   <div id="history-list"></div>
   <div id="hp-streak" style="display:none"></div>
-  <div id="hp-swipe-indicator" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,0.2);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:0;transition:opacity 0.15s;pointer-events:none;z-index:1000"></div>
 </div>
 
 <!-- COMPENDIUM PANEL -->
