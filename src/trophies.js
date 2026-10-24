@@ -124,6 +124,21 @@ var TROPHY_DEFS = [
     goal:5
   },
   {
+    id:'perfect_day',
+    section:'skill',
+    icon:'☀️',
+    name:'Perfect Day',
+    name_pt:'Dia Perfeito',
+    desc:'Win the Daily Challenge on the first attempt without losing a life',
+    desc_pt:'Vença o Desafio Diário na primeira tentativa sem perder nenhuma vida',
+    hint:'Place all the cards of the day\'s challenge on your first try, without a single miss.',
+    hint_pt:'Coloque todas as cartas do desafio do dia na primeira tentativa, sem nenhum erro.',
+    trivia:'The most famous perfect score in sport could not be displayed. At the Montreal Olympics in 1976, the 14-year-old Romanian gymnast Nadia Comăneci finished her routine on the uneven bars and the scoreboard lit up 1.00. Its makers had been told a 10 was impossible, so it had room for only one digit before the decimal point. It was the first perfect 10 in Olympic gymnastics, and by the end of those Games she had scored seven of them.',
+    trivia_pt:'A nota perfeita mais famosa do esporte não pôde ser exibida. Nos Jogos Olímpicos de Montreal, em 1976, a ginasta romena Nadia Comăneci, de 14 anos, terminou sua série nas barras assimétricas e o placar acendeu 1.00. Seus fabricantes tinham ouvido que um 10 era impossível, por isso ele só tinha lugar para um dígito antes da vírgula. Foi o primeiro 10 perfeito da ginástica olímpica, e até o fim daqueles Jogos ela tirou sete.',
+    needed:null,
+    special:'perfect_daily'
+  },
+  {
     id:'empire_builder',
     section:'skill',
     icon:'🌍',
@@ -446,13 +461,14 @@ var TROPHY_DEFS = [
     icon:'🏛️',
     name:'Pax Romana',
     name_pt:'Pax Romana',
-    desc:'Place seven milestones of Rome, from its founding to the Fall of Constantinople, in one run',
-    desc_pt:'Coloque sete marcos de Roma, da fundação à Queda de Constantinopla, em uma partida',
-    hint:'Place Founding of Rome, Roman Republic, Roman Empire, Third Century Crisis, Fall of the Western Roman Empire, Byzantine Empire and Fall of Constantinople correctly in a single run.',
-    hint_pt:'Coloque Fundação de Roma, República Romana, Império Romano, Crise do Terceiro Século, Queda do Império Romano do Ocidente, Império Bizantino e Queda de Constantinopla corretamente em uma partida.',
+    desc:'Master seven milestones of Rome, from its founding to the Fall of Constantinople',
+    desc_pt:'Domine sete marcos de Roma, da fundação à Queda de Constantinopla',
+    hint:'Master each of these cards — placed correctly at least twice, with more hits than misses — across any runs: Founding of Rome, Roman Republic, Roman Empire, Third Century Crisis, Fall of the Western Roman Empire, Byzantine Empire and Fall of Constantinople.',
+    hint_pt:'Domine cada uma destas cartas — acertada pelo menos duas vezes, com mais acertos que erros — somando todas as partidas: Fundação de Roma, República Romana, Império Romano, Crise do Terceiro Século, Queda do Império Romano do Ocidente, Império Bizantino e Queda de Constantinopla.',
     trivia:'The Western Roman Empire officially "fell" in 476 CE when the Germanic chieftain Odoacer deposed Romulus Augustulus — but this was barely noticed at the time. The Eastern Roman Empire (Byzantine) continued for another 977 years until 1453 CE. Historians now debate whether Rome ever truly "fell" or simply transformed: its laws, language (Latin evolved into French, Spanish, Italian, Romanian, Portuguese), calendar, Catholic Church structure, and architectural vocabulary shaped Western civilization so deeply that in a sense, Rome never ended.',
     trivia_pt:'O Império Romano Ocidental oficialmente "caiu" em 476 EC quando o chefe germânico Odoacro depôs Rômulo Augústulo — mas isso mal foi notado na época. O Império Romano Oriental (Bizâncio) continuou por mais 977 anos até 1453 EC Os historiadores agora debatem se Roma realmente "caiu" ou simplesmente se transformou: suas leis, língua (o latim evoluiu para o francês, espanhol, italiano, romeno, português), calendário, estrutura da Igreja Católica e vocabulário arquitetônico moldaram tão profundamente a civilização ocidental que, em certo sentido, Roma nunca terminou.',
-    needed:['Founding of Rome','Roman Republic','Roman Empire','Third Century Crisis','Fall of the Western Roman Empire','Byzantine Empire','Fall of Constantinople']
+    needed:['Founding of Rome','Roman Republic','Roman Empire','Third Century Crisis','Fall of the Western Roman Empire','Byzantine Empire','Fall of Constantinople'],
+    special:'master'
   },
   {
     id:'king_of_kings',
@@ -1034,7 +1050,7 @@ var TROPHY_DEFS = [
   {
     id:'icarus',
     section:'secret',
-    icon:'☀️',
+    icon:'👼',
     name:'Icarus',
     name_pt:'Ícaro',
     desc:'Lose a streak of 30 or more on a single miss',

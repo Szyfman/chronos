@@ -372,7 +372,7 @@ var _langSwitched = false;
 // saved at game end, an empty deck only counts as a finished run, and the
 // daily streak only grows when a daily attempt is recorded.
 var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40',
-  'daily_on_date','daily_at_hour','friday_13'].concat(PROGRESS_TROPHY_SPECIALS);
+  'daily_on_date','daily_at_hour','friday_13','perfect_daily'].concat(PROGRESS_TROPHY_SPECIALS);
 
 /* Runs at game end and, with midGame=true, after every correct card — so a
    trophy that depends only on the current run pops up the moment it is won.
@@ -440,6 +440,9 @@ function checkTrophies(midGame){
     } else if(def.special === 'daily_on_date'){
       var _d = new Date();
       earned = runFlags.dailyFinished && _d.getMonth()+1 === def.month && _d.getDate() === def.day;
+    } else if(def.special === 'perfect_daily'){
+      // A live daily won on its first attempt with every life left (no miss at all)
+      earned = runFlags.dailyFinished && _dailyAttempt === 1 && timeline.length >= DAILY_DECK_SIZE && lives === playModeRules().lives;
     } else if(def.special === 'daily_at_hour'){
       earned = runFlags.dailyFinished && new Date().getHours() === def.hour;
     } else if(def.special === 'friday_13'){
