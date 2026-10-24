@@ -1,4 +1,4 @@
-const CACHE = 'chronos-v80';
+const CACHE = 'chronos-v81';
 
 const BASE = '/chronos/';
 
