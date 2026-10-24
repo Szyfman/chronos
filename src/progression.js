@@ -327,7 +327,16 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
   { id: 'theme_night_sky', cat: 'theme', icon: '🌙', style: 'night', base: 'dark', name: 'Night Sky', name_pt: 'Céu Noturno',
     unlock: { level: 40 },
     trivia: 'On 14 February 1990, about 6 billion kilometres from the Sun, Voyager 1 turned its camera back and photographed the planets one last time; soon afterwards its cameras were switched off for good. Carl Sagan had argued for the picture for years. In it, Earth is a speck smaller than a single pixel, caught in a ray of scattered sunlight. Sagan named it the "Pale Blue Dot" and reflected that everyone who had ever lived had lived out their lives on that tiny point.',
-    trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' }
+    trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' },
+  /* Themes of the secret modes (RECORD_MODES with `trophy`): `modeOnly` themes
+     are worn by every run of their mode and can't be unlocked for other modes,
+     so they are never listed in Customization (preview mode lists them). */
+  { id: 'theme_usa_stars', cat: 'theme', icon: '⭐', style: 'usa_stars', base: 'dark', mode: 'usa', modeOnly: true, name: 'Star-Spangled', name_pt: 'Estrelado', unlock: { mode: 'usa' },
+    trivia: 'On the night of 13 to 14 September 1814, during the War of 1812, the lawyer Francis Scott Key watched from a ship as the British bombarded Fort McHenry, which guarded Baltimore. At dawn he saw a huge American flag still flying over the fort and wrote a poem about it, soon sung to the tune of a popular British drinking song, \'To Anacreon in Heaven\'. The flag he saw had fifteen stars and fifteen stripes, one for each state at the time, and measured about 9 by 13 metres; it is now kept at the Smithsonian in Washington. \'The Star-Spangled Banner\' only became the official national anthem in 1931.',
+    trivia_pt: 'Na noite de 13 para 14 de setembro de 1814, durante a Guerra de 1812, o advogado Francis Scott Key assistiu de um navio ao bombardeio britânico do Forte McHenry, que protegia Baltimore. Ao amanhecer viu uma enorme bandeira americana ainda tremulando sobre o forte e escreveu um poema sobre ela, que logo passou a ser cantado com a melodia de uma canção de bar britânica muito popular, \'To Anacreon in Heaven\'. A bandeira que ele viu tinha quinze estrelas e quinze listras, uma para cada estado da época, e media cerca de 9 por 13 metros; hoje está guardada no Smithsonian, em Washington. \'The Star-Spangled Banner\' só virou o hino nacional oficial em 1931.' },
+  { id: 'theme_brazil_calcadao', cat: 'theme', icon: '🌊', style: 'br_calcadao', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Copacabana Promenade', name_pt: 'Calçadão', unlock: { mode: 'brazil' },
+    trivia: 'The black-and-white waves of Copacabana came from Lisbon. Portuguese pavement — small cubes of white limestone and black basalt set by hand by craftsmen called calceteiros — was laid in Lisbon\'s Rossio square in the late 1840s in a wave pattern called mar largo, \'open sea\'. Rio copied it along Copacabana\'s seafront in the early 20th century. In 1970, when the beach was widened with landfill, the landscape architect Roberto Burle Marx redesigned the promenade: he kept the waves beside the sand but turned them to run parallel to the sea, and covered the pavement on the other side of the avenue with abstract mosaics in black, white and red stone, some four kilometres long.',
+    trivia_pt: 'As ondas pretas e brancas de Copacabana vieram de Lisboa. A calçada portuguesa — pequenos cubos de calcário branco e basalto preto assentados à mão por artesãos chamados calceteiros — foi feita na praça do Rossio, em Lisboa, no fim dos anos 1840, num desenho de ondas chamado mar largo. O Rio copiou o desenho na orla de Copacabana no começo do século XX. Em 1970, quando a praia foi alargada com aterro, o paisagista Roberto Burle Marx redesenhou o calçadão: manteve as ondas junto à areia, mas virou-as para correr paralelas ao mar, e cobriu a calçada do outro lado da avenida com mosaicos abstratos de pedras pretas, brancas e vermelhas, ao longo de uns quatro quilômetros.' }
 ]);
 
 // ── XP CURVE ──────────────────────────────────────────────────────────────
@@ -396,6 +405,7 @@ function playerTitle(level) {
 
 function isCustomUnlocked(item) {
   if (!item.unlock) return true;
+  if (item.modeOnly) return false;   // worn only by its mode's runs
   // Unlocked once, unlocked for good — even if its requirement is raised later
   if (customKnown && customKnown.indexOf(item.id) >= 0) return true;
   if (item.unlock.title) {
@@ -561,8 +571,22 @@ const RECORD_MODES = [
   { id: 'abrahamic',  icon: '✡️', label: 'biblical_lbl' },
   { id: 'roman',      icon: '🏛️', label: 'mc_roman_title' },
   { id: 'eastern',    icon: '☯️', label: 'mc_eastern_title' },
+  { id: 'usa',        icon: '🗽', label: 'mc_usa_title', trophy: 'rushmore' },
+  { id: 'brazil',     icon: '🦜', label: 'mc_brazil_title', trophy: 'terra_brasilis' },
   { id: 'daily',      icon: '📅', label: 'daily_title' }
 ];
+
+/* Secret modes: the RECORD_MODES entries with a `trophy`. Played only from
+   that trophy's card once it is earned (preview mode opens them all), always
+   with lives, and they never touch card stats (mastery, Review). The deck is
+   every card tagged with the mode id; the record row stays hidden until the
+   mode opens. */
+function secretMode(id) {
+  return RECORD_MODES.find(function(m) { return m.id === id && m.trophy; }) || null;
+}
+function secretModeOpen(m) {
+  return !!earnedTrophies[m.trophy] || customPreview;
+}
 
 /* Called by endGame for every run with at least one card placed. Only runs
    with lives count: Free play has no stakes, so its scores aren't records.

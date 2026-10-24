@@ -6,8 +6,11 @@
 // ── ERA COLORS ────────────────────────────────────────────────────────────
 
 
+// The main menu's mode. Culture, secret and daily runs set gameMode on their
+// own; showIntro puts the menu's choice back, so "Begin" starts what it shows.
+var _menuMode='classic';
 function selectMode(m){
-  gameMode=m;
+  gameMode=m; _menuMode=m;
   document.getElementById('mc-classic').classList.toggle('selected',m==='classic');
   document.getElementById('mc-empires').classList.toggle('selected',m==='empires');
   document.getElementById('mc-characters').classList.toggle('selected',m==='characters');
@@ -75,6 +78,7 @@ let _fromGameover=false;
 var _currentFactCard=null; // tracks which card the fact panel is showing
 function showIntro(){
   setRunTheme(null);   // back to the player's own theme
+  if(gameMode!==_menuMode) selectMode(_menuMode);
   const cs = document.getElementById('cultures-screen');
   if(cs) cs.classList.remove('show');
   document.getElementById('gameover').classList.remove('show');
@@ -91,6 +95,9 @@ function restartGame(){
   document.getElementById('gameover').classList.remove('show');
   var _fp2=document.getElementById('fact-panel');
   if(_fp2){_fp2.classList.remove('open');_fp2.classList.remove('review-mode');_popNavState('fact');}
+  // A secret mode goes back to its trophy's card, where it is started
+  var sm=secretMode(gameMode);
+  if(sm){ showIntro(); openTrophyCard(sm.trophy); return; }
   // If last game was a culture mode, go back to cultures hub
   if(gameMode==='abrahamic'||gameMode==='roman'||gameMode==='eastern'){
     selectCultureMode(gameMode);
@@ -580,7 +587,10 @@ function closeHistory(){
   document.getElementById('history-panel').classList.remove('open');
   if(gameActive)return;
   document.getElementById('gameover').classList.remove('show');
+  // After a secret-mode run, every way out of the end screen leads to its trophy's card
+  var sm=_fromGameover&&secretMode(gameMode);
   _fromGameover=false;
+  if(sm){ showIntro(); openTrophyCard(sm.trophy); return; }
   if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
 }
 function renderHistoryPanel(){
@@ -1670,8 +1680,8 @@ function renderProgress(){
 
   // Customization folds like a trophy section, and so does each category
   // inside it; counts are of unlocked items. Hidden items (title_auto) are
-  // never shown nor counted.
-  var shownItems = CUSTOMIZATIONS.filter(function(i){ return !i.hidden; });
+  // never shown nor counted; themes of a single mode only in preview mode.
+  var shownItems = CUSTOMIZATIONS.filter(function(i){ return !i.hidden && (!i.modeOnly || customPreview); });
   var customHtml = '';
   CUSTOM_CATEGORIES.forEach(function(cat){
     var items = shownItems.filter(function(i){ return i.cat === cat.id; });
@@ -1880,6 +1890,7 @@ function _renderModeRecords(){
   html += '<div class="pf-records">';
   html += '<div class="pf-rec-row pf-rec-head"><span>'+t('pf_rec_mode')+'</span><span>'+t('pf_rec_best')+'</span><span>'+t('pf_rec_cards')+'</span><span>'+t('pf_rec_streak')+'</span><span>'+t('pf_rec_runs')+'</span></div>';
   RECORD_MODES.forEach(function(mode){
+    if(mode.trophy && !secretModeOpen(mode)) return;   // a secret mode shows once opened
     var r = modeRecords[mode.id];
     var played = r && (r.runs|0) > 0;
     html += '<div class="pf-rec-row'+(played?'':' empty')+'">';
@@ -1938,6 +1949,10 @@ function _customHowText(item){
   if(u.level)  return t('em_how_level').replace('{n}', u.level);
   if(u.trophy) return t('em_how_trophy').replace('{name}', _nm(_unlockTrophy(item)) || u.trophy);
   if(u.mastery){ var m = _unlockMastery(item); return t('em_how_mastery').replace('{seal}', m.seal).replace('{era}', m.era); }
+  if(item.modeOnly){
+    var om = RECORD_MODES.find(function(r){ return r.id === item.mode; });
+    return t('th_mode_only').replace('{mode}', om ? t(om.label) : item.mode);
+  }
   if(u.record){
     var rm = RECORD_MODES.find(function(r){ return r.id === u.record.mode; });
     return t('em_how_record').replace('{n}', formatXp(u.record.best)).replace('{mode}', rm ? t(rm.label) : u.record.mode)
@@ -2052,7 +2067,9 @@ function openTrophyModal(idx){
     return;
   }
   var pr = earnedTrophies[def.id] ? null : trophyProgress(def);
+  var sm = RECORD_MODES.find(function(m){ return m.trophy === def.id; });
   _showTpModal({
+    action: sm && secretModeOpen(sm) ? { label: t('sm_play').replace('{mode}', t(sm.label)), mode: sm.id } : null,
     icon: def.icon,
     // Preview mode opens locked trophies like earned ones, to read their trivia
     earned: !!earnedTrophies[def.id] || customPreview,
@@ -2065,8 +2082,38 @@ function openTrophyModal(idx){
   });
 }
 
+// Trophies tab with the trophy's section open and its card on top
+function openTrophyCard(id){
+  var idx = TROPHY_DEFS.findIndex(function(d){ return d.id === id; });
+  if(idx < 0) return;
+  openTrophies('trophies');
+  toggleTpSection(TROPHY_DEFS[idx].section);
+  openTrophyModal(idx);
+}
+
+// Secret modes start from their trophy's card — the panel opens only from the
+// menus, never during a run. Always with lives; the menu's choices stay.
+function startSecretMode(mode){
+  var sm = secretMode(mode);
+  if(!sm || !secretModeOpen(sm) || gameActive) return;
+  closeTrophyModal();
+  _popNavState('trophies');
+  document.getElementById('tp').classList.remove('open');
+  _fromCultures = false;
+  _isDailyChallenge = false; _isRecoverRun = false;
+  gameMode = mode;
+  setPlayMode('lives');
+  eraFilter = [];
+  document.getElementById('hint-btn').style.display = '';
+  document.getElementById('skip-btn').style.display = '';
+  document.getElementById('intro').classList.remove('show');
+  document.getElementById('cultures-screen').classList.remove('show');
+  initGame();
+}
+
 /* Fills and opens the trophy/customization detail modal.
-   o: { icon, iconHtml?, earned, badge?, name, date (ISO or ''), trivia, how }
+   o: { icon, iconHtml?, earned, badge?, name, date (ISO or ''), trivia, how, action? }
+   action: { label, mode } — a button that starts that secret mode.
    iconHtml (our own markup, e.g. a framed avatar) replaces the icon text;
    badge overrides the earned badge text (preview mode).
    Earned: trivia first, then how it was unlocked (only the latter if there is
@@ -2145,6 +2192,13 @@ function _showTpModal(o){
     divider.style.display = 'none';
     reqLbl.style.display = 'none';
     reqBody.style.display = 'none';
+  }
+
+  var act = document.getElementById('tp-modal-action');
+  act.style.display = o.action ? '' : 'none';
+  if(o.action){
+    act.textContent = o.action.label;
+    act.onclick = function(){ startSecretMode(o.action.mode); };
   }
 
   // Close button text

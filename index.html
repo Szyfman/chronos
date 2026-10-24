@@ -207,6 +207,8 @@
   body.light .he-mode.empires{color:#6d28d9;border-color:#ddd6fe;background:#faf5ff}
   body.light .he-mode.biblical{color:#b45309;border-color:#fde68a;background:#fffbeb}
   body.light .he-mode.characters{color:#15803d;border-color:#86efac;background:#f0fdf4}
+  body.light .he-mode.usa{color:#b91c1c;border-color:#fecaca;background:#fef2f2}
+  body.light .he-mode.brazil{color:#166534;border-color:#fde047;background:#fefce8}
   body.light .ht-card{border-top-color:#f1f5f9}
   body.light .ht-name{color:#0f172a}
   body.light .ht-year{color:#1d4ed8;font-weight:700}
@@ -651,6 +653,8 @@
   .he-mode.empires{color:#b890d8;border-color:rgba(154,106,191,.4)}
   .he-mode.biblical{color:#d4a84a;border-color:rgba(212,168,74,.4)}
   .he-mode.characters{color:#3dba78;border-color:rgba(61,186,120,.4)}
+  .he-mode.usa{color:#e8707c;border-color:rgba(200,60,75,.45)}
+  .he-mode.brazil{color:#f2cc3a;border-color:rgba(0,156,59,.55)}
   .he-era-tag{font-size:.38rem;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:2px 6px;border:1px solid rgba(201,168,76,.2);color:var(--cream-dim)}
   .he-chevron{font-size:.5rem;color:var(--cream-dim);transition:transform .25s;display:inline-block}
   .he-chevron.open{transform:rotate(180deg)}
@@ -1119,6 +1123,12 @@
   body.light #tp-modal.earned-modal #tp-modal-body{color:#1e293b}
   #tp-modal-close{width:100%;margin-top:20px;padding:11px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;color:rgba(201,168,76,.6);font-family:Inter,sans-serif;font-size:.78rem;cursor:pointer;transition:all .2s;letter-spacing:.05em}
   #tp-modal-close:hover{background:rgba(201,168,76,.14);color:#c9a84c}
+  /* Starts a secret mode from its trophy's card */
+  #tp-modal-action{width:100%;margin-top:20px;padding:12px;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.6);border-radius:8px;color:#e8c96a;font:700 .85rem Inter,sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+  #tp-modal-action:hover{background:rgba(201,168,76,.3);color:#f5dc8a}
+  #tp-modal-action+#tp-modal-close{margin-top:10px}
+  body.light #tp-modal-action{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+  body.light #tp-modal-action:hover{background:#1e40af}
   body.light #tp-modal-close{background:#f1f5f9;border-color:#cbd5e1;color:#334155}
   body.light #tp-modal-close:hover{background:#dbeafe;border-color:#1d4ed8;color:#1d4ed8}
   body.light #tp-modal-divider{background:rgba(29,78,216,.12)!important}
@@ -1408,6 +1418,23 @@
     --th-line:linear-gradient(to bottom,transparent,rgba(170,190,255,.6) 10%,rgba(170,190,255,.6) 90%,transparent);
     --th-dz:rgba(170,190,255,.3);--th-card:rgba(10,16,40,.9);--th-card-hover:rgba(18,28,64,.95);--th-card-line:rgba(150,170,255,.38);
     --th-ink:#e8ecff;--th-ink2:#98a3cf;--th-accent:#c8d2ff;--th-bar:#050816}
+  /* Secret-mode themes (modeOnly, progression.js) */
+  /* Star-Spangled: the blue canton's white stars, red-and-white edges */
+  .th-usa_stars{
+    --th-bg:repeating-linear-gradient(to bottom,#b22234 0 10px,#f2f2f2 10px 20px) left top/7px 100% no-repeat,
+      repeating-linear-gradient(to bottom,#b22234 0 10px,#f2f2f2 10px 20px) right top/7px 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48'%3E%3Cg fill='%23ffffff' fill-opacity='.2'%3E%3Cpath d='M14 4l2.3 5.2 5.7.5-4.3 3.8 1.3 5.5L14 16.1 9 19l1.3-5.5L6 9.7l5.7-.5z'/%3E%3Cpath d='M42 28l2.3 5.2 5.7.5-4.3 3.8 1.3 5.5L42 40.1 37 43l1.3-5.5L34 33.7l5.7-.5z'/%3E%3C/g%3E%3C/svg%3E") 0 0/56px 48px,
+      linear-gradient(to bottom,#0b1640,#0a1233);
+    --th-line:linear-gradient(to bottom,transparent,rgba(255,255,255,.7) 10%,rgba(255,255,255,.7) 90%,transparent);
+    --th-dz:rgba(255,255,255,.28);--th-card:rgba(10,18,52,.95);--th-card-hover:rgba(22,34,84,.97);--th-card-line:rgba(255,255,255,.4);
+    --th-ink:#f4f6ff;--th-ink2:#aab4dc;--th-accent:#ff5c6c;--th-bar:#07102e}
+  /* Calçadão: the black-and-white waves of Copacabana's promenade */
+  .th-br_calcadao{
+    --th-bg:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.6) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='44'%3E%3Cpath d='M-30 22C0 42 30 42 60 22S120 2 150 22' fill='none' stroke='%23efe9dc' stroke-opacity='.2' stroke-width='18'/%3E%3C/svg%3E") 0 0/120px 44px,#0b0b0b;
+    --th-line:linear-gradient(to bottom,transparent,rgba(240,233,220,.75) 10%,rgba(240,233,220,.75) 90%,transparent);
+    --th-dz:rgba(240,233,220,.3);--th-card:rgba(14,14,14,.95);--th-card-hover:rgba(30,30,28,.97);--th-card-line:rgba(240,233,220,.4);
+    --th-ink:#f3eee4;--th-ink2:#b4ada0;--th-accent:#f2cc3a;--th-bar:#080808}
   body.themed #timeline-area{background:var(--th-bg)}
   body.themed #timeline::before{background:var(--th-line);width:2px}
   body.themed .drop-zone .dz-line{background:var(--th-dz)}
@@ -1815,6 +1842,7 @@
   <div id="tp-modal-divider" style="height:1px;background:rgba(201,168,76,.12);margin:14px 0;display:none"></div>
   <div id="tp-modal-req-lbl" style="display:none;font:700 .6rem/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,76,.35);margin-bottom:8px"></div>
   <div id="tp-modal-req-body" style="display:none;font-size:.82rem;line-height:1.65;color:rgba(201,168,76,.55);font-family:Inter,sans-serif"></div>
+  <button id="tp-modal-action" style="display:none"></button>
   <button id="tp-modal-close" onclick="closeTrophyModal()">Close</button>
 </div>
 

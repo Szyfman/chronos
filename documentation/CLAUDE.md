@@ -49,7 +49,7 @@ When working on this codebase, you should:
    - Use consistent naming conventions (see Repository Summary)
 
 6. **Test thoroughly**
-   - Test all game modes (Classic, Empires, Characters, Biblical, Greco-Roman, Eastern, Daily)
+   - Test all game modes (Classic, Empires, Characters, Biblical, Greco-Roman, Eastern, Daily, and the secret modes United States and Brazil)
    - Test Lives and Free modes
    - Test language switching mid-game
    - Test theme switching (dark/light)
@@ -205,7 +205,7 @@ When working on this codebase, you should:
   - **1 → 2 → 3**: clue 1 broad context (century, empire, dynasty, ruler); clue 2 a reference that narrows it to about a generation; clue 3 a precise anchor ("two years after…", "born the same year as…", "aged N when…"), ideally another card of the deck.
   - **No year numbers at all** in clues (neither the answer nor other events'; ordinal centuries only in clue 1), and no age/offset that combined with a year shown in the visible `hint` gives the answer.
   - Every relation must match real dates AND the years of the deck's cards; no clue repeats the `hint` or another clue; one short sentence each (≤ ~190 chars); `clues_pt` says exactly what `clues` says.
-- **Tags**: Only add if card should appear in special mode (roman, abrahamic, eastern) — except `war`, which selects no mode: it marks wars, battles, sieges, sacks, crusades and armed revolts, and the Warlord trophy counts it. Revolutions, the Cold War, single attacks (September 11, Hiroshima) and conquests described as such do not get it. Tag every new card of that kind.
+- **Tags**: Only add if card should appear in special mode (roman, abrahamic, eastern, and the secret modes usa, brazil) — except `war`, which selects no mode: it marks wars, battles, sieges, sacks, crusades and armed revolts, and the Warlord trophy counts it. Revolutions, the Cold War, single attacks (September 11, Hiroshima) and conquests described as such do not get it. Tag every new card of that kind.
 - **Cultures**: every card (CARDS and INTERVALS) has `cultures`, an array of keys of the `CULTURES` table at the top of `cards.js` (each key has `en`, `pt` and `kind`: `people`, `religion` or `region`).
   - List every key that applies: the people/nation(s) involved, the religion when the card is religious in nature (`christian`, `islamic`, `buddhist`, `jewish`), and **at least one region** (`european`, `middle_eastern`, `asian`, `african`, `americas`, `oceanian`, `global`). Conflicts list both sides (Cold War → `american`, `russian`, `global`).
   - Use the existing keys; add a new one to `CULTURES` only when no existing key fits. `british` covers England and the UK; `russian` covers Rus', the Tsardom and the USSR; `germanic` is the ancient/early-medieval peoples (Goths, Vandals, Franks), `german` the later German lands.
@@ -278,6 +278,17 @@ When working on this codebase, you should:
 - Verify all translated strings appear
 - Test language switching
 - Check gameover screen messages
+
+### Secret Modes
+
+Modes unlocked by a trophy instead of shown on a menu: **United States** (`usa`, trophy Mount Rushmore) and **Brazil** (`brazil`, trophy Terra Brasilis).
+
+- **Definition**: an entry of `RECORD_MODES` (progression.js) with `trophy`; `secretMode(id)` finds it and `secretModeOpen(m)` says whether it is open (trophy earned, or preview mode). Being in `RECORD_MODES` is what makes the run save and the cloud sync accept the mode id; nothing else needs listing.
+- **Deck**: every card whose `tags` hold the mode id (`buildPool`). A card can carry both (Dutch West India Company). Tag each new card about the United States or Brazil.
+- **Access**: only from the trophy's card (`openTrophyModal` → `_showTpModal` action button → `startSecretMode`), shown once the trophy is earned. The Trophies panel opens only from the menus, so a run is never interrupted. Every way out of the end screen reopens that trophy card: "Play Again" (`restartGame` → `openTrophyCard`) and closing the history opened by "Save Timeline" (`closeHistory`).
+- **Rules**: always Lives (the menu's play mode is left alone). XP, trophies (all of them), Compendium discovery, history and the mode record work as in the culture modes; the record row in Stats stays hidden until the mode opens. They never touch `chronos_card_stats` — no mastery, no Review (`recordCardResult`).
+- **Theme**: one `modeOnly` theme per mode (Star-Spangled ⭐ for `usa`, Copacabana Promenade 🌊 for `brazil`), worn by every run of the mode and never unlockable elsewhere; not listed in Customization (preview mode lists them).
+- **Menu mode**: culture, secret and daily runs set `gameMode` themselves; `showIntro` puts back the menu's choice (`_menuMode`), so "Begin" always starts the mode the menu shows.
 
 ### Modifying the Scoring System
 
@@ -396,7 +407,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **Hit effects**: `{ cat: 'effect', icon, fx: 'sparks', … }` — `fx` names a builder in `HIT_FX` (ui.js) that adds the particles, drawn by `.fx-*` classes in index.html (`playHitEffect`, called from `attemptPlacement` on a correct placement and when the effect is picked). Won through skill trophies (secret trophies → secret effects). There is no "None" tile: effects are switched on or off in Settings → Appearance (`chronos_hit_fx`), and while nothing was chosen the first effect won plays (`shownEffect`). Keep them under ~1.5 s, CSS only, never covering the card's year for long; reduced motion shows only a glow. Each effect also has a sound (`HIT_SFX[fx]` in `src/hitsfx.js`, played by `playHitSound` from `playHitEffect`): synthesised in code with an OfflineAudioContext, 0.8 s long (the Sparks burst), at the SFX volume and mute; it plays only when the burst does, and on a hit it replaces the drop sound (`attemptPlacement` plays `drop` only when no hit sound played); while hits have a sound (`hitSoundOn`), misses are silent. Each sound's `seed` fixes its random parts — changing it changes the sound. A new effect needs a sound there.
 
-**Themes**: `{ cat: 'theme', icon, style: 'lacquer', base: 'light' | 'dark', … }` — `.th-<style>` in index.html sets the `--th-*` variables (background, centre line, cards, text, accent, bars) used by `body.themed` rules and by the tile swatch (`.pf-th-sw`); patterns are small inline SVG data URIs. Themes are dark: one per culture of the Cultures mode (Jerusalem Stone ✡️, Greek Vase 🏛️, Chinese Lacquer ☯️ — the modes' own emojis) plus Candlelight 🕯️ (level 15) and Night Sky 🌙 (level 40), six with Classic ⏳. Tiles and the detail card show the emoji on the theme's background. A culture theme carries `mode`: it is won with a 1,000-point record in that mode, and runs of that mode always wear it, won or not (`setRunTheme` / `activeTheme` in ui.js, set by `initGame` and `resumeSavedRun`, cleared by `showIntro` and `openCultures`); frame and hit effect stay the player's. `base` is the palette the theme is drawn on: while a theme is in use `applyTheme` (ui.js) forces it, and the dark/light buttons in Settings (row "Appearance") are disabled with a note; the saved `chronos_theme` choice returns with Classic.
+**Themes**: `{ cat: 'theme', icon, style: 'lacquer', base: 'light' | 'dark', … }` — `.th-<style>` in index.html sets the `--th-*` variables (background, centre line, cards, text, accent, bars) used by `body.themed` rules and by the tile swatch (`.pf-th-sw`); patterns are small inline SVG data URIs. Themes are dark: one per culture of the Cultures mode (Jerusalem Stone ✡️, Greek Vase 🏛️, Chinese Lacquer ☯️ — the modes' own emojis) plus Candlelight 🕯️ (level 15) and Night Sky 🌙 (level 40), six with Classic ⏳. Tiles and the detail card show the emoji on the theme's background. A secret-mode theme carries `mode` and `modeOnly` (see *Secret Modes*). A culture theme carries `mode`: it is won with a 1,000-point record in that mode, and runs of that mode always wear it, won or not (`setRunTheme` / `activeTheme` in ui.js, set by `initGame` and `resumeSavedRun`, cleared by `showIntro` and `openCultures`); frame and hit effect stay the player's. `base` is the palette the theme is drawn on: while a theme is in use `applyTheme` (ui.js) forces it, and the dark/light buttons in Settings (row "Appearance") are disabled with a note; the saved `chronos_theme` choice returns with Classic.
 
 **Content rules**: trivia in both languages, 4–6 sentences, same numbers in en and pt, and never repeating or contradicting a card, trophy or daily card (search them first). The topic of each trivia is agreed with the developer.
 
