@@ -1150,6 +1150,8 @@
   #dcard-facts li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700}
   body.light #dcard-facts li{color:#475569}
   body.light #dcard-facts li::before{color:#1d4ed8}
+  #dcard-other{display:block;margin:12px auto 0;padding:7px 14px;background:none;border:1px solid rgba(201,168,76,.28);border-radius:20px;color:var(--gold);font-family:'Inter',sans-serif;font-size:.66rem;letter-spacing:.06em;cursor:pointer}
+  body.light #dcard-other{border-color:#cbd5e1;color:#1d4ed8}
   #dcard-run{margin-top:14px;font-family:'Inter',sans-serif;font-size:.58rem;color:var(--cream-dim);text-align:center;letter-spacing:.06em}
   body.light #dcard-run{color:#64748b}
   #dcard-close{width:100%;margin-top:16px;padding:11px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;color:rgba(201,168,76,.75);font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.08em;cursor:pointer;transition:all .2s}
@@ -1819,6 +1821,7 @@
     <div id="dcard-text"></div>
     <ul id="dcard-facts"></ul>
   </div>
+  <button id="dcard-other" onclick="nextDailyCard()" style="display:none"></button>
   <div id="dcard-run"></div>
   <button id="dcard-close" onclick="closeDailyCard()">✕ Close</button>
 </div>

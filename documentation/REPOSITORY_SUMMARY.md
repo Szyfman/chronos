@@ -614,7 +614,7 @@ function checkTrophies()
 ```javascript
 checkTrophies(true)
 ```
-- Called after every correct card, so run-based trophies (collections, paradoxes, score, streak tiers) unlock the moment they are won
+- Called after every correct card, so run-based trophies (collections, score, streak tiers) unlock the moment they are won
 - Skips END_ONLY_TROPHY_SPECIALS (compendium, full deck, daily streaks), which are judged at game end
 
 **Historical Trivia**:

@@ -311,7 +311,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 ```javascript
 {
   id: 'unique_trophy_id',
-  section: 'collections',  // a TROPHY_SECTIONS id: collections | paradoxes | skill | longterm | events | secret
+  section: 'collections',  // a TROPHY_SECTIONS id: collections | skill | longterm | events | secret
   tier: 'bronze',          // optional: bronze | silver | gold (levels of the same feat)
   icon: '🏆',
   name: 'Trophy Name',
@@ -333,11 +333,13 @@ score += Math.round(basePoints * streakMultiplier(streak));
 }
 ```
 
-**Long-term progress**: specials listed in `PROGRESS_TROPHY_SPECIALS` (game.js) are judged from saved progress by `trophyProgress(def)`, which returns `{ n, goal, bar }`. The same numbers unlock the trophy at game end and draw the progress bar on a locked card (and "Progress: n / goal" in its modal), so they never disagree. Thresholds stay on the trophy (`goal`, plus `modes`/`score` for `mode_records`) so they can be tuned in one place.
+**Long-term progress**: specials listed in `PROGRESS_TROPHY_SPECIALS` (game.js) are judged from saved progress by `trophyProgress(def)`, which returns `{ n, goal, bar }`. The same numbers unlock the trophy at game end and draw the progress bar on a locked card (and "Progress: n / goal" in its modal), so they never disagree. Thresholds stay on the trophy (`goal`, plus `modes`/`score` for `mode_records`) so they can be tuned in one place. `discover` is a collection judged this way: its `needed` cards must all be in the Compendium (`chronos_discovered`), placed in any runs — used for the big sets that span many eras (King of Kings, Crusader, Terra Brasilis), which a single run rarely deals.
 
 **Families** (`family` on a trophy): levels of the same feat — Compendium 25/50/75/100%, streak 15/30/50, daily 7/40 days, era mastery 1/all eras. Each level keeps its own id, unlock and trivia, and counts in the totals, but the trophy tab draws the family as ONE card: the highest level earned, "Level n/total" and the bar towards the next level (`_familyCard` / `openTrophyFamily` in ui.js). Its modal shows the trivia of every level earned so far and the ladder of levels. Members must be listed together, in level order, in the same section. On load, holding a higher level grants the lower ones silently (same date).
 
-**Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`ides`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; trophies tied to a date of the calendar sit in the visible **Events** section (`section: 'events'`), while `daily_at_hour` (Midnight Bells) stays secret; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy. `miss_card` (Raiders of the Lost Ark) is won the moment its `card` is misplaced: the miss branch of `attemptPlacement` sets the transient `_missedCard` around a `checkTrophies(true)` call, so nothing about it is stored in the run.
+**Run events**: skill and secret specials that depend on something that happened during the run (a hint used, the tightest gap filled, the biggest miss, hits on the last life, a live daily) read `runFlags` (game.js), reset by `initGame`. Date/time conditions (`card_on_date`, `daily_on_date`, `daily_at_hour`, `friday_13`) read the device clock; trophies tied to a date of the calendar sit in the visible **Events** section (`section: 'events'`), while `daily_at_hour` (Midnight Bells) stays secret; their parameters (`card`, `month`, `day`, `hour`) sit on the trophy. `card_on_date` (place `card` on that day) also shapes the daily: on that date `_withDateCards` puts the card in the middle of the daily deck, so every player gets a chance at it, and the day's daily card (dailycards.js) is the same event, marked `pin: true`.
+
+**Single-placement trophies**: some are won by the placement just made — `miss_card` (Raiders of the Lost Ark: its `card` misplaced), `cassandra` (a card missed after a hint on it), `icarus` (a miss that loses a streak of `goal` or more), `sisyphus` (the same card missed `goal` times across runs, from `cardStats[name].amiss`) and `outfit` (its `card` placed while wearing every item of `outfit`: `{ title, emblem, frame, effect, theme }` → item ids, `'none'` for no hit effect). `attemptPlacement` sets the transient `_placement` (`{ card, ok, streak, hinted }`) around a `checkTrophies(true)` call, so nothing about it is stored in the run. Outfits are judged by `wornCustomId` (progression.js), which ignores preview choices — only items really earned count. `lang_switch` (Tower of Babel) is won when `setLang` runs during a run (`onLangSwitched`, game.js).
 
 **Secret trophies** (`section: 'secret'`): while locked, the card shows ❓ / ??? / "Secret trophy" and the modal only says to keep playing; the real name, hint and trivia appear once earned.
 
@@ -345,7 +347,7 @@ score += Math.round(basePoints * streakMultiplier(streak));
 
 **For card-based trophies**:
 - Use exact card names (as they appear in `card.name`, not `card.name_pt`)
-- Trophy unlocks when ALL listed cards are in timeline at game end
+- Trophy unlocks when ALL listed cards are in the timeline of the same run (checked after every correct card); with `special: 'discover'` they only need to be in the Compendium
 - Example: `needed: ['Julius Caesar', 'Augustus', 'Cleopatra']`
 
 **For special condition trophies**:

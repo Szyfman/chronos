@@ -24,6 +24,10 @@
 //   tag         String   optional — category label (Politics, Science, …)
 //   text        String   the main paragraph
 //   facts       Array    optional — short bullet points
+//   pin         Boolean  optional — always this day's card, whatever the year:
+//                        used for the event of an event trophy (special
+//                        'card_on_date'). The day's other cards are then shown
+//                        after it, one tap away, instead of rotating by year.
 // ─────────────────────────────────────────────────────────────────────────
 
 var DAILY_CARDS = {
@@ -31,6 +35,7 @@ var DAILY_CARDS = {
   '03-15': [
     {
       year: -44,
+      pin: true,
       title: 'The Ides of March',
       title_pt: 'Os Idos de Março',
       era: 'Classical',
@@ -54,6 +59,7 @@ var DAILY_CARDS = {
   '05-13': [
     {
       year: 1888,
+      pin: true,
       title: 'The Law of Two Sentences',
       title_pt: 'A Lei de Duas Frases',
       era: 'Modern',
@@ -143,6 +149,7 @@ var DAILY_CARDS = {
   '07-14': [
     {
       year: 1789,
+      pin: true,
       title: 'Seven Prisoners',
       title_pt: 'Sete Prisioneiros',
       era: 'Modern',
@@ -166,6 +173,7 @@ var DAILY_CARDS = {
   '07-20': [
     {
       year: 1969,
+      pin: true,
       title: 'Apollo 11 Lands on the Moon',
       title_pt: 'Apollo 11 Pousa na Lua',
       era: 'Contemporary',
@@ -2141,6 +2149,7 @@ var DAILY_CARDS = {
     },
     {
       year: 1492,
+      pin: true,
       title: 'Who Saw It First',
       title_pt: 'Quem Viu Primeiro',
       era: 'Renaissance',
@@ -2885,6 +2894,7 @@ var DAILY_CARDS = {
     },
     {
       year: 1989,
+      pin: true,
       title: 'The Berlin Wall Opens',
       title_pt: 'O Muro de Berlim se Abre',
       era: 'Contemporary',

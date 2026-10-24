@@ -1077,9 +1077,12 @@ function _appendRecoverRow(panel, date){
 // DAILY_CARDS (dailycards.js) via _dailyCardFor(); days with no content yet
 // still open, showing the run stats plus a placeholder.
 var _dcardDate=null;   // date currently displayed, for language re-render
+var _dcardIdx=0;       // which of the day's cards is shown (pinned day + extras)
 
 function _fillDailyCard(date){
-  var card=_dailyCardFor(date);
+  var cards=_dailyCardsFor(date);
+  if(_dcardIdx>=cards.length) _dcardIdx=0;
+  var card=cards[_dcardIdx]||null;
   var unlock=_cardUnlockRun(date);
   var rec=unlock.rec;
   var color=(card&&ERA_COLORS[card.era])||'var(--gold)';
@@ -1132,10 +1135,21 @@ function _fillDailyCard(date){
     runEl.textContent='📅 '+dateStr;
   }
   document.getElementById('dcard-close').textContent=t('dcard_close');
+  // A pinned day keeps its other cards one tap away
+  var otherEl=document.getElementById('dcard-other');
+  otherEl.style.display=cards.length>1?'':'none';
+  otherEl.textContent=t('dcard_other').replace('{n}',_dcardIdx+1).replace('{total}',cards.length);
+}
+function nextDailyCard(){
+  if(!_dcardDate) return;
+  _dcardIdx++;
+  _fillDailyCard(_dcardDate);
+  document.getElementById('dcard-modal').scrollTop=0;
 }
 
 function openDailyCard(yr,mo,d){
   _dcardDate=new Date(yr,mo,d);
+  _dcardIdx=0;
   _fillDailyCard(_dcardDate);
   document.getElementById('dcard-modal').scrollTop=0;
   document.getElementById('dcard-bg').classList.add('open');
