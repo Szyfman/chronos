@@ -586,8 +586,8 @@ function setLang(l, btn)
    - Rocket Man: First Man in Space, Moon Landing, Space Age
 
 3. **Milestone Trophies**:
-   - Warlord: 8+ war cards in one game
-   - Empire Builder: 10+ intervals in one game
+   - Warlord: 7+ cards tagged `war` (wars, battles, sieges, crusades) in one game
+   - Empire Builder: 10+ intervals in one Classic game
    - Centurion: 100+ cards in one game
    - Iron Mind: 500+ points in one game
    - On Fire: 50+ streak in one game
@@ -614,7 +614,7 @@ function checkTrophies()
 ```javascript
 checkTrophies(true)
 ```
-- Called after every correct card, so run-based trophies (collections, paradoxes, score, streak tiers) unlock the moment they are won
+- Called after every correct card, so run-based trophies (collections, score, streak tiers) unlock the moment they are won
 - Skips END_ONLY_TROPHY_SPECIALS (compendium, full deck, daily streaks), which are judged at game end
 
 **Historical Trivia**:

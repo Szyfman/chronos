@@ -1077,9 +1077,12 @@ function _appendRecoverRow(panel, date){
 // DAILY_CARDS (dailycards.js) via _dailyCardFor(); days with no content yet
 // still open, showing the run stats plus a placeholder.
 var _dcardDate=null;   // date currently displayed, for language re-render
+var _dcardIdx=0;       // which of the day's cards is shown (pinned day + extras)
 
 function _fillDailyCard(date){
-  var card=_dailyCardFor(date);
+  var cards=_dailyCardsFor(date);
+  if(_dcardIdx>=cards.length) _dcardIdx=0;
+  var card=cards[_dcardIdx]||null;
   var unlock=_cardUnlockRun(date);
   var rec=unlock.rec;
   var color=(card&&ERA_COLORS[card.era])||'var(--gold)';
@@ -1132,10 +1135,21 @@ function _fillDailyCard(date){
     runEl.textContent='📅 '+dateStr;
   }
   document.getElementById('dcard-close').textContent=t('dcard_close');
+  // A pinned day keeps its other cards one tap away
+  var otherEl=document.getElementById('dcard-other');
+  otherEl.style.display=cards.length>1?'':'none';
+  otherEl.textContent=t('dcard_other').replace('{n}',_dcardIdx+1).replace('{total}',cards.length);
+}
+function nextDailyCard(){
+  if(!_dcardDate) return;
+  _dcardIdx++;
+  _fillDailyCard(_dcardDate);
+  document.getElementById('dcard-modal').scrollTop=0;
 }
 
 function openDailyCard(yr,mo,d){
   _dcardDate=new Date(yr,mo,d);
+  _dcardIdx=0;
   _fillDailyCard(_dcardDate);
   document.getElementById('dcard-modal').scrollTop=0;
   document.getElementById('dcard-bg').classList.add('open');
@@ -1972,7 +1986,8 @@ function _trophyProgressBar(def){
     + '<div class="tcard-prog-txt">'+formatXp(n)+' / '+formatXp(pr.goal)+'</div></div>';
 }
 
-function _isHiddenTrophy(def){ return def.section === 'secret' && !earnedTrophies[def.id]; }
+// Preview mode reveals secret trophies, like secret customization items
+function _isHiddenTrophy(def){ return def.section === 'secret' && !earnedTrophies[def.id] && !customPreview; }
 
 // ── TROPHY FAMILIES ───────────────────────────────────────────────────────
 // Levels of the same feat (`family` in trophies.js) share one card: it shows
@@ -2005,10 +2020,11 @@ function _familyCard(fid){
   return html + '</div>';
 }
 // Family modal: the trivia of every level earned so far (a new level reveals a
-// new one), then the ladder of levels with the progress towards the next
+// new one), then the ladder of levels with the progress towards the next.
+// Preview mode shows the trivia of every level.
 function openTrophyFamily(fid){
   var f = _familyState(fid), shown = f.top || f.levels[0];
-  var trivia = f.done.map(function(d){
+  var trivia = (customPreview ? f.levels : f.done).map(function(d){
     return '✦ '+_nm(d)+'\n'+(lang==='pt' ? (d.trivia_pt || d.trivia || '') : (d.trivia || ''));
   }).join('\n\n');
   var ladder = f.levels.map(function(d){
@@ -2020,7 +2036,8 @@ function openTrophyFamily(fid){
   else if(!f.next) ladder += '\n\n'+t('tp_all_levels');
   _showTpModal({
     icon: shown.icon,
-    earned: !!f.top,
+    earned: !!f.top || customPreview,
+    badge: !f.top && customPreview ? t('pf_preview_badge') : '',
     name: _nm(shown)+' · '+t('tp_level').replace('{n}', f.done.length).replace('{total}', f.levels.length),
     date: f.top ? earnedTrophies[f.top.id] : '',
     trivia: trivia,
@@ -2037,7 +2054,9 @@ function openTrophyModal(idx){
   var pr = earnedTrophies[def.id] ? null : trophyProgress(def);
   _showTpModal({
     icon: def.icon,
-    earned: !!earnedTrophies[def.id],
+    // Preview mode opens locked trophies like earned ones, to read their trivia
+    earned: !!earnedTrophies[def.id] || customPreview,
+    badge: !earnedTrophies[def.id] && customPreview ? t('pf_preview_badge') : '',
     name: lang==='pt' ? def.name_pt : def.name,
     date: earnedTrophies[def.id] || '',
     trivia: lang==='pt' ? (def.trivia_pt || def.trivia || '') : (def.trivia || ''),

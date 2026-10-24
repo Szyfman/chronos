@@ -92,6 +92,20 @@ function _dailySeedFor(date){
   return date.getFullYear() * 10000 + (date.getMonth()+1) * 100 + date.getDate();
 }
 function _dailySeed(){ return _dailySeedFor(new Date()); }
+// On the date of an event trophy (special 'card_on_date'), that day's daily
+// deck always holds the trophy's card, so every player gets a chance at it:
+// it replaces a card in the middle of the deck (not the first one drawn,
+// which can't be misplaced).
+function _withDateCards(base, date){
+  var out = base.slice(), slot = Math.floor(out.length/2);
+  TROPHY_DEFS.forEach(function(def){
+    if(def.special !== 'card_on_date' || def.month !== date.getMonth()+1 || def.day !== date.getDate()) return;
+    if(out.some(function(c){ return c.name === def.card; })) return;
+    var card = CARDS.concat(INTERVALS).find(function(c){ return c.name === def.card; });
+    if(card && slot < out.length) out[slot++] = card;
+  });
+  return out;
+}
 function _seededShuffle(arr, rng){
   var a = arr.slice();
   for(var i = a.length - 1; i > 0; i--){
@@ -265,7 +279,7 @@ function saveTrophies(){
 // unlocks them when trophyProgress reaches its goal, and the trophy tab draws
 // the same numbers as a bar, so the two can never disagree. Thresholds live
 // on each trophy (goal, score, modes) in trophies.js.
-var PROGRESS_TROPHY_SPECIALS = ['compendium_share','total_correct','runs_played','era_gold','mode_records','daily_months','weak_overcome'];
+var PROGRESS_TROPHY_SPECIALS = ['compendium_share','total_correct','runs_played','era_gold','mode_records','daily_months','weak_overcome','discover','master'];
 
 // Distinct calendar months (1-12) with a recorded daily challenge
 function _dailyMonthsPlayed(){
@@ -312,6 +326,16 @@ function trophyProgress(def){
     case 'daily_streak_7':
     case 'daily_streak_40':
       return { n: _calcStreak().longest, goal: def.special==='daily_streak_7' ? 7 : 40, bar: true };
+    // Collections judged by the Compendium: every listed card discovered, in any runs
+    case 'discover': {
+      var got = def.needed.filter(function(n){ return discoveredCards.has(n); }).length;
+      return { n: got, goal: def.needed.length, bar: true };
+    }
+    // Collections judged by mastery: every listed card mastered (isCardMastered)
+    case 'master': {
+      var mastered = def.needed.filter(function(n){ return isCardMastered(cardStats[n]); }).length;
+      return { n: mastered, goal: def.needed.length, bar: true };
+    }
     case 'weak_overcome': {
       var hit = Object.keys(cardStats).some(function(k){ var s=cardStats[k]; return s && (s.miss|0) >= def.goal && isCardMastered(s); });
       return { n: hit ? 1 : 0, goal: 1, bar: false };
@@ -335,19 +359,30 @@ function _resetRunFlags(){
   };
 }
 _resetRunFlags();
-// The card just missed, set only while checkTrophies runs right after the miss
-// (miss_card trophies are won on the spot, so nothing is kept in the run)
-var _missedCard = null;
+// The placement just made — { card, ok, streak (lost by a miss), hinted } —
+// set only while checkTrophies runs right after it: trophies won by a single
+// placement (miss_card, outfit, Cassandra, Icarus, Sisyphus) are won on the
+// spot, so nothing about it is kept in the run
+var _placement = null;
+// True only while checkTrophies runs right after the language was switched
+// mid-run (Tower of Babel)
+var _langSwitched = false;
 
 // Specials that can only be judged once the run is over: the Compendium is
 // saved at game end, an empty deck only counts as a finished run, and the
 // daily streak only grows when a daily attempt is recorded.
 var END_ONLY_TROPHY_SPECIALS = ['compendium_complete','full_deck','daily_streak_7','daily_streak_40',
-  'daily_on_date','daily_at_hour','friday_13'].concat(PROGRESS_TROPHY_SPECIALS);
+  'daily_on_date','daily_at_hour','friday_13','perfect_daily'].concat(PROGRESS_TROPHY_SPECIALS);
 
 /* Runs at game end and, with midGame=true, after every correct card — so a
    trophy that depends only on the current run pops up the moment it is won.
    Streaks must be caught mid-game anyway: a miss resets them before the end. */
+// Tower of Babel: called by setLang (i18n.js); counts only during a run
+function onLangSwitched(){
+  if(!gameActive) return;
+  _langSwitched = true; checkTrophies(true); _langSwitched = false;
+}
+
 function checkTrophies(midGame){
   if(playModeRules().trophies==='none') return;   // Free play never unlocks trophies
   var placed = timeline.map(function(c){ return c.name; });
@@ -367,14 +402,10 @@ function checkTrophies(midGame){
     } else if(def.special === 'hundred_cards'){
       earned = placed.length >= 100;
     } else if(def.special === 'warlord'){
-      var wars = ['World War I','World War II','Korean War','Vietnam War','Hundred Years War',
-                  "Thirty Years' War",'Persian Wars','First Punic War','Second Punic War',
-                  'Third Punic War','American Civil War','American Revolution','French Revolution',
-                  'Trojan War','Cold War'];
-      var warCount = wars.filter(function(w){ return placed.indexOf(w) >= 0; }).length;
-      earned = warCount >= 8;
+      // Cards tagged 'war' in cards.js: wars, battles, sieges, sacks, crusades, armed revolts
+      earned = timeline.filter(function(c){ return Array.isArray(c.tags) && c.tags.indexOf('war') >= 0; }).length >= def.goal;
     } else if(def.special === 'ten_intervals'){
-      earned = intervals_placed >= 10;
+      earned = gameMode === 'classic' && intervals_placed >= 10;   // Classic only: in Empires every card is one
     } else if(def.special === 'full_deck'){
       earned = deck.length === 0 && gameActive === false && placed.length > 0;
     } else if(def.special === 'score'){
@@ -390,15 +421,28 @@ function checkTrophies(midGame){
     } else if(def.special === 'phoenix'){
       earned = runFlags.lastLifeHits >= def.goal;
     } else if(def.special === 'miss_card'){
-      earned = _missedCard === def.card;
+      earned = !!_placement && !_placement.ok && _placement.card === def.card;
+    } else if(def.special === 'outfit'){
+      earned = !!_placement && _placement.ok && _placement.card === def.card && wearingOutfit(def.outfit);
+    } else if(def.special === 'cassandra'){
+      earned = !!_placement && !_placement.ok && _placement.hinted;
+    } else if(def.special === 'icarus'){
+      earned = !!_placement && !_placement.ok && _placement.streak >= def.goal;
+    } else if(def.special === 'sisyphus'){
+      earned = !!_placement && !_placement.ok && ((cardStats[_placement.card] || {}).amiss | 0) >= def.goal;
+    } else if(def.special === 'lang_switch'){
+      earned = _langSwitched;
     } else if(def.special === 'anachronism'){
       earned = runFlags.maxMissDelta > def.goal;
-    } else if(def.special === 'ides'){
+    } else if(def.special === 'card_on_date'){
       var _now = new Date();
       earned = _now.getMonth()+1 === def.month && _now.getDate() === def.day && placed.indexOf(def.card) >= 0;
     } else if(def.special === 'daily_on_date'){
       var _d = new Date();
       earned = runFlags.dailyFinished && _d.getMonth()+1 === def.month && _d.getDate() === def.day;
+    } else if(def.special === 'perfect_daily'){
+      // A live daily won on its first attempt with every life left (no miss at all)
+      earned = runFlags.dailyFinished && _dailyAttempt === 1 && timeline.length >= DAILY_DECK_SIZE && lives === playModeRules().lives;
     } else if(def.special === 'daily_at_hour'){
       earned = runFlags.dailyFinished && new Date().getHours() === def.hour;
     } else if(def.special === 'friday_13'){
@@ -773,9 +817,10 @@ function initGame(){
   if(_isDailyChallenge){
     // Two-stage seeding: WHICH 18 cards comes from the plain day seed, so every
     // player faces the same set. Retries reshuffle only the ORDER, so a second
-    // attempt can't be won from memory. Attempt 1 is byte-identical to before.
+    // attempt can't be won from memory. Attempt 1 is byte-identical to before,
+    // except on an event trophy's date, when the set also holds its card.
     var _seed=_dailySeedFor(_dailyRunDate||new Date());
-    var _base=_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE);
+    var _base=_withDateCards(_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE),_dailyRunDate||new Date());
     // Catch-up runs continue the same seed line past the live attempts (which
     // occupy 1..3), keyed on the LIFETIME try count rather than today's — the
     // daily budget resets, and orders must not reset with it. `tries` counts
@@ -908,7 +953,7 @@ function useSkip(){
 const PLAY_MODE_RULES={
   lives: { lives:3, hints:3,        skip:1,        xp:1,   trophies:'all',  mastery:'all'  },
   // A ~18–30 card deck would make emptying it (The End of History) trivial
-  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','secret'], excludeTrophies:['time_lord'], mastery:'hits' },
+  review:{ lives:5, hints:10,       skip:3,        xp:0.5, trophies:'sections', sections:['skill','longterm','events','secret'], excludeTrophies:['time_lord'], mastery:'hits' },
   free:  { lives:3, hints:Infinity, skip:Infinity, xp:0,   trophies:'none', mastery:'none', clueLoop:true }
 };
 function playModeRules(){ return PLAY_MODE_RULES[playMode]||PLAY_MODE_RULES.lives; }
@@ -981,7 +1026,7 @@ function attemptPlacement(idx){
     // Streak reward: +1 hint every 20 in a row (pointless when hints are unlimited)
     if(streak>0&&streak%20===0&&isFinite(hints)){hints++;renderSideBtns();showStreakToast();}
     saveRun();   // right after the card stats, so a resumed run starts after this card
-    checkTrophies(true);
+    _placement={ card:card.name, ok:true }; checkTrophies(true); _placement=null;
     renderTimeline();
     if(!playHitEffect(document.querySelectorAll('#timeline .timeline-card')[idx]))SFX.play('drop');
     document.getElementById('score-val').textContent=score;
@@ -993,6 +1038,7 @@ function attemptPlacement(idx){
     else{_pendingDraw=false;drawCard();}
   } else {
     if(!hitSoundOn()){ SFX.play('drop'); SFX.play('wrong'); }
+    const lostStreak=streak;
     streak=0;document.getElementById('streak-val').textContent=streak;
     /* What the miss message needs (showFeedback): the direction, how many
        placed cards the player must move past (`cards`) and by how many years
@@ -1014,11 +1060,13 @@ function attemptPlacement(idx){
         span:!earlier&&!isInterval(card)&&passed.some(c=>isInterval(c)&&c.endYear>=cy) };
     }
     showFeedback(false,miss);
-    // Trophies won by a miss — the biggest miss of the run (Anachronism) and
-    // missing a given card (Raiders of the Lost Ark) — are checked right away,
-    // as misses otherwise only reach checkTrophies on the next correct card
+    // Trophies won by a miss — the biggest miss of the run (Anachronism),
+    // missing a given card (Raiders of the Lost Ark), a hinted card (Cassandra),
+    // a long streak (Icarus) or the same card again (Sisyphus) — are checked
+    // right away, as misses otherwise only reach checkTrophies on the next hit
     if(yearDelta!==null&&yearDelta>runFlags.maxMissDelta) runFlags.maxMissDelta=yearDelta;
-    _missedCard=card.name; checkTrophies(true); _missedCard=null;
+    _placement={ card:card.name, ok:false, streak:lostStreak, hinted:cardCluesUsed>0 };
+    checkTrophies(true); _placement=null;
     runFlags.lastMiss=card.name;
     if(livesMode){ lives--; renderLives(); }
     saveRun();
@@ -1514,15 +1562,24 @@ setTimeout(function(){
 
 // ── DAILY REWARD CARD ─────────────────────────────────────────────────────
 // Content lives in dailycards.js, keyed by MM-DD so 366 entries cover every
-// year. A day may hold several alternates; pick one deterministically by year.
+// year. A day may hold several alternates; pick one deterministically by year
+// — unless one is pinned (the event of that day's event trophy): the pinned
+// card is always the day's card, and the others become extra cards shown
+// after it in the same modal.
 function _dailyCardKey(date){
   return String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
 }
-function _dailyCardFor(date){
-  if(typeof DAILY_CARDS==='undefined') return null;
+// The cards shown for a day, the day's card first ([] when none)
+function _dailyCardsFor(date){
+  if(typeof DAILY_CARDS==='undefined') return [];
   var arr=DAILY_CARDS[_dailyCardKey(date)];
-  if(!Array.isArray(arr)||!arr.length) return null;
-  return arr.length===1?arr[0]:arr[date.getFullYear()%arr.length];
+  if(!Array.isArray(arr)||!arr.length) return [];
+  var pinned=arr.filter(function(c){ return c.pin; });
+  if(pinned.length) return pinned.concat(arr.filter(function(c){ return !c.pin; }));
+  return [arr.length===1?arr[0]:arr[date.getFullYear()%arr.length]];
+}
+function _dailyCardFor(date){
+  return _dailyCardsFor(date)[0]||null;
 }
 // Localised accessors, matching the cName/cHint pattern in i18n.js
 function dcTitle(c){ return (lang==='pt'?c.title_pt:c.title)||c.title||''; }
