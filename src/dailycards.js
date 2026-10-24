@@ -51,6 +51,52 @@ var DAILY_CARDS = {
     }
   ],
 
+  '05-13': [
+    {
+      year: 1888,
+      title: 'The Law of Two Sentences',
+      title_pt: 'A Lei de Duas Frases',
+      era: 'Modern',
+      region: 'Rio de Janeiro', region_pt: 'Rio de Janeiro',
+      tag: 'Abolition', tag_pt: 'Abolição',
+      text: 'On the afternoon of 13 May 1888, hours after the Senate voted it through, Princess Isabel — regent while her father Pedro II was in Europe — signed the Golden Law at the imperial palace in Rio de Janeiro, and Brazil became the last country in the Americas to abolish slavery. Some 700,000 people still enslaved were freed at once, with no conditions attached — and with nothing else either.',
+      text_pt: 'Na tarde de 13 de maio de 1888, horas depois de o Senado aprová-la, a princesa Isabel — regente enquanto o pai, Pedro II, estava na Europa — assinou a Lei Áurea no Paço Imperial, no Rio de Janeiro, e o Brasil se tornou o último país das Américas a abolir a escravidão. Cerca de 700 mil pessoas ainda escravizadas foram libertadas de uma vez, sem nenhuma condição — e também sem mais nada.',
+      facts: [
+        'It is two sentences long. The first declares slavery extinct in Brazil from that date; the second revokes every provision to the contrary. It says nothing about land, schooling or wages, and the freed were left to fend for themselves.',
+        'Unlike Britain in 1834, Brazil paid the owners nothing, and many of them never forgave the Crown. Eighteen months later the monarchy fell, with so many former slaveholders among the new regime’s supporters that they were nicknamed the “republicans of 13 May”.',
+        'By then slavery was collapsing from below. Ceará and Amazonas had freed their slaves in 1884, thousands were fleeing the São Paulo plantations with the help of abolitionists, and in 1887 the Military Club, presided over by Marshal Deodoro da Fonseca, asked that the army be spared the job of hunting runaways. Two years later the same Deodoro proclaimed the Republic.'
+      ],
+      facts_pt: [
+        'Ela tem duas frases. A primeira declara extinta a escravidão no Brasil a partir daquela data; a segunda revoga todas as disposições em contrário. Não diz nada sobre terra, escola ou salário, e os libertos foram deixados à própria sorte.',
+        'Ao contrário do Reino Unido em 1834, o Brasil não pagou nada aos donos, e muitos deles nunca perdoaram a Coroa. Dezoito meses depois a monarquia caiu, com tantos ex-senhores de escravos entre os apoiadores do novo regime que eles ganharam o apelido de “republicanos de 13 de maio”.',
+        'A essa altura a escravidão já desmoronava por baixo. O Ceará e o Amazonas haviam libertado seus escravizados em 1884, milhares fugiam das fazendas de São Paulo com a ajuda de abolicionistas, e em 1887 o Clube Militar, presidido pelo marechal Deodoro da Fonseca, pediu que o Exército fosse dispensado de caçar fugitivos. Dois anos depois, o mesmo Deodoro proclamou a República.'
+      ]
+    }
+  ],
+
+  '05-29': [
+    {
+      year: 1453,
+      title: 'The City Fell on a Tuesday',
+      title_pt: 'A Cidade Caiu numa Terça-feira',
+      era: 'Medieval',
+      region: 'Constantinople', region_pt: 'Constantinopla',
+      tag: 'Conquest', tag_pt: 'Conquista',
+      text: 'Before dawn on 29 May 1453, after a siege of fifty-three days, the army of Sultan Mehmed II broke into Constantinople. The last emperor, Constantine XI, died in the fighting and his body was never identified. The Roman Empire, which had outlived the fall of the West by nearly a thousand years, ended that morning, and that afternoon the twenty-one-year-old sultan rode to Hagia Sophia and ordered it turned into a mosque.',
+      text_pt: 'Antes do amanhecer de 29 de maio de 1453, depois de um cerco de cinquenta e três dias, o exército do sultão Mehmed II invadiu Constantinopla. O último imperador, Constantino XI, morreu nos combates e seu corpo nunca foi identificado. O Império Romano, que sobrevivera quase mil anos à queda do Ocidente, terminou naquela manhã, e à tarde o sultão de vinte e um anos cavalgou até Santa Sofia e mandou transformá-la em mesquita.',
+      facts: [
+        'It was a Tuesday, and the Greek world has held it against the day ever since. Tuesday is still the unluckiest day of the week in Greek tradition, and the Greek version of Friday the 13th is Tuesday the 13th. Spanish speakers fear Tuesday the 13th too, though they usually blame Mars, the god of war, who gave the day its name.',
+        'The gun that broke the walls was offered to the defenders first. A Hungarian founder named Orban went to Constantine XI, who could neither pay him nor supply the bronze; he then went to Mehmed, who gave him everything he asked for. His largest cannon, some eight metres long, needed dozens of oxen to move and could fire only a few times a day.',
+        'The city believed it had been warned. A prophecy said Constantinople would not fall while the moon was waxing; on 22 May the full moon rose in partial eclipse, and a few days later a thick fog was followed by a strange light around the dome of Hagia Sophia, which many took to mean the Holy Spirit was leaving the city.'
+      ],
+      facts_pt: [
+        'Era uma terça-feira, e o mundo grego guarda rancor do dia desde então. A terça ainda é o dia mais azarado da semana na tradição grega, e a versão grega da sexta-feira 13 é a terça-feira 13. Os povos de língua espanhola também temem a terça 13, embora costumem culpar Marte, o deus da guerra, que deu nome ao dia.',
+        'O canhão que derrubou as muralhas foi oferecido primeiro aos defensores. Um fundidor húngaro chamado Orbán procurou Constantino XI, que não podia pagá-lo nem fornecer o bronze; foi então a Mehmed, que lhe deu tudo o que pediu. Seu maior canhão, com uns oito metros de comprimento, precisava de dezenas de bois para ser movido e só conseguia disparar poucas vezes por dia.',
+        'A cidade acreditava ter sido avisada. Uma profecia dizia que Constantinopla não cairia enquanto a lua crescesse; em 22 de maio a lua cheia nasceu em eclipse parcial, e poucos dias depois uma névoa espessa foi seguida de uma luz estranha em torno da cúpula de Santa Sofia, que muitos entenderam como o Espírito Santo deixando a cidade.'
+      ]
+    }
+  ],
+
   '07-04': [
     {
       year: 1776,
@@ -90,6 +136,29 @@ var DAILY_CARDS = {
         'Jefferson morreu em Monticello no início da tarde; Adams em Quincy, mais tarde no mesmo dia.',
         'As últimas palavras atribuídas a Adams foram "Thomas Jefferson sobrevive" — ele não sabia que Jefferson já havia morrido.',
         'Os dois trocaram 158 cartas em seus últimos catorze anos de vida.'
+      ]
+    }
+  ],
+
+  '07-14': [
+    {
+      year: 1789,
+      title: 'Seven Prisoners',
+      title_pt: 'Sete Prisioneiros',
+      era: 'Modern',
+      region: 'Paris', region_pt: 'Paris',
+      tag: 'Revolution', tag_pt: 'Revolução',
+      text: 'On 14 July 1789 a crowd of Parisians who had already taken muskets from the Invalides marched on the Bastille in search of gunpowder. After hours of fighting the governor, the Marquis de Launay, surrendered; he was killed on the way to the city hall and his head was paraded on a pike. The fortress had stood for four centuries as the symbol of the king’s power to imprison without trial, and its fall became the founding image of the French Revolution.',
+      text_pt: 'Em 14 de julho de 1789, uma multidão de parisienses que já havia tomado mosquetes dos Inválidos marchou sobre a Bastilha em busca de pólvora. Depois de horas de combate, o governador, o marquês de Launay, se rendeu; foi morto a caminho da prefeitura e sua cabeça desfilou espetada numa lança. A fortaleza existia havia quatro séculos como símbolo do poder do rei de prender sem julgamento, e sua queda virou a imagem fundadora da Revolução Francesa.',
+      facts: [
+        'There were only seven prisoners inside: four forgers, two men held as insane and a nobleman locked up at his own family’s request. The most famous inmate had left ten days earlier — the Marquis de Sade, moved out after shouting from his window that the prisoners were being slaughtered.',
+        'Louis XVI wrote a single word in his diary for that day: “Rien” — “Nothing”. It was his hunting journal, and he had caught nothing.',
+        'The building was gone within months, and it sold well. The contractor Pierre-François Palloy carved its stones into miniature Bastilles and sent one to every department of France, and Lafayette sent the main key to George Washington, whose house at Mount Vernon still displays it.'
+      ],
+      facts_pt: [
+        'Havia apenas sete prisioneiros lá dentro: quatro falsários, dois homens tidos como loucos e um nobre trancado a pedido da própria família. O detento mais famoso tinha saído dez dias antes — o marquês de Sade, transferido depois de gritar da janela que os prisioneiros estavam sendo massacrados.',
+        'Luís XVI escreveu uma única palavra no diário naquele dia: “Rien” — “Nada”. Era seu diário de caça, e ele não tinha caçado nada.',
+        'Em poucos meses o prédio tinha sumido, e vendeu bem. O empreiteiro Pierre-François Palloy esculpiu suas pedras em Bastilhas em miniatura e mandou uma para cada departamento da França, e Lafayette enviou a chave principal a George Washington, cuja casa em Mount Vernon ainda a exibe.'
       ]
     }
   ],
@@ -2068,6 +2137,26 @@ var DAILY_CARDS = {
         'A Bíblia hebraica o chama de ungido do Senhor — mashiach, messias. Isaías usa a palavra para Ciro e para nenhum outro estrangeiro em toda a escritura, porque ele permitiu aos exilados voltar a Jerusalém e reconstruir o Templo.',
         'O relato dele próprio sobreviveu, num cilindro de argila desenterrado em 1879. Diz que Marduk o escolheu porque o rei anterior havia ofendido o deus, e registra a restauração de templos e o retorno dos povos cativos e de suas estátuas. É frequentemente chamado de primeira declaração de direitos humanos; é, mais precisamente, uma peça extremamente bem-feita de propaganda real mesopotâmica, o que não é a mesma coisa que ser falsa.',
         'Ele deixou a religião local manter suas formas e fez-se inscrever nelas. Onde outros conquistadores substituíam deuses, Ciro tomou a mão de Marduk na cerimônia do ano-novo e governou como rei babilônico legítimo, o que é boa parte da razão de o império que montou ter se mantido de pé.'
+      ]
+    },
+    {
+      year: 1492,
+      title: 'Who Saw It First',
+      title_pt: 'Quem Viu Primeiro',
+      era: 'Renaissance',
+      region: 'Bahamas', region_pt: 'Bahamas',
+      tag: 'Exploration', tag_pt: 'Exploração',
+      text: 'At about two in the morning on 12 October 1492, a lookout on the Pinta named Rodrigo de Triana saw land in the moonlight and shouted “Tierra!”. Five weeks after leaving the Canary Islands, Columbus’s three ships had reached an island of the Bahamas that its Taíno inhabitants called Guanahani. That morning he went ashore, raised the banners of Ferdinand and Isabella and renamed it San Salvador.',
+      text_pt: 'Por volta das duas da manhã de 12 de outubro de 1492, um vigia da Pinta chamado Rodrigo de Triana avistou terra ao luar e gritou “Tierra!”. Cinco semanas depois de deixarem as Canárias, os três navios de Colombo tinham chegado a uma ilha das Bahamas que seus habitantes taínos chamavam de Guanahani. Naquela manhã ele desembarcou, ergueu os estandartes de Fernando e Isabel e a rebatizou de San Salvador.',
+      facts: [
+        'The Crown had promised a pension of 10,000 maravedís a year to the first man to sight land. Columbus kept it for himself, saying he had seen a light several hours earlier, and the sailor who shouted got nothing.',
+        'Nobody knows for certain which island it was. In 1925 the Bahamas renamed Watling Island as San Salvador, but historians have argued for at least half a dozen others, and in 1986 a National Geographic study made the case for Samana Cay.',
+        'His journal records the first meeting that same day. He described the Taíno as gentle, generous and unarmed — they cut themselves taking his swords by the blade, not knowing what they were — and concluded that they would make good servants.'
+      ],
+      facts_pt: [
+        'A Coroa havia prometido uma pensão de 10 mil maravedis por ano ao primeiro homem que avistasse terra. Colombo ficou com ela, dizendo ter visto uma luz horas antes, e o marinheiro que gritou não recebeu nada.',
+        'Ninguém sabe ao certo que ilha era. Em 1925 as Bahamas rebatizaram a ilha Watling de San Salvador, mas historiadores já defenderam pelo menos meia dúzia de outras, e em 1986 um estudo da National Geographic apontou Samana Cay.',
+        'Seu diário registra o primeiro encontro naquele mesmo dia. Ele descreveu os taínos como gentis, generosos e desarmados — cortavam-se ao pegar suas espadas pela lâmina, sem saber o que eram — e concluiu que dariam bons servos.'
       ]
     }
   ],
