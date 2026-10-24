@@ -279,7 +279,7 @@ function saveTrophies(){
 // unlocks them when trophyProgress reaches its goal, and the trophy tab draws
 // the same numbers as a bar, so the two can never disagree. Thresholds live
 // on each trophy (goal, score, modes) in trophies.js.
-var PROGRESS_TROPHY_SPECIALS = ['compendium_share','total_correct','runs_played','era_gold','mode_records','daily_months','weak_overcome','discover'];
+var PROGRESS_TROPHY_SPECIALS = ['compendium_share','total_correct','runs_played','era_gold','mode_records','daily_months','weak_overcome','discover','master'];
 
 // Distinct calendar months (1-12) with a recorded daily challenge
 function _dailyMonthsPlayed(){
@@ -330,6 +330,11 @@ function trophyProgress(def){
     case 'discover': {
       var got = def.needed.filter(function(n){ return discoveredCards.has(n); }).length;
       return { n: got, goal: def.needed.length, bar: true };
+    }
+    // Collections judged by mastery: every listed card mastered (isCardMastered)
+    case 'master': {
+      var mastered = def.needed.filter(function(n){ return isCardMastered(cardStats[n]); }).length;
+      return { n: mastered, goal: def.needed.length, bar: true };
     }
     case 'weak_overcome': {
       var hit = Object.keys(cardStats).some(function(k){ var s=cardStats[k]; return s && (s.miss|0) >= def.goal && isCardMastered(s); });
@@ -397,14 +402,10 @@ function checkTrophies(midGame){
     } else if(def.special === 'hundred_cards'){
       earned = placed.length >= 100;
     } else if(def.special === 'warlord'){
-      var wars = ['World War I','World War II','Korean War','Vietnam War','Hundred Years War',
-                  "Thirty Years' War",'Persian Wars','First Punic War','Second Punic War',
-                  'Third Punic War','American Civil War','American Revolution','French Revolution',
-                  'Trojan War','Cold War'];
-      var warCount = wars.filter(function(w){ return placed.indexOf(w) >= 0; }).length;
-      earned = warCount >= 8;
+      // Cards tagged 'war' in cards.js: wars, battles, sieges, sacks, crusades, armed revolts
+      earned = timeline.filter(function(c){ return Array.isArray(c.tags) && c.tags.indexOf('war') >= 0; }).length >= def.goal;
     } else if(def.special === 'ten_intervals'){
-      earned = intervals_placed >= 10;
+      earned = gameMode === 'classic' && intervals_placed >= 10;   // Classic only: in Empires every card is one
     } else if(def.special === 'full_deck'){
       earned = deck.length === 0 && gameActive === false && placed.length > 0;
     } else if(def.special === 'score'){

@@ -816,8 +816,17 @@
      metal) drawn in the transparent border, over the avatar's own fill */
   .pf-frame-zodiac{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,linear-gradient(135deg,#e4e9ff 0%,#8a9bff 30%,#2a3480 55%,#a9b6ff 80%,#ffffff 100%) border-box;box-shadow:0 0 0 2px #1b2350,0 0 18px 3px rgba(140,158,255,.6)} /* starlight on night sky */
   .pf-frame-dagger{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,linear-gradient(135deg,#8c8c99 0%,#18181d 28%,#000 50%,#3c3c46 72%,#d6d6e0 100%) border-box;box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 14px rgba(255,255,255,.2)} /* polished black meteoric iron */
+  .pf-frame-rosetta{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,repeating-linear-gradient(0deg,#6b6b74 0 2px,#3b3b42 2px 4px) border-box;box-shadow:0 0 0 2px #2a2a30,0 0 0 4px rgba(214,168,160,.35)} /* inscribed granodiorite with a pink vein */
+  @property --pf-ouro{syntax:'<angle>';inherits:false;initial-value:0deg}
+  .pf-frame-ouroboros{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,conic-gradient(from var(--pf-ouro),#1f5130,#8fcf5a 22%,#1f5130 45%,#c9a84c 70%,#1f5130) border-box;box-shadow:0 0 14px rgba(120,190,90,.45)} /* the serpent turning on itself */
+  .pf-avatar:not(.sm).pf-frame-ouroboros{animation:pf-ouro-spin 9s linear infinite}
+  @keyframes pf-ouro-spin{to{--pf-ouro:360deg}}
+  .pf-frame-strata{border-color:transparent;background:linear-gradient(var(--bg3),var(--bg3)) padding-box,linear-gradient(0deg,transparent 0 35%,rgba(255,236,190,.75) 50%,transparent 65% 100%) border-box,linear-gradient(0deg,#4a3324 0 20%,#7a5235 20% 40%,#a8794a 40% 60%,#c9a06a 60% 80%,#e0c48f 80% 100%) border-box;background-size:auto,100% 300%,auto;background-position:0 0,0 100%,0 0;box-shadow:0 0 0 2px rgba(74,51,36,.6)} /* layers of earth, a light rising through them */
+  .pf-avatar:not(.sm).pf-frame-strata{animation:pf-strata-rise 4s ease-in-out infinite}
+  @keyframes pf-strata-rise{0%{background-position:0 0,0 100%,0 0}100%{background-position:0 0,0 0%,0 0}}
+  @media (prefers-reduced-motion:reduce){.pf-avatar:not(.sm).pf-frame-ouroboros,.pf-avatar:not(.sm).pf-frame-strata{animation:none}}
   body.light .pf-frame-silver{border-color:#94a3b8}
-  .pf-avatar.sm.pf-frame-ember,.pf-avatar.sm.pf-frame-maya{box-shadow:none}
+  .pf-avatar.sm.pf-frame-ember,.pf-avatar.sm.pf-frame-maya,.pf-avatar.sm.pf-frame-rosetta,.pf-avatar.sm.pf-frame-strata{box-shadow:none}
   .pf-avatar.sm.pf-frame-zodiac{box-shadow:0 0 8px 1px rgba(140,158,255,.55)}
   .pf-avatar.sm.pf-frame-imperial{box-shadow:0 0 8px 1px rgba(163,95,214,.6)}
   .pf-avatar.sm.pf-frame-dagger{box-shadow:0 0 6px rgba(255,255,255,.25)}
