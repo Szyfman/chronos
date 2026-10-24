@@ -330,16 +330,9 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
     trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' },
   /* Themes of the secret modes (RECORD_MODES with `trophy`): `modeOnly` themes
      are worn by every run of their mode and can't be unlocked for other modes,
-     so they are never listed in Customization (preview mode lists them). While
-     a mode has several, its runs wear the first — or, in preview mode, the one
-     picked in Customization: variants to compare before keeping one. */
-  { id: 'theme_usa_stripes', cat: 'theme', icon: '🗽', style: 'usa_stripes', base: 'dark', mode: 'usa', modeOnly: true, name: 'Stripes', name_pt: 'Listras', unlock: { mode: 'usa' } },
+     so they are never listed in Customization (preview mode lists them). */
   { id: 'theme_usa_stars', cat: 'theme', icon: '⭐', style: 'usa_stars', base: 'dark', mode: 'usa', modeOnly: true, name: 'Star-Spangled', name_pt: 'Estrelado', unlock: { mode: 'usa' } },
-  { id: 'theme_usa_bunting', cat: 'theme', icon: '🎆', style: 'usa_bunting', base: 'dark', mode: 'usa', modeOnly: true, name: 'Bunting', name_pt: 'Bandeirolas', unlock: { mode: 'usa' } },
-  { id: 'theme_brazil_calcadao', cat: 'theme', icon: '🌊', style: 'br_calcadao', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Copacabana Promenade', name_pt: 'Calçadão', unlock: { mode: 'brazil' } },
-  { id: 'theme_brazil_calcadao_green', cat: 'theme', icon: '🏖️', style: 'br_calcadao_green', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Green-and-Gold Promenade', name_pt: 'Calçadão Verde-Amarelo', unlock: { mode: 'brazil' } },
-  { id: 'theme_brazil_flag', cat: 'theme', icon: '💛', style: 'br_flag', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Green and Gold', name_pt: 'Verde-Amarelo', unlock: { mode: 'brazil' } },
-  { id: 'theme_brazil_cross', cat: 'theme', icon: '✨', style: 'br_cross', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Southern Cross', name_pt: 'Cruzeiro do Sul', unlock: { mode: 'brazil' } }
+  { id: 'theme_brazil_calcadao', cat: 'theme', icon: '🌊', style: 'br_calcadao', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Copacabana Promenade', name_pt: 'Calçadão', unlock: { mode: 'brazil' } }
 ]);
 
 // ── XP CURVE ──────────────────────────────────────────────────────────────

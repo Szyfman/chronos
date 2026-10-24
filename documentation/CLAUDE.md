@@ -285,9 +285,9 @@ Modes unlocked by a trophy instead of shown on a menu: **United States** (`usa`,
 
 - **Definition**: an entry of `RECORD_MODES` (progression.js) with `trophy`; `secretMode(id)` finds it and `secretModeOpen(m)` says whether it is open (trophy earned, or preview mode). Being in `RECORD_MODES` is what makes the run save and the cloud sync accept the mode id; nothing else needs listing.
 - **Deck**: every card whose `tags` hold the mode id (`buildPool`). A card can carry both (Dutch West India Company). Tag each new card about the United States or Brazil.
-- **Access**: only from the trophy's card (`openTrophyModal` → `_showTpModal` action button → `startSecretMode`), shown once the trophy is earned. The Trophies panel opens only from the menus, so a run is never interrupted. "Play Again" reopens that trophy card (`restartGame` → `openTrophyCard`).
+- **Access**: only from the trophy's card (`openTrophyModal` → `_showTpModal` action button → `startSecretMode`), shown once the trophy is earned. The Trophies panel opens only from the menus, so a run is never interrupted. Every way out of the end screen reopens that trophy card: "Play Again" (`restartGame` → `openTrophyCard`) and closing the history opened by "Save Timeline" (`closeHistory`).
 - **Rules**: always Lives (the menu's play mode is left alone). XP, trophies (all of them), Compendium discovery, history and the mode record work as in the culture modes; the record row in Stats stays hidden until the mode opens. They never touch `chronos_card_stats` — no mastery, no Review (`recordCardResult`).
-- **Theme**: `modeOnly` themes with the mode's `mode`, worn by every run of the mode and never unlockable elsewhere; they are not listed in Customization. While a mode has several (variants on test), runs wear the first one, or in preview mode the one picked in Customization.
+- **Theme**: one `modeOnly` theme per mode (Star-Spangled ⭐ for `usa`, Copacabana Promenade 🌊 for `brazil`), worn by every run of the mode and never unlockable elsewhere; not listed in Customization (preview mode lists them).
 - **Menu mode**: culture, secret and daily runs set `gameMode` themselves; `showIntro` puts back the menu's choice (`_menuMode`), so "Begin" always starts the mode the menu shows.
 
 ### Modifying the Scoring System

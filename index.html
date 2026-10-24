@@ -1418,14 +1418,7 @@
     --th-line:linear-gradient(to bottom,transparent,rgba(170,190,255,.6) 10%,rgba(170,190,255,.6) 90%,transparent);
     --th-dz:rgba(170,190,255,.3);--th-card:rgba(10,16,40,.9);--th-card-hover:rgba(18,28,64,.95);--th-card-line:rgba(150,170,255,.38);
     --th-ink:#e8ecff;--th-ink2:#98a3cf;--th-accent:#c8d2ff;--th-bar:#050816}
-  /* -- Secret-mode themes (modeOnly, progression.js): variants on test -- */
-  /* Stripes: navy night with the thirteen red and white stripes, faded */
-  .th-usa_stripes{
-    --th-bg:radial-gradient(ellipse at 50% 40%,transparent 40%,rgba(3,6,18,.75) 100%),
-      repeating-linear-gradient(to bottom,rgba(178,34,52,.22) 0 26px,rgba(255,255,255,.06) 26px 52px),#0a1028;
-    --th-line:linear-gradient(to bottom,transparent,rgba(255,255,255,.75) 10%,rgba(255,255,255,.75) 90%,transparent);
-    --th-dz:rgba(255,255,255,.28);--th-card:rgba(10,16,44,.95);--th-card-hover:rgba(20,30,70,.97);--th-card-line:rgba(210,60,80,.6);
-    --th-ink:#f1f3fb;--th-ink2:#a9b2d6;--th-accent:#ff6b7a;--th-bar:#060a1c}
+  /* Secret-mode themes (modeOnly, progression.js) */
   /* Star-Spangled: the blue canton's white stars, red-and-white edges */
   .th-usa_stars{
     --th-bg:repeating-linear-gradient(to bottom,#b22234 0 10px,#f2f2f2 10px 20px) left top/7px 100% no-repeat,
@@ -1435,50 +1428,13 @@
     --th-line:linear-gradient(to bottom,transparent,rgba(255,255,255,.7) 10%,rgba(255,255,255,.7) 90%,transparent);
     --th-dz:rgba(255,255,255,.28);--th-card:rgba(10,18,52,.95);--th-card-hover:rgba(22,34,84,.97);--th-card-line:rgba(255,255,255,.4);
     --th-ink:#f4f6ff;--th-ink2:#aab4dc;--th-accent:#ff5c6c;--th-bar:#07102e}
-  /* Bunting: red, white and blue fans hung along the top, as on the Fourth of July */
-  .th-usa_bunting{
-    --th-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='44'%3E%3Cpath d='M0 0h96a48 44 0 0 1-96 0z' fill='%23b22234'/%3E%3Cpath d='M10 0h76a38 34 0 0 1-76 0z' fill='%23f2f2f2'/%3E%3Cpath d='M20 0h56a28 24 0 0 1-56 0z' fill='%233c3b6e'/%3E%3Cpath d='M30 0h36a18 14 0 0 1-36 0z' fill='%23f2f2f2'/%3E%3C/svg%3E") left top/96px 44px repeat-x,
-      radial-gradient(ellipse at 50% 0%,rgba(178,34,52,.18),transparent 55%),
-      linear-gradient(to bottom,#0d1430,#070b1c);
-    --th-line:#c9cfe6;--th-dz:rgba(220,225,245,.3);--th-card:rgba(12,18,44,.95);--th-card-hover:rgba(24,32,72,.97);--th-card-line:rgba(178,34,52,.65);
-    --th-ink:#f2f4fb;--th-ink2:#a7afcf;--th-accent:#f2f2f2;--th-bar:#070b1c}
-  /* Calcadao: the black-and-white waves of Copacabana's promenade */
+  /* Calçadão: the black-and-white waves of Copacabana's promenade */
   .th-br_calcadao{
     --th-bg:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.6) 100%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='44'%3E%3Cpath d='M-30 22C0 42 30 42 60 22S120 2 150 22' fill='none' stroke='%23efe9dc' stroke-opacity='.2' stroke-width='18'/%3E%3C/svg%3E") 0 0/120px 44px,#0b0b0b;
     --th-line:linear-gradient(to bottom,transparent,rgba(240,233,220,.75) 10%,rgba(240,233,220,.75) 90%,transparent);
     --th-dz:rgba(240,233,220,.3);--th-card:rgba(14,14,14,.95);--th-card-hover:rgba(30,30,28,.97);--th-card-line:rgba(240,233,220,.4);
     --th-ink:#f3eee4;--th-ink2:#b4ada0;--th-accent:#f2cc3a;--th-bar:#080808}
-  /* Calcadao Verde-Amarelo: the same waves in the flag's yellow, on green */
-  .th-br_calcadao_green{
-    --th-bg:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,20,8,.65) 100%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='44'%3E%3Cpath d='M-30 22C0 42 30 42 60 22S120 2 150 22' fill='none' stroke='%23fedf00' stroke-opacity='.16' stroke-width='18'/%3E%3C/svg%3E") 0 0/120px 44px,#04331a;
-    --th-line:linear-gradient(to bottom,transparent,rgba(254,223,0,.75) 10%,rgba(254,223,0,.75) 90%,transparent);
-    --th-dz:rgba(254,223,0,.3);--th-card:rgba(3,30,15,.95);--th-card-hover:rgba(6,48,25,.97);--th-card-line:rgba(254,223,0,.45);
-    --th-ink:#f4f6e8;--th-ink2:#a9c2a8;--th-accent:#fedf00;--th-bar:#022012}
-  /* Verde-Amarelo: the flag's yellow rhombus and blue disc, tiled on green */
-  .th-br_flag{
-    --th-bg:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(0,16,6,.7) 100%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='34'%3E%3Cpath d='M24 4L44 17 24 30 4 17z' fill='%23fedf00' fill-opacity='.12'/%3E%3Ccircle cx='24' cy='17' r='6' fill='%23002776' fill-opacity='.45'/%3E%3C/svg%3E") 0 0/48px 34px,#03401f;
-    --th-line:linear-gradient(to bottom,transparent,rgba(254,223,0,.8) 10%,rgba(254,223,0,.8) 90%,transparent);
-    --th-dz:rgba(254,223,0,.3);--th-card:rgba(2,34,17,.95);--th-card-hover:rgba(5,52,27,.97);--th-card-line:rgba(70,120,220,.6);
-    --th-ink:#f6f7ea;--th-ink2:#a8c4a4;--th-accent:#fedf00;--th-bar:#02240f}
-  /* Cruzeiro do Sul: the blue globe of the flag, with the Southern Cross */
-  .th-br_cross{
-    --th-bg:radial-gradient(4px 4px at 150px 40px,#fff,transparent) 0 0/300px 320px,
-      radial-gradient(4.5px 4.5px at 150px 250px,#fff,transparent) 0 0/300px 320px,
-      radial-gradient(3.5px 3.5px at 95px 140px,#fff,transparent) 0 0/300px 320px,
-      radial-gradient(3.5px 3.5px at 205px 125px,#fff,transparent) 0 0/300px 320px,
-      radial-gradient(2.5px 2.5px at 178px 178px,rgba(255,255,255,.9),transparent) 0 0/300px 320px,
-      radial-gradient(1px 1px at 30px 60px,rgba(255,255,255,.7),transparent) 0 0/170px 190px,
-      radial-gradient(1px 1px at 120px 150px,rgba(255,255,255,.6),transparent) 0 0/170px 190px,
-      radial-gradient(1px 1px at 70px 20px,rgba(255,255,255,.55),transparent) 0 0/130px 150px,
-      radial-gradient(1.5px 1.5px at 20px 110px,rgba(255,255,255,.7),transparent) 0 0/230px 210px,
-      linear-gradient(160deg,transparent 46%,rgba(255,255,255,.07) 48% 52%,transparent 54%),
-      linear-gradient(to bottom,#06204f,#03123a);
-    --th-line:linear-gradient(to bottom,transparent,rgba(254,223,0,.7) 10%,rgba(254,223,0,.7) 90%,transparent);
-    --th-dz:rgba(254,223,0,.3);--th-card:rgba(4,22,58,.94);--th-card-hover:rgba(8,34,84,.97);--th-card-line:rgba(0,156,59,.7);
-    --th-ink:#eef3ff;--th-ink2:#9fb2d8;--th-accent:#fedf00;--th-bar:#031033}
   body.themed #timeline-area{background:var(--th-bg)}
   body.themed #timeline::before{background:var(--th-line);width:2px}
   body.themed .drop-zone .dz-line{background:var(--th-dz)}

@@ -587,7 +587,10 @@ function closeHistory(){
   document.getElementById('history-panel').classList.remove('open');
   if(gameActive)return;
   document.getElementById('gameover').classList.remove('show');
+  // After a secret-mode run, every way out of the end screen leads to its trophy's card
+  var sm=_fromGameover&&secretMode(gameMode);
   _fromGameover=false;
+  if(sm){ showIntro(); openTrophyCard(sm.trophy); return; }
   if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
 }
 function renderHistoryPanel(){
@@ -1512,8 +1515,6 @@ function setRunTheme(mode){
 }
 function activeTheme(){
   if(_runThemeMode){
-    var sel=selectedCustom('theme');
-    if(sel.mode===_runThemeMode) return sel;   // preview: the variant picked in Customization
     var th=CUSTOMIZATIONS.find(function(c){ return c.cat==='theme'&&c.mode===_runThemeMode; });
     if(th) return th;
   }
