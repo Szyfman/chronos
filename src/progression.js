@@ -327,7 +327,19 @@ Array.prototype.push.apply(CUSTOMIZATIONS, [
   { id: 'theme_night_sky', cat: 'theme', icon: '🌙', style: 'night', base: 'dark', name: 'Night Sky', name_pt: 'Céu Noturno',
     unlock: { level: 40 },
     trivia: 'On 14 February 1990, about 6 billion kilometres from the Sun, Voyager 1 turned its camera back and photographed the planets one last time; soon afterwards its cameras were switched off for good. Carl Sagan had argued for the picture for years. In it, Earth is a speck smaller than a single pixel, caught in a ray of scattered sunlight. Sagan named it the "Pale Blue Dot" and reflected that everyone who had ever lived had lived out their lives on that tiny point.',
-    trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' }
+    trivia_pt: 'Em 14 de fevereiro de 1990, a cerca de 6 bilhões de quilômetros do Sol, a Voyager 1 virou sua câmera para trás e fotografou os planetas uma última vez; pouco depois suas câmeras foram desligadas para sempre. Carl Sagan defendia a foto havia anos. Nela, a Terra é um ponto menor que um único pixel, apanhado num raio de luz do sol espalhada. Sagan a chamou de "Pálido Ponto Azul" e refletiu que todas as pessoas que já existiram viveram suas vidas naquele pontinho.' },
+  /* Themes of the secret modes (RECORD_MODES with `trophy`): `modeOnly` themes
+     are worn by every run of their mode and can't be unlocked for other modes,
+     so they are never listed in Customization (preview mode lists them). While
+     a mode has several, its runs wear the first — or, in preview mode, the one
+     picked in Customization: variants to compare before keeping one. */
+  { id: 'theme_usa_stripes', cat: 'theme', icon: '🗽', style: 'usa_stripes', base: 'dark', mode: 'usa', modeOnly: true, name: 'Stripes', name_pt: 'Listras', unlock: { mode: 'usa' } },
+  { id: 'theme_usa_stars', cat: 'theme', icon: '⭐', style: 'usa_stars', base: 'dark', mode: 'usa', modeOnly: true, name: 'Star-Spangled', name_pt: 'Estrelado', unlock: { mode: 'usa' } },
+  { id: 'theme_usa_bunting', cat: 'theme', icon: '🎆', style: 'usa_bunting', base: 'dark', mode: 'usa', modeOnly: true, name: 'Bunting', name_pt: 'Bandeirolas', unlock: { mode: 'usa' } },
+  { id: 'theme_brazil_calcadao', cat: 'theme', icon: '🌊', style: 'br_calcadao', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Copacabana Promenade', name_pt: 'Calçadão', unlock: { mode: 'brazil' } },
+  { id: 'theme_brazil_calcadao_green', cat: 'theme', icon: '🏖️', style: 'br_calcadao_green', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Green-and-Gold Promenade', name_pt: 'Calçadão Verde-Amarelo', unlock: { mode: 'brazil' } },
+  { id: 'theme_brazil_flag', cat: 'theme', icon: '💛', style: 'br_flag', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Green and Gold', name_pt: 'Verde-Amarelo', unlock: { mode: 'brazil' } },
+  { id: 'theme_brazil_cross', cat: 'theme', icon: '✨', style: 'br_cross', base: 'dark', mode: 'brazil', modeOnly: true, name: 'Southern Cross', name_pt: 'Cruzeiro do Sul', unlock: { mode: 'brazil' } }
 ]);
 
 // ── XP CURVE ──────────────────────────────────────────────────────────────
@@ -396,6 +408,7 @@ function playerTitle(level) {
 
 function isCustomUnlocked(item) {
   if (!item.unlock) return true;
+  if (item.modeOnly) return false;   // worn only by its mode's runs
   // Unlocked once, unlocked for good — even if its requirement is raised later
   if (customKnown && customKnown.indexOf(item.id) >= 0) return true;
   if (item.unlock.title) {
@@ -510,7 +523,7 @@ function selectCustomization(id) {
    profile and the real unlock state are never touched, so a normal run
    brings the real profile back.
    PREVIEW_ENABLED must be false on main — switch it off before merging. */
-const PREVIEW_ENABLED = false;
+const PREVIEW_ENABLED = true;
 var customPreview = false;
 var _previewCustom = {};
 try {
@@ -561,8 +574,22 @@ const RECORD_MODES = [
   { id: 'abrahamic',  icon: '✡️', label: 'biblical_lbl' },
   { id: 'roman',      icon: '🏛️', label: 'mc_roman_title' },
   { id: 'eastern',    icon: '☯️', label: 'mc_eastern_title' },
+  { id: 'usa',        icon: '🗽', label: 'mc_usa_title', trophy: 'rushmore' },
+  { id: 'brazil',     icon: '🦜', label: 'mc_brazil_title', trophy: 'terra_brasilis' },
   { id: 'daily',      icon: '📅', label: 'daily_title' }
 ];
+
+/* Secret modes: the RECORD_MODES entries with a `trophy`. Played only from
+   that trophy's card once it is earned (preview mode opens them all), always
+   with lives, and they never touch card stats (mastery, Review). The deck is
+   every card tagged with the mode id; the record row stays hidden until the
+   mode opens. */
+function secretMode(id) {
+  return RECORD_MODES.find(function(m) { return m.id === id && m.trophy; }) || null;
+}
+function secretModeOpen(m) {
+  return !!earnedTrophies[m.trophy] || customPreview;
+}
 
 /* Called by endGame for every run with at least one card placed. Only runs
    with lives count: Free play has no stakes, so its scores aren't records.

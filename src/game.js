@@ -36,6 +36,8 @@ const MODE_LABEL={
   abrahamic: 'biblical_lbl',
   roman:     'mc_roman_title',
   eastern:   'mc_eastern_title',
+  usa:       'mc_usa_title',
+  brazil:    'mc_brazil_title',
   characters:'characters_lbl'
 };
 const MODE_DRAG_LABEL={
@@ -43,6 +45,8 @@ const MODE_DRAG_LABEL={
   abrahamic: 'drag_label_biblical',
   roman:     'drag_label_roman',
   eastern:   'drag_label_eastern',
+  usa:       'drag_label_usa',
+  brazil:    'drag_label_brazil',
   characters:'drag_label_characters'
 };
 const MODE_WON={
@@ -490,6 +494,8 @@ function buildPool(mode, eraFilter){
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('roman'));
   } else if(mode==='eastern'){
     pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
+  } else if(secretMode(mode)){
+    pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes(mode));
   } else if(mode==='characters'){
     const allowedEras=allowedErasFor(eraFilter);
     const charPool=CARDS.filter(c=>c.cat==='People'||c.cat_pt==='Pessoas');
@@ -981,11 +987,11 @@ function streakMultiplier(streakBefore){
 // ok/miss feed mastery and follow the play mode's `mastery` rule; amiss
 // counts every miss, in any mode, and feeds the Review deck:
 //   Lives: hit → ok, miss → miss + amiss · Review: hit → ok, miss → amiss
-//   Free: hit → nothing, miss → amiss
+//   Free: hit → nothing, miss → amiss · secret modes (usa, brazil): nothing
 function recordCardResult(card, ok){
   var key = card && card.name;
   var mastery = playModeRules().mastery;
-  if(!key || (ok && mastery === 'none')) return;
+  if(!key || (ok && mastery === 'none') || secretMode(gameMode)) return;
   var s = cardStats[key];
   if(!s || typeof s !== 'object') s = cardStats[key] = { ok:0, miss:0, amiss:0, last:'' };
   if(ok) s.ok = (s.ok|0) + 1;
@@ -1611,6 +1617,7 @@ function modeBadgeLabel(mode,pm){
   if(mode==='abrahamic')return t('biblical_lbl')+lives;
   if(mode==='roman')return t('mc_roman_title')+lives;
   if(mode==='eastern')return t('mc_eastern_title')+lives;
+  if(secretMode(mode))return t(secretMode(mode).label)+lives;
   if(mode==='characters')return t('characters_lbl')+lives;
   return t('classic_lbl')+lives;
 }
