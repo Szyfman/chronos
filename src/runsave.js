@@ -27,8 +27,10 @@ function _runNum(n) { return isFinite(n) ? n : null; }
 
 // Writes the running game. A run with no card placed isn't saved: there is
 // nothing to lose yet, and a daily attempt is only burned by the first card.
+// A preview test daily (startTestDaily) is never saved: resumed, it would
+// come back as a real daily.
 function saveRun() {
-  if (!gameActive || !timeline.length) return;
+  if (!gameActive || !timeline.length || _isTestDaily) return;
   var flags = {};
   Object.keys(RUN_SAVE_FLAGS).forEach(function(k) {
     var def = RUN_SAVE_FLAGS[k];
