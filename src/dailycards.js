@@ -32,6 +32,49 @@
 
 var DAILY_CARDS = {
 
+  '01-01': [
+    {
+      year: -45,
+      title: 'The Year Before Lasted 445 Days',
+      title_pt: 'O Ano Anterior Durou 445 Dias',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Calendar', tag_pt: 'Calendário',
+      text: 'On 1 January 45 BCE Rome began to keep the calendar Julius Caesar had ordered with the help of the Alexandrian astronomer Sosigenes: 365 days, with one extra day every fourth year. Getting there had cost a year like no other. The old calendar had drifted so far from the seasons that 46 BCE was stretched to 445 days to pull the months back into place.',
+      text_pt: 'Em 1º de janeiro de 45 AEC, Roma passou a seguir o calendário que Júlio César encomendara com a ajuda do astrônomo alexandrino Sosígenes: 365 dias, com um dia a mais a cada quatro anos. Chegar até ali custara um ano como nenhum outro. O calendário antigo se afastara tanto das estações que 46 AEC foi esticado até 445 dias para devolver os meses ao lugar.',
+      facts: [
+        'The old year had 355 days, and the priests were supposed to insert an extra month when needed. They did it when it suited them — to lengthen a friend’s term in office or shorten an enemy’s — and during the civil wars hardly at all. The man in charge of the calendar, as chief priest, was Caesar himself.',
+        'It went wrong at once. After Caesar’s death the priests counted every fourth year inclusively, the Roman way, and added a leap day every three years. Augustus had to suspend leap years for a time, and the calendar only ran as designed from 8 CE.',
+        'Two months still carry the reform’s authors. Quintilis, the month of Caesar’s birth, was renamed Julius in his honour in 44 BCE, and Sextilis became Augustus in 8 BCE. The old names meant fifth and sixth, left over from a time when the Roman year began in March — which is also why September to December, named seventh to tenth, are the ninth to twelfth months.'
+      ],
+      facts_pt: [
+        'O ano antigo tinha 355 dias, e cabia aos sacerdotes inserir um mês extra quando necessário. Faziam isso quando lhes convinha — para alongar o mandato de um amigo ou encurtar o de um inimigo — e, durante as guerras civis, quase nunca. O responsável pelo calendário, como sumo sacerdote, era o próprio César.',
+        'Deu errado logo de saída. Depois da morte de César, os sacerdotes contaram o “a cada quatro anos” de modo inclusivo, à maneira romana, e acrescentaram um dia bissexto a cada três anos. Augusto teve de suspender os anos bissextos por um tempo, e o calendário só funcionou como planejado a partir de 8 EC.',
+        'Dois meses ainda levam os nomes dos autores da reforma. Quintilis, o mês do nascimento de César, passou a se chamar Julius em sua honra em 44 AEC, e Sextilis virou Augustus em 8 AEC. Os nomes antigos significavam quinto e sexto, resquício de um tempo em que o ano romano começava em março — e é por isso também que setembro a dezembro, chamados de sétimo a décimo, são o nono ao décimo segundo meses.'
+      ]
+    },
+    {
+      year: 1502,
+      title: 'There Is No River in Rio',
+      title_pt: 'Não Há Rio no Rio',
+      era: 'Renaissance',
+      region: 'Guanabara Bay', region_pt: 'Baía de Guanabara',
+      tag: 'Exploration', tag_pt: 'Exploração',
+      text: 'On 1 January 1502 a Portuguese fleet exploring the coast of Brazil sailed into a vast bay ringed by granite peaks and named it Rio de Janeiro, the River of January. No river reaches the sea there: the city that grew on its shore is named after a bay. The popular explanation — that the sailors mistook the narrow entrance for the mouth of a river — is doubtful, since the word rio was then used loosely for any large inlet of water.',
+      text_pt: 'Em 1º de janeiro de 1502, uma frota portuguesa que explorava a costa do Brasil entrou numa baía enorme cercada de picos de granito e a batizou de Rio de Janeiro. Nenhum rio deságua ali: a cidade que cresceu em suas margens tem o nome de uma baía. A explicação popular — a de que os marinheiros confundiram a entrada estreita com a foz de um rio — é duvidosa, já que a palavra rio era usada então, de modo frouxo, para qualquer grande braço de água.',
+      facts: [
+        'Who led the fleet is disputed — Gonçalo Coelho or Gaspar de Lemos — and so is whether Amerigo Vespucci was aboard. Vespucci’s letters about these voyages were read across Europe, and in 1507 a German mapmaker put the name America on the new continent in his honour.',
+        'The bay kept its own name. The Tupi who lived on its shores called it Guanabara, and the name the Portuguese gave the water ended up belonging to the city instead.',
+        'The city came sixty-three years later. The Portuguese did not settle the bay until the French had planted a colony in it, and Rio was founded on 1 March 1565 as São Sebastião do Rio de Janeiro, after the saint and the boy king Sebastian of Portugal.'
+      ],
+      facts_pt: [
+        'Quem comandava a frota é discutido — Gonçalo Coelho ou Gaspar de Lemos —, assim como se Américo Vespúcio estava a bordo. As cartas de Vespúcio sobre essas viagens foram lidas por toda a Europa, e em 1507 um cartógrafo alemão pôs o nome América no novo continente em sua homenagem.',
+        'A baía guardou o próprio nome. Os tupis que viviam em suas margens a chamavam de Guanabara, e o nome que os portugueses deram às águas acabou pertencendo à cidade.',
+        'A cidade veio sessenta e três anos depois. Os portugueses só ocuparam a baía depois que os franceses instalaram nela uma colônia, e o Rio foi fundado em 1º de março de 1565 como São Sebastião do Rio de Janeiro, em honra ao santo e ao jovem rei Sebastião de Portugal.'
+      ]
+    }
+  ],
+
   '03-15': [
     {
       year: -44,
@@ -52,6 +95,49 @@ var DAILY_CARDS = {
         'A conspiração foi liderada por Marco Júnio Bruto e Caio Cássio Longino.',
         'Suetônio contou 23 ferimentos, apenas um deles fatal.',
         'As guerras civis seguintes terminaram com Otaviano, herdeiro de César, como primeiro imperador romano.'
+      ]
+    }
+  ],
+
+  '04-21': [
+    {
+      year: -753,
+      title: 'Rome Was Born at a Shepherds’ Festival',
+      title_pt: 'Roma Nasceu Numa Festa de Pastores',
+      era: 'Ancient',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Founding', tag_pt: 'Fundação',
+      text: 'By the traditional reckoning, Romulus founded Rome on 21 April 753 BCE, ploughing a furrow around the Palatine Hill to mark the sacred boundary of his city. The day was already a festival — the Parilia, when shepherds purified their flocks and leapt over bonfires in honour of Pales, a god of herds — and Rome kept its birthday on it ever after.',
+      text_pt: 'Pela contagem tradicional, Rômulo fundou Roma em 21 de abril de 753 AEC, abrindo com o arado um sulco em volta do monte Palatino para marcar o limite sagrado de sua cidade. O dia já era uma festa — a Parília, quando os pastores purificavam os rebanhos e saltavam sobre fogueiras em honra de Pales, divindade dos rebanhos — e Roma passou a celebrar nele seu aniversário para sempre.',
+      facts: [
+        'The year was worked out centuries later, and Roman writers disagreed by decades: Fabius Pictor put the founding in 748 BCE and Cato in 751. The date that won was the one fixed by the scholar Varro, who even had an astrologer cast Romulus’s horoscope.',
+        'The Romans themselves rarely counted years from the founding. They named each year after its two consuls, and numbering years ab urbe condita, from the founding of the city, is mostly a convenience of later historians.',
+        'Rome still celebrates. In 121 CE Hadrian chose the city’s birthday to begin his Temple of Venus and Rome, the largest temple in the city, and every 21 April the Natale di Roma fills the streets with parades in Roman costume.'
+      ],
+      facts_pt: [
+        'O ano foi calculado séculos depois, e os escritores romanos discordavam por décadas: Fábio Pictor punha a fundação em 748 AEC e Catão em 751. A data que venceu foi a fixada pelo erudito Varrão, que chegou a mandar um astrólogo levantar o horóscopo de Rômulo.',
+        'Os próprios romanos raramente contavam os anos a partir da fundação. Davam a cada ano o nome de seus dois cônsules, e numerar os anos ab urbe condita, desde a fundação da cidade, é sobretudo uma conveniência de historiadores posteriores.',
+        'Roma ainda comemora. Em 121 EC, Adriano escolheu o aniversário da cidade para iniciar seu Templo de Vênus e Roma, o maior templo da cidade, e todo 21 de abril o Natale di Roma enche as ruas de desfiles em trajes romanos.'
+      ]
+    },
+    {
+      year: 1960,
+      title: 'Born on Tiradentes Day',
+      title_pt: 'Nascida no Dia de Tiradentes',
+      era: 'Contemporary',
+      region: 'Brasília', region_pt: 'Brasília',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On 21 April 1960 President Juscelino Kubitschek inaugurated Brasília, a capital raised from empty savannah on the central plateau in about forty-one months. The date was chosen on purpose: it was the anniversary of the execution of Tiradentes. The idea was far older than the city — Brazil’s first republican constitution, in 1891, had already reserved land for a new capital in the interior.',
+      text_pt: 'Em 21 de abril de 1960, o presidente Juscelino Kubitschek inaugurou Brasília, uma capital erguida no cerrado vazio do Planalto Central em cerca de quarenta e um meses. A data foi escolhida de propósito: era o aniversário da execução de Tiradentes. A ideia era muito mais velha que a cidade — a primeira Constituição republicana do Brasil, de 1891, já reservava terras no interior para uma nova capital.',
+      facts: [
+        'The name is older still. José Bonifácio, the statesman of independence, proposed moving the capital inland in 1823 and suggested calling it Brasília.',
+        'The plan won a competition in 1957 with a short report and a few freehand sketches by Lúcio Costa. He described it as two axes crossing at right angles — the sign of the cross, the gesture of someone taking possession of a place. The resemblance to an aeroplane came later, from the shape the plan took.',
+        'It opened unfinished. Tens of thousands of workers, the candangos, many of them from the Northeast, had built it in shifts around the clock, and for years afterwards much of the government still worked from Rio. Kubitschek had campaigned on fifty years of progress in five.'
+      ],
+      facts_pt: [
+        'O nome é ainda mais antigo. José Bonifácio, o estadista da independência, propôs levar a capital para o interior em 1823 e sugeriu chamá-la de Brasília.',
+        'O plano venceu um concurso em 1957 com um relatório curto e alguns esboços à mão livre de Lúcio Costa. Ele o descreveu como dois eixos cruzando-se em ângulo reto — o sinal da cruz, o gesto de quem toma posse de um lugar. A semelhança com um avião veio depois, da forma que o plano tomou.',
+        'Foi inaugurada inacabada. Dezenas de milhares de operários, os candangos, muitos vindos do Nordeste, a construíram em turnos dia e noite, e por anos boa parte do governo continuou trabalhando no Rio. Kubitschek fizera campanha com a promessa de cinquenta anos de progresso em cinco.'
       ]
     }
   ],
@@ -2911,6 +2997,112 @@ var DAILY_CARDS = {
         'O porta-voz, Günter Schabowski, não havia sido informado de que a regra só valeria a partir do dia seguinte.',
         'Bornholmer Straße foi a primeira passagem a ceder, no fim daquela noite.',
         'O muro dividia a cidade havia 28 anos.'
+      ]
+    }
+  ],
+
+  '11-20': [
+    {
+      year: 1945,
+      title: 'Four Languages at Once',
+      title_pt: 'Quatro Línguas ao Mesmo Tempo',
+      era: 'Contemporary',
+      region: 'Nuremberg', region_pt: 'Nuremberg',
+      tag: 'Justice', tag_pt: 'Justiça',
+      text: 'On 20 November 1945, in the Palace of Justice at Nuremberg, the leading surviving Nazis went on trial before judges from the United States, Britain, France and the Soviet Union. Every word spoken in the courtroom was heard at the same moment in English, Russian, French and German, through headphones at every seat. Translated the old way, sentence by sentence, a trial in four languages would have lasted several times as long.',
+      text_pt: 'Em 20 de novembro de 1945, no Palácio da Justiça de Nuremberg, os principais nazistas sobreviventes foram a julgamento diante de juízes dos Estados Unidos, do Reino Unido, da França e da União Soviética. Cada palavra dita no tribunal era ouvida no mesmo instante em inglês, russo, francês e alemão, por fones de ouvido em todos os lugares. Traduzido à moda antiga, frase por frase, um julgamento em quatro línguas teria durado várias vezes mais.',
+      facts: [
+        'The equipment came from IBM, which had sold a version of it to League of Nations conferences, but it had never carried a long, unscripted trial. Three teams of twelve interpreters took turns, each interpreter working into a single language. After Nuremberg the United Nations adopted the system, and conference interpreting as a profession grew from it.',
+        'Speakers were controlled by lights. A monitor watching the interpreters could flash a yellow light at whoever had the floor to tell them to slow down, and a red one to tell them to stop and repeat.',
+        'Nuremberg was chosen partly because its Palace of Justice had survived the bombing with a prison attached, and partly for the symbol: it was the city of the Nazi party rallies. Twenty-one defendants sat in the dock, and on 1 October 1946 twelve of the accused were sentenced to death.'
+      ],
+      facts_pt: [
+        'O equipamento era da IBM, que já vendera uma versão dele a conferências da Liga das Nações, mas ele nunca sustentara um julgamento longo e sem roteiro. Três equipes de doze intérpretes se revezavam, cada intérprete trabalhando para uma única língua. Depois de Nuremberg, as Nações Unidas adotaram o sistema, e dele nasceu a interpretação de conferências como profissão.',
+        'Quem falava era controlado por luzes. Um supervisor que acompanhava os intérpretes podia acender uma luz amarela para quem estivesse com a palavra, pedindo que falasse mais devagar, e uma vermelha, pedindo que parasse e repetisse.',
+        'Nuremberg foi escolhida em parte porque seu Palácio da Justiça sobrevivera aos bombardeios com uma prisão anexa, e em parte pelo símbolo: era a cidade dos comícios do partido nazista. Vinte e um réus sentaram no banco, e em 1º de outubro de 1946 doze dos acusados foram condenados à morte.'
+      ]
+    }
+  ],
+
+  '12-25': [
+    {
+      year: 800,
+      title: 'He Said He Did Not Know',
+      title_pt: 'Ele Disse Que Não Sabia',
+      era: 'Medieval',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On Christmas Day 800, as Charlemagne rose from prayer before the altar of St Peter’s in Rome, Pope Leo III placed a crown on his head and the crowd acclaimed him emperor of the Romans — the first in the West for more than three centuries. His biographer Einhard insists he would not have set foot in the church that day had he known what the pope intended.',
+      text_pt: 'No dia de Natal de 800, quando Carlos Magno se levantava da oração diante do altar de São Pedro, em Roma, o papa Leão III pôs uma coroa em sua cabeça e a multidão o aclamou imperador dos romanos — o primeiro no Ocidente em mais de três séculos. Seu biógrafo Eginhardo garante que ele não teria posto os pés na igreja naquele dia se soubesse o que o papa pretendia.',
+      facts: [
+        'In the West the throne could be called empty. The emperor in Constantinople was a woman, Irene, who had taken power by blinding her own son, and many in the Latin church did not accept that a woman could hold the title.',
+        'The pope needed him. A year earlier Leo had been attacked in the streets of Rome by enemies who tried to put out his eyes and cut out his tongue, and he had fled to Charlemagne for protection. After the crowning, the annals say, the pope knelt before him, as popes once had before the emperors of old.',
+        'Constantinople took twelve years to accept it. Only in 812 did Byzantine envoys hail Charlemagne as emperor — and even then not as emperor of the Romans, a title Constantinople kept for its own ruler.'
+      ],
+      facts_pt: [
+        'No Ocidente, o trono podia ser dado como vago. Quem reinava em Constantinopla era uma mulher, Irene, que tomara o poder cegando o próprio filho, e muitos na Igreja latina não aceitavam que uma mulher ocupasse o título.',
+        'O papa precisava dele. Um ano antes, Leão fora atacado nas ruas de Roma por inimigos que tentaram lhe arrancar os olhos e a língua, e fugira para junto de Carlos Magno em busca de proteção. Depois da coroação, dizem os anais, o papa se ajoelhou diante dele, como os papas outrora diante dos antigos imperadores.',
+        'Constantinopla levou doze anos para aceitar. Só em 812 enviados bizantinos saudaram Carlos Magno como imperador — e mesmo assim não como imperador dos romanos, título que Constantinopla guardava para o seu soberano.'
+      ]
+    },
+    {
+      year: 1066,
+      title: 'The Cheers Sounded Like a Riot',
+      title_pt: 'Os Vivas Soaram Como um Motim',
+      era: 'Medieval',
+      region: 'London', region_pt: 'Londres',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On Christmas Day 1066, ten weeks after Hastings, William of Normandy was crowned king of England in Westminster Abbey. When the congregation was asked, in English and then in French, whether it accepted him, the shout was so loud that the Norman guards outside took it for an attack on their duke and began setting fire to the houses around the abbey. The church filled with smoke and most of the congregation ran out, leaving the clergy to finish crowning him almost alone.',
+      text_pt: 'No dia de Natal de 1066, dez semanas depois de Hastings, Guilherme da Normandia foi coroado rei da Inglaterra na Abadia de Westminster. Quando os presentes foram perguntados, em inglês e depois em francês, se o aceitavam, o grito foi tão alto que os guardas normandos do lado de fora o tomaram por um ataque ao seu duque e começaram a incendiar as casas em volta da abadia. A igreja se encheu de fumaça e a maior parte dos presentes fugiu, deixando o clero terminar a coroação quase sozinho.',
+      facts: [
+        'He was crowned by Ealdred, archbishop of York, and not by the archbishop of Canterbury, Stigand, whose appointment Rome had never accepted. A king anointed by a prelate the pope considered illegitimate would have handed his enemies an argument.',
+        'The abbey was almost new. Edward the Confessor had rebuilt it and seen it consecrated barely a year earlier, and was buried in it days later. By being crowned beside Edward’s tomb, William presented himself as his rightful heir — and every crowned English and British monarch since has been crowned in the same church.',
+        'The story of the fire comes from the monk Orderic Vitalis, writing some decades later. He adds that after that day the English never trusted the Normans again.'
+      ],
+      facts_pt: [
+        'Quem o coroou foi Ealdred, arcebispo de York, e não o arcebispo de Cantuária, Stigand, cuja nomeação Roma nunca aceitara. Um rei ungido por um prelado que o papa considerava ilegítimo daria um argumento aos seus inimigos.',
+        'A abadia era quase nova. Eduardo, o Confessor, a reconstruíra e a vira consagrada apenas um ano antes, e foi sepultado nela dias depois. Coroando-se ao lado do túmulo de Eduardo, Guilherme se apresentava como seu herdeiro legítimo — e todos os monarcas ingleses e britânicos coroados desde então o foram na mesma igreja.',
+        'A história do incêndio vem do monge Orderico Vital, que escreveu algumas décadas depois. Ele acrescenta que, depois daquele dia, os ingleses nunca mais confiaram nos normandos.'
+      ]
+    },
+    {
+      year: 1914,
+      title: 'The Truce Nobody Ordered',
+      title_pt: 'A Trégua Que Ninguém Ordenou',
+      era: 'Modern',
+      region: 'Western Front', region_pt: 'Frente Ocidental',
+      tag: 'War', tag_pt: 'Guerra',
+      text: 'On Christmas Day 1914, along stretches of the Western Front, British and German soldiers climbed out of their trenches, met in no man’s land, shook hands and swapped cigarettes, food and souvenirs. No one had ordered it. Weeks earlier the pope had asked for a Christmas ceasefire, and the warring governments had turned him down.',
+      text_pt: 'No dia de Natal de 1914, em trechos da Frente Ocidental, soldados britânicos e alemães saíram de suas trincheiras, encontraram-se na terra de ninguém, apertaram as mãos e trocaram cigarros, comida e lembranças. Ninguém dera essa ordem. Semanas antes, o papa pedira um cessar-fogo de Natal, e os governos em guerra o recusaram.',
+      facts: [
+        'It began on Christmas Eve. Germans put small trees lit with candles along their parapets and sang carols, and the British answered with their own from across the lines.',
+        'Many used the quiet to bury their dead, who had lain between the lines since the autumn battles, sometimes in services held together. Letters home describe games of football with makeshift balls, though the organised match of legend is much less certain.',
+        'It was never universal: in some sectors the shooting went on all day. In later Christmases of the war, commanders forbade fraternising, and nothing on the scale of 1914 happened again.'
+      ],
+      facts_pt: [
+        'Começou na véspera de Natal. Os alemães puseram pequenas árvores com velas acesas ao longo de seus parapeitos e cantaram canções de Natal, e os britânicos responderam com as suas do outro lado das linhas.',
+        'Muitos aproveitaram a calma para enterrar seus mortos, que jaziam entre as linhas desde as batalhas do outono, às vezes em cerimônias feitas em conjunto. Cartas para casa descrevem jogos de futebol com bolas improvisadas, embora a partida organizada da lenda seja bem menos certa.',
+        'Nunca foi geral: em alguns setores os tiros continuaram o dia inteiro. Nos Natais seguintes da guerra, os comandantes proibiram a confraternização, e nada na escala de 1914 voltou a acontecer.'
+      ]
+    },
+    {
+      year: 1991,
+      title: 'The Flag Came Down at 7:32',
+      title_pt: 'A Bandeira Desceu às 19h32',
+      era: 'Contemporary',
+      region: 'Moscow', region_pt: 'Moscou',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On the evening of 25 December 1991 Mikhail Gorbachev resigned as president of the Soviet Union in a televised address of about ten minutes. At 7:32 pm the red flag over the Kremlin was lowered and the Russian tricolour raised in its place. In Moscow it was an ordinary working day: the Russian Orthodox Church keeps Christmas on 7 January, and the Soviet state had not kept it at all.',
+      text_pt: 'Na noite de 25 de dezembro de 1991, Mikhail Gorbachev renunciou à presidência da União Soviética num pronunciamento de cerca de dez minutos na televisão. Às 19h32, a bandeira vermelha do Kremlin foi arriada e a tricolor russa, hasteada em seu lugar. Em Moscou era um dia comum de trabalho: a Igreja Ortodoxa Russa celebra o Natal em 7 de janeiro, e o Estado soviético não o celebrava de modo algum.',
+      facts: [
+        'By then he presided over almost nothing. On 8 December the leaders of Russia, Ukraine and Belarus had declared that the Soviet Union no longer existed, and on 21 December eleven republics confirmed it. The next day the Union’s last parliament voted it out of existence.',
+        'The nuclear briefcase, with the codes for the Soviet arsenal, passed to Boris Yeltsin, president of Russia, that same evening.',
+        'The Soviet state had replaced Christmas with New Year. After years in which Christmas trees were banned as religious, they came back in the 1930s as New Year trees, and the gifts and Grandfather Frost moved with them to the night of 31 December, where they still are in Russia.'
+      ],
+      facts_pt: [
+        'Àquela altura ele presidia quase nada. Em 8 de dezembro, os líderes da Rússia, da Ucrânia e da Bielorrússia haviam declarado que a União Soviética não existia mais, e em 21 de dezembro onze repúblicas o confirmaram. No dia seguinte, o último parlamento da União votou sua própria extinção.',
+        'A maleta nuclear, com os códigos do arsenal soviético, passou a Boris Iéltsin, presidente da Rússia, naquela mesma noite.',
+        'O Estado soviético trocara o Natal pelo Ano-Novo. Depois de anos em que as árvores de Natal foram proibidas por serem religiosas, elas voltaram nos anos 1930 como árvores de Ano-Novo, e os presentes e o Ded Moroz, o Avô Gelo, mudaram-se com elas para a noite de 31 de dezembro, onde continuam na Rússia.'
       ]
     }
   ]

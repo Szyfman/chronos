@@ -81,10 +81,10 @@ var DAILY_THEMES = {
   '10-19': ['Battle of Zama', 'Alexander the Great', 'Pyrrhus of Epirus', 'Hannibal Barca',
             'Scipio Africanus', 'Battle of Cannae', 'Carthaginian Empire'],
 
-  // Reformation Day and Halloween (Houdini died on 31 October 1926)
+  // Reformation Day and Halloween
   '10-31': ['Martin Luther\'s 95 Theses', 'Gutenberg Bible Printed', 'Martin Luther', 'Henry VIII',
-            'Council of Trent', 'Salem Witch Trials', 'Vlad III, the Impaler', 'Harry Houdini',
-            'Jack the Ripper Terrorizes London'],
+            'John Calvin', 'Council of Trent', 'Publication of the King James Bible',
+            'Salem Witch Trials', 'Vlad III, the Impaler'],
 
   // Checkpoint Charlie — Germany from unification to the Wall
   '11-09': ['Fall of the Berlin Wall', 'Otto von Bismarck', 'Treaty of Versailles',
