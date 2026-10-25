@@ -305,7 +305,7 @@ function endGame(won)
 - Seed: `YYYYMMDD` as integer (e.g., 20260409)
 - Uses seeded PRNG (mulberry32) for deterministic shuffle
 - Fixed deck: 18 cards from full pool (CARDS + INTERVALS)
-- Themed days: on an event trophy date or a day in `DAILY_THEMES` (src/dailythemes.js, MM-DD, 3–9 cards) the deck always holds those cards; the rest stays random
+- Themed days: on an event trophy date or a day in `DAILY_THEMES` (src/dailythemes.js, MM-DD yearly or YYYY-MM-DD one-off, 3–9 cards) the deck always holds those cards; the rest stays random
 - No hints, no skips
 - Stored in localStorage per day: `chronos_daily_YYYY-MM-DD`
 - Streak tracking: current streak, longest streak across all time

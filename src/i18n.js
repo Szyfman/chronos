@@ -28,7 +28,7 @@ en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review'
     tut_s4:'Use hints (💡) to reveal contextual clues about when an empire rose or fell.',
     tut_btn:"Let's go →",
     sub_empires_won:'All empires placed!',sub_empires_lost:'The ages crumble...',
-    biblical_lbl:'Biblical',mc_biblical_title:'Biblical',mc_biblical_desc:'Prophets, kings and sacred history.',mc_roman_desc:'Ancient Greece, Rome and Byzantium.',mc_eastern_desc:'Persia, China, India and Islam.',mc_back_desc:'Back to the main menu.',cultures_title:'Cultures',cultures_i_sub:'History Timeline Game',cultures_i_desc:'Explore history through the lens of specific civilizations and traditions.',mc_roman_title:'Greco-Roman',mc_eastern_title:'Eastern',mc_back_title:'Main Menu',mc_cultures_title:'Cultures',mc_cultures_desc:'Biblical, Greco-Roman &amp; Eastern modes.',
+    biblical_lbl:'Biblical',mc_biblical_title:'Biblical',mc_biblical_desc:'Prophets, kings and sacred history.',mc_roman_desc:'Ancient Greece, Rome and Byzantium.',mc_eastern_desc:'Persia, China, India and Islam.',mc_back_desc:'Back to the main menu.',cultures_title:'Cultures',cultures_i_sub:'History Timeline Game',cultures_i_desc:'Explore history through the lens of specific civilizations and traditions.',mc_roman_title:'Greco-Roman',mc_eastern_title:'Eastern',mc_back_title:'Main Menu',mc_cultures_title:'Cultures',mc_cultures_desc:'Biblical, Greco-Roman & Eastern modes.',
     characters_lbl:'People',mc_characters_title:'Characters',mc_characters_desc:'Order the greatest figures in history.',
     drag_label_characters:'Drag to place · tap cards to review',
     sub_characters_won:'Every great figure placed!',sub_characters_lost:'History fades from memory...',

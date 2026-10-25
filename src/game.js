@@ -99,13 +99,15 @@ function _dailySeedFor(date){
 function _dailySeed(){ return _dailySeedFor(new Date()); }
 // The cards a day's daily always holds: the card of an event trophy dated
 // that day (special 'card_on_date'), so every player gets a chance at it,
-// and the day's theme (DAILY_THEMES, dailythemes.js). Names only.
+// and the day's theme (DAILY_THEMES, dailythemes.js) — a one-off theme for
+// that exact date (YYYY-MM-DD) first, else the yearly one (MM-DD). Names only.
 function _dateCardNames(date){
   var names = [];
   TROPHY_DEFS.forEach(function(def){
     if(def.special === 'card_on_date' && def.month === date.getMonth()+1 && def.day === date.getDate()) names.push(def.card);
   });
-  var theme = (typeof DAILY_THEMES !== 'undefined' && DAILY_THEMES[_dailyCardKey(date)]) || [];
+  var themes = typeof DAILY_THEMES !== 'undefined' ? DAILY_THEMES : {};
+  var theme = themes[_dayStamp(date)] || themes[_dailyCardKey(date)] || [];
   theme.forEach(function(n){ if(names.indexOf(n) < 0) names.push(n); });
   return names;
 }
