@@ -32,6 +32,49 @@
 
 var DAILY_CARDS = {
 
+  '01-01': [
+    {
+      year: -45,
+      title: 'The Year Before Lasted 445 Days',
+      title_pt: 'O Ano Anterior Durou 445 Dias',
+      era: 'Classical',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Calendar', tag_pt: 'Calendário',
+      text: 'On 1 January 45 BCE Rome began to keep the calendar Julius Caesar had ordered with the help of the Alexandrian astronomer Sosigenes: 365 days, with one extra day every fourth year. Getting there had cost a year like no other. The old calendar had drifted so far from the seasons that 46 BCE was stretched to 445 days to pull the months back into place.',
+      text_pt: 'Em 1º de janeiro de 45 AEC, Roma passou a seguir o calendário que Júlio César encomendara com a ajuda do astrônomo alexandrino Sosígenes: 365 dias, com um dia a mais a cada quatro anos. Chegar até ali custara um ano como nenhum outro. O calendário antigo se afastara tanto das estações que 46 AEC foi esticado até 445 dias para devolver os meses ao lugar.',
+      facts: [
+        'The old year had 355 days, and the priests were supposed to insert an extra month when needed. They did it when it suited them — to lengthen a friend’s term in office or shorten an enemy’s — and during the civil wars hardly at all. The man in charge of the calendar, as chief priest, was Caesar himself.',
+        'It went wrong at once. After Caesar’s death the priests counted every fourth year inclusively, the Roman way, and added a leap day every three years. Augustus had to suspend leap years for a time, and the calendar only ran as designed from 8 CE.',
+        'Two months still carry the reform’s authors. Quintilis, the month of Caesar’s birth, was renamed Julius in his honour in 44 BCE, and Sextilis became Augustus in 8 BCE. The old names meant fifth and sixth, left over from a time when the Roman year began in March — which is also why September to December, named seventh to tenth, are the ninth to twelfth months.'
+      ],
+      facts_pt: [
+        'O ano antigo tinha 355 dias, e cabia aos sacerdotes inserir um mês extra quando necessário. Faziam isso quando lhes convinha — para alongar o mandato de um amigo ou encurtar o de um inimigo — e, durante as guerras civis, quase nunca. O responsável pelo calendário, como sumo sacerdote, era o próprio César.',
+        'Deu errado logo de saída. Depois da morte de César, os sacerdotes contaram o “a cada quatro anos” de modo inclusivo, à maneira romana, e acrescentaram um dia bissexto a cada três anos. Augusto teve de suspender os anos bissextos por um tempo, e o calendário só funcionou como planejado a partir de 8 EC.',
+        'Dois meses ainda levam os nomes dos autores da reforma. Quintilis, o mês do nascimento de César, passou a se chamar Julius em sua honra em 44 AEC, e Sextilis virou Augustus em 8 AEC. Os nomes antigos significavam quinto e sexto, resquício de um tempo em que o ano romano começava em março — e é por isso também que setembro a dezembro, chamados de sétimo a décimo, são o nono ao décimo segundo meses.'
+      ]
+    },
+    {
+      year: 1502,
+      title: 'There Is No River in Rio',
+      title_pt: 'Não Há Rio no Rio',
+      era: 'Renaissance',
+      region: 'Guanabara Bay', region_pt: 'Baía de Guanabara',
+      tag: 'Exploration', tag_pt: 'Exploração',
+      text: 'On 1 January 1502 a Portuguese fleet exploring the coast of Brazil sailed into a vast bay ringed by granite peaks and named it Rio de Janeiro, the River of January. No river reaches the sea there: the city that grew on its shore is named after a bay. The popular explanation — that the sailors mistook the narrow entrance for the mouth of a river — is doubtful, since the word rio was then used loosely for any large inlet of water.',
+      text_pt: 'Em 1º de janeiro de 1502, uma frota portuguesa que explorava a costa do Brasil entrou numa baía enorme cercada de picos de granito e a batizou de Rio de Janeiro. Nenhum rio deságua ali: a cidade que cresceu em suas margens tem o nome de uma baía. A explicação popular — a de que os marinheiros confundiram a entrada estreita com a foz de um rio — é duvidosa, já que a palavra rio era usada então, de modo frouxo, para qualquer grande braço de água.',
+      facts: [
+        'Who led the fleet is disputed — Gonçalo Coelho or Gaspar de Lemos — and so is whether Amerigo Vespucci was aboard. Vespucci’s letters about these voyages were read across Europe, and in 1507 a German mapmaker put the name America on the new continent in his honour.',
+        'The bay kept its own name. The Tupi who lived on its shores called it Guanabara, and the name the Portuguese gave the water ended up belonging to the city instead.',
+        'The city came sixty-three years later. The Portuguese did not settle the bay until the French had planted a colony in it, and Rio was founded on 1 March 1565 as São Sebastião do Rio de Janeiro, after the saint and the boy king Sebastian of Portugal.'
+      ],
+      facts_pt: [
+        'Quem comandava a frota é discutido — Gonçalo Coelho ou Gaspar de Lemos —, assim como se Américo Vespúcio estava a bordo. As cartas de Vespúcio sobre essas viagens foram lidas por toda a Europa, e em 1507 um cartógrafo alemão pôs o nome América no novo continente em sua homenagem.',
+        'A baía guardou o próprio nome. Os tupis que viviam em suas margens a chamavam de Guanabara, e o nome que os portugueses deram às águas acabou pertencendo à cidade.',
+        'A cidade veio sessenta e três anos depois. Os portugueses só ocuparam a baía depois que os franceses instalaram nela uma colônia, e o Rio foi fundado em 1º de março de 1565 como São Sebastião do Rio de Janeiro, em honra ao santo e ao jovem rei Sebastião de Portugal.'
+      ]
+    }
+  ],
+
   '03-15': [
     {
       year: -44,
@@ -52,6 +95,49 @@ var DAILY_CARDS = {
         'A conspiração foi liderada por Marco Júnio Bruto e Caio Cássio Longino.',
         'Suetônio contou 23 ferimentos, apenas um deles fatal.',
         'As guerras civis seguintes terminaram com Otaviano, herdeiro de César, como primeiro imperador romano.'
+      ]
+    }
+  ],
+
+  '04-21': [
+    {
+      year: -753,
+      title: 'Rome Was Born at a Shepherds’ Festival',
+      title_pt: 'Roma Nasceu Numa Festa de Pastores',
+      era: 'Ancient',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Founding', tag_pt: 'Fundação',
+      text: 'By the traditional reckoning, Romulus founded Rome on 21 April 753 BCE, ploughing a furrow around the Palatine Hill to mark the sacred boundary of his city. The day was already a festival — the Parilia, when shepherds purified their flocks and leapt over bonfires in honour of Pales, a god of herds — and Rome kept its birthday on it ever after.',
+      text_pt: 'Pela contagem tradicional, Rômulo fundou Roma em 21 de abril de 753 AEC, abrindo com o arado um sulco em volta do monte Palatino para marcar o limite sagrado de sua cidade. O dia já era uma festa — a Parília, quando os pastores purificavam os rebanhos e saltavam sobre fogueiras em honra de Pales, divindade dos rebanhos — e Roma passou a celebrar nele seu aniversário para sempre.',
+      facts: [
+        'The year was worked out centuries later, and Roman writers disagreed by decades: Fabius Pictor put the founding in 748 BCE and Cato in 751. The date that won was the one fixed by the scholar Varro, who even had an astrologer cast Romulus’s horoscope.',
+        'The Romans themselves rarely counted years from the founding. They named each year after its two consuls, and numbering years ab urbe condita, from the founding of the city, is mostly a convenience of later historians.',
+        'Rome still celebrates. In 121 CE Hadrian chose the city’s birthday to begin his Temple of Venus and Rome, the largest temple in the city, and every 21 April the Natale di Roma fills the streets with parades in Roman costume.'
+      ],
+      facts_pt: [
+        'O ano foi calculado séculos depois, e os escritores romanos discordavam por décadas: Fábio Pictor punha a fundação em 748 AEC e Catão em 751. A data que venceu foi a fixada pelo erudito Varrão, que chegou a mandar um astrólogo levantar o horóscopo de Rômulo.',
+        'Os próprios romanos raramente contavam os anos a partir da fundação. Davam a cada ano o nome de seus dois cônsules, e numerar os anos ab urbe condita, desde a fundação da cidade, é sobretudo uma conveniência de historiadores posteriores.',
+        'Roma ainda comemora. Em 121 EC, Adriano escolheu o aniversário da cidade para iniciar seu Templo de Vênus e Roma, o maior templo da cidade, e todo 21 de abril o Natale di Roma enche as ruas de desfiles em trajes romanos.'
+      ]
+    },
+    {
+      year: 1960,
+      title: 'Born on Tiradentes Day',
+      title_pt: 'Nascida no Dia de Tiradentes',
+      era: 'Contemporary',
+      region: 'Brasília', region_pt: 'Brasília',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On 21 April 1960 President Juscelino Kubitschek inaugurated Brasília, a capital raised from empty savannah on the central plateau in about forty-one months. The date was chosen on purpose: it was the anniversary of the execution of Tiradentes. The idea was far older than the city — Brazil’s first republican constitution, in 1891, had already reserved land for a new capital in the interior.',
+      text_pt: 'Em 21 de abril de 1960, o presidente Juscelino Kubitschek inaugurou Brasília, uma capital erguida no cerrado vazio do Planalto Central em cerca de quarenta e um meses. A data foi escolhida de propósito: era o aniversário da execução de Tiradentes. A ideia era muito mais velha que a cidade — a primeira Constituição republicana do Brasil, de 1891, já reservava terras no interior para uma nova capital.',
+      facts: [
+        'The name is older still. José Bonifácio, the statesman of independence, proposed moving the capital inland in 1823 and suggested calling it Brasília.',
+        'The plan won a competition in 1957 with a short report and a few freehand sketches by Lúcio Costa. He described it as two axes crossing at right angles — the sign of the cross, the gesture of someone taking possession of a place. The resemblance to an aeroplane came later, from the shape the plan took.',
+        'It opened unfinished. Tens of thousands of workers, the candangos, many of them from the Northeast, had built it in shifts around the clock, and for years afterwards much of the government still worked from Rio. Kubitschek had campaigned on fifty years of progress in five.'
+      ],
+      facts_pt: [
+        'O nome é ainda mais antigo. José Bonifácio, o estadista da independência, propôs levar a capital para o interior em 1823 e sugeriu chamá-la de Brasília.',
+        'O plano venceu um concurso em 1957 com um relatório curto e alguns esboços à mão livre de Lúcio Costa. Ele o descreveu como dois eixos cruzando-se em ângulo reto — o sinal da cruz, o gesto de quem toma posse de um lugar. A semelhança com um avião veio depois, da forma que o plano tomou.',
+        'Foi inaugurada inacabada. Dezenas de milhares de operários, os candangos, muitos vindos do Nordeste, a construíram em turnos dia e noite, e por anos boa parte do governo continuou trabalhando no Rio. Kubitschek fizera campanha com a promessa de cinquenta anos de progresso em cinco.'
       ]
     }
   ],
@@ -2911,6 +2997,593 @@ var DAILY_CARDS = {
         'O porta-voz, Günter Schabowski, não havia sido informado de que a regra só valeria a partir do dia seguinte.',
         'Bornholmer Straße foi a primeira passagem a ceder, no fim daquela noite.',
         'O muro dividia a cidade havia 28 anos.'
+      ]
+    }
+  ],
+
+  '11-10': [
+    {
+      year: 1444,
+      title: 'The Oath They Told Him to Break',
+      title_pt: 'O Juramento que Mandaram Ele Quebrar',
+      era: 'Medieval',
+      region: 'Bulgaria', region_pt: 'Bulgária',
+      tag: 'Crusades', tag_pt: 'Cruzadas',
+      text: 'On 10 November 1444 a crusading army met Sultan Murad II outside Varna, on the Bulgarian coast of the Black Sea, and was destroyed. Władysław III — king of Poland and, as Ulászló I, king of Hungary — was twenty years old. He charged the sultan’s guard hoping to end the battle at a stroke, was cut down, and his body was never recovered. The crusade had marched that September in breach of a ten-year truce sworn weeks earlier, and after Varna nobody seriously tried to push the Ottomans out of the Balkans again.',
+      text_pt: 'Em 10 de novembro de 1444, um exército cruzado enfrentou o sultão Murad II diante de Varna, na costa búlgara do Mar Negro, e foi destruído. Ladislau III — rei da Polônia e, como Ulászló I, rei da Hungria — tinha vinte anos. Atacou a guarda do sultão na esperança de encerrar a batalha de um golpe só, foi abatido, e seu corpo nunca foi recuperado. A cruzada havia marchado em setembro rompendo uma trégua de dez anos jurada poucas semanas antes, e depois de Varna ninguém mais tentou a sério expulsar os otomanos dos Bálcãs.',
+      facts: [
+        'The truce was sworn on both holy books. At Szeged that summer the king swore the ten-year peace on the Gospels and Murad swore it on the Qur’an. Then word came that a papal and Venetian fleet would hold the straits, the campaign began to look cheap, and the papal legate Cardinal Julian Cesarini argued that an oath given to an infidel did not bind a Christian king and released him from it. Cesarini died in the rout he had talked them into.',
+        'Murad was not supposed to be there. He had stepped down that August in favour of his twelve-year-old son Mehmed and retired to Anatolia — which is precisely why the crusade was launched. His viziers called the father back to take command at Varna. The boy returned to the throne for good in 1451 and took Constantinople two years after that.',
+        'Hungary would not bury a king it could not find. The Diet waited, set a deadline for his return, and only then moved on; pretenders turned up for decades, and one stubborn legend has him surviving in secret as a knight on Madeira. The sarcophagus made for him at Wawel Cathedral in Kraków in 1906 is empty.'
+      ],
+      facts_pt: [
+        'A trégua foi jurada sobre os dois livros sagrados. Em Szeged, naquele verão, o rei jurou a paz de dez anos sobre os Evangelhos e Murad jurou sobre o Alcorão. Então chegou a notícia de que uma frota papal e veneziana bloquearia os estreitos, a campanha passou a parecer barata, e o legado papal, o cardeal Juliano Cesarini, argumentou que juramento feito a um infiel não obriga um rei cristão e o desobrigou dele. Cesarini morreu na derrota para a qual os convencera.',
+        'Murad não deveria estar ali. Ele havia se afastado em agosto em favor do filho de doze anos, Mehmed, e se recolhido à Anatólia — e foi exatamente por isso que a cruzada partiu. Seus vizires chamaram o pai de volta para comandar em Varna. O menino voltou ao trono em definitivo em 1451 e tomou Constantinopla dois anos depois.',
+        'A Hungria não quis enterrar um rei que não conseguia achar. A Dieta esperou, fixou um prazo para seu retorno e só então seguiu adiante; pretendentes apareceram por décadas, e uma lenda teimosa o faz sobreviver em segredo como cavaleiro na Madeira. O sarcófago feito para ele na Catedral de Wawel, em Cracóvia, em 1906, está vazio.'
+      ]
+    }
+  ],
+
+  '11-11': [
+    {
+      year: 1918,
+      title: 'He Never Said the Word',
+      title_pt: 'Ele Nunca Disse a Palavra',
+      era: 'Modern',
+      region: 'Austria', region_pt: 'Áustria',
+      tag: 'Abdication', tag_pt: 'Abdicação',
+      text: 'On 11 November 1918, at Schönbrunn Palace in Vienna, Emperor Charles I signed a declaration renouncing every part in the affairs of state and accepting in advance whatever form of government German-Austria chose for itself. The wording was lawyers’ work and exact: it was not an abdication, and he refused for the rest of his life to call it one. The republic was proclaimed the next day. That same morning, in a railway carriage in a French forest, the guns of the Western Front had been ordered to fall silent at eleven o’clock.',
+      text_pt: 'Em 11 de novembro de 1918, no Palácio de Schönbrunn, em Viena, o imperador Carlos I assinou uma declaração renunciando a toda participação nos negócios de Estado e aceitando de antemão a forma de governo que a Áustria alemã escolhesse para si. A redação era obra de advogados e era exata: não era uma abdicação, e ele se recusou pelo resto da vida a chamá-la assim. A república foi proclamada no dia seguinte. Naquela mesma manhã, num vagão de trem dentro de uma floresta francesa, os canhões da Frente Ocidental haviam recebido ordem de silenciar às onze horas.',
+      facts: [
+        'The verb was the whole point. The text had him renounce “every participation in the affairs of state”, never the throne, so that the Habsburg claim would outlive the empire. He signed a near-identical declaration for Hungary two days later and went on insisting he was the lawful emperor and king.',
+        'His own war had ended a week before. Austria-Hungary signed its armistice at Villa Giusti, near Padua, on 3 November, and the shooting there stopped on the 4th. By the 11th the empire had already come apart: Czechoslovakia, the state of the Serbs, Croats and Slovenes, and Poland had all declared themselves while the imperial government still existed on paper.',
+        'He tried twice to take Hungary back, in March and October 1921, the second time arriving by aeroplane. Both attempts collapsed, parliament formally deposed his house, and the Allies shipped him to Madeira. He died there of pneumonia in April 1922, aged thirty-four, in a house the family could not afford to heat. The Catholic Church beatified him in 2004.'
+      ],
+      facts_pt: [
+        'O verbo era tudo. O texto o fazia renunciar a “toda participação nos negócios de Estado”, jamais ao trono, para que a pretensão dos Habsburgo sobrevivesse ao império. Dois dias depois ele assinou uma declaração quase idêntica para a Hungria, e seguiu afirmando ser o imperador e rei legítimo.',
+        'A guerra dele havia acabado uma semana antes. A Áustria-Hungria assinou seu armistício em Villa Giusti, perto de Pádua, em 3 de novembro, e os tiros cessaram ali no dia 4. No dia 11, o império já se desfizera: Tchecoslováquia, o Estado dos Sérvios, Croatas e Eslovenos e a Polônia haviam se declarado enquanto o governo imperial ainda existia no papel.',
+        'Ele tentou duas vezes retomar a Hungria, em março e em outubro de 1921, na segunda chegando de avião. As duas tentativas fracassaram, o parlamento depôs formalmente sua casa, e os Aliados o embarcaram para a Madeira. Morreu lá de pneumonia em abril de 1922, aos trinta e quatro anos, numa casa que a família não tinha como aquecer. A Igreja Católica o beatificou em 2004.'
+      ]
+    }
+  ],
+
+  '11-12': [
+    {
+      year: 954,
+      title: 'The Boy and His Kingmaker',
+      title_pt: 'O Menino e Seu Fazedor de Reis',
+      era: 'Medieval',
+      region: 'France', region_pt: 'França',
+      tag: 'Dynasty', tag_pt: 'Dinastia',
+      text: 'On 12 November 954, at the abbey of Saint-Remi in Reims, a thirteen-year-old was crowned king of the West Franks. Lothair, son of Louis IV, inherited a title that still read Carolingian and a kingdom that no longer behaved like one: the great counts and dukes ran their own lands, and the king ran little beyond Laon. He was lifted onto the throne by Hugh the Great, duke of the Franks and the most powerful man in the realm — whose son would one day take the crown from Lothair’s son.',
+      text_pt: 'Em 12 de novembro de 954, na abadia de Saint-Remi, em Reims, um menino de treze anos foi coroado rei dos francos do Oeste. Lotário, filho de Luís IV, herdou um título que ainda dizia carolíngio e um reino que já não se comportava como tal: os grandes condes e duques mandavam em suas próprias terras, e o rei mandava em pouco além de Laon. Quem o pôs no trono foi Hugo, o Grande, duque dos francos e o homem mais poderoso do reino — cujo filho um dia tomaria a coroa do filho de Lotário.',
+      facts: [
+        'Hugh the Great backed a boy because a boy was convenient, and died two years later. His son, Hugh Capet, was elected king in 987, after Lothair’s son Louis V reigned barely a year and died at about twenty from a fall while hunting. Three centuries of Carolingian kings ended with that election, and the Capetians and their branches held France until 1848.',
+        'Reims made kings. The abbey held the tomb of Saint Remigius, who had baptised Clovis in that city around the year 500, and the phial of chrism that legend said a dove had brought down from heaven for the baptism. French kings were anointed from it for eight centuries, until it was smashed in public in a Reims square in 1793.',
+        'The crown had almost nothing under it. Lothair reigned thirty-two years and spent them trying to win back Lotharingia, the middle kingdom carved out of Charlemagne’s empire in 843, and gained nothing by it; by the end the royal lands came to Laon and a few estates around it. He was the last Carolingian to reign a whole lifetime, and what he handed his son was a title worth more in the chancery than in the field.'
+      ],
+      facts_pt: [
+        'Hugo, o Grande, apoiou um menino porque um menino era conveniente, e morreu dois anos depois. Seu filho, Hugo Capeto, foi eleito rei em 987, depois que o filho de Lotário, Luís V, reinou pouco mais de um ano e morreu por volta dos vinte, de uma queda numa caçada. Três séculos de reis carolíngios terminaram naquela eleição, e os capetíngios e seus ramos ficaram com a França até 1848.',
+        'Reims fazia reis. A abadia guardava o túmulo de São Remígio, que batizara Clóvis naquela cidade por volta do ano 500, e a ampola de crisma que a lenda dizia ter sido trazida do céu por uma pomba para aquele batismo. Os reis da França foram ungidos com ela por oito séculos, até que fosse quebrada em público numa praça de Reims, em 1793.',
+        'A coroa tinha quase nada por baixo. Lotário reinou trinta e dois anos e os gastou tentando reconquistar a Lotaríngia, o reino do meio recortado do império de Carlos Magno em 843, e não ganhou nada com isso; no fim, as terras reais se resumiam a Laon e a algumas propriedades em volta. Foi o último carolíngio a reinar uma vida inteira, e o que entregou ao filho foi um título que valia mais na chancelaria do que no campo.'
+      ]
+    }
+  ],
+
+  '11-13': [
+    {
+      year: 1833,
+      title: 'The Night the Stars Fell',
+      title_pt: 'A Noite em que as Estrelas Caíram',
+      era: 'Modern',
+      region: 'North America', region_pt: 'América do Norte',
+      tag: 'Astronomy', tag_pt: 'Astronomia',
+      text: 'In the small hours of 13 November 1833 the sky over North America filled with meteors — tens of thousands an hour at the peak, thick enough that witnesses reached for the word snow. Church bells were rung, families prayed in the streets, and a great many people were certain the day of judgement had arrived. It was the Leonid shower at storm strength, and the fright of that night produced the first real science of meteors.',
+      text_pt: 'Na madrugada de 13 de novembro de 1833, o céu da América do Norte se encheu de meteoros — dezenas de milhares por hora no auge, densos a ponto de as testemunhas recorrerem à palavra neve. Sinos de igreja foram tocados, famílias rezaram na rua, e muita gente teve certeza de que chegara o dia do juízo. Era a chuva das Leônidas em força de tempestade, e o susto daquela noite produziu a primeira ciência de verdade sobre meteoros.',
+      facts: [
+        'Denison Olmsted, at Yale, asked anyone who had seen it to write to him, and the letters settled the question. Every trail pointed back to a single spot in the constellation Leo, and that spot travelled across the night with the stars rather than staying fixed over the ground. Whatever the meteors were, they came from a fixed direction outside the atmosphere. Shooting stars stopped being weather.',
+        'People with no papers used the night as a date. For decades afterwards, formerly enslaved men and women in the United States reckoned births and sales from “the night the stars fell”, and Lakota winter counts drew that year as stars dropping over a lodge. The phrase came back a century later as the title of a book about Alabama, and later still on the state’s licence plates.',
+        'It is on a timetable. Earth crosses the dust of comet Tempel–Tuttle every November, and roughly every thirty-three years, when the comet has just come round, it crosses the thickest part of the trail: 1833, then 1866, then 1966, when observers in the American south-west were counting dozens of meteors a second.'
+      ],
+      facts_pt: [
+        'Denison Olmsted, em Yale, pediu que todos os que tivessem visto lhe escrevessem, e as cartas resolveram a questão. Todos os rastros apontavam de volta para um único ponto na constelação de Leão, e esse ponto atravessava a noite junto com as estrelas, em vez de ficar parado sobre o chão. Fossem o que fossem, os meteoros vinham de uma direção fixa fora da atmosfera. As estrelas cadentes deixaram de ser assunto de meteorologia.',
+        'Gente sem documento usou aquela noite como data. Por décadas, homens e mulheres que haviam sido escravizados nos Estados Unidos contavam nascimentos e vendas a partir da “noite em que as estrelas caíram”, e as contagens de inverno lakota desenharam aquele ano como estrelas despencando sobre uma tenda. A frase voltou um século depois como título de um livro sobre o Alabama, e mais tarde ainda nas placas de carro do estado.',
+        'Tem hora marcada. A Terra cruza a poeira do cometa Tempel–Tuttle todo mês de novembro e, mais ou menos a cada trinta e três anos, quando o cometa acabou de passar, atravessa a parte mais densa do rastro: 1833, depois 1866, depois 1966, quando observadores no sudoeste americano contavam dezenas de meteoros por segundo.'
+      ]
+    }
+  ],
+
+  '11-14': [
+    {
+      year: -332,
+      title: 'Egypt Did Not Fight Him',
+      title_pt: 'O Egito Não Lutou Contra Ele',
+      era: 'Classical',
+      region: 'Egypt', region_pt: 'Egito',
+      tag: 'Coronation', tag_pt: 'Coroação',
+      text: 'On 14 November 332 BCE, by the date usually given, Alexander the Great was made pharaoh at Memphis. Egypt had not resisted him: the Persian governor handed the country over without a battle, and the priests received the Macedonian as a deliverance from the Persians, who had taken Egypt twice and were remembered for it. He sacrificed to the Apis bull, held Greek games in the old capital, and accepted the titles of a king descended from gods.',
+      text_pt: 'Em 14 de novembro de 332 AEC, pela data geralmente aceita, Alexandre, o Grande, foi feito faraó em Mênfis. O Egito não resistiu: o governador persa entregou o país sem batalha, e os sacerdotes receberam o macedônio como libertação dos persas, que haviam tomado o Egito duas vezes e eram lembrados por isso. Ele sacrificou ao touro Ápis, promoveu jogos gregos na antiga capital e aceitou os títulos de um rei descendente de deuses.',
+      facts: [
+        'The crowning is better attested in Egypt than in the Greek books. Arrian, the soberest source, says only that he sacrificed and held games; the full coronation scene comes from the much later and much looser Alexander Romance. Egyptian stone settled it anyway: at Luxor the shrine of the sacred barque was rebuilt in his name, with reliefs showing him in pharaonic dress making offerings to Amun.',
+        'The bull was the message. Egyptian tradition held that Persian kings had struck down the sacred Apis bull of Memphis — Cambyses in one story, Artaxerxes III in another — so sacrificing to Apis said, in the local language, exactly whose side he was on. A few months later he rode out to the oracle of Amun at the Siwa oasis, deep in the desert, and came back letting it be understood that the god had greeted him as a son.',
+        'Egypt was the piece of the conquest that lasted. Alexander died at Babylon in 323, and his general Ptolemy hijacked the funeral cortège on the road and kept the body. The dynasty Ptolemy founded ruled from Alexandria for nearly three centuries, down to Cleopatra VII — so the last pharaohs of Egypt spoke Greek, and only the last of them is said to have bothered to learn Egyptian.'
+      ],
+      facts_pt: [
+        'A coroação está mais bem documentada no Egito do que nos livros gregos. Arriano, a fonte mais sóbria, diz apenas que ele sacrificou e promoveu jogos; a cena completa da coroação vem do bem mais tardio e bem mais frouxo Romance de Alexandre. A pedra egípcia resolveu o assunto de todo jeito: em Luxor, o santuário da barca sagrada foi reconstruído em nome dele, com relevos que o mostram em trajes de faraó fazendo oferendas a Amon.',
+        'O touro era o recado. A tradição egípcia sustentava que reis persas haviam abatido o touro sagrado Ápis, de Mênfis — Cambises numa versão, Artaxerxes III noutra —, de modo que sacrificar a Ápis dizia, na língua local, exatamente de que lado ele estava. Poucos meses depois ele cavalgou até o oráculo de Amon no oásis de Siuá, no fundo do deserto, e voltou deixando entender que o deus o saudara como filho.',
+        'O Egito foi a parte da conquista que durou. Alexandre morreu na Babilônia em 323, e seu general Ptolomeu sequestrou o cortejo fúnebre na estrada e ficou com o corpo. A dinastia que Ptolomeu fundou governou de Alexandria por quase três séculos, até Cleópatra VII — de modo que os últimos faraós do Egito falavam grego, e só a última deles teria se dado ao trabalho de aprender egípcio.'
+      ]
+    }
+  ],
+
+  '11-15': [
+    {
+      year: 1533,
+      title: 'A Year Less a Day',
+      title_pt: 'Um Ano Menos um Dia',
+      era: 'Renaissance',
+      region: 'Peru', region_pt: 'Peru',
+      tag: 'Conquest', tag_pt: 'Conquista',
+      text: 'On 15 November 1533 Francisco Pizarro rode into Cuzco, the capital of the Inca empire, one year less a day after his men had seized the emperor Atahualpa in the square at Cajamarca. In between, Atahualpa had filled a room with gold for his ransom and been killed anyway. Pizarro did not storm the city: he entered it beside a prince of the royal house he meant to crown as his own Inca, and the Spaniards spent their first weeks there stripping the gold off the walls.',
+      text_pt: 'Em 15 de novembro de 1533, Francisco Pizarro entrou em Cusco, capital do império inca, um ano menos um dia depois de seus homens capturarem o imperador Atahualpa na praça de Cajamarca. No intervalo, Atahualpa encheu um cômodo de ouro como resgate e foi morto mesmo assim. Pizarro não tomou a cidade de assalto: entrou nela ao lado de um príncipe da casa real que pretendia coroar como seu próprio inca, e os espanhóis passaram as primeiras semanas ali arrancando o ouro das paredes.',
+      facts: [
+        'The empire was already fighting itself. Smallpox had run down the continent ahead of the Spaniards and killed the emperor Huayna Capac around 1527 along with his heir, and the war between his sons Atahualpa and Huáscar had only just ended when Pizarro landed with fewer than two hundred men. The ruler he captured had held power for a matter of months.',
+        'The ransom was paid. Atahualpa offered to fill a room once with gold and twice over with silver, and it was delivered and melted into bars — something over six tonnes of gold. He was tried and garrotted in 1533 regardless. Even in Spain the execution was thought indefensible, and the king wrote to Pizarro to say so.',
+        'Cuzco outlasted what was built on top of it. The Spaniards put a church over the sun temple of Coricancha and laid their own town on Inca foundations. When earthquakes flattened colonial Cuzco in 1650 and again in 1950, the Inca walls underneath were still standing, and those stones still hold up the streets.'
+      ],
+      facts_pt: [
+        'O império já lutava contra si mesmo. A varíola descera o continente à frente dos espanhóis e matara o imperador Huayna Capac por volta de 1527, junto com seu herdeiro, e a guerra entre os filhos dele, Atahualpa e Huáscar, mal havia terminado quando Pizarro desembarcou com menos de duzentos homens. O soberano que ele capturou estava no poder havia poucos meses.',
+        'O resgate foi pago. Atahualpa ofereceu encher um cômodo uma vez de ouro e duas de prata, e a oferta foi cumprida e derretida em barras — algo acima de seis toneladas de ouro. Ele foi julgado e garroteado em 1533 assim mesmo. Até na Espanha a execução foi considerada indefensável, e o rei escreveu a Pizarro para dizer isso.',
+        'Cusco sobreviveu ao que construíram em cima dela. Os espanhóis puseram uma igreja sobre o templo do sol de Coricancha e assentaram sua própria cidade em alicerces incas. Quando os terremotos derrubaram a Cusco colonial em 1650 e de novo em 1950, as muralhas incas de baixo continuavam de pé, e aquelas pedras ainda sustentam as ruas.'
+      ]
+    },
+    {
+      year: 1889,
+      pin: true,
+      title: 'The People Watched It Dumbfounded',
+      title_pt: 'O Povo Assistiu Bestializado',
+      era: 'Modern',
+      region: 'Rio de Janeiro', region_pt: 'Rio de Janeiro',
+      tag: 'Republic', tag_pt: 'República',
+      text: 'On the morning of 15 November 1889, Marshal Deodoro da Fonseca rode into the army headquarters at Campo de Santana in Rio de Janeiro at the head of rebel troops, and by the end of the day Brazil had stopped being an empire. Pedro II — emperor since he was five, and ruling in his own name for forty-nine years — was told to leave the country and sailed two days later; he died in a Paris hotel two years after that. There was no battle and almost no crowd. The republic was made by soldiers, in front of soldiers.',
+      text_pt: 'Na manhã de 15 de novembro de 1889, o marechal Deodoro da Fonseca entrou no quartel-general do Exército, no Campo de Santana, no Rio de Janeiro, à frente das tropas rebeladas, e ao fim do dia o Brasil havia deixado de ser um império. Pedro II — imperador desde os cinco anos e governando em seu próprio nome havia quarenta e nove — foi informado de que devia deixar o país e embarcou dois dias depois; morreria num hotel de Paris dois anos mais tarde. Não houve batalha nem quase público. A república foi feita por militares, diante de militares.',
+      facts: [
+        'The line everyone quotes came from a republican. Aristides Lobo, who became a minister in the new government, wrote that the people had watched it “dumbfounded, astonished, surprised, without knowing what it meant”. Even Deodoro’s intention is still argued over: he rode out that morning against the prime minister, the Viscount of Ouro Preto, and the republic was proclaimed later in the day by other men.',
+        'The army had been quarrelling with the civilian cabinets for years over discipline and the right of officers to speak in public, and the young officers coming out of the military school had been taught positivism and republicanism by Benjamin Constant. The landowners who had carried the empire had meanwhile stopped defending it: nobody had paid them a cent for the people freed in May 1888.',
+        'The flag was not yet the flag. For four days Brazil flew a republican banner of green and yellow stripes with a blue canton, near enough to the flag of the United States to be a statement in itself. It was dropped on 19 November for the one still in use, which kept the imperial green and gold, wrote Order and Progress across it from the positivists, and set in the blue circle the sky over Rio exactly as it stood on the morning of the 15th.'
+      ],
+      facts_pt: [
+        'A frase que todo mundo cita saiu de um republicano. Aristides Lobo, que virou ministro do novo governo, escreveu que o povo assistira àquilo “bestializado, atônito, surpreso, sem conhecer o que significava”. Até a intenção de Deodoro ainda é discutida: ele saiu naquela manhã contra o presidente do Conselho, o visconde de Ouro Preto, e a república foi proclamada mais tarde no mesmo dia por outros homens.',
+        'O Exército vinha brigando havia anos com os gabinetes civis por disciplina e pelo direito dos oficiais de se manifestarem em público, e os jovens oficiais que saíam da Escola Militar tinham aprendido positivismo e republicanismo com Benjamin Constant. Os proprietários de terra que haviam sustentado o império, por sua vez, tinham parado de defendê-lo: ninguém lhes pagara um centavo pelas pessoas libertadas em maio de 1888.',
+        'A bandeira ainda não era a bandeira. Por quatro dias o Brasil hasteou um estandarte republicano de listras verdes e amarelas com um retângulo azul, parecido o bastante com a bandeira dos Estados Unidos para ser uma declaração por si só. Foi abandonado em 19 de novembro pelo que se usa até hoje, que manteve o verde e o ouro imperiais, escreveu nele o Ordem e Progresso dos positivistas e pôs no círculo azul o céu do Rio exatamente como estava na manhã do dia 15.'
+      ]
+    }
+  ],
+
+  '11-16': [
+    {
+      year: 1938,
+      title: 'It Sat on the Shelf for Five Years',
+      title_pt: 'Ficou Cinco Anos na Prateleira',
+      era: 'Modern',
+      region: 'Switzerland', region_pt: 'Suíça',
+      tag: 'Chemistry', tag_pt: 'Química',
+      text: 'On 16 November 1938, in the Sandoz laboratories in Basel, the chemist Albert Hofmann made a compound he logged as LSD-25: the twenty-fifth in a series he was building out of lysergic acid, the core of the alkaloids of ergot, a fungus that grows on rye. He was looking for a circulatory stimulant. The animal tests turned up nothing worth chasing, beyond a note that the animals became restless, and the substance was put away.',
+      text_pt: 'Em 16 de novembro de 1938, nos laboratórios Sandoz, na Basileia, o químico Albert Hofmann produziu um composto que registrou como LSD-25: o vigésimo quinto de uma série que vinha montando a partir do ácido lisérgico, o núcleo dos alcaloides do esporão-do-centeio, um fungo que cresce no centeio. Ele procurava um estimulante circulatório. Os testes em animais não revelaram nada que valesse perseguir, além de uma anotação de que os bichos ficavam inquietos, e a substância foi guardada.',
+      facts: [
+        'He went back to it on a hunch. In April 1943 Hofmann made LSD-25 again because, he wrote, a peculiar presentiment told him it deserved another look. He absorbed a trace through his fingertips and had to go home. Three days later, on 19 April, he deliberately swallowed 250 micrograms — what he took to be the smallest dose that could possibly do anything, and about ten times a threshold dose — and rode his bicycle home across Basel with his assistant riding beside him.',
+        'The raw material has an ugly history. Ergot poisons rye in wet years, and medieval outbreaks burned through whole districts with gangrene, convulsions and visions: Saint Anthony’s fire. The same chemistry was being mined in the 1930s for serious drugs — to stop bleeding after childbirth, and to treat migraine.',
+        'Sandoz sold it. From 1947 the company marketed LSD as Delysid, supplied to researchers for psychiatry and for the training of therapists, and well over a thousand papers were published before it left the clinics for the street and was banned in the 1960s. Hofmann, who lived to 102, called his memoir of it My Problem Child, and complained that the ban had stopped the research along with the parties.'
+      ],
+      facts_pt: [
+        'Ele voltou ao composto por um palpite. Em abril de 1943, Hofmann sintetizou o LSD-25 de novo porque, escreveu, um pressentimento peculiar lhe dizia que aquilo merecia outra olhada. Absorveu um traço pelas pontas dos dedos e teve de ir para casa. Três dias depois, em 19 de abril, engoliu de propósito 250 microgramas — o que supunha ser a menor dose capaz de surtir algum efeito, e cerca de dez vezes a dose mínima real — e pedalou de bicicleta até em casa, atravessando a Basileia com o assistente ao lado.',
+        'A matéria-prima tem uma história feia. O esporão envenena o centeio em anos úmidos, e surtos medievais varreram regiões inteiras com gangrena, convulsões e visões: o fogo de Santo Antônio. Essa mesma química era explorada nos anos 1930 para remédios sérios — para conter hemorragias depois do parto e para tratar enxaqueca.',
+        'A Sandoz vendeu o produto. A partir de 1947 a empresa comercializou o LSD como Delysid, fornecido a pesquisadores para psiquiatria e para a formação de terapeutas, e bem mais de mil artigos foram publicados antes de ele sair das clínicas para a rua e ser proibido nos anos 1960. Hofmann, que viveu até os 102, chamou suas memórias sobre o assunto de Meu Filho Problemático, e reclamava que a proibição havia interrompido a pesquisa junto com as festas.'
+      ]
+    }
+  ],
+
+  '11-17': [
+    {
+      year: 1511,
+      title: 'His Father-in-Law Played Him',
+      title_pt: 'O Sogro Passou a Perna Nele',
+      era: 'Renaissance',
+      region: 'England', region_pt: 'Inglaterra',
+      tag: 'Alliances', tag_pt: 'Alianças',
+      text: 'On 17 November 1511 Henry VIII, twenty years old and two years on the throne, concluded the Treaty of Westminster with Ferdinand of Aragon: each would come to the other’s aid against France. Ferdinand was also his father-in-law, since Henry had married Catherine of Aragon in 1509. The treaty brought England into the Holy League that Pope Julius II had assembled to drive the French out of Italy, and it gave the young king the war he had wanted since his coronation.',
+      text_pt: 'Em 17 de novembro de 1511, Henrique VIII, de vinte anos e dois no trono, concluiu o Tratado de Westminster com Fernando de Aragão: cada um socorreria o outro contra a França. Fernando era também seu sogro, já que Henrique se casara com Catarina de Aragão em 1509. O tratado levou a Inglaterra à Liga Santa que o papa Júlio II montara para expulsar os franceses da Itália, e deu ao jovem rei a guerra que ele queria desde a coroação.',
+      facts: [
+        'The first campaign was a humiliation. In 1512 some ten thousand English troops landed in northern Spain to take Guyenne from the French, with Ferdinand promising cavalry and supplies that never arrived. They sat out the summer with no orders, dysentery and the local wine, then mutinied and sailed home without fighting a battle — while Ferdinand used the distraction to seize the kingdom of Navarre for himself.',
+        'So Henry went in person. In 1513 he crossed with a much larger army, took Thérouanne and Tournai, and won a cavalry action the English named the Battle of the Spurs because the French mostly rode away from it. While he was abroad, Catherine as regent dealt with a Scottish invasion that ended at Flodden with the king of Scots dead on the field, and sent her husband a piece of the dead king’s coat.',
+        'The alliance did not hold, and neither did the marriage behind it. Ferdinand made his own truce with France and left England out of it; Henry, played once, turned round and married his sister to the French king. And the union that tied the two crowns together was the one he spent the 1520s trying to annul — with Catherine’s nephew, the emperor Charles V, in no mood to let the pope agree.'
+      ],
+      facts_pt: [
+        'A primeira campanha foi uma humilhação. Em 1512, uns dez mil soldados ingleses desembarcaram no norte da Espanha para tomar a Guiena dos franceses, com Fernando prometendo cavalaria e suprimentos que nunca chegaram. Passaram o verão sem ordens, com disenteria e o vinho local, depois se amotinaram e voltaram para casa sem travar batalha — enquanto Fernando aproveitava a distração para tomar para si o reino de Navarra.',
+        'Então Henrique foi em pessoa. Em 1513 cruzou o Canal com um exército bem maior, tomou Thérouanne e Tournai e venceu uma ação de cavalaria que os ingleses batizaram de Batalha das Esporas, porque os franceses sobretudo cavalgaram para longe dela. Enquanto ele estava fora, Catarina, como regente, cuidou de uma invasão escocesa que terminou em Flodden com o rei da Escócia morto no campo, e mandou ao marido um pedaço do casaco do rei morto.',
+        'A aliança não durou, e o casamento por trás dela também não. Fernando fez sua própria trégua com a França e deixou a Inglaterra de fora; Henrique, passado para trás uma vez, deu meia-volta e casou a irmã com o rei francês. E a união que amarrava as duas coroas foi justamente a que ele passaria os anos 1520 tentando anular — com o sobrinho de Catarina, o imperador Carlos V, sem nenhuma disposição de deixar o papa concordar.'
+      ]
+    }
+  ],
+
+  '11-18': [
+    {
+      year: 1302,
+      title: 'The Furthest a Pope Ever Went',
+      title_pt: 'O Ponto Mais Longe que um Papa Chegou',
+      era: 'Medieval',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Papacy', tag_pt: 'Papado',
+      text: 'On 18 November 1302 Pope Boniface VIII issued the bull Unam sanctam, which closes by declaring it altogether necessary for salvation that every human creature be subject to the Roman pontiff. It was aimed at one man: Philip IV of France, who had been taxing the clergy without asking Rome and had just put a bishop on trial. No pope before or since has claimed more. Within ten months Boniface was a prisoner of Philip’s men.',
+      text_pt: 'Em 18 de novembro de 1302, o papa Bonifácio VIII publicou a bula Unam sanctam, que termina declarando ser absolutamente necessário à salvação que toda criatura humana esteja sujeita ao pontífice romano. O alvo era um homem só: Filipe IV da França, que vinha tributando o clero sem pedir licença a Roma e acabara de levar um bispo a julgamento. Nenhum papa, antes ou depois, reivindicou mais. Em menos de dez meses, Bonifácio era prisioneiro dos homens de Filipe.',
+      facts: [
+        'The quarrel started over money and a bishop. Philip needed to tax the Church to pay for his wars; Boniface forbade it, Philip banned the export of coin to Rome and cut off the papacy’s French income, and only after it was financial did it become theological. Boniface answered with the doctrine of the two swords: both the spiritual and the earthly sword belong to the Church, which wields one itself and lets kings wield the other on its behalf.',
+        'Anagni. In September 1303, with a bull excommunicating Philip ready to be published, the king’s counsellor Guillaume de Nogaret and a Colonna enemy of the pope broke into the papal residence at Anagni with armed men and held Boniface for three days. The townspeople eventually drove them out. The pope, humiliated and about seventy, was dead a month later.',
+        'The claim outlived the power behind it. Within six years the papacy had moved to Avignon, where seven French popes in a row reigned for most of a century, and Philip went on to destroy the Templars with the new pope’s signature. Unam sanctam was never withdrawn — later theologians kept the sentence and quietly narrowed what being subject was taken to mean.'
+      ],
+      facts_pt: [
+        'A briga começou por dinheiro e por um bispo. Filipe precisava tributar a Igreja para pagar suas guerras; Bonifácio proibiu, Filipe vetou a saída de moeda para Roma e cortou a renda francesa do papado, e só depois de ser financeira a disputa virou teológica. Bonifácio respondeu com a doutrina das duas espadas: tanto a espada espiritual quanto a terrena pertencem à Igreja, que empunha uma e deixa os reis empunharem a outra em seu nome.',
+        'Anagni. Em setembro de 1303, com uma bula de excomunhão contra Filipe pronta para ser publicada, o conselheiro do rei Guilherme de Nogaret e um inimigo do papa da família Colonna invadiram a residência papal em Anagni com homens armados e mantiveram Bonifácio preso por três dias. Os moradores acabaram expulsando os invasores. O papa, humilhado e com cerca de setenta anos, estava morto um mês depois.',
+        'A reivindicação sobreviveu ao poder que a sustentava. Em menos de seis anos o papado se mudou para Avinhão, onde sete papas franceses seguidos reinaram por quase um século, e Filipe foi adiante e destruiu os templários com a assinatura do novo papa. A Unam sanctam nunca foi revogada — os teólogos posteriores mantiveram a frase e foram estreitando, sem alarde, o que significava estar sujeito.'
+      ]
+    }
+  ],
+
+  '11-19': [
+    {
+      year: 461,
+      title: 'The Throne Stood Empty for Three Months',
+      title_pt: 'O Trono Ficou Vago Três Meses',
+      era: 'Classical',
+      region: 'Ravenna', region_pt: 'Ravena',
+      tag: 'Succession', tag_pt: 'Sucessão',
+      text: 'On 19 November 461 a senator from Lucania named Libius Severus was proclaimed emperor of the West at Ravenna. The throne had stood empty since August, when Ricimer — the Germanic commander who actually ran what was left of the western empire — had deposed and beheaded Majorian. Ricimer could not wear the purple himself, so he took three months and chose a man with no army, no following and no record of having done anything at all.',
+      text_pt: 'Em 19 de novembro de 461, um senador da Lucânia chamado Líbio Severo foi proclamado imperador do Ocidente em Ravena. O trono estava vago desde agosto, quando Ricimer — o general germânico que de fato comandava o que restava do império ocidental — depusera e decapitara Majoriano. Ricimer não podia vestir a púrpura, então levou três meses e escolheu um homem sem exército, sem partido e sem registro de jamais ter feito coisa alguma.',
+      facts: [
+        'Nobody recognised him. Constantinople never acknowledged his title; Marcellinus, the commander in Dalmatia, and Aegidius, the commander in Gaul, both refused his authority and ran their provinces as independent powers. The empire Libius Severus reigned over was, in practice, Italy.',
+        'The coinage shows who was in charge. The gold carries the emperor’s name, as it must — but bronze coins struck at Rome in these years carry a monogram of Ricimer’s, which is a remarkable thing for a man who was, on paper, merely the general.',
+        'He died on 14 November 465, four years almost to the day after he was raised, and one chronicler says Ricimer poisoned him. Most historians now doubt it, if only because nobody needed to. After him the West had no emperor at all for nearly two years, until Constantinople sent one — and Ricimer had that one killed too, in 472.'
+      ],
+      facts_pt: [
+        'Ninguém o reconheceu. Constantinopla nunca admitiu seu título; Marcelino, o comandante da Dalmácia, e Egídio, o comandante da Gália, recusaram sua autoridade e governaram suas províncias como potências independentes. O império sobre o qual Líbio Severo reinou era, na prática, a Itália.',
+        'As moedas mostram quem mandava. O ouro traz o nome do imperador, como não poderia deixar de ser — mas moedas de bronze cunhadas em Roma nesses anos trazem um monograma de Ricimer, o que é notável para um homem que, no papel, era apenas o general.',
+        'Ele morreu em 14 de novembro de 465, quatro anos quase exatos depois de ser elevado, e um cronista diz que Ricimer o envenenou. A maioria dos historiadores hoje duvida, nem que seja porque não havia necessidade. Depois dele, o Ocidente ficou quase dois anos sem imperador nenhum, até Constantinopla mandar um — e Ricimer mandou matar esse também, em 472.'
+      ]
+    }
+  ],
+
+  '11-20': [
+    {
+      year: 1945,
+      title: 'Four Languages at Once',
+      title_pt: 'Quatro Línguas ao Mesmo Tempo',
+      era: 'Contemporary',
+      region: 'Nuremberg', region_pt: 'Nuremberg',
+      tag: 'Justice', tag_pt: 'Justiça',
+      text: 'On 20 November 1945, in the Palace of Justice at Nuremberg, the leading surviving Nazis went on trial before judges from the United States, Britain, France and the Soviet Union. Every word spoken in the courtroom was heard at the same moment in English, Russian, French and German, through headphones at every seat. Translated the old way, sentence by sentence, a trial in four languages would have lasted several times as long.',
+      text_pt: 'Em 20 de novembro de 1945, no Palácio da Justiça de Nuremberg, os principais nazistas sobreviventes foram a julgamento diante de juízes dos Estados Unidos, do Reino Unido, da França e da União Soviética. Cada palavra dita no tribunal era ouvida no mesmo instante em inglês, russo, francês e alemão, por fones de ouvido em todos os lugares. Traduzido à moda antiga, frase por frase, um julgamento em quatro línguas teria durado várias vezes mais.',
+      facts: [
+        'The equipment came from IBM, which had sold a version of it to League of Nations conferences, but it had never carried a long, unscripted trial. Three teams of twelve interpreters took turns, each interpreter working into a single language. After Nuremberg the United Nations adopted the system, and conference interpreting as a profession grew from it.',
+        'Speakers were controlled by lights. A monitor watching the interpreters could flash a yellow light at whoever had the floor to tell them to slow down, and a red one to tell them to stop and repeat.',
+        'Nuremberg was chosen partly because its Palace of Justice had survived the bombing with a prison attached, and partly for the symbol: it was the city of the Nazi party rallies. Twenty-one defendants sat in the dock, and on 1 October 1946 twelve of the accused were sentenced to death.'
+      ],
+      facts_pt: [
+        'O equipamento era da IBM, que já vendera uma versão dele a conferências da Liga das Nações, mas ele nunca sustentara um julgamento longo e sem roteiro. Três equipes de doze intérpretes se revezavam, cada intérprete trabalhando para uma única língua. Depois de Nuremberg, as Nações Unidas adotaram o sistema, e dele nasceu a interpretação de conferências como profissão.',
+        'Quem falava era controlado por luzes. Um supervisor que acompanhava os intérpretes podia acender uma luz amarela para quem estivesse com a palavra, pedindo que falasse mais devagar, e uma vermelha, pedindo que parasse e repetisse.',
+        'Nuremberg foi escolhida em parte porque seu Palácio da Justiça sobrevivera aos bombardeios com uma prisão anexa, e em parte pelo símbolo: era a cidade dos comícios do partido nazista. Vinte e um réus sentaram no banco, e em 1º de outubro de 1946 doze dos acusados foram condenados à morte.'
+      ]
+    }
+  ],
+
+  '11-21': [
+    {
+      year: -164,
+      title: 'The Oil Is Not in the Book',
+      title_pt: 'O Óleo Não Está no Livro',
+      era: 'Jewish History',
+      region: 'Jerusalem', region_pt: 'Jerusalém',
+      tag: 'Temple', tag_pt: 'Templo',
+      text: 'On the twenty-fifth of Kislev in the year 148 of the Seleucid count — 164 BCE, and by the usual reckoning 21 November — Judas Maccabeus and his followers rededicated the Temple in Jerusalem, three years to the day after Antiochus IV had it handed over to Zeus. They pulled down the defiled altar, built a new one, lit the lamps and kept eight days of festival. Hanukkah is the word for dedication, and the festival has been kept on that Hebrew date ever since.',
+      text_pt: 'No vigésimo quinto dia de quislev do ano 148 da contagem selêucida — 164 AEC, e pelo cálculo usual 21 de novembro —, Judas Macabeu e seus seguidores rededicaram o Templo de Jerusalém, três anos exatos depois de Antíoco IV o ter entregue a Zeus. Derrubaram o altar profanado, ergueram outro, acenderam as lâmpadas e celebraram oito dias de festa. Hanucá é a palavra para dedicação, e a festa é guardada nessa data hebraica desde então.',
+      facts: [
+        'The miracle of the oil is not in the Books of Maccabees. Those are the accounts closest to the event, and they explain the eight days differently: the rebels had spent the festival of Sukkot hiding in the mountains and in caves, so they kept the missed festival now, with its branches and its eight days. The single cruse of oil that burned for eight nights appears first in the Talmud, written down centuries later.',
+        'They did not know what to do with the old stones. The altar had been defiled, so it had to come down — and the text says they stored the stones on the Temple mount “until a prophet should come to tell what to do with them”. The book records the problem and leaves it open. The Temple they rededicated stood another two hundred and thirty-four years, until Rome burned it.',
+        'Putting a Roman date on it is guesswork. The Hebrew date is fixed and still governs the festival; turning Seleucid year 148 into the Julian calendar depends on which new year the writer was counting from, and serious estimates for that day run from late November to the middle of December of 164 BCE.'
+      ],
+      facts_pt: [
+        'O milagre do óleo não está nos livros dos Macabeus. São os relatos mais próximos do acontecimento, e explicam os oito dias de outro modo: os rebeldes tinham passado a festa de Sucot escondidos nas montanhas e em cavernas, então celebraram agora a festa perdida, com seus ramos e seus oito dias. A botija única de óleo que ardeu por oito noites aparece primeiro no Talmude, posto por escrito séculos depois.',
+        'Eles não souberam o que fazer com as pedras velhas. O altar fora profanado, então precisava ser derrubado — e o texto diz que guardaram as pedras no monte do Templo “até que viesse um profeta dizer o que fazer com elas”. O livro registra o problema e o deixa em aberto. O Templo que rededicaram ficou de pé mais duzentos e trinta e quatro anos, até Roma queimá-lo.',
+        'Pôr uma data romana nisso é conjectura. A data hebraica é fixa e continua regendo a festa; converter o ano selêucida 148 para o calendário juliano depende de qual ano-novo o autor estava contando, e as estimativas sérias para aquele dia vão do fim de novembro ao meio de dezembro de 164 AEC.'
+      ]
+    }
+  ],
+
+  '11-22': [
+    {
+      year: 1307,
+      title: 'The Pope Joined the Hunt',
+      title_pt: 'O Papa Entrou na Caçada',
+      era: 'Medieval',
+      region: 'Poitiers', region_pt: 'Poitiers',
+      tag: 'Templars', tag_pt: 'Templários',
+      text: 'On 22 November 1307, six weeks after Philip IV had every Templar in France arrested in a single morning, Pope Clement V issued the bull Pastoralis Praeeminentiae, ordering every Christian monarch in Europe to arrest the Templars in their kingdoms and seize what they owned. Clement had protested the French arrests furiously — the order answered to the pope and to nobody else, and the king had no business touching it. Then he wrote the document that made the operation continental.',
+      text_pt: 'Em 22 de novembro de 1307, seis semanas depois de Filipe IV mandar prender todos os templários da França numa única manhã, o papa Clemente V publicou a bula Pastoralis Praeeminentiae, ordenando a todo monarca cristão da Europa que prendesse os templários de seus reinos e confiscasse o que eles tinham. Clemente havia protestado com fúria contra as prisões francesas — a ordem respondia ao papa e a mais ninguém, e o rei não tinha nada que tocá-la. Depois escreveu o documento que tornou a operação continental.',
+      facts: [
+        'The protest was genuine and so was the surrender. Clement demanded that the prisoners be handed to papal custody and got nowhere: the French court had already taken confessions under torture and was having them read aloud in public. The pope was living at Poitiers, well within Philip’s reach, and the bull followed.',
+        'The charges needed the torture to exist. Denying Christ, spitting on the cross, obscene kisses, worship of an idol — nearly all of it came from men under torture or under the threat of it, and was retracted wherever the pressure stopped. In England and in Aragon, where torture was barely used, almost nobody confessed to anything.',
+        'Outside France the hunt mostly failed, and in Iberia it turned into something else. The Portuguese Templars were not destroyed but reconstituted in 1319 as the Order of Christ, keeping their houses and their lands; the red cross of that order is the one that would be painted on the sails of the caravels.'
+      ],
+      facts_pt: [
+        'O protesto foi sincero e a rendição também. Clemente exigiu que os presos fossem entregues à custódia papal e não conseguiu nada: a corte francesa já havia extraído confissões sob tortura e as fazia ler em público. O papa morava em Poitiers, bem ao alcance de Filipe, e a bula veio em seguida.',
+        'As acusações precisavam da tortura para existir. Negar Cristo, cuspir na cruz, beijos obscenos, adoração de um ídolo — quase tudo saiu de homens sob tortura ou sob ameaça dela, e foi retratado onde quer que a pressão parasse. Na Inglaterra e em Aragão, onde a tortura mal foi usada, quase ninguém confessou coisa alguma.',
+        'Fora da França a caçada em boa parte fracassou, e na Península Ibérica virou outra coisa. Os templários portugueses não foram destruídos, e sim reconstituídos em 1319 como Ordem de Cristo, mantendo suas casas e suas terras; a cruz vermelha dessa ordem é a que seria pintada nas velas das caravelas.'
+      ]
+    }
+  ],
+
+  '11-23': [
+    {
+      year: -534,
+      title: 'The First Man to Say I',
+      title_pt: 'O Primeiro Homem a Dizer Eu',
+      era: 'Classical',
+      region: 'Athens', region_pt: 'Atenas',
+      tag: 'Theatre', tag_pt: 'Teatro',
+      text: 'The date convention has settled on is 23 November 534 BCE, when Thespis of Icaria is said to have stepped out of the chorus at the festival of Dionysus in Athens, spoken as a character instead of about one, and won the first competition for tragedy. Greek choruses had always sung about heroes. Thespis answered them in the hero’s own voice, and every performance since — tragedy, comedy, opera, film — comes down from that one trick.',
+      text_pt: 'A data em que a convenção se fixou é 23 de novembro de 534 AEC, quando Téspis de Icária teria saído do coro na festa de Dioniso, em Atenas, falado como personagem em vez de falar sobre um, e vencido a primeira competição de tragédia. Os coros gregos sempre haviam cantado sobre heróis. Téspis lhes respondeu na voz do próprio herói, e toda representação desde então — tragédia, comédia, ópera, cinema — descende desse único truque.',
+      facts: [
+        'No ancient source gives the day, and the festival was not held in November. The year comes from the Parian Marble, a chronology carved on stone in the third century BCE, which records that Thespis first staged a play and that the prize was a goat. The City Dionysia fell in the spring. The November date is a modern convenience, not a record.',
+        'Tragedy may mean goat song. The Greek word joins the word for goat to the word for singing, and nobody has ever settled why: the goat was the prize, or the sacrifice, or the chorus dressed as satyrs. Thespis himself survives in English as the thespians.',
+        'Aeschylus added the second actor and Sophocles the third, and only then could characters argue with each other on stage. Not everyone was pleased. Plutarch says Solon, the lawgiver, went to watch Thespis perform and asked him afterwards whether he was not ashamed to tell such enormous lies in front of so many people.'
+      ],
+      facts_pt: [
+        'Nenhuma fonte antiga dá o dia, e a festa não acontecia em novembro. O ano vem do Mármore de Paros, uma cronologia gravada em pedra no século III AEC, que registra que Téspis foi o primeiro a encenar uma peça e que o prêmio foi um bode. As Grandes Dionisíacas caíam na primavera. A data de novembro é uma conveniência moderna, não um registro.',
+        'Tragédia talvez signifique canto do bode. A palavra grega junta o termo para bode ao termo para cantar, e ninguém nunca resolveu por quê: o bode era o prêmio, ou o sacrifício, ou o coro vestido de sátiros. O próprio Téspis sobreviveu na palavra que em inglês designa os atores.',
+        'Ésquilo acrescentou o segundo ator e Sófocles o terceiro, e só então as personagens puderam discutir entre si no palco. Nem todos gostaram. Plutarco conta que Sólon, o legislador, foi assistir a Téspis e depois lhe perguntou se ele não tinha vergonha de contar mentiras tão enormes diante de tanta gente.'
+      ]
+    }
+  ],
+
+  '11-24': [
+    {
+      year: 1859,
+      title: 'The Word Evolution Is Not in It',
+      title_pt: 'A Palavra Evolução Não Está Nele',
+      era: 'Modern',
+      region: 'England', region_pt: 'Inglaterra',
+      tag: 'Science', tag_pt: 'Ciência',
+      text: 'On 24 November 1859 the publisher John Murray put On the Origin of Species by Means of Natural Selection on sale in London. The print run was 1,250 copies and the booksellers had taken every one of them before publication day. Charles Darwin had been sitting on the argument for twenty years and was not there to watch: he was in Yorkshire at a water-cure establishment, ill with the stomach trouble his own work always gave him.',
+      text_pt: 'Em 24 de novembro de 1859, o editor John Murray pôs à venda em Londres A Origem das Espécies por Meio da Seleção Natural. A tiragem era de 1.250 exemplares e os livreiros já haviam levado todos eles antes do dia da publicação. Charles Darwin estava sentado em cima do argumento havia vinte anos e não foi ver: estava em Yorkshire, numa casa de cura pela água, doente do estômago que seu próprio trabalho sempre lhe estragava.',
+      facts: [
+        'He only published because he was about to be scooped. In 1858 a letter reached him from Alfred Russel Wallace, down with fever in the Moluccas, laying out the same mechanism in a few pages. Friends arranged for the two to be read together at the Linnean Society that July. Summing up the year afterwards, the society’s president reported that 1858 had not been marked by any of those striking discoveries which at once revolutionise a branch of science.',
+        'The book avoids the word. Darwin never uses evolution as a noun in the first edition — he writes of descent with modification — and the term only arrives in later ones. The last word of the book, though, is evolved: from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.',
+        'It also avoids us. On human beings the first edition says one sentence — that light will be thrown on the origin of man and his history — and nothing else. Darwin waited another twelve years, until The Descent of Man in 1871, to write down what every reader had already understood him to mean.'
+      ],
+      facts_pt: [
+        'Ele só publicou porque estava prestes a ser passado para trás. Em 1858 chegou-lhe uma carta de Alfred Russel Wallace, derrubado pela febre nas Molucas, expondo o mesmo mecanismo em poucas páginas. Amigos providenciaram que os dois textos fossem lidos juntos na Sociedade Lineana naquele julho. Ao fazer o balanço do ano, o presidente da sociedade relatou que 1858 não fora marcado por nenhuma daquelas descobertas impressionantes que revolucionam de imediato um ramo da ciência.',
+        'O livro evita a palavra. Darwin nunca usa evolução como substantivo na primeira edição — escreve descendência com modificação — e o termo só aparece nas edições seguintes. A última palavra do livro, no entanto, é evoluíram: de um começo tão simples, formas infinitas, as mais belas e as mais maravilhosas, evoluíram e continuam evoluindo.',
+        'E também nos evita. Sobre os seres humanos, a primeira edição diz uma única frase — que luz será lançada sobre a origem do homem e sua história — e nada mais. Darwin esperou outros doze anos, até A Descendência do Homem, em 1871, para escrever o que todo leitor já havia entendido.'
+      ]
+    }
+  ],
+
+  '11-25': [
+    {
+      year: -571,
+      title: 'Rome Dated Its Own Legends',
+      title_pt: 'Roma Datou as Próprias Lendas',
+      era: 'Ancient',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Triumph', tag_pt: 'Triunfo',
+      text: 'On 25 November 571 BCE, according to a list the Romans carved in marble five and a half centuries later, King Servius Tullius celebrated the first of his three triumphs over the Etruscans. The striking thing is the date. Rome had no written history for another three hundred years, and yet the Triumphal Fasti — set up in the Forum in the age of Augustus — give the month and the day of a parade held before anybody in the city was writing anything down.',
+      text_pt: 'Em 25 de novembro de 571 AEC, segundo uma lista que os romanos gravaram em mármore cinco séculos e meio depois, o rei Sérvio Túlio celebrou o primeiro de seus três triunfos sobre os etruscos. O impressionante é a data. Roma não teve história escrita por mais três séculos e, ainda assim, os Fastos Triunfais — erguidos no Fórum na era de Augusto — dão o mês e o dia de um desfile realizado antes de alguém na cidade estar escrevendo coisa alguma.',
+      facts: [
+        'The list admits to no gaps. The Triumphal Fasti run from Romulus in the eighth century BCE down to 19 BCE as one unbroken series with dates attached, and they were carved where every Roman could read them, on a monument of Augustus. A state that had just come out of a century of civil war was publishing a record of continuity reaching all the way back to its founder.',
+        'Servius was named for a slave. Roman tradition made him the son of a captive woman of the household — servus is the word for slave — and the only king of Rome to come from that condition. He is credited with the census, which counted and ranked every citizen by wealth, and with the assembly built on it, in which the richest classes voted first and the matter was usually settled before the poor were called.',
+        'His daughter finished him. Tullia and her husband Tarquin had Servius killed in the street, and the story is that she then drove her carriage over her father’s body; the lane was called the Vicus Sceleratus, the street of the crime, for as long as Rome stood. Tarquin became the last king of Rome, and the republic began by throwing him out.'
+      ],
+      facts_pt: [
+        'A lista não admite lacunas. Os Fastos Triunfais vão de Rômulo, no século VIII AEC, até 19 AEC, numa série ininterrupta com datas, e foram gravados onde todo romano podia ler, num monumento de Augusto. Um Estado que acabava de sair de um século de guerra civil publicava um registro de continuidade que recuava até seu fundador.',
+        'Sérvio foi batizado com nome de escravo. A tradição romana o fazia filho de uma cativa da casa — servus é a palavra para escravo — e o único rei de Roma vindo dessa condição. Atribuem-lhe o censo, que contava e classificava cada cidadão por riqueza, e a assembleia construída sobre ele, na qual as classes mais ricas votavam primeiro e a questão em geral se resolvia antes de os pobres serem chamados.',
+        'A filha acabou com ele. Túlia e seu marido Tarquínio mandaram matar Sérvio na rua, e conta-se que ela então passou com a carruagem por cima do corpo do pai; a viela se chamou Vicus Sceleratus, a rua do crime, por todo o tempo em que Roma existiu. Tarquínio foi o último rei de Roma, e a república começou expulsando-o.'
+      ]
+    }
+  ],
+
+  '11-26': [
+    {
+      year: 1476,
+      title: 'He Ruled for Two Months',
+      title_pt: 'Ele Governou Dois Meses',
+      era: 'Medieval',
+      region: 'Wallachia', region_pt: 'Valáquia',
+      tag: 'Restoration', tag_pt: 'Restauração',
+      text: 'On 26 November 1476 Vlad III of Wallachia — Vlad the Impaler — took the throne for the third time, put there by a Hungarian and a Moldavian army after beating Basarab Laiotă, the man the Ottomans were backing. Then his allies went home, as allies do. Within about two months he was dead in a skirmish somewhere outside Bucharest, and his head is said to have gone to Mehmed II in Constantinople and been shown on a stake.',
+      text_pt: 'Em 26 de novembro de 1476, Vlad III da Valáquia — Vlad, o Empalador — assumiu o trono pela terceira vez, colocado ali por um exército húngaro e outro moldavo depois de derrotar Basarab Laiotă, o homem apoiado pelos otomanos. Então seus aliados foram para casa, como aliados fazem. Em cerca de dois meses estava morto numa escaramuça nos arredores de Bucareste, e conta-se que sua cabeça seguiu para Mehmed II, em Constantinopla, e foi exibida numa estaca.',
+      facts: [
+        'Dracula means son of Dracul. His father had been taken into the Order of the Dragon, a chivalric society founded to fight the Ottomans, and was known as Vlad the Dragon; the son’s name is a patronymic and nothing more. Bram Stoker found it in a book about Wallachia in 1890 and took the name without the man — nobody is impaled in the novel.',
+        'The atrocities were a publishing sensation. German pamphlets about him circulated from the 1480s with woodcuts of the prince eating his dinner among the impaled, and they were among the first mass-market hits of a printing press barely thirty years old. The horror came off the new machine before almost anything else did.',
+        'Romania remembers another man entirely. There he is a ruler who enforced the law with terrible severity and who fought the Ottomans while his neighbours were paying them — a night attack on Mehmed’s own camp in 1462, and afterwards a field of impaled prisoners on the road to the capital that is said to have turned the sultan’s army around. The monster and the national hero come from the same documents, read by different people.'
+      ],
+      facts_pt: [
+        'Drácula quer dizer filho de Dracul. Seu pai fora admitido na Ordem do Dragão, uma sociedade de cavalaria fundada para combater os otomanos, e era conhecido como Vlad, o Dragão; o nome do filho é um patronímico e nada mais. Bram Stoker o encontrou num livro sobre a Valáquia em 1890 e pegou o nome sem o homem — ninguém é empalado no romance.',
+        'As atrocidades foram um sucesso editorial. Panfletos alemães sobre ele circularam a partir da década de 1480 com xilogravuras do príncipe jantando entre os empalados, e estavam entre os primeiros êxitos de massa de uma imprensa que mal tinha trinta anos. O horror saiu da máquina nova antes de quase todo o resto.',
+        'A Romênia se lembra de outro homem. Lá ele é um governante que aplicava a lei com severidade terrível e que lutou contra os otomanos enquanto os vizinhos lhes pagavam tributo — um ataque noturno ao próprio acampamento de Mehmed em 1462 e, depois, um campo de prisioneiros empalados na estrada da capital que teria feito o exército do sultão dar meia-volta. O monstro e o herói nacional saem dos mesmos documentos, lidos por gente diferente.'
+      ]
+    }
+  ],
+
+  '11-27': [
+    {
+      year: 1095,
+      title: 'He Had Asked for Mercenaries',
+      title_pt: 'Ele Tinha Pedido Mercenários',
+      era: 'Medieval',
+      region: 'Clermont', region_pt: 'Clermont',
+      tag: 'Crusades', tag_pt: 'Cruzadas',
+      text: 'On 27 November 1095, on the last day of a church council at Clermont in central France, Pope Urban II held his sermon in a field because no building would take the crowd, and called on the knights of the West to march to Jerusalem. What had reached him was a request from the Byzantine emperor for mercenaries to help recover Anatolia. What he launched was something nobody had asked for: an armed pilgrimage with the remission of sin attached, and within a year armies were on the road east.',
+      text_pt: 'Em 27 de novembro de 1095, no último dia de um concílio em Clermont, no centro da França, o papa Urbano II pregou num campo aberto porque nenhum edifício comportava a multidão, e conclamou os cavaleiros do Ocidente a marchar para Jerusalém. O que chegara até ele fora um pedido do imperador bizantino por mercenários para ajudar a retomar a Anatólia. O que ele lançou foi algo que ninguém havia pedido: uma peregrinação armada com remissão de pecados anexada e, em menos de um ano, exércitos já estavam a caminho do oriente.',
+      facts: [
+        'Nobody knows what he actually said. Five accounts of the sermon survive, every one of them written after Jerusalem fell in 1099, and they do not agree — the versions grow more eloquent the later they were composed and the better the crusade had turned out. The cry Deus lo vult, God wills it, may have come from the crowd that day or from a chronicler who needed a line.',
+        'The offer was spiritual and precise. Urban promised that the journey itself, undertaken out of devotion and not for gain or glory, would count in place of all the penance a man owed for sins already confessed. To a warrior class that spent its life piling up penances it could never perform, that was the whole argument.',
+        'None of it was aimed at the poor, and the poor went first. Tens of thousands left months ahead of the knights, under preachers rather than commanders, and were cut to pieces in Anatolia before the real armies arrived. Urban did not live to hear how it ended either: Jerusalem fell on 15 July 1099 and he died on 29 July, before the news could cross the Mediterranean.'
+      ],
+      facts_pt: [
+        'Ninguém sabe o que ele de fato disse. Sobrevivem cinco relatos do sermão, todos escritos depois da queda de Jerusalém em 1099, e não concordam entre si — as versões ficam mais eloquentes quanto mais tarde foram compostas e melhor a cruzada havia saído. O grito Deus lo vult, Deus o quer, pode ter vindo da multidão naquele dia ou de um cronista que precisava de uma frase.',
+        'A oferta era espiritual e era precisa. Urbano prometeu que a própria viagem, empreendida por devoção e não por ganho ou glória, valeria no lugar de toda a penitência devida por pecados já confessados. Para uma classe guerreira que passava a vida acumulando penitências impossíveis de cumprir, esse era o argumento inteiro.',
+        'Nada daquilo era dirigido aos pobres, e os pobres foram na frente. Dezenas de milhares partiram meses antes dos cavaleiros, sob pregadores em vez de comandantes, e foram despedaçados na Anatólia antes de os exércitos de verdade chegarem. Urbano também não viveu para saber o desfecho: Jerusalém caiu em 15 de julho de 1099 e ele morreu em 29 de julho, antes que a notícia cruzasse o Mediterrâneo.'
+      ]
+    }
+  ],
+
+  '11-28': [
+    {
+      year: 1520,
+      title: 'Cape Desire',
+      title_pt: 'O Cabo Desejado',
+      era: 'Renaissance',
+      region: 'Pacific Ocean', region_pt: 'Oceano Pacífico',
+      tag: 'Voyage', tag_pt: 'Viagem',
+      text: 'On 28 November 1520, thirty-eight days after entering it, three of Magellan’s ships came out of the western mouth of the strait into open ocean. They named the headland they rounded Cabo Deseado, the cape we longed for, because they had spent five weeks in doubt that it existed at all. Magellan is reported to have wept. They believed the Spice Islands lay a short run ahead of them.',
+      text_pt: 'Em 28 de novembro de 1520, trinta e oito dias depois de entrarem nele, três dos navios de Magalhães saíram pela boca ocidental do estreito em oceano aberto. Batizaram o promontório que contornaram de Cabo Deseado, o cabo desejado, porque haviam passado cinco semanas em dúvida se ele sequer existia. Conta-se que Magalhães chorou. Eles acreditavam que as Ilhas das Especiarias ficavam a poucos dias dali.',
+      facts: [
+        'The name he gave it did not stick. He called the passage the Strait of All Saints; within a generation the chartmakers were calling it the Strait of Magellan, so his name now sits on the one thing he was not looking for — he wanted a way through, not a monument.',
+        'Almost nobody could use it. The strait is some five hundred and seventy kilometres of channels, dead ends and wind blowing the wrong way, and in the century after Magellan only a handful of fleets managed the passage while most that tried turned back or were wrecked. Europeans went on losing ships there until 1616, when a Dutch expedition found open water south of everything and named it for their home town of Hoorn: Cape Horn.',
+        'The ocean was the real discovery. They expected a few days of sailing and got an emptiness nobody had imagined, and what the voyage finally proved was something no one had sent it to prove — that the world was far larger than Columbus’s arithmetic had promised, and that most of it is water.'
+      ],
+      facts_pt: [
+        'O nome que ele deu não pegou. Chamou a passagem de Estreito de Todos os Santos; em uma geração os cartógrafos já diziam Estreito de Magalhães, de modo que seu nome está hoje justamente na coisa que ele não procurava — queria uma passagem, não um monumento.',
+        'Quase ninguém conseguiu usá-lo. O estreito tem uns quinhentos e setenta quilômetros de canais, becos sem saída e vento soprando na direção errada e, no século seguinte a Magalhães, apenas um punhado de frotas completou a travessia, enquanto a maioria das que tentaram voltou ou naufragou. Os europeus continuaram perdendo navios ali até 1616, quando uma expedição holandesa achou mar aberto ao sul de tudo e o batizou com o nome de sua cidade natal, Hoorn: o cabo Horn.',
+        'O oceano é que era a descoberta. Esperavam poucos dias de navegação e encontraram um vazio que ninguém havia imaginado, e o que a viagem acabou provando foi algo que ninguém a mandara provar — que o mundo era muito maior do que a aritmética de Colombo prometia, e que a maior parte dele é água.'
+      ]
+    }
+  ],
+
+  '11-29': [
+    {
+      year: 1807,
+      title: 'The Court Sailed and Took the Library',
+      title_pt: 'A Corte Embarcou e Levou a Biblioteca',
+      era: 'Modern',
+      region: 'Lisbon', region_pt: 'Lisboa',
+      tag: 'Flight', tag_pt: 'Fuga',
+      text: 'On 29 November 1807 the Portuguese fleet cleared the mouth of the Tagus carrying the royal family, the treasury, the state archives and something like ten thousand people, bound for Brazil. Napoleon’s army under Junot entered Lisbon the next day and found the throne gone. Dom João — prince regent, governing for his mother Maria I, who was mad — had just done what no European monarch had ever done: moved the seat of an empire to its own colony.',
+      text_pt: 'Em 29 de novembro de 1807, a frota portuguesa deixou a foz do Tejo levando a família real, o tesouro, os arquivos do Estado e algo como dez mil pessoas, rumo ao Brasil. O exército de Napoleão sob Junot entrou em Lisboa no dia seguinte e encontrou o trono vazio. Dom João — príncipe regente, governando pela mãe, dona Maria I, que estava louca — acabara de fazer o que nenhum monarca europeu jamais fizera: mudar a sede de um império para a própria colônia.',
+      facts: [
+        'It was not panic, it was a plan with a long file. Moving the court to Brazil had been discussed in Lisbon for more than a century as the thing to do if Portugal were ever overrun, and the British pressed for it and escorted the fleet out. The decision was still taken so late that the loading was chaos: crates of books were left standing on the quay, and the royal library reached Rio in instalments over the next few years.',
+        'Brazil stopped being a colony in practice almost at once. Weeks after landing at Salvador, Dom João opened the ports to friendly nations, which ended the rule that all trade had to pass through Lisbon. Rio got a printing press, a bank, a military academy, a botanical garden and a national library, and in 1815 Brazil was declared a kingdom equal to Portugal rather than a possession of it.',
+        'The move is also what made the break. When Lisbon finally demanded its king back in 1821, João went and left his son behind as regent — and a Portuguese prince raised in Rio was exactly the man the Brazilian elite needed in order to declare independence the next year without a revolution.'
+      ],
+      facts_pt: [
+        'Não foi pânico, foi um plano com processo antigo. Transferir a corte para o Brasil era discutido em Lisboa havia mais de um século como a coisa a fazer caso Portugal fosse invadido, e os britânicos pressionaram por isso e escoltaram a frota. Ainda assim a decisão saiu tão em cima da hora que o embarque virou um caos: caixotes de livros ficaram parados no cais, e a biblioteca real chegou ao Rio em parcelas ao longo dos anos seguintes.',
+        'O Brasil deixou de ser colônia na prática quase imediatamente. Semanas depois de desembarcar em Salvador, dom João abriu os portos às nações amigas, o que acabou com a regra de que todo comércio tinha de passar por Lisboa. O Rio ganhou tipografia, banco, academia militar, jardim botânico e biblioteca nacional, e em 1815 o Brasil foi declarado reino igual a Portugal, e não posse dele.',
+        'A mudança é também o que produziu o rompimento. Quando Lisboa enfim exigiu seu rei de volta, em 1821, João foi e deixou o filho como regente — e um príncipe português criado no Rio era exatamente o homem de que a elite brasileira precisava para declarar a independência no ano seguinte sem uma revolução.'
+      ]
+    }
+  ],
+
+  '11-30': [
+    {
+      year: 978,
+      title: 'They Sang on the Hill and Went Home',
+      title_pt: 'Cantaram na Colina e Foram Embora',
+      era: 'Medieval',
+      region: 'Paris', region_pt: 'Paris',
+      tag: 'Siege', tag_pt: 'Cerco',
+      text: 'On 30 November 978 the emperor Otto II gave up the siege of Paris and marched his army away. He had come to punish Lothair, king of the West Franks, for a raid on Aachen that summer which had very nearly caught him at dinner; he had burned his way across northern France, and he could not take the city. His men climbed the hill of Montmartre, sang the Alleluia out over the rooftops, and left.',
+      text_pt: 'Em 30 de novembro de 978, o imperador Otão II desistiu do cerco a Paris e levou seu exército embora. Viera punir Lotário, rei dos francos do Oeste, por um ataque a Aquisgrano naquele verão que quase o pegara jantando; havia incendiado o norte da França de ponta a ponta, e não conseguiu tomar a cidade. Seus homens subiram a colina de Montmartre, cantaram o Aleluia por sobre os telhados e foram embora.',
+      facts: [
+        'The raid that started it came without warning, and the imperial party fled Aachen with the meal still on the table. The chronicler Richer adds that Lothair found the bronze eagle on the palace roof turned to face west, toward France, and turned it to face east before he rode off.',
+        'The retreat cost more than the siege. Otto fell back to the Aisne, and his rearguard was still crossing when Lothair’s horsemen came down on it; the river was in flood and did the rest, and the baggage train was lost. Two years later the two kings made peace, and Lothair gave up his claim to Lotharingia — the middle strip their ancestors had carved out of Charlemagne’s empire in 843, and which France and Germany would go on fighting over into the twentieth century.',
+        'The man who held the city was Hugh Capet. The duke who kept Otto out of Paris was the son of the magnate who had crowned Lothair as a boy, and nine years later he was elected king himself, which ended the Carolingians. Paris had been a place where kings sometimes stayed; under his family it became the capital.'
+      ],
+      facts_pt: [
+        'O ataque que deu início a tudo veio sem aviso, e a comitiva imperial fugiu de Aquisgrano com a refeição ainda na mesa. O cronista Richer acrescenta que Lotário encontrou a águia de bronze do telhado do palácio voltada para oeste, para a França, e a virou para leste antes de partir.',
+        'A retirada custou mais que o cerco. Otão recuou até o Aisne, e sua retaguarda ainda atravessava quando os cavaleiros de Lotário caíram sobre ela; o rio estava cheio e fez o resto, e o comboio de bagagens se perdeu. Dois anos depois os dois reis fizeram as pazes, e Lotário abriu mão de sua pretensão sobre a Lotaríngia — a faixa do meio que seus antepassados haviam recortado do império de Carlos Magno em 843, e pela qual França e Alemanha ainda brigariam no século XX.',
+        'Quem segurou a cidade foi Hugo Capeto. O duque que manteve Otão fora de Paris era filho do magnata que coroara Lotário menino e, nove anos mais tarde, foi ele próprio eleito rei, encerrando os carolíngios. Paris era um lugar onde os reis às vezes ficavam; com a família dele, virou a capital.'
+      ]
+    }
+  ],
+
+  '12-25': [
+    {
+      year: 800,
+      title: 'He Said He Did Not Know',
+      title_pt: 'Ele Disse Que Não Sabia',
+      era: 'Medieval',
+      region: 'Rome', region_pt: 'Roma',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On Christmas Day 800, as Charlemagne rose from prayer before the altar of St Peter’s in Rome, Pope Leo III placed a crown on his head and the crowd acclaimed him emperor of the Romans — the first in the West for more than three centuries. His biographer Einhard insists he would not have set foot in the church that day had he known what the pope intended.',
+      text_pt: 'No dia de Natal de 800, quando Carlos Magno se levantava da oração diante do altar de São Pedro, em Roma, o papa Leão III pôs uma coroa em sua cabeça e a multidão o aclamou imperador dos romanos — o primeiro no Ocidente em mais de três séculos. Seu biógrafo Eginhardo garante que ele não teria posto os pés na igreja naquele dia se soubesse o que o papa pretendia.',
+      facts: [
+        'In the West the throne could be called empty. The emperor in Constantinople was a woman, Irene, who had taken power by blinding her own son, and many in the Latin church did not accept that a woman could hold the title.',
+        'The pope needed him. A year earlier Leo had been attacked in the streets of Rome by enemies who tried to put out his eyes and cut out his tongue, and he had fled to Charlemagne for protection. After the crowning, the annals say, the pope knelt before him, as popes once had before the emperors of old.',
+        'Constantinople took twelve years to accept it. Only in 812 did Byzantine envoys hail Charlemagne as emperor — and even then not as emperor of the Romans, a title Constantinople kept for its own ruler.'
+      ],
+      facts_pt: [
+        'No Ocidente, o trono podia ser dado como vago. Quem reinava em Constantinopla era uma mulher, Irene, que tomara o poder cegando o próprio filho, e muitos na Igreja latina não aceitavam que uma mulher ocupasse o título.',
+        'O papa precisava dele. Um ano antes, Leão fora atacado nas ruas de Roma por inimigos que tentaram lhe arrancar os olhos e a língua, e fugira para junto de Carlos Magno em busca de proteção. Depois da coroação, dizem os anais, o papa se ajoelhou diante dele, como os papas outrora diante dos antigos imperadores.',
+        'Constantinopla levou doze anos para aceitar. Só em 812 enviados bizantinos saudaram Carlos Magno como imperador — e mesmo assim não como imperador dos romanos, título que Constantinopla guardava para o seu soberano.'
+      ]
+    },
+    {
+      year: 1066,
+      title: 'The Cheers Sounded Like a Riot',
+      title_pt: 'Os Vivas Soaram Como um Motim',
+      era: 'Medieval',
+      region: 'London', region_pt: 'Londres',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On Christmas Day 1066, ten weeks after Hastings, William of Normandy was crowned king of England in Westminster Abbey. When the congregation was asked, in English and then in French, whether it accepted him, the shout was so loud that the Norman guards outside took it for an attack on their duke and began setting fire to the houses around the abbey. The church filled with smoke and most of the congregation ran out, leaving the clergy to finish crowning him almost alone.',
+      text_pt: 'No dia de Natal de 1066, dez semanas depois de Hastings, Guilherme da Normandia foi coroado rei da Inglaterra na Abadia de Westminster. Quando os presentes foram perguntados, em inglês e depois em francês, se o aceitavam, o grito foi tão alto que os guardas normandos do lado de fora o tomaram por um ataque ao seu duque e começaram a incendiar as casas em volta da abadia. A igreja se encheu de fumaça e a maior parte dos presentes fugiu, deixando o clero terminar a coroação quase sozinho.',
+      facts: [
+        'He was crowned by Ealdred, archbishop of York, and not by the archbishop of Canterbury, Stigand, whose appointment Rome had never accepted. A king anointed by a prelate the pope considered illegitimate would have handed his enemies an argument.',
+        'The abbey was almost new. Edward the Confessor had rebuilt it and seen it consecrated barely a year earlier, and was buried in it days later. By being crowned beside Edward’s tomb, William presented himself as his rightful heir — and every crowned English and British monarch since has been crowned in the same church.',
+        'The story of the fire comes from the monk Orderic Vitalis, writing some decades later. He adds that after that day the English never trusted the Normans again.'
+      ],
+      facts_pt: [
+        'Quem o coroou foi Ealdred, arcebispo de York, e não o arcebispo de Cantuária, Stigand, cuja nomeação Roma nunca aceitara. Um rei ungido por um prelado que o papa considerava ilegítimo daria um argumento aos seus inimigos.',
+        'A abadia era quase nova. Eduardo, o Confessor, a reconstruíra e a vira consagrada apenas um ano antes, e foi sepultado nela dias depois. Coroando-se ao lado do túmulo de Eduardo, Guilherme se apresentava como seu herdeiro legítimo — e todos os monarcas ingleses e britânicos coroados desde então o foram na mesma igreja.',
+        'A história do incêndio vem do monge Orderico Vital, que escreveu algumas décadas depois. Ele acrescenta que, depois daquele dia, os ingleses nunca mais confiaram nos normandos.'
+      ]
+    },
+    {
+      year: 1914,
+      title: 'The Truce Nobody Ordered',
+      title_pt: 'A Trégua Que Ninguém Ordenou',
+      era: 'Modern',
+      region: 'Western Front', region_pt: 'Frente Ocidental',
+      tag: 'War', tag_pt: 'Guerra',
+      text: 'On Christmas Day 1914, along stretches of the Western Front, British and German soldiers climbed out of their trenches, met in no man’s land, shook hands and swapped cigarettes, food and souvenirs. No one had ordered it. Weeks earlier the pope had asked for a Christmas ceasefire, and the warring governments had turned him down.',
+      text_pt: 'No dia de Natal de 1914, em trechos da Frente Ocidental, soldados britânicos e alemães saíram de suas trincheiras, encontraram-se na terra de ninguém, apertaram as mãos e trocaram cigarros, comida e lembranças. Ninguém dera essa ordem. Semanas antes, o papa pedira um cessar-fogo de Natal, e os governos em guerra o recusaram.',
+      facts: [
+        'It began on Christmas Eve. Germans put small trees lit with candles along their parapets and sang carols, and the British answered with their own from across the lines.',
+        'Many used the quiet to bury their dead, who had lain between the lines since the autumn battles, sometimes in services held together. Letters home describe games of football with makeshift balls, though the organised match of legend is much less certain.',
+        'It was never universal: in some sectors the shooting went on all day. In later Christmases of the war, commanders forbade fraternising, and nothing on the scale of 1914 happened again.'
+      ],
+      facts_pt: [
+        'Começou na véspera de Natal. Os alemães puseram pequenas árvores com velas acesas ao longo de seus parapeitos e cantaram canções de Natal, e os britânicos responderam com as suas do outro lado das linhas.',
+        'Muitos aproveitaram a calma para enterrar seus mortos, que jaziam entre as linhas desde as batalhas do outono, às vezes em cerimônias feitas em conjunto. Cartas para casa descrevem jogos de futebol com bolas improvisadas, embora a partida organizada da lenda seja bem menos certa.',
+        'Nunca foi geral: em alguns setores os tiros continuaram o dia inteiro. Nos Natais seguintes da guerra, os comandantes proibiram a confraternização, e nada na escala de 1914 voltou a acontecer.'
+      ]
+    },
+    {
+      year: 1991,
+      title: 'The Flag Came Down at 7:32',
+      title_pt: 'A Bandeira Desceu às 19h32',
+      era: 'Contemporary',
+      region: 'Moscow', region_pt: 'Moscou',
+      tag: 'Politics', tag_pt: 'Política',
+      text: 'On the evening of 25 December 1991 Mikhail Gorbachev resigned as president of the Soviet Union in a televised address of about ten minutes. At 7:32 pm the red flag over the Kremlin was lowered and the Russian tricolour raised in its place. In Moscow it was an ordinary working day: the Russian Orthodox Church keeps Christmas on 7 January, and the Soviet state had not kept it at all.',
+      text_pt: 'Na noite de 25 de dezembro de 1991, Mikhail Gorbachev renunciou à presidência da União Soviética num pronunciamento de cerca de dez minutos na televisão. Às 19h32, a bandeira vermelha do Kremlin foi arriada e a tricolor russa, hasteada em seu lugar. Em Moscou era um dia comum de trabalho: a Igreja Ortodoxa Russa celebra o Natal em 7 de janeiro, e o Estado soviético não o celebrava de modo algum.',
+      facts: [
+        'By then he presided over almost nothing. On 8 December the leaders of Russia, Ukraine and Belarus had declared that the Soviet Union no longer existed, and on 21 December eleven republics confirmed it. The next day the Union’s last parliament voted it out of existence.',
+        'The nuclear briefcase, with the codes for the Soviet arsenal, passed to Boris Yeltsin, president of Russia, that same evening.',
+        'The Soviet state had replaced Christmas with New Year. After years in which Christmas trees were banned as religious, they came back in the 1930s as New Year trees, and the gifts and Grandfather Frost moved with them to the night of 31 December, where they still are in Russia.'
+      ],
+      facts_pt: [
+        'Àquela altura ele presidia quase nada. Em 8 de dezembro, os líderes da Rússia, da Ucrânia e da Bielorrússia haviam declarado que a União Soviética não existia mais, e em 21 de dezembro onze repúblicas o confirmaram. No dia seguinte, o último parlamento da União votou sua própria extinção.',
+        'A maleta nuclear, com os códigos do arsenal soviético, passou a Boris Iéltsin, presidente da Rússia, naquela mesma noite.',
+        'O Estado soviético trocara o Natal pelo Ano-Novo. Depois de anos em que as árvores de Natal foram proibidas por serem religiosas, elas voltaram nos anos 1930 como árvores de Ano-Novo, e os presentes e o Ded Moroz, o Avô Gelo, mudaram-se com elas para a noite de 31 de dezembro, onde continuam na Rússia.'
       ]
     }
   ]

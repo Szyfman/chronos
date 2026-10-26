@@ -58,7 +58,7 @@ function startGame(){
     var av=reviewAvailability(gameMode, eraSelection);
     if(!av.ok){ _reviewBlockedNotice(av.reason); return; }
   }
-  _isDailyChallenge=false; _isRecoverRun=false;
+  _isDailyChallenge=false; _isRecoverRun=false; _isTestDaily=false;
   setPlayMode(menuPlayMode);
   eraFilter=eraSelection.slice();
   var _hBtnR=document.getElementById('hint-btn');
@@ -747,6 +747,9 @@ var _PREVIEW_DAILY=[
   {id:'won',     en:'completed',       pt:'concluído'}
 ];
 var _previewDailyIdx=0;
+// Preview: when on, tapping any day of the calendar plays that day's deck as a
+// test run (startTestDaily). Themed days are outlined while preview is on.
+var _previewPlayAny=false;
 function _previewDailyStatus(){
   if(!customPreview) return null;
   var M=DAILY_MAX_ATTEMPTS;
@@ -826,6 +829,10 @@ function renderStreakTab(){
     pv.textContent='🧪 '+(lang==='pt'?'Hoje: ':'Today: ')+_PREVIEW_DAILY[_previewDailyIdx][lang==='pt'?'pt':'en']+' ▸';
     pv.onclick=function(){ _previewDailyIdx=(_previewDailyIdx+1)%_PREVIEW_DAILY.length; renderStreakTab(); };
     panel.appendChild(pv);
+    var pa=document.createElement('button'); pa.className='streak-preview-btn';
+    pa.textContent='🧪 '+(lang==='pt'?'Tocar num dia joga o deck: ':'Tap a day to play its deck: ')+(_previewPlayAny?'on':'off')+' ▸';
+    pa.onclick=function(){ _previewPlayAny=!_previewPlayAny; renderStreakTab(); };
+    panel.appendChild(pa);
   }
 }
 
@@ -869,9 +876,11 @@ function _renderCalMonth(yr, mo){
   mTitle.textContent=monthName.charAt(0).toUpperCase()+monthName.slice(1);
   mTitle.title=lang==='pt'?'Ir para mês/ano':'Jump to month/year';
   mTitle.onclick=function(){ _toggleCalPicker(yr, mo, mBlock); };
+  // Preview also reaches the next 12 months, so every day of the year can be tested
+  var atLast=customPreview?(yr>nowYr&&mo>=nowMo):isFuture;
   var nextBtn=document.createElement('button'); nextBtn.className='dc-nav-btn'; nextBtn.textContent='›';
-  nextBtn.disabled=isFuture;
-  nextBtn.onclick=function(){ if(!isFuture) _calNav(1); };
+  nextBtn.disabled=atLast;
+  nextBtn.onclick=function(){ if(!atLast) _calNav(1); };
   nav.appendChild(prevBtn); nav.appendChild(mTitle); nav.appendChild(nextBtn);
   mBlock.appendChild(nav);
 
@@ -921,6 +930,12 @@ function _renderCalMonth(yr, mo){
       (function(r,cellEl,dayNum){
         cellEl.onclick=function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
       })(rec,cell,d);
+    }
+    if(customPreview){
+      if(_dateCardNames(dayDate).length) cell.classList.add('dc-themed');
+      if(_previewPlayAny){
+        (function(dayNum){ cell.onclick=function(){ closeHistory(); startTestDaily(yr,mo,dayNum); }; })(d);
+      }
     }
     grid.appendChild(cell);
   }
@@ -2100,7 +2115,7 @@ function startSecretMode(mode){
   _popNavState('trophies');
   document.getElementById('tp').classList.remove('open');
   _fromCultures = false;
-  _isDailyChallenge = false; _isRecoverRun = false;
+  _isDailyChallenge = false; _isRecoverRun = false; _isTestDaily = false;
   gameMode = mode;
   setPlayMode('lives');
   eraFilter = [];

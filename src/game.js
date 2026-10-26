@@ -80,6 +80,7 @@ var _dailyAttempt     = 0;     // 1-based index of the attempt being played
 var _dailyRunDate     = null;  // date pinned at launch — immune to midnight rollover
 var _dailyCommitted   = false; // has this attempt been written to localStorage yet?
 var _isRecoverRun     = false; // is the run in progress a past-day catch-up?
+var _isTestDaily      = false; // preview only: any day's deck, nothing daily is saved
 var _lastDailyResult  = null;  // {won, attempts, attemptsLeft, date, recover} for the gameover screen
 
 // Seeded PRNG (mulberry32) — same seed = same sequence every time
@@ -96,20 +97,51 @@ function _dailySeedFor(date){
   return date.getFullYear() * 10000 + (date.getMonth()+1) * 100 + date.getDate();
 }
 function _dailySeed(){ return _dailySeedFor(new Date()); }
-// On the date of an event trophy (special 'card_on_date'), that day's daily
-// deck always holds the trophy's card, so every player gets a chance at it:
-// it replaces a card in the middle of the deck (not the first one drawn,
-// which can't be misplaced).
-function _withDateCards(base, date){
-  var out = base.slice(), slot = Math.floor(out.length/2);
+// The cards a day's daily always holds: the card of an event trophy dated
+// that day (special 'card_on_date'), so every player gets a chance at it,
+// and the day's theme (DAILY_THEMES, dailythemes.js) — a one-off theme for
+// that exact date (YYYY-MM-DD) first, else the yearly one (MM-DD). Names only.
+function _dateCardNames(date){
+  var names = [];
   TROPHY_DEFS.forEach(function(def){
-    if(def.special !== 'card_on_date' || def.month !== date.getMonth()+1 || def.day !== date.getDate()) return;
-    if(out.some(function(c){ return c.name === def.card; })) return;
-    var card = CARDS.concat(INTERVALS).find(function(c){ return c.name === def.card; });
-    if(card && slot < out.length) out[slot++] = card;
+    if(def.special === 'card_on_date' && def.month === date.getMonth()+1 && def.day === date.getDate()) names.push(def.card);
+  });
+  var themes = typeof DAILY_THEMES !== 'undefined' ? DAILY_THEMES : {};
+  var theme = themes[_dayStamp(date)] || themes[_dailyCardKey(date)] || [];
+  theme.forEach(function(n){ if(names.indexOf(n) < 0) names.push(n); });
+  return names;
+}
+// Puts the date cards missing from `base` in its place, each over a card at a
+// seeded position — spread through the deck, never the first card drawn
+// (which can't be misplaced) and never over another date card. Days with no
+// date cards keep `base` untouched.
+function _withDateCards(base, date, seed){
+  var names = _dateCardNames(date);
+  if(!names.length) return base;
+  var out = base.slice(), all = CARDS.concat(INTERVALS);
+  var slots = [];
+  for(var i = 1; i < out.length; i++) if(names.indexOf(out[i].name) < 0) slots.push(i);
+  slots = _seededShuffle(slots, _seededRNG(seed + 7));
+  names.forEach(function(n){
+    if(out.some(function(c){ return c.name === n; })) return;
+    var card = all.find(function(c){ return c.name === n; });
+    if(card && slots.length) out[slots.shift()] = card;
   });
   return out;
 }
+// Preview only: every theme names real cards, 3 to 9 of them
+function _checkDailyThemes(){
+  if(typeof DAILY_THEMES === 'undefined') return;
+  var all = CARDS.concat(INTERVALS);
+  Object.keys(DAILY_THEMES).forEach(function(k){
+    var list = DAILY_THEMES[k];
+    if(list.length < 3 || list.length > 9) console.warn('DAILY_THEMES '+k+': '+list.length+' cards (3–9 expected)');
+    list.forEach(function(n){
+      if(!all.some(function(c){ return c.name === n; })) console.warn('DAILY_THEMES '+k+': no card named "'+n+'"');
+    });
+  });
+}
+if(customPreview) _checkDailyThemes();
 function _seededShuffle(arr, rng){
   var a = arr.slice();
   for(var i = a.length - 1; i > 0; i--){
@@ -122,12 +154,13 @@ function _seededShuffle(arr, rng){
 // Starts a daily run for `date`. Shared by today's daily (Streak tab and the
 // gameover retry) and by past-day recovery — the only differences are which
 // date seeds the deck and which attempt budget the run spends.
-function _beginDailyRun(date, attempt, isRecover){
+function _beginDailyRun(date, attempt, isRecover, isTest){
   _dailyRunDate    = date;
   _dailyAttempt    = attempt;
   _dailyCommitted  = false;
   _lastDailyResult = null;
   _isRecoverRun    = !!isRecover;
+  _isTestDaily     = !!isTest;
   gameMode = 'classic';
   eraFilter = [];
   setPlayMode('lives');   // the daily always has lives; the menu choice is left alone
@@ -161,6 +194,15 @@ function _launchRecover(date){
 }
 function startDailyChallenge(){ _launchDaily(); }
 function startRecoverChallenge(yr,mo,d){ _launchRecover(new Date(yr,mo,d)); }
+// Preview only: any day's daily — past, today, future or already won — as its
+// first attempt, to test that day's deck (themes, trophy cards). It counts as
+// an ordinary Classic run with lives, but writes nothing daily: no attempt,
+// record, streak, catch-up, daily mode record or date trophy, and it is
+// never saved as a run in progress.
+function startTestDaily(yr,mo,d){
+  if(!customPreview) return;
+  _beginDailyRun(new Date(yr,mo,d), 1, false, true);
+}
 // Single retry entry point for the gameover button (also wired inline in
 // index.html), so it resumes whichever kind of run just ended.
 function retryDailyChallenge(){
@@ -185,7 +227,7 @@ function _dailyTimelineSnapshot(){
 // run, it's what makes the day count towards the streak. A recovery run lands
 // in the other store and so never affects the streak.
 function _commitDailyAttempt(){
-  if(!_dailyRunDate) return;
+  if(!_dailyRunDate || _isTestDaily) return;
   var rec = _runRecord(_dailyRunDate) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
   rec.attempts = Math.max(rec.attempts, _dailyAttempt);
@@ -210,6 +252,11 @@ function _writeRunRecord(date, rec){
 function _saveDailyResult(won){
   var date = _dailyRunDate || new Date();
   var recover = _isRecoverRun;
+  if(_isTestDaily){
+    _lastDailyResult = { won: !!won, attempts: 1, attemptsLeft: 0, date: date, test: true };
+    _isDailyChallenge = false; _dailyCommitted = false; _isTestDaily = false;
+    return;
+  }
   var rec = _runRecord(date) || {v:2,attempts:0,won:false,score:0,placed:0,timeline:[]};
   rec.v = 2;
   // An expired run (resumed on a later day) spent its attempt on its own day;
@@ -824,9 +871,10 @@ function initGame(){
     // Two-stage seeding: WHICH 18 cards comes from the plain day seed, so every
     // player faces the same set. Retries reshuffle only the ORDER, so a second
     // attempt can't be won from memory. Attempt 1 is byte-identical to before,
-    // except on an event trophy's date, when the set also holds its card.
+    // except on an event trophy's date or a themed day, when the set also
+    // holds those cards (_withDateCards).
     var _seed=_dailySeedFor(_dailyRunDate||new Date());
-    var _base=_withDateCards(_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE),_dailyRunDate||new Date());
+    var _base=_withDateCards(_seededShuffle([...CARDS,...INTERVALS],_seededRNG(_seed)).slice(0,DAILY_DECK_SIZE),_dailyRunDate||new Date(),_seed);
     // Catch-up runs continue the same seed line past the live attempts (which
     // occupy 1..3), keyed on the LIFETIME try count rather than today's — the
     // daily budget resets, and orders must not reset with it. `tries` counts
@@ -869,7 +917,7 @@ function resumeSavedRun(){
   gameMode=s.mode; setPlayMode(s.playMode); eraFilter=s.eraFilter.slice();
   setRunTheme(gameMode);
   _isDailyChallenge=!!s.daily;
-  _isRecoverRun=!!(s.daily&&s.daily.recover);
+  _isRecoverRun=!!(s.daily&&s.daily.recover); _isTestDaily=false;
   _dailyRunDate=s.daily?s.daily.date:null;
   _dailyAttempt=s.daily?s.daily.attempt:0;
   _dailyCommitted=_isDailyChallenge;   // a run is saved only after its first placement
@@ -1089,16 +1137,17 @@ function endGame(won){
   if(timeline.length===0){
     document.getElementById('hist-btn').style.visibility='';
     _pendingGameRecord=null; _voluntaryEnd=false;
-    _isDailyChallenge=false; _dailyCommitted=false; _isRecoverRun=false; _lastDailyResult=null;
+    _isDailyChallenge=false; _dailyCommitted=false; _isRecoverRun=false; _isTestDaily=false; _lastDailyResult=null;
     showIntro(); return;
   }
   runsPlayed++; saveRunsPlayed();   // every finished run, any mode (Veteran trophy)
   // A live daily (not a past-day recovery) — read by the date/hour secret trophies
   // (not one resumed on a later day: that would game the date/hour trophies)
-  if(_isDailyChallenge&&!_isRecoverRun&&!_runExpired) runFlags.dailyFinished=true;
+  // (nor a preview test run)
+  if(_isDailyChallenge&&!_isRecoverRun&&!_runExpired&&!_isTestDaily) runFlags.dailyFinished=true;
   // Personal best for the mode — must run before _saveDailyResult clears the daily flag
   var _recordMode=_isDailyChallenge?'daily':gameMode;
-  var _newRecord=recordModeResult(_recordMode, score, timeline.length, runFlags.maxStreak|0, playMode==='lives');
+  var _newRecord=!_isTestDaily&&recordModeResult(_recordMode, score, timeline.length, runFlags.maxStreak|0, playMode==='lives');
   // Record the daily attempt (win or loss) — also clears _isDailyChallenge
   if(_isDailyChallenge){ _saveDailyResult(won); }
   _pendingGameRecord = buildGameRecord(won);
@@ -1172,6 +1221,7 @@ function _dailyShortDate(date){
 // In-game header: a recovery run says which day it is replaying, so the player
 // is never confused about whose 18 cards these are.
 function _dailyHeaderLabel(){
+  if(_isTestDaily) return '🧪 '+t('daily_title')+' · '+_dailyShortDate(_dailyRunDate||new Date());
   if(!_isRecoverRun) return t('daily_title');
   return t('daily_recover_title')+' · '+_dailyShortDate(_dailyRunDate||new Date());
 }
@@ -1185,6 +1235,13 @@ function _renderDailyGameover(){
   var again=document.getElementById('go-again-btn');
   var rc=!!res.recover;
   if(again) again.textContent=t('daily_exit');
+  // Preview test run: nothing to retry or unlock, nothing was saved
+  if(res.test){
+    var _subt=document.getElementById('go-sub');
+    if(_subt) _subt.textContent='🧪 '+(lang==='pt'?'Teste de ':'Test of ')+_dailyShortDate(res.date)
+      +(lang==='pt'?' — nada do Diário foi salvo':' — nothing daily was saved');
+    return;
+  }
   // Resumed on a later day: ended on boot, nothing left to retry
   if(res.expired){
     var _sube=document.getElementById('go-sub');
